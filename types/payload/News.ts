@@ -1,4 +1,4 @@
-import type { TypeWithTimestamps } from 'payload/dist/collections/config/types';
+import type TypeWithTimestamps from 'types/payload/TypeWithTimestamps';
 
 export default interface News extends TypeWithTimestamps {
     title: string;

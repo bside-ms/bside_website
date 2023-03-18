@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { PaginatedDocs } from 'payload/dist/mongoose/types';
 import type News from 'types/payload/News';
+import type PaginatedDocs from 'types/payload/PaginatedDocs';
 
 const handler = async (_request: NextApiRequest, response: NextApiResponse): Promise<void> => {
 

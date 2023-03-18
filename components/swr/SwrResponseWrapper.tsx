@@ -1,6 +1,6 @@
-import type { PaginatedDocs } from 'payload/dist/mongoose/types';
 import type { ReactElement } from 'react';
-import type { SWRResponse } from 'swr/dist/types';
+import type { SWRResponse } from 'swr';
+import type PaginatedDocs from 'types/payload/PaginatedDocs';
 
 interface Props<T> {
     response: SWRResponse<PaginatedDocs<T>, Error>;

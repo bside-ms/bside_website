@@ -109,14 +109,6 @@ module.exports = {
         'jsx-quotes': [ERROR, 'prefer-double'],
         'key-spacing': ERROR,
         'max-classes-per-file': [ERROR, 10],
-        'max-len': [
-            ERROR,
-            {
-                code: 160,
-                ignoreRegExpLiterals: true,
-                ignorePattern: '^import ' // ignoring imports
-            }
-        ],
         'max-lines': [ERROR, 666],
         'new-parens': ERROR,
         'no-bitwise': ERROR,

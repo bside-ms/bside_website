@@ -1,7 +1,7 @@
 import type { GetStaticProps } from 'next/types';
-import type { PaginatedDocs } from 'payload/dist/mongoose/types';
 import type { ReactElement } from 'react';
 import News from 'types/payload/News';
+import type PaginatedDocs from 'types/payload/PaginatedDocs';
 
 interface Props {
     news: Array<News>;

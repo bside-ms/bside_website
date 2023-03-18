@@ -2,6 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { StaticImageData } from 'next/image';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
+import Footer from 'components/common/Footer';
+import HeaderBar from 'components/common/HeaderBar';
+import Navigation from 'components/navigation/Navigation';
+import useIsMounted from 'lib/common/hooks/useIsMounted';
 import parallax01Image from 'public/assets/parallax/Parallax_01.png';
 import parallax02Image from 'public/assets/parallax/Parallax_02.png';
 import parallax061Image from 'public/assets/parallax/Parallax_06_1.png';
@@ -45,11 +49,15 @@ interface ScrollImage {
     };
 }
 
-const useEndScroll = (scrollImages: Array<ScrollImage>): number => {
+const useEndScroll = (isMounted: boolean, scrollImages: Array<ScrollImage>): number => {
 
     const fallbackValue = 10000;
 
     const [screenHeight, setScreenHeight] = useState(0);
+
+    if (!isMounted) {
+        return fallbackValue;
+    }
 
     if (typeof document === 'undefined' || typeof window === 'undefined') {
         return fallbackValue;
@@ -272,17 +280,11 @@ const ScrollImageElement = ({ image, display, fade, scrollY }: ScrollImageElemen
         }
 
         if (scrollY < fade.inEnd) {
-            const foo = scrollY - fade.inBegin;
-            const bar = fade.inEnd - fade.inBegin;
-
-            return foo / bar;
+            return (scrollY - fade.inBegin) / fade.inEnd - fade.inBegin;
         }
 
         if (scrollY > fade.outBegin) {
-            const foo2 = scrollY - fade.outEnd;
-            const bar2 = fade.outBegin - fade.outEnd;
-
-            return foo2 / bar2;
+            return (scrollY - fade.outEnd) / (fade.outBegin - fade.outEnd);
         }
 
         return 1;
@@ -298,14 +300,15 @@ const ScrollImageElement = ({ image, display, fade, scrollY }: ScrollImageElemen
     );
 };
 
-const Haus = (): ReactElement => {
+export default (): ReactElement | null => {
 
     const [scrollY, setScrollY] = useState(0);
 
     const handleScroll = useCallback(() => setScrollY(window.scrollY), []);
 
-    useEffect(() => {
+    const isMounted = useIsMounted();
 
+    useEffect(() => {
         window.addEventListener('scroll', handleScroll);
 
         return () => window.removeEventListener('scroll', handleScroll);
@@ -313,25 +316,33 @@ const Haus = (): ReactElement => {
 
     const scrollImages = getScrollImages();
 
-    const endScroll = useEndScroll(scrollImages);
+    const endScroll = useEndScroll(isMounted, scrollImages);
 
     return (
-        <div className="flex overflow-hidden" style={{ height: endScroll }}>
-            <div className="fixed top-0 left-0">{scrollY}</div>
-            <div className="fixed top-1/2 left-1/2 h-screen w-screen md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
+        <>
+            <Navigation />
 
-                {scrollImages.map(({ image, fade, display }) => (
-                    <ScrollImageElement
-                        key={`${image.src}${fade?.inBegin ?? ''}${display?.begin ?? ''}`}
-                        image={image}
-                        display={display}
-                        fade={fade}
-                        scrollY={scrollY}
-                    />
-                ))}
+            <HeaderBar />
+
+            <div className="flex overflow-hidden" style={{ height: endScroll }}>
+                <div className="fixed top-16 left-0">
+                    {scrollY}
+                </div>
+
+                <div className="fixed top-1/2 left-1/2 h-screen w-screen md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
+                    {scrollImages.map(({ image, fade, display }) => (
+                        <ScrollImageElement
+                            key={`${image.src}${fade?.inBegin ?? ''}${display?.begin ?? ''}`}
+                            image={image}
+                            display={display}
+                            fade={fade}
+                            scrollY={scrollY}
+                        />
+                    ))}
+                </div>
             </div>
-        </div>
+
+            <Footer />
+        </>
     );
 };
-
-export default Haus;
