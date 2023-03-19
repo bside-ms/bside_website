@@ -4,8 +4,10 @@ import Footer from 'components/common/Footer';
 import HeaderBar from 'components/common/HeaderBar';
 import ParallaxScrollImage from 'components/houseParallax/ParallaxScrollImage';
 import ParallaxScrollInfoBox from 'components/houseParallax/ParallaxScrollInfoBox';
+import ParallaxScrollTeaser from 'components/houseParallax/ParallaxScrollTeaser';
 import Navigation from 'components/navigation/Navigation';
 import useIsMounted from 'lib/common/hooks/useIsMounted';
+import getInfoBoxPositions from 'lib/houseParallax/getInfoBoxPositions';
 import getScrollElements, { isScrollImage, isScrollInfoBox } from 'lib/houseParallax/getScrollElements';
 import useEndScroll from 'lib/houseParallax/useEndScroll';
 
@@ -30,6 +32,8 @@ export default (): ReactElement | null => {
     const scrollImages = scrollElements.filter(isScrollImage);
     const scrollInfoBoxes = scrollElements.filter(isScrollInfoBox);
 
+    const infoBoxPositions = getInfoBoxPositions(scrollInfoBoxes);
+
     const endScroll = useEndScroll(isMounted, scrollImages);
 
     return (
@@ -39,11 +43,11 @@ export default (): ReactElement | null => {
             <HeaderBar />
 
             <div className="flex overflow-hidden" style={{ height: endScroll }}>
-                <div className="fixed top-16 left-0 text-white">
+                <div className="fixed top-16 left-0 text-black">
                     {scrollY}
                 </div>
 
-                <div className="fixed top-1/2 left-1/2 h-screen w-screen md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
+                <div className="fixed top-1/2 left-1/2 h-screen w-screen md:top-16 md:translate-y-0 md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
                     {scrollImages.map(({ image, fade, display }) => (
                         <ParallaxScrollImage
                             key={`${image.src}${fade?.inBegin ?? ''}${display?.begin ?? ''}`}
@@ -61,8 +65,14 @@ export default (): ReactElement | null => {
                             text={text}
                             display={display}
                             scrollY={scrollY}
+                            infoBoxPositions={infoBoxPositions}
                         />
                     ))}
+
+                    <ParallaxScrollTeaser
+                        scrollY={scrollY}
+                        firstInfoBoxPositions={infoBoxPositions[0]}
+                    />
                 </div>
             </div>
 

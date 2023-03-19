@@ -22,6 +22,7 @@
     "react": "18.2.x",
     "react-dom": "18.2.x",
     "react-hook-form": "7.43.x",
+    "react-icons": "4.8.x",
     "react-intersection-observer": "9.4.x",
     "react-scroll-parallax": "3.3.x",
     "swr": "2.1.x",
