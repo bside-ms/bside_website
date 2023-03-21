@@ -69,8 +69,8 @@ const getScrollElements = (): Array<ScrollElement> => {
             fade: {
                 inBegin: 0,
                 inEnd: 0,
-                outBegin: 700,
-                outEnd: 1500,
+                outBegin: 150,
+                outEnd: 400,
             },
         },
     );
@@ -133,166 +133,166 @@ const getScrollElements = (): Array<ScrollElement> => {
         });
     };
 
-    addFadingScrollImage(parallax01Image, 1000);
+    addFadingScrollImage(parallax01Image, 260);
 
-    addFadingScrollImage(parallax061Image, 100);
-    addFadingScrollImage(parallax062Image, 100);
-    addFadingScrollImage(parallax063Image, 100);
-    addFadingScrollImage(parallax064Image, 100);
-    addFadingScrollImage(parallax065Image, 100);
-    addFadingScrollImage(parallax066Image, 100);
-    addFadingScrollImage(parallax067Image, 100);
+    addFadingScrollImage(parallax061Image, 20);
+    addFadingScrollImage(parallax062Image, 20);
+    addFadingScrollImage(parallax063Image, 20);
+    addFadingScrollImage(parallax064Image, 20);
+    addFadingScrollImage(parallax065Image, 20);
+    addFadingScrollImage(parallax066Image, 20);
+    addFadingScrollImage(parallax067Image, 20);
 
-    addFadingScrollImage(parallax07Image, 500);
+    addFadingScrollImage(parallax07Image, 200);
 
     addDisplayInfoBox(
         undefined,
         'Hier seht ihr, wie wir uns den Hill-Speicher zukünftig mit dem Ruderverein Münster teilen werden.',
-        2000
+        500
     );
 
-    addFadingScrollImage(parallax08Image, 2000, 150);
+    addFadingScrollImage(parallax08Image, 500, 150);
 
-    addFadingScrollImage(parallax07Image, 500, 150);
-    addFadingScrollImage(parallax085Image, 400, 50);
+    addFadingScrollImage(parallax07Image, 300, 150);
+    addFadingScrollImage(parallax085Image, 300, 50);
 
     currentBegin = currentBegin - 50;
 
     addDisplayInfoBox(
         'Blauer Raum',
         'Dies ist der blaue Raum, schön nicht?',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax10Image, 1500);
+    addDisplayingScrollImage(parallax10Image, 500);
 
     addDisplayInfoBox(
         'Raum in lila',
         'Und hier vorne haben wir einen lilafarbenen Raum',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax11Image, 1500);
+    addDisplayingScrollImage(parallax11Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Und so geht es dann mit den anderen Räumen weiter!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax12Image, 1500);
+    addDisplayingScrollImage(parallax12Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Viele bunte Räume, ...',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax13Image, 1500);
+    addDisplayingScrollImage(parallax13Image, 500);
 
     addDisplayInfoBox(
         undefined,
         '... für viele schöne Dinge.',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax14Image, 1500);
+    addDisplayingScrollImage(parallax14Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Zum Beispiel gemeinsam am Tisch sitzen!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax15Image, 1500);
+    addDisplayingScrollImage(parallax15Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Oder am Schreibtisch!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax16Image, 1500);
+    addDisplayingScrollImage(parallax16Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Peek & Cloppenburg hat auch eine Filiale im Haus.',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax17Image, 1500);
+    addDisplayingScrollImage(parallax17Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Hier wird fleißig gewerkelt.',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax18Image, 1500);
+    addDisplayingScrollImage(parallax18Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Und hier geplant!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax19Image, 1500);
+    addDisplayingScrollImage(parallax19Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Ob sich dies überhaupt jemand durchließt?',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax20Image, 1500);
+    addDisplayingScrollImage(parallax20Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Die Programmierung dieser Parallax-UX macht Spaß!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax21Image, 1500);
+    addDisplayingScrollImage(parallax21Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Wundervolle Sonntag-Nachmittag-Beschäftigung!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax22Image, 1500);
+    addDisplayingScrollImage(parallax22Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Nun kommen wir auch zum Ende der Räume',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax23Image, 1500);
+    addDisplayingScrollImage(parallax23Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Danke für eure Aufmerksamkeit!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax24Image, 1500);
+    addDisplayingScrollImage(parallax24Image, 500);
 
     addDisplayInfoBox(
         undefined,
         'Tschüss!',
-        1500
+        500
     );
-    addDisplayingScrollImage(parallax25Image, 1500);
+    addDisplayingScrollImage(parallax25Image, 500);
 
     currentBegin = currentBegin - 50;
 
-    addFadingScrollImage(parallax085Image, 600, 50);
+    addFadingScrollImage(parallax085Image, 300, 50);
 
-    addFadingScrollImage(parallax07Image, 500);
+    addFadingScrollImage(parallax07Image, 300);
 
     scrollImages.push({
         image: parallax02Image,
         fade: {
             inBegin: currentBegin,
-            inEnd: currentBegin + 400,
-            outBegin: currentBegin + 1200,
-            outEnd: currentBegin + 2500,
+            inEnd: currentBegin + 200,
+            outBegin: currentBegin + 300,
+            outEnd: currentBegin + 1200,
         },
     });
 
-    addFadingScrollImage(parallax067Image, 100);
-    addFadingScrollImage(parallax066Image, 100);
-    addFadingScrollImage(parallax065Image, 100);
-    addFadingScrollImage(parallax064Image, 100);
-    addFadingScrollImage(parallax063Image, 100);
-    addFadingScrollImage(parallax062Image, 100);
-    addFadingScrollImage(parallax061Image, 1000);
+    addFadingScrollImage(parallax067Image, 20);
+    addFadingScrollImage(parallax066Image, 20);
+    addFadingScrollImage(parallax065Image, 20);
+    addFadingScrollImage(parallax064Image, 20);
+    addFadingScrollImage(parallax063Image, 20);
+    addFadingScrollImage(parallax062Image, 20);
+    addFadingScrollImage(parallax061Image, 400);
 
     return [...scrollImages, ...scrollInfoBoxes];
 };
