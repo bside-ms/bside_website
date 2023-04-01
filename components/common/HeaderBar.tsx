@@ -23,9 +23,12 @@ const HeaderBar = ({ isVisible = true }: Props): ReactElement => {
     );
 
     return (
-        <div className="sticky top-0 left-0 right-0 z-10 bg-white">
+        <div
+            className="fixed top-0 left-0 right-0 z-10 bg-white transition-opacity duration-200"
+            style={{ opacity: isVisible ? '100%' : '0' }}
+        >
             <div className="lg:w-[60rem] lg:mx-auto">
-                <div className={isVisible ? 'opacity-100' : 'opacity-0'}>
+                <div>
                     <div className="p-4 flex justify-between">
                         <div
                             className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500"

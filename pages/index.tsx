@@ -11,10 +11,10 @@ import hausfrontJpg from 'public/assets/hausfront.jpg';
 
 export default (): ReactElement => {
 
-    const { ref: inViewImageRef, inView: isImageContainerInView } = useInView();
+    const { ref: inViewImageRef, inView: isImageContainerInView } = useInView({ initialInView: true });
 
     return (
-        <>
+        <div className="relative">
             <Navigation />
 
             <div ref={inViewImageRef}>
@@ -64,6 +64,6 @@ export default (): ReactElement => {
             <ContactTeaser />
 
             <Footer />
-        </>
+        </div>
     );
 };
