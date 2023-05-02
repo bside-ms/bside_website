@@ -1,3 +1,4 @@
+import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ContentWrapper from 'components/common/ContentWrapper';
@@ -7,9 +8,27 @@ import NextEvents from 'components/events/NextEvents';
 import ContactTeaser from 'components/frontPage/ContactTeaser';
 import HouseHero from 'components/frontPage/HouseHero';
 import Navigation from 'components/navigation/Navigation';
+import getPayloadResponse, { PayloadPath } from 'lib/payload/getPayloadResponse';
 import hausfrontJpg from 'public/assets/hausfront.jpg';
+import type PaginatedDocs from 'types/payload/PaginatedDocs';
+import type { Event } from 'types/payload/payload-types';
 
-export default (): ReactElement => {
+interface Props {
+    events: Array<Event>;
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async (): Promise<GetServerSidePropsResult<Props>> => {
+
+    const events = await getPayloadResponse<PaginatedDocs<Event>>(PayloadPath.events);
+
+    return {
+        props: {
+            events: events.docs,
+        },
+    };
+};
+
+export default ({ events }: Props): ReactElement => {
 
     const { ref: inViewImageRef, inView: isImageContainerInView } = useInView({ initialInView: true });
 
@@ -59,7 +78,7 @@ export default (): ReactElement => {
                 </ContentWrapper>
             </div>
 
-            <NextEvents />
+            <NextEvents events={events} />
 
             <ContactTeaser />
 

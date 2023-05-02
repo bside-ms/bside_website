@@ -1,10 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { addDays, isBefore, isSameDay, setHours } from 'date-fns';
+import { isBefore, isSameDay } from 'date-fns';
 import type { ReactElement } from 'react';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
-
-const today = new Date();
+import type { Event } from 'types/payload/payload-types';
 
 type EventType = 'concert' | 'movie' | 'theatre';
 
@@ -30,41 +29,11 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick
     );
 };
 
-interface Event {
-    id: number;
-    name: string;
-    date: Date;
-    type: 'concert' | 'movie' | 'theatre';
+interface Props {
+    events: Array<Event>;
 }
 
-const fakeEvents: Array<Event> = [
-    {
-        id: 234,
-        name: 'B-SIDE Kennenlerntreffen',
-        date: addDays(today, 5),
-        type: 'concert',
-    },
-    {
-        id: 845,
-        name: 'Faltenrock - Ü60 Rock&Pop Party',
-        date: addDays(today, 1),
-        type: 'theatre',
-    },
-    {
-        id: 694,
-        name: 'B-Side Funk Jahresrückblick 2022',
-        date: setHours(addDays(today, 5), 20),
-        type: 'movie',
-    },
-    {
-        id: 741,
-        name: 'Fluxkompensator - B-Side Festival Aftershowparty',
-        date: addDays(today, 19),
-        type: 'movie',
-    },
-];
-
-const NextEvents = (): ReactElement => {
+const NextEvents = ({ events: allEvents }: Props): ReactElement => {
 
     const [filteredEventType, setFilteredEventType] = useState<EventType | null>(null);
 
@@ -72,15 +41,15 @@ const NextEvents = (): ReactElement => {
 
     const eventsGroupedByDay = useMemo(() => {
 
-        return fakeEvents
-            .filter(event => filteredEventType === null || event.type === filteredEventType)
-            .sort((eventA, eventB) => isBefore(eventA.date, eventB.date) ? -1 : 1)
+        return allEvents
+            // .filter(event => filteredEventType === null || event.type === filteredEventType)
+            .sort((eventA, eventB) => isBefore(new Date(eventA.dateStart), new Date(eventB.dateStart)) ? -1 : 1)
             .reduce<Array<[Date, Array<Event>]>>(
                 (currentEventsGroupedByDay, event) => {
                     let foundDate = false;
                     currentEventsGroupedByDay.forEach(
                         ([date, events]) => {
-                            if (isSameDay(date, event.date)) {
+                            if (isSameDay(date, new Date(event.dateStart))) {
                                 foundDate = true;
                                 events.push(event);
                             }
@@ -89,14 +58,14 @@ const NextEvents = (): ReactElement => {
 
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (!foundDate) {
-                        currentEventsGroupedByDay.push([event.date, [event]]);
+                        currentEventsGroupedByDay.push([new Date(event.dateStart), [event]]);
                     }
 
                     return currentEventsGroupedByDay;
                 },
                 []
             );
-    }, [filteredEventType]);
+    }, [allEvents]);
 
     return (
         <ContentWrapper>
@@ -134,8 +103,8 @@ const NextEvents = (): ReactElement => {
 
                             {events.map(event => (
                                 <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
-                                    <div className="w-14">{formatDate(event.date, 'HH:mm')}</div>
-                                    <div className="truncate flex-1">{event.name}</div>
+                                    <div className="w-14">{formatDate(new Date(event.dateStart), 'HH:mm')}</div>
+                                    <div className="truncate flex-1">{event.title}</div>
                                 </div>
                             ))}
                         </div>
