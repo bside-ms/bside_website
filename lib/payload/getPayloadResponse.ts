@@ -1,8 +1,4 @@
-export enum PayloadPath {
-    events = '/api/events/',
-}
-
-const getPayloadResponse = async <T>(path: PayloadPath): Promise<T> => {
+const getPayloadResponse = async <T>(path: string): Promise<T> => {
 
     const fetchResponse = await fetch(
         `${process.env.PAYLOAD_URL}${path}`,

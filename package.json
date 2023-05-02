@@ -14,6 +14,7 @@
   "dependencies": {
     "@tailwindcss/line-clamp": "0.4.x",
     "date-fns": "2.29.x",
+    "escape-html": "1.0.x",
     "lodash": "4.17.x",
     "next": "13.2.x",
     "next-auth": "4.20.x",
@@ -25,11 +26,13 @@
     "react-icons": "4.8.x",
     "react-intersection-observer": "9.4.x",
     "react-scroll-parallax": "3.3.x",
+    "slate": "0.94.x",
     "swr": "2.1.x",
     "typescript": "5.0.x"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "13.2.x",
+    "@types/escape-html": "1.0.x",
     "@types/lodash": "4.14.x",
     "@types/node": "18.15.x",
     "@types/react": "18.0.x",

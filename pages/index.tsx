@@ -8,7 +8,7 @@ import NextEvents from 'components/events/NextEvents';
 import ContactTeaser from 'components/frontPage/ContactTeaser';
 import HouseHero from 'components/frontPage/HouseHero';
 import Navigation from 'components/navigation/Navigation';
-import getPayloadResponse, { PayloadPath } from 'lib/payload/getPayloadResponse';
+import getPayloadResponse from 'lib/payload/getPayloadResponse';
 import hausfrontJpg from 'public/assets/hausfront.jpg';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event } from 'types/payload/payload-types';
@@ -19,7 +19,7 @@ interface Props {
 
 export const getServerSideProps: GetServerSideProps<Props> = async (): Promise<GetServerSidePropsResult<Props>> => {
 
-    const events = await getPayloadResponse<PaginatedDocs<Event>>(PayloadPath.events);
+    const events = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/');
 
     return {
         props: {
