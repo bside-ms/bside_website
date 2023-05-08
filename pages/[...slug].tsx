@@ -20,15 +20,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    const slug = context.params.slug as string | undefined;
+    const slugArray = context.params.slug as Array<string> | undefined;
+    const slug = slugArray?.join('/');
 
     if (isEmptyString(slug)) {
         return { notFound: true };
     }
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=${slug}`);
-
-    const page = pagesResponse.docs[0];
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const page = pagesResponse.docs.find(doc => doc.breadcrumbs[doc.breadcrumbs.length - 1].url === `/${slug}`);
 
     if (page === undefined) {
         return { notFound: true };
