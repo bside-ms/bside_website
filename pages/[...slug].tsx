@@ -28,9 +28,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     }
 
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const page = pagesResponse.docs.find(doc => doc.breadcrumbs[doc.breadcrumbs.length - 1].url === `/${slug}`);
+
+    const page = pagesResponse.docs.find(doc => doc.breadcrumbs[doc.breadcrumbs.length - 1]?.url === `/${slug}`);
 
     if (page === undefined) {
         return { notFound: true };
