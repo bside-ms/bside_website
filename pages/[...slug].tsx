@@ -42,26 +42,24 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 export default ({ page }: Props): ReactElement => {
 
     return (
-        <>
+        <main className="min-h-screen flex flex-col justify-between">
             <Navigation />
 
             <HeaderBar />
 
-            <div className="mt-12">
-                <ContentWrapper>
-                    <div className="px-8 mb-2 md:mb-3">
-                        <div className="font-bold font-serif text-2xl md:text-4xl">
-                            {page.title}
-                        </div>
-
-                        <div className="mt-1 text-sm md:text-lg md:mt-3">
-                            {serializeRichTextToHtml(page.richText)}
-                        </div>
+            <ContentWrapper>
+                <div className="px-8 mb-2 md:mb-3">
+                    <div className="font-bold font-serif text-2xl md:text-4xl">
+                        {page.title}
                     </div>
-                </ContentWrapper>
-            </div>
+
+                    <div className="mt-1 text-sm md:text-lg md:mt-3">
+                        {serializeRichTextToHtml(page.richText)}
+                    </div>
+                </div>
+            </ContentWrapper>
 
             <Footer />
-        </>
+        </main>
     );
 };

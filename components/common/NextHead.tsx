@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 
 const NextHead = (): ReactElement => {
 
-    const title = 'Der B-Side Kultur e.V. am Münsteraner Mittelhafen';
+    const title = 'B-Side Münster';
 
     return (
         <Head>
