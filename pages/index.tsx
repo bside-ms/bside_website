@@ -41,7 +41,7 @@ export default ({ events }: Props): ReactElement => {
                 <HouseHero />
             </div>
 
-            <HeaderBar isVisible={!isImageContainerInView} />
+            <HeaderBar onlyWithBurgerMenu={isImageContainerInView} />
 
             <ContentWrapper>
                 <div className="px-8 mb-2 md:mb-3">
