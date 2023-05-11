@@ -1,15 +1,19 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
+import type { MainMenu } from '../../types/payload/payload-types';
+import HeaderMenuItems from '../navigation/HeaderMenuItems';
 import { useAppContext } from 'components/common/AppContext';
 import BurgerHeart from 'components/svg/BurgerHeart';
 import Heart from 'components/svg/Heart';
 
 interface Props {
     onlyWithBurgerMenu?: boolean;
+    onlyHeader?: boolean;
+    mainMenu?: MainMenu;
 }
 
-const HeaderBar = ({ onlyWithBurgerMenu = false }: Props): ReactElement => {
+const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = undefined }: Props): ReactElement => {
 
     const { toggleNavigation } = useAppContext();
 
@@ -36,6 +40,13 @@ const HeaderBar = ({ onlyWithBurgerMenu = false }: Props): ReactElement => {
                             onClick={handleClickOnHeart}
                         >
                             <Heart />
+                        </div>
+
+                        <div
+                            className="hidden lg:block text-center justify-center transition-opacity"
+                            style={onlyHeader ? undefined : { opacity: 0 }}
+                        >
+                            <HeaderMenuItems mainMenu={mainMenu} />
                         </div>
 
                         <div

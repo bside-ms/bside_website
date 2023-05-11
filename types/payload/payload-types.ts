@@ -139,8 +139,8 @@ export interface Footer {
         type?: 'reference' | 'custom';
         newTab?: boolean;
         reference: {
-          value: string | User;
-          relationTo: 'users';
+          value: string | Page;
+          relationTo: 'pages';
         };
         url: string;
         label: string;
@@ -157,8 +157,8 @@ export interface MainMenu {
       type?: 'reference' | 'custom';
       newTab?: boolean;
       reference: {
-        value: string | User;
-        relationTo: 'users';
+        value: string | Page;
+        relationTo: 'pages';
       };
       url: string;
       label: string;

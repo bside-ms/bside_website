@@ -12,36 +12,43 @@ import Navigation from 'components/navigation/Navigation';
 import getPayloadResponse from 'lib/payload/getPayloadResponse';
 import hausfrontJpg from 'public/assets/hausfront.jpg';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
-import type { Event } from 'types/payload/payload-types';
+import type { Event, MainMenu } from 'types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
+    mainMenu?: MainMenu;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (): Promise<GetServerSidePropsResult<Props>> => {
 
-    const events = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/');
-
     return {
         props: {
-            events: events.docs,
+            events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs,
+            mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
         },
     };
+
 };
 
-export default ({ events }: Props): ReactElement => {
+export default ({ events, mainMenu }: Props): ReactElement => {
 
     const { ref: inViewImageRef, inView: isImageContainerInView } = useInView({ initialInView: true });
+    const { ref: inViewHeaderRef, inView: isHeaderInView } = useInView({ initialInView: true });
 
     return (
         <>
+            <div ref={inViewHeaderRef} />
             <Navigation />
 
-            <div ref={inViewImageRef}>
+            <HeaderBar
+                onlyWithBurgerMenu={isImageContainerInView}
+                onlyHeader={isHeaderInView}
+                mainMenu={mainMenu}
+            />
+
+            <div ref={inViewImageRef} className="mt-0 lg:mt-12">
                 <HouseHero />
             </div>
-
-            <HeaderBar onlyWithBurgerMenu={isImageContainerInView} />
 
             <ContentWrapper>
                 <div className="px-8 mb-2 md:mb-3">

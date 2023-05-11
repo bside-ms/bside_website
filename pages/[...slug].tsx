@@ -16,12 +16,8 @@ interface Props {
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 
-    if (context.params === undefined) {
-        return { notFound: true };
-    }
-
-    const slugArray = context.params.slug as Array<string> | undefined;
-    const slug = slugArray?.join('/');
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    const slug = context.params?.slug ? (context.params.slug as Array<string>).join('/') : '';
 
     if (isEmptyString(slug)) {
         return { notFound: true };
