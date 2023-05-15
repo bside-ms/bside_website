@@ -43,13 +43,13 @@ const NextEvents = ({ events: allEvents }: Props): ReactElement => {
 
         return allEvents
             // .filter(event => filteredEventType === null || event.type === filteredEventType)
-            .sort((eventA, eventB) => isBefore(new Date(eventA.dateStart), new Date(eventB.dateStart)) ? -1 : 1)
+            .sort((eventA, eventB) => isBefore(new Date(eventA.eventDate), new Date(eventB.eventDate)) ? -1 : 1)
             .reduce<Array<[Date, Array<Event>]>>(
                 (currentEventsGroupedByDay, event) => {
                     let foundDate = false;
                     currentEventsGroupedByDay.forEach(
                         ([date, events]) => {
-                            if (isSameDay(date, new Date(event.dateStart))) {
+                            if (isSameDay(date, new Date(event.eventDate))) {
                                 foundDate = true;
                                 events.push(event);
                             }
@@ -58,7 +58,7 @@ const NextEvents = ({ events: allEvents }: Props): ReactElement => {
 
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (!foundDate) {
-                        currentEventsGroupedByDay.push([new Date(event.dateStart), [event]]);
+                        currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
                     }
 
                     return currentEventsGroupedByDay;
@@ -103,7 +103,7 @@ const NextEvents = ({ events: allEvents }: Props): ReactElement => {
 
                             {events.map(event => (
                                 <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
-                                    <div className="w-14">{formatDate(new Date(event.dateStart), 'HH:mm')}</div>
+                                    <div className="w-14">{formatDate(new Date(event.eventDate), 'HH:mm')}</div>
                                     <div className="truncate flex-1">{event.title}</div>
                                 </div>
                             ))}
