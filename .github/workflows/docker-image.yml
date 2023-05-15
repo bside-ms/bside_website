@@ -42,4 +42,6 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.tags }}
             ${{ secrets.DOCKER_REPOSITORY }}:latest
-          build-args: GIT_SHA=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+          build-args: | 
+            GIT_SHA=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+            PAYLOAD_URL=${{ secrets.PAYLOAD_URL }}

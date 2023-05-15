@@ -15,6 +15,9 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+ARG PAYLOAD_URL
+ENV PAYLOAD_URL=${SENTRY_AUTH_TOKEN}
+
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
