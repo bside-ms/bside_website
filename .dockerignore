@@ -2,11 +2,12 @@ Dockerfile
 .dockerignore
 node_modules
 npm-debug.log
-README.md
 .next
 .git
 .idea
+.github
 .nvmrc
+.env*
 
-#.env
-.env.skel
+README.md
+TODO.md
