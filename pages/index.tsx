@@ -37,7 +37,7 @@ export default ({ events, mainMenu }: Props): ReactElement => {
     const { ref: inViewHeaderRef, inView: isHeaderInView } = useInView({ initialInView: true });
 
     return (
-        <>
+        <main className="min-h-screen flex flex-col justify-between">
             <div ref={inViewHeaderRef} />
             <Navigation />
 
@@ -102,6 +102,6 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             <ContactTeaser />
 
             <Footer />
-        </>
+        </main>
     );
 };
