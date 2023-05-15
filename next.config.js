@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
 
   images: {
-    domains: ['localhost', process.env.PAYLOAD_URL],
+    domains: ['localhost', 'cms.b-side.ovh'],
   },
 
   // Needed to build the project as a standalone app inside the Docker image.
