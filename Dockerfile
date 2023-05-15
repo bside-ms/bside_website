@@ -16,7 +16,10 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 ARG PAYLOAD_URL
-ENV PAYLOAD_URL=${SENTRY_AUTH_TOKEN}
+ENV PAYLOAD_URL=${PAYLOAD_URL}
+
+ARG FRONTEND_URL
+ENV FRONTEND_URL=${FRONTEND_URL}
 
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
