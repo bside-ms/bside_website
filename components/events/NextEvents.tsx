@@ -103,7 +103,7 @@ const NextEvents = ({ events: allEvents }: Props): ReactElement => {
 
                             {events.map(event => (
                                 <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
-                                    <div className="w-14">{formatDate(new Date(event.eventDate), 'HH:mm')}</div>
+                                    <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
                                     <div className="truncate flex-1">{event.title}</div>
                                 </div>
                             ))}
