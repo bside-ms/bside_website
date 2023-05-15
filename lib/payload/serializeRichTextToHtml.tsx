@@ -1,7 +1,7 @@
-/* eslint-disable react/no-array-index-key,@typescript-eslint/no-unsafe-call,@typescript-eslint/strict-boolean-expressions,@typescript-eslint/no-unsafe-member-access */
+/* eslint-disable react/no-array-index-key */
 import { Fragment } from 'react';
-import type { ReactElement } from 'react';
 import escapeHTML from 'escape-html';
+import type { ReactElement } from 'react';
 import { Text } from 'slate';
 
 type SlateChildren = Array<Record<string, unknown>>;

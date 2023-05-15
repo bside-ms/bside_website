@@ -16,6 +16,9 @@ function generateMenuLink(item: MenuItem): string {
     switch (item.link.reference.relationTo) {
         case 'pages': {
             const pageItem = item.link.reference.value as Page;
+            if (pageItem.breadcrumbs === undefined) {
+                return '';
+            }
             return pageItem.breadcrumbs[pageItem.breadcrumbs.length - 1]?.url ?? '';
         }
 

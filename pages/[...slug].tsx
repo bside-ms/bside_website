@@ -25,7 +25,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
 
-    const page = pagesResponse.docs.find(doc => doc.breadcrumbs[doc.breadcrumbs.length - 1]?.url === `/${slug}`);
+    const page = pagesResponse.docs.find(doc => {
+        if (doc.breadcrumbs === undefined) {
+            return;
+        }
+
+        return doc.breadcrumbs[doc.breadcrumbs.length - 1]?.url === `/${slug}`;
+    });
 
     if (page === undefined) {
         return { notFound: true };
