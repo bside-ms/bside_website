@@ -8,8 +8,7 @@ import isEmptyString from 'lib/common/helper/isEmptyString';
 import getPayloadResponse from 'lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from 'lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
-import type { Page } from 'types/payload/payload-types';
-import type { MainMenu } from 'types/payload/payload-types';
+import type { MainMenu, Page } from 'types/payload/payload-types';
 
 interface Props {
     page: Page;

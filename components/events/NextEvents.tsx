@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { isBefore, isSameDay } from 'date-fns';
+import Link from 'next/link';
 import type { ReactElement } from 'react';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
@@ -106,6 +107,7 @@ const NextEvents = ({ events: allEvents, px = false }: Props): ReactElement => {
                                 <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
                                     <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
                                     <div className="truncate flex-1">{event.title}</div>
+                                    <Link href={`/events/${event.slug ?? event.id}`} className="truncate">... mehr</Link>
                                 </div>
                             ))}
                         </div>
