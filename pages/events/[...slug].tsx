@@ -14,7 +14,7 @@ import type { Event, Media as MediaType } from 'types/payload/payload-types';
 
 interface Props {
     event: Event;
-    eventImage: MediaType;
+    eventImage?: MediaType;
 }
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 
@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
 
     const page = pagesResponse.docs.find(event => {
-        return event.slug === `${slug}`;
+        return event.slug === `${slug}` || event.id === `${slug}`;
     });
 
     if (page === undefined) {
@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     return { props: {
         event: page,
-        eventImage: page.eventImage as MediaType,
+        eventImage: page.eventImage as MediaType ?? null,
     } };
 };
 
@@ -51,14 +51,16 @@ export default ({ event, eventImage }: Props): ReactElement => {
             <ContentWrapper>
                 <div className="px-8 mb-2 md:mb-3">
 
-                    <Media
-                        src={eventImage.sizes?.event?.url}
-                        width={(342)}
-                        height={(342)}
-                        alt={eventImage.alt}
-                        imgClassName="mx-auto pb-2"
-                        sizes="thumbnail"
-                    />
+                    {eventImage ? (
+                        <Media
+                            src={eventImage.sizes?.event?.url}
+                            width={(342)}
+                            height={(342)}
+                            alt={eventImage.alt}
+                            imgClassName="mx-auto mb-4"
+                            sizes="thumbnail"
+                        />
+                    ) : ''}
 
                     <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif flex justify-between">
                         <span className="text-sm lg:text-lg">
