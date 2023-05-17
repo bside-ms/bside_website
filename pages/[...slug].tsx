@@ -9,9 +9,11 @@ import getPayloadResponse from 'lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from 'lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Page } from 'types/payload/payload-types';
+import type { MainMenu } from 'types/payload/payload-types';
 
 interface Props {
     page: Page;
+    mainMenu?: MainMenu;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
@@ -37,16 +39,23 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    return { props: { page } };
+    return { props: {
+        page,
+        mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
+    } };
 };
 
-export default ({ page }: Props): ReactElement => {
+export default ({ page, mainMenu }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
             <Navigation />
 
-            <HeaderBar />
+            <HeaderBar
+                onlyWithBurgerMenu={false}
+                onlyHeader={true}
+                mainMenu={mainMenu}
+            />
 
             <ContentWrapper>
                 <div className="px-8 mb-2 md:mb-3">
