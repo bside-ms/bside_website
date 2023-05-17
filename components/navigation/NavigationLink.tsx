@@ -18,7 +18,7 @@ const NavigationLink = ({ children, href }: Props): ReactElement => {
 
     if (isActivePage) {
         return (
-            <div className="text-4xl text-white font-serif" onClick={toggleNavigation}>
+            <div className="text-2xl text-orange-500 font-serif" onClick={toggleNavigation}>
                 <span
                     className="cursor-default md:cursor-pointer italic"
                 >
@@ -29,7 +29,7 @@ const NavigationLink = ({ children, href }: Props): ReactElement => {
     }
 
     return (
-        <div className="text-4xl text-white font-serif">
+        <div className="text-2xl text-white font-serif">
             <Link
                 href={href}
                 className="cursor-default md:cursor-pointer"

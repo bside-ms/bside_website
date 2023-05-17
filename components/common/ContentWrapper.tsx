@@ -1,10 +1,14 @@
 import type { PropsWithChildren, ReactElement } from 'react';
 
-const ContentWrapper = ({ children }: PropsWithChildren): ReactElement => {
+interface Props extends PropsWithChildren {
+    px?: boolean;
+}
+
+const ContentWrapper = ({ px = true, children }: Props): ReactElement => {
 
     return (
-        <div className="flex-grow mt-12">
-            <div className="w-full md:w-[50rem] mx-auto py-4 px-8">
+        <div className={`flex-grow mt-12 px-${px ? 8 : 0}`}>
+            <div className="w-full md:w-[50rem] mx-auto py-4">
                 {children}
             </div>
         </div>

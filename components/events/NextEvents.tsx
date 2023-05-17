@@ -31,9 +31,10 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick
 
 interface Props {
     events: Array<Event>;
+    px?: boolean;
 }
 
-const NextEvents = ({ events: allEvents }: Props): ReactElement => {
+const NextEvents = ({ events: allEvents, px = false }: Props): ReactElement => {
 
     const [filteredEventType, setFilteredEventType] = useState<EventType | null>(null);
 
@@ -68,7 +69,7 @@ const NextEvents = ({ events: allEvents }: Props): ReactElement => {
     }, [allEvents]);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper px={px}>
             <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
                 Nächste Veranstaltungen
             </div>

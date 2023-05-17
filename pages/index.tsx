@@ -52,7 +52,7 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             </div>
 
             <ContentWrapper>
-                <div className="px-8 mb-2 md:mb-3">
+                <div className="px-0 lg:px-8 mb-2 md:mb-3">
                     <div className="font-bold font-serif text-2xl md:text-4xl">
                         Die B-Side in Münster
                     </div>
@@ -97,7 +97,7 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                 </ContentWrapper>
             </div>
 
-            <NextEvents events={events} />
+            <NextEvents events={events} px={true} />
 
             <ContactTeaser />
 

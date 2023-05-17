@@ -9,6 +9,10 @@ const NavigationLinks = (): ReactElement => {
                 Start
             </NavigationLink>
 
+            <NavigationLink href="/events">
+                Veranstaltungen
+            </NavigationLink>
+
             <NavigationLink href="/haus">
                 Die B-Side
             </NavigationLink>

@@ -43,8 +43,8 @@ const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = 
                         </div>
 
                         <div
-                            className="hidden lg:block text-center justify-center transition-opacity"
-                            style={onlyHeader ? undefined : { opacity: 0 }}
+                            className="hidden lg:block text-center justify-center transition-none"
+                            style={onlyHeader ? undefined : { display: 'none' }}
                         >
                             <HeaderMenuItems mainMenu={mainMenu} />
                         </div>
