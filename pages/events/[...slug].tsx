@@ -1,7 +1,11 @@
-import type { GetServerSideProps } from 'next';
+// eslint-disable-next-line simple-import-sort/imports
+import hirestime from 'hirestime';
+
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { Media } from '../../components/Media';
 import formatDate from '../../lib/common/helper/formatDate';
+import logger from '../../lib/logger';
 import ContentWrapper from 'components/common/ContentWrapper';
 import Footer from 'components/common/Footer';
 import HeaderBar from 'components/common/HeaderBar';
@@ -13,10 +17,31 @@ import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event, Media as MediaType } from 'types/payload/payload-types';
 
 interface Props {
-    event: Event;
+    event?: Event;
     eventImage?: MediaType;
 }
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+
+const fetchAllEvents = async () => {
+    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
+
+    return pages.docs.map(({ slug, id }) => ({
+        params: {
+            slug: [slug === undefined ? id : slug],
+        },
+    }));
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const paths = await fetchAllEvents();
+
+    return {
+        fallback: true,
+        paths,
+    };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (context) => {
+    const getElapsed = hirestime();
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const slug = context.params?.slug ? (context.params.slug as Array<string>).join('/') : '';
@@ -35,13 +60,29 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    return { props: {
-        event: page,
-        eventImage: page.eventImage as MediaType ?? null,
-    } };
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    logger.info({
+        message: 'timing',
+        path: `/events/[${slug}]`,
+        time: getElapsed.seconds(),
+    });
+
+    return {
+        revalidate: 60,
+        props: {
+            event: page,
+            eventImage: page.eventImage as MediaType ?? null,
+        },
+    };
 };
 
 export default ({ event, eventImage }: Props): ReactElement => {
+    if (!event) {
+        return (
+            <main className="min-h-screen flex flex-col justify-between" />
+        );
+    }
+
     return (
         <main className="min-h-screen flex flex-col justify-between">
             <Navigation />

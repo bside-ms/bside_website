@@ -1,4 +1,4 @@
-import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -19,7 +19,7 @@ interface Props {
     mainMenu?: MainMenu;
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (): Promise<GetServerSidePropsResult<Props>> => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
         props: {

@@ -1,4 +1,4 @@
-import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import NextEvents from '../../components/events/NextEvents';
 import getPayloadResponse from '../../lib/payload/getPayloadResponse';
@@ -14,9 +14,10 @@ interface Props {
     mainMenu?: MainMenu;
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (): Promise<GetServerSidePropsResult<Props>> => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
+        revalidate: 60,
         props: {
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs ?? [],

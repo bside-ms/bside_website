@@ -23,7 +23,7 @@ ENV FRONTEND_URL=${FRONTEND_URL}
 
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && chown -R nextjs:nodejs ./.next
 
 USER nextjs
 
