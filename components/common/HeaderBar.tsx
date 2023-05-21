@@ -36,7 +36,7 @@ const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = 
                     <div className="p-4 flex justify-between">
                         <div
                             className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200"
-                            style={onlyWithBurgerMenu ? { opacity: 0, pointerEvents: 'none' } : { opacity: '100%' }}
+                            style={onlyWithBurgerMenu ? { opacity: 0 } : { opacity: '100%' }}
                             onClick={handleClickOnHeart}
                         >
                             <Heart />

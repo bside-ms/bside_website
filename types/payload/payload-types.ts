@@ -53,6 +53,7 @@ export interface Event {
   eventLocation: string;
   eventExtra?: string;
   eventImage?: string | Media;
+  eventOrganizer?: string;
   eventDate: string;
   eventStart: string;
   eventEnd?: string;

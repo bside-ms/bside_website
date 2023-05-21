@@ -1,8 +1,8 @@
 {
   "name": "B-Side",
   "short_name": "B-Side",
-  "theme_color": "#ffffff",
-  "background_color": "#f70012",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
   "start_url": "/?pwa",
   "display": "standalone",
   "orientation": "portrait",

@@ -15,11 +15,33 @@ import getPayloadResponse from 'lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from 'lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event, Media as MediaType } from 'types/payload/payload-types';
+import Link from 'next/link';
+import { useInView } from 'react-intersection-observer';
 
 interface Props {
     event?: Event;
     eventImage?: MediaType;
 }
+
+const createIcsFile = (event: Event): string => {
+    let ics = 'data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0';
+
+    if (event.eventEnd) {
+        ics = ics.concat(`ADTSTART;TZID=Europe/Berlin:${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventStart, 'HHmmss')}%0`);
+        ics = ics.concat(`ADTEND;TZID=Europe/Berlin:${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}%0`);
+    } else {
+        const eventEnd = new Date(event.eventDate);
+        eventEnd.setDate(eventEnd.getDate() + 1);
+        ics = ics.concat(`ADTSTART;TZID=Europe/Berlin:${formatDate(event.eventDate, 'yyyyMMdd')}%0`);
+        ics = ics.concat(`ADTEND;TZID=Europe/Berlin:${formatDate(eventEnd, 'yyyyMMdd')}%0`);
+    }
+
+    ics = ics.concat(`ASUMMARY:${event.title}%0`);
+    ics = ics.concat(`ALOCATION:${event.eventLocation}%0`);
+    ics = ics.concat('AEND:VEVENT%0AEND:VCALENDAR%0A');
+
+    return ics;
+};
 
 const fetchAllEvents = async () => {
     const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
@@ -60,7 +82,6 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         return { notFound: true };
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     logger.info({
         message: 'timing',
         path: `/events/[${slug}]`,
@@ -83,11 +104,30 @@ export default ({ event, eventImage }: Props): ReactElement => {
         );
     }
 
+    const { ref: startPostRef, inView: startPos } = useInView({ initialInView: true });
+
     return (
         <main className="min-h-screen flex flex-col justify-between">
+            <div ref={startPostRef} />
+
             <Navigation />
 
             <HeaderBar />
+
+            {!event.eventEnd ? '' : (
+                <div
+                    className="fixed bottom-3 lg:bottom-10 left-3 right-3 lg:left-36 lg:right-36 z-10 bg-black py-2 text-center transition-opacity duration-100"
+                    style={startPos ? { opacity: 1 } : { opacity: 0 }}
+                >
+
+                    <Link
+                        href={createIcsFile(event)}
+                        className="text-white font-serif text-sm lg:text-lg hover:bg-orange-600"
+                    >
+                        Veranstaltung in meinen Kalender eintragen!
+                    </Link>
+                </div>
+            )}
 
             <ContentWrapper>
                 <div className="px-8 mb-2 md:mb-3">
@@ -132,17 +172,30 @@ export default ({ event, eventImage }: Props): ReactElement => {
                         </span>
                     </div>
 
-                    <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif flex justify-between">
-                        <span className="text-sm lg:text-lg">
+                    <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif">
+                        <span className="text-lg lg:text-2xl font-bold">
                             {event.title}
                         </span>
                     </div>
 
                     <div className="font-bold font-serif text-2xl md:text-4xl" />
 
-                    <div className="mt-1 text-sm md:text-lg md:mt-3">
+                    <div className="mt-2 text-sm md:text-lg md:mt-4">
                         {serializeRichTextToHtml(event.richText)}
                     </div>
+
+                    {!event.eventOrganizer ? '' : (
+                        <>
+                            <div className="mt-2 text-sm md:text-lg md:mt-4 font-bold">
+                                Veranstaltet von:
+                            </div>
+
+                            <div className="text-sm md:text-lg">
+                                {event.eventOrganizer}
+                            </div>
+                        </>
+                    )}
+
                 </div>
             </ContentWrapper>
 
