@@ -40,16 +40,14 @@ const createIcsFile = (event: Event): string => {
     const eventEnd = new Date(event.eventDate);
     eventEnd.setDate(eventEnd.getDate() + 1);
 
-    const eventDate = new Date(event.eventDate).setHours(12);
-
-    let start = formatDate(eventDate, 'yyyyMMdd');
-    let end = formatDate(eventEnd, 'yyyyMMdd');
+    let start = formatDate(event.eventDate, 'yyyyMMdd');
+    let end = formatDate(event.eventDate, 'yyyyMMdd');
 
     const update = `${formatDate(event.updatedAt, 'yyyyMMdd')}T${formatDate(event.updatedAt, 'HHmmss')}`;
 
     if (event.eventEnd) {
-        start = `${formatDate(eventDate, 'yyyyMMdd')}T${formatDate(event.eventStart, 'HHmmss')}Z`;
-        end = `${formatDate(eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}Z`;
+        start = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventStart, 'HHmmss')}`;
+        end = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}`;
     }
 
     ics = ics.concat(`DTSTART;TZID=Europe/Berlin:${start}\r\n`);
