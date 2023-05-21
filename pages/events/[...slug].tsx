@@ -22,71 +22,6 @@ interface Props {
     eventImage?: MediaType;
 }
 
-const createIcsFile = (event: Event): string => {
-
-    let ics =
-        // Data Type
-        'data:text/calendar;charset=utf8,' +
-
-        // Calendar
-        'BEGIN:VCALENDAR%0A' +
-        'VERSION:2.0%0A' +
-        'CALSCALE:GREGORIAN%0A' +
-
-        // Time Zone Information
-        'BEGIN:VTIMEZONE%0A' +
-        'TZID:Europe/Berlin%0A' +
-        'TZURL:http://tzurl.org/zoneinfo-outlook/Europe/Berlin%0A' +
-        'X-LIC-LOCATION:Europe/Berlin%0A' +
-        'BEGIN:DAYLIGHT%0A' +
-        'TZOFFSETFROM:+0100%0A' +
-        'TZOFFSETTO:+0200%0A' +
-        'TZNAME:CEST%0A' +
-        'DTSTART:19700329T020000%0A' +
-        'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU%0A' +
-        'END:DAYLIGHT%0A' +
-        'BEGIN:STANDARD%0A' +
-        'TZOFFSETFROM:+0200%0A' +
-        'TZOFFSETTO:+0100%0A' +
-        'TZNAME:CET%0A' +
-        'DTSTART:19701025T030000%0A' +
-        'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU%0A' +
-        'END:STANDARD%0A' +
-        'END:VTIMEZONE%0A' +
-
-        // Event
-        'BEGIN:VEVENT%0A';
-
-    const eventEnd = new Date(event.eventDate);
-    eventEnd.setDate(eventEnd.getDate() + 1);
-
-    let start = formatDate(event.eventDate, 'yyyyMMdd');
-    let end = formatDate(eventEnd, 'yyyyMMdd');
-
-    const update = `${formatDate(event.updatedAt, 'yyyyMMdd')}T${formatDate(event.updatedAt, 'HHmmss')}`;
-
-    if (event.eventEnd) {
-        start = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventStart, 'HHmmss')}`;
-        end = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}`;
-    }
-
-    ics = ics.concat(`DTSTART;TZID=Europe/Berlin:${start}%0A`);
-    ics = ics.concat(`DTEND;TZID=Europe/Berlin:${end}%0A`);
-    ics = ics.concat(`DTSTAMP;TZID=Europe/Berlin:${update}%0A`);
-
-    ics = ics.concat(`SUMMARY:${event.title}%0A`);
-    ics = ics.concat(`LOCATION:${event.eventLocation}%0A`);
-
-    ics = ics.concat(`URL:https://b-side.ovh/events/${event.id}%0A`);
-    ics = ics.concat(`DESCRIPTION:https://b-side.ovh/events/${event.id}%0A`);
-    ics = ics.concat(`UID:${update}-${start}-${end}%0A`);
-
-    ics = ics.concat('END:VEVENT%0A');
-    ics = ics.concat('END:VCALENDAR%0A');
-
-    return ics;
-};
-
 const fetchAllEvents = async () => {
     const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
 
@@ -165,7 +100,7 @@ export default ({ event, eventImage }: Props): ReactElement => {
                 >
 
                     <a
-                        href={createIcsFile(event)}
+                        href={`/api/ics/?eventId=${event.id}`}
                         className="text-white font-serif text-sm lg:text-lg hover:bg-orange-600"
                     >
                         Veranstaltung in meinen Kalender eintragen!
