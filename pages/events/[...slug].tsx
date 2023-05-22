@@ -16,6 +16,7 @@ import serializeRichTextToHtml from 'lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event, Media as MediaType } from 'types/payload/payload-types';
 import { useInView } from 'react-intersection-observer';
+import Link from 'next/link';
 
 interface Props {
     event?: Event;
@@ -83,11 +84,12 @@ export default ({ event, eventImage }: Props): ReactElement => {
         );
     }
 
-    const { ref: startPostRef, inView: startPos } = useInView({ initialInView: true });
+    const { ref: startPosRef, inView: startPos } = useInView({ initialInView: true });
+    const { ref: footerPosRef, inView: footerPos } = useInView({ initialInView: false });
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <div ref={startPostRef} />
+            <div ref={startPosRef} />
 
             <Navigation />
 
@@ -95,8 +97,8 @@ export default ({ event, eventImage }: Props): ReactElement => {
 
             {!event.eventEnd ? '' : (
                 <div
-                    className="fixed bottom-3 lg:bottom-10 left-3 right-3 lg:left-36 lg:right-36 z-10 bg-black py-2 text-center transition-opacity duration-100"
-                    style={startPos ? { opacity: 1 } : { opacity: 0 }}
+                    className="fixed bottom-3 left-3 right-3 lg:left-60 lg:right-60 z-10 bg-black py-2 text-center transition-opacity duration-100"
+                    style={startPos && !footerPos ? { opacity: 1 } : { opacity: 0 }}
                 >
 
                     <a
@@ -109,7 +111,7 @@ export default ({ event, eventImage }: Props): ReactElement => {
             )}
 
             <ContentWrapper>
-                <div className="px-8 mb-2 md:mb-3">
+                <div className="mb-2 md:mb-3">
 
                     {eventImage ? (
                         <Media
@@ -122,11 +124,11 @@ export default ({ event, eventImage }: Props): ReactElement => {
                         />
                     ) : ''}
 
-                    <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif flex justify-between">
-                        <span className="text-sm lg:text-lg">
+                    <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
+                        <span className="sm:text-lg">
                             {formatDate(event.eventDate, 'EE dd. MMM')}
                         </span>
-                        <span className="text-sm lg:text-lg">
+                        <span className="sm:text-lg">
                             {formatDate(event.eventStart, 'HH:mm' + ' ')}
                             { event.eventEnd ? `- ${formatDate(event.eventEnd, 'HH:mm')} ` : '' }
                         </span>
@@ -134,10 +136,8 @@ export default ({ event, eventImage }: Props): ReactElement => {
                     {
                         event.eventExtra ? (
                             <>
-                                <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 gap-3 text-sm lg:text-lg text-center">
-                                    <span className="text-sm lg:text-lg font-serif center">
-                                        {event.eventExtra}
-                                    </span>
+                                <div key={event.id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+                                    {event.eventExtra}
                                 </div>
 
                                 <hr className="w-1/3 mx-auto border-1 border-black" />
@@ -145,40 +145,43 @@ export default ({ event, eventImage }: Props): ReactElement => {
                         ) : ''
                     }
 
-                    <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 gap-3 text-sm lg:text-lg text-center">
-                        <span className="text-sm lg:text-lg font-serif center">
-                            {event.eventLocation}
-                        </span>
+                    <div key={event.id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+                        {event.eventLocation}
                     </div>
 
-                    <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif">
-                        <span className="text-lg lg:text-2xl font-bold">
+                    <div className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif">
+                        <span className="text-lg sm:text-2xl font-bold">
                             {event.title}
                         </span>
                     </div>
 
-                    <div className="font-bold font-serif text-2xl md:text-4xl" />
-
-                    <div className="mt-2 text-sm md:text-lg md:mt-4">
+                    <div className="mt-2 sm:text-lg md:mt-4">
                         {serializeRichTextToHtml(event.richText)}
                     </div>
 
                     {!event.eventOrganizer ? '' : (
                         <>
-                            <div className="mt-2 text-sm md:text-lg md:mt-4 font-bold">
+                            <div className="mt-2 sm:text-lg md:mt-4 font-bold">
                                 Veranstaltet von:
                             </div>
 
-                            <div className="text-sm md:text-lg">
+                            <div className="sm:text-lg">
                                 {event.eventOrganizer}
                             </div>
                         </>
                     )}
 
                 </div>
+
+                <div className="sm:text-lg mt-4 text-blue-800 underline">
+                    <Link href="/events">
+                        &lt;- Zurück zur Übersicht
+                    </Link>
+                </div>
             </ContentWrapper>
 
             <Footer />
+            <div ref={footerPosRef} />
         </main>
     );
 };
