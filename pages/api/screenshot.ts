@@ -25,9 +25,12 @@ async function takeScreenshot(url: string): Promise<Buffer> {
 
         await page.goto(url);
 
-        await page.evaluate(() => {
-            (document.querySelector('#ical-link')! as HTMLElement).style.display = 'none';
-        });
+        // Dismiss the Save-Event banner
+        if (url.includes('/events/')) {
+            await page.evaluate(() => {
+                (document.querySelector('#ical-link')! as HTMLElement).style.display = 'none';
+            });
+        }
 
         const screenshot = await page.screenshot({ type: 'png' });
         await page.close();
