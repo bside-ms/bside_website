@@ -3,16 +3,16 @@ import hirestime from 'hirestime';
 
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import logger from '../lib/logger';
-import ContentWrapper from 'components/common/ContentWrapper';
-import Footer from 'components/common/Footer';
-import HeaderBar from 'components/common/HeaderBar';
-import Navigation from 'components/navigation/Navigation';
-import isEmptyString from 'lib/common/helper/isEmptyString';
-import getPayloadResponse from 'lib/payload/getPayloadResponse';
-import serializeRichTextToHtml from 'lib/payload/serializeRichTextToHtml';
-import type PaginatedDocs from 'types/payload/PaginatedDocs';
-import type { MainMenu, Page } from 'types/payload/payload-types';
+import logger from '@/lib/logger';
+import ContentWrapper from '@/components/common/ContentWrapper';
+import Footer from '@/components/common/Footer';
+import HeaderBar from '@/components/common/HeaderBar';
+import Navigation from '@/components/navigation/Navigation';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
+import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
+import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import type { MainMenu, Page } from '@/types/payload/payload-types';
 
 interface Props {
     page?: Page;

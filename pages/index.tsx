@@ -2,17 +2,17 @@ import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
-import type PaginatedDocs from '../types/payload/PaginatedDocs';
-import ContentWrapper from 'components/common/ContentWrapper';
-import Footer from 'components/common/Footer';
-import HeaderBar from 'components/common/HeaderBar';
-import NextEvents from 'components/events/NextEvents';
-import ContactTeaser from 'components/frontPage/ContactTeaser';
-import HouseHero from 'components/frontPage/HouseHero';
-import Navigation from 'components/navigation/Navigation';
-import getPayloadResponse from 'lib/payload/getPayloadResponse';
-import hausfrontJpg from 'public/assets/hausfront.jpg';
-import type { Event, MainMenu } from 'types/payload/payload-types';
+import ContentWrapper from '@/components/common/ContentWrapper';
+import Footer from '@/components/common/Footer';
+import HeaderBar from '@/components/common/HeaderBar';
+import NextEvents from '@/components/events/NextEvents';
+import ContactTeaser from '@/components/frontPage/ContactTeaser';
+import HouseHero from '@/components/frontPage/HouseHero';
+import Navigation from '@/components/navigation/Navigation';
+import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import hausfrontJpg from '@/public/assets/hausfront.jpg';
+import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import type { Event, MainMenu } from '@/types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
         props: {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+             
             events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs ?? [],
             mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
         },

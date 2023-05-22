@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import formatDate from '../../lib/common/helper/formatDate';
-import isEmptyString from '../../lib/common/helper/isEmptyString';
-import getPayloadResponse from '../../lib/payload/getPayloadResponse';
-import type PaginatedDocs from '../../types/payload/PaginatedDocs';
-import type { Event } from '../../types/payload/payload-types';
+import formatDate from '@/lib/common/helper/formatDate';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
+import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import type { Event } from '@/types/payload/payload-types';
 
 const createIcsFile = (event: Event): string => {
 

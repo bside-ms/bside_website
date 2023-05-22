@@ -1,13 +1,13 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import NextEvents from '../../components/events/NextEvents';
-import getPayloadResponse from '../../lib/payload/getPayloadResponse';
-import type PaginatedDocs from '../../types/payload/PaginatedDocs';
-import type { Event, MainMenu } from '../../types/payload/payload-types';
-import ContentWrapper from 'components/common/ContentWrapper';
-import Footer from 'components/common/Footer';
-import HeaderBar from 'components/common/HeaderBar';
-import Navigation from 'components/navigation/Navigation';
+import ContentWrapper from '@/components/common/ContentWrapper';
+import Footer from '@/components/common/Footer';
+import HeaderBar from '@/components/common/HeaderBar';
+import NextEvents from '@/components/events/NextEvents';
+import Navigation from '@/components/navigation/Navigation';
+import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import type { Event, MainMenu } from '@/types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     return {
         revalidate: 60,
         props: {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
             events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs ?? [],
             mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
         },
