@@ -85,7 +85,7 @@ export default ({ event, eventImage }: Props): ReactElement => {
     }
 
     const { ref: startPosRef, inView: startPos } = useInView({ initialInView: true });
-    const { ref: footerPosRef, inView: footerPos } = useInView({ initialInView: false });
+    const { ref: footerPosRef, inView: footerPos } = useInView({ initialInView: true });
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
@@ -97,6 +97,7 @@ export default ({ event, eventImage }: Props): ReactElement => {
 
             {!event.eventEnd ? '' : (
                 <div
+                    id="ical-link"
                     className="fixed bottom-3 left-3 right-3 lg:left-60 lg:right-60 z-10 bg-black py-2 text-center transition-opacity duration-100"
                     style={startPos && !footerPos ? { opacity: 1 } : { opacity: 0 }}
                 >
@@ -178,10 +179,10 @@ export default ({ event, eventImage }: Props): ReactElement => {
                         &lt;- Zurück zur Übersicht
                     </Link>
                 </div>
+                <div ref={footerPosRef} />
             </ContentWrapper>
 
             <Footer />
-            <div ref={footerPosRef} />
         </main>
     );
 };

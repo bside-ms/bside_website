@@ -1,3 +1,4 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import formatDate from '../../lib/common/helper/formatDate';
 import isEmptyString from '../../lib/common/helper/isEmptyString';
 import getPayloadResponse from '../../lib/payload/getPayloadResponse';
@@ -67,14 +68,11 @@ const createIcsFile = (event: Event): string => {
     return ics;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default async (req, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     const { eventId } = req.query;
 
     try {
-        if (isEmptyString(eventId)) {
+        if (isEmptyString(eventId as string)) {
             throw new Error('Event not found.');
         }
 
