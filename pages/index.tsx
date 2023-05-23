@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
         props: {
-             
+
             events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs ?? [],
             mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
         },
@@ -42,8 +42,8 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             <Navigation />
 
             <HeaderBar
-                onlyWithBurgerMenu={isImageContainerInView}
-                onlyHeader={isHeaderInView}
+                leftLogo={isImageContainerInView}
+                headerMenu={isHeaderInView}
                 mainMenu={mainMenu}
             />
 

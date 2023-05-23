@@ -34,8 +34,8 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             <Navigation />
 
             <HeaderBar
-                onlyWithBurgerMenu={false}
-                onlyHeader={true}
+                leftLogo={false}
+                headerMenu={true}
                 mainMenu={mainMenu}
             />
 

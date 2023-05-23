@@ -15,7 +15,6 @@ import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event, Media as MediaType } from 'types/payload/payload-types';
-import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
 
 interface Props {
@@ -84,22 +83,16 @@ export default ({ event, eventImage }: Props): ReactElement => {
         );
     }
 
-    const { ref: startPosRef, inView: startPos } = useInView({ initialInView: true });
-    const { ref: footerPosRef, inView: footerPos } = useInView({ initialInView: true });
-
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <div ref={startPosRef} />
 
             <Navigation />
-
-            <HeaderBar />
 
             {!event.eventEnd ? '' : (
                 <div
                     id="ical-link"
-                    className="fixed bottom-3 left-3 right-3 lg:left-60 lg:right-60 z-10 bg-black py-2 text-center transition-opacity duration-100"
-                    style={startPos && !footerPos ? { opacity: 1 } : { opacity: 0 }}
+                    className="sticky top-0 left-0 right-0 z-10 bg-black py-2 text-center transition-opacity duration-100"
+                    style={undefined}
                 >
 
                     <a
@@ -110,6 +103,8 @@ export default ({ event, eventImage }: Props): ReactElement => {
                     </a>
                 </div>
             )}
+
+            <HeaderBar />
 
             <ContentWrapper>
                 <div className="mb-2 md:mb-3">
@@ -179,7 +174,6 @@ export default ({ event, eventImage }: Props): ReactElement => {
                         &lt;- Zurück zur Übersicht
                     </Link>
                 </div>
-                <div ref={footerPosRef} />
             </ContentWrapper>
 
             <Footer />
