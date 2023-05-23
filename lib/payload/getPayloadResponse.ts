@@ -9,8 +9,7 @@ const getPayloadResponse = async <T>(path: string): Promise<T> => {
         }
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return fetchResponse.json();
+    return fetchResponse.json() as T;
 };
 
 export default getPayloadResponse;

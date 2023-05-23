@@ -96,6 +96,7 @@ module.exports = {
         'default-param-last': OFF, // Is handled by TS plugin
         'dot-notation': OFF, // Is handled by TS plugin
         'eol-last': ERROR,
+        'func-style': [ERROR, 'expression'],
         'function-call-argument-newline': [ERROR, 'consistent'],
         'function-paren-newline': [ERROR, 'multiline-arguments'],
         'eqeqeq': [ERROR, 'always'],
@@ -188,7 +189,7 @@ module.exports = {
         'react/jsx-indent': ERROR,
         'react/jsx-no-bind': WARNING,
         'react/jsx-no-target-blank': OFF,
-        'react/jsx-no-useless-fragment': ERROR,
+        'react/jsx-no-useless-fragment': [ERROR, { 'allowExpressions': true }],
         'react/jsx-props-no-multi-spaces': ERROR,
         'react/jsx-props-no-spreading': WARNING,
         'react/jsx-tag-spacing': [

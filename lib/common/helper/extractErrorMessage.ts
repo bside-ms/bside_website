@@ -6,8 +6,7 @@ const extractErrorMessage = (error: unknown): string => {
 
     return typeof error === 'object' && error !== null && 'toString' in error
         ? error.toString()
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        : `${error}`;
+        : `${JSON.stringify(error)}`;
 };
 
 export default extractErrorMessage;

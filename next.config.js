@@ -7,7 +7,7 @@ const withPWA = require('next-pwa')({
 });
 
 /** @type {import('next').NextConfig} */
-const path = require('path')
+const path = require('path');
 
 function isProduction() {
   return process.env.NODE_ENV === 'production';

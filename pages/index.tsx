@@ -23,12 +23,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
         props: {
-             
-            events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs ?? [],
+            events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs,
             mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
         },
     };
-
 };
 
 export default ({ events, mainMenu }: Props): ReactElement => {

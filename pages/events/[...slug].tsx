@@ -1,40 +1,36 @@
-// eslint-disable-next-line simple-import-sort/imports
 import hirestime from 'hirestime';
-
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import Link from 'next/link';
 import type { ReactElement } from 'react';
-import { Media } from '@/components/Media';
-import formatDate from '@/lib/common/helper/formatDate';
-import logger from '@/lib/logger';
+import { useInView } from 'react-intersection-observer';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/common/HeaderBar';
+import EventImage from '@/components/events/EventImage';
 import Navigation from '@/components/navigation/Navigation';
+import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
+import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event, Media as MediaType } from 'types/payload/payload-types';
-import { useInView } from 'react-intersection-observer';
-import Link from 'next/link';
 
 interface Props {
-    event?: Event;
-    eventImage?: MediaType;
+    event: Event;
+    eventImage: MediaType | string | null;
 }
 
-const fetchAllEvents = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+
     const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
 
-    return pages.docs.map(({ slug, id }) => ({
+    const paths = pages.docs.map(({ slug, id }) => ({
         params: {
             slug: [slug === undefined ? id : slug],
         },
     }));
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = await fetchAllEvents();
 
     return {
         fallback: true,
@@ -43,10 +39,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
+
     const getElapsed = hirestime();
 
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    const slug = context.params?.slug ? (context.params.slug as Array<string>).join('/') : '';
+    const rawSlug = context.params?.slug;
+
+    if (rawSlug === undefined) {
+        return { notFound: true };
+    }
+
+    const slug = typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
 
     if (isEmptyString(slug)) {
         return { notFound: true };
@@ -72,17 +74,25 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         revalidate: 60,
         props: {
             event: page,
-            eventImage: page.eventImage as MediaType ?? null,
+            eventImage: page.eventImage ?? null,
         },
     };
 };
 
-export default ({ event, eventImage }: Props): ReactElement => {
-    if (!event) {
-        return (
-            <main className="min-h-screen flex flex-col justify-between" />
-        );
-    }
+export default ({
+    event: {
+        id,
+        title,
+        richText,
+        eventDate,
+        eventStart,
+        eventEnd,
+        eventExtra,
+        eventLocation,
+        eventOrganizer,
+    },
+    eventImage,
+}: Props): ReactElement => {
 
     const { ref: startPosRef, inView: startPos } = useInView({ initialInView: true });
     const { ref: footerPosRef, inView: footerPos } = useInView({ initialInView: true });
@@ -95,15 +105,14 @@ export default ({ event, eventImage }: Props): ReactElement => {
 
             <HeaderBar />
 
-            {!event.eventEnd ? '' : (
+            {isNotEmptyString(eventEnd) && (
                 <div
                     id="ical-link"
                     className="fixed bottom-3 left-3 right-3 lg:left-60 lg:right-60 z-10 bg-black py-2 text-center transition-opacity duration-100"
                     style={startPos && !footerPos ? { opacity: 1 } : { opacity: 0 }}
                 >
-
                     <a
-                        href={`/api/ics/?eventId=${event.id}`}
+                        href={`/api/ics/?eventId=${id}`}
                         className="text-white font-serif text-sm lg:text-lg hover:bg-orange-600"
                     >
                         Veranstaltung in meinen Kalender eintragen!
@@ -113,65 +122,60 @@ export default ({ event, eventImage }: Props): ReactElement => {
 
             <ContentWrapper>
                 <div className="mb-2 md:mb-3">
-
-                    {eventImage ? (
-                        <Media
-                            src={eventImage.sizes?.event?.url}
-                            width={(342)}
-                            height={(342)}
-                            alt={eventImage.alt}
-                            imgClassName="mx-auto mb-4"
-                            sizes="thumbnail"
+                    {eventImage !== null && (
+                        <EventImage
+                            eventTitle={title}
+                            eventImage={eventImage}
                         />
-                    ) : ''}
+                    )}
 
                     <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                         <span className="sm:text-lg">
-                            {formatDate(event.eventDate, 'EE dd. MMM')}
+                            {formatDate(eventDate, 'EE dd. MMM')}
                         </span>
+
                         <span className="sm:text-lg">
-                            {formatDate(event.eventStart, 'HH:mm' + ' ')}
-                            { event.eventEnd ? `- ${formatDate(event.eventEnd, 'HH:mm')} ` : '' }
+                            {formatDate(eventStart, 'HH:mm' + ' ')}
+
+                            {isNotEmptyString(eventEnd) && `- ${formatDate(eventEnd, 'HH:mm')} `}
                         </span>
                     </div>
-                    {
-                        event.eventExtra ? (
-                            <>
-                                <div key={event.id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                                    {event.eventExtra}
-                                </div>
 
-                                <hr className="w-1/3 mx-auto border-1 border-black" />
-                            </>
-                        ) : ''
-                    }
+                    {isNotEmptyString(eventExtra) && (
+                        <>
+                            <div key={id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+                                {eventExtra}
+                            </div>
 
-                    <div key={event.id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                        {event.eventLocation}
+                            <hr className="w-1/3 mx-auto border-1 border-black" />
+                        </>
+                    )}
+
+                    <div key={id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+                        {eventLocation}
                     </div>
 
                     <div className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif">
                         <span className="text-lg sm:text-2xl font-bold">
-                            {event.title}
+                            {title}
                         </span>
                     </div>
 
                     <div className="mt-2 sm:text-lg md:mt-4">
-                        {serializeRichTextToHtml(event.richText)}
+                        {serializeRichTextToHtml(richText)}
                     </div>
 
-                    {!event.eventOrganizer ? '' : (
+                    {isNotEmptyString(eventOrganizer) && (
                         <>
                             <div className="mt-2 sm:text-lg md:mt-4 font-bold">
                                 Veranstaltet von:
                             </div>
 
                             <div className="sm:text-lg">
-                                {event.eventOrganizer}
+                                {eventOrganizer}
                             </div>
                         </>
                     )}
-
                 </div>
 
                 <div className="sm:text-lg mt-4 text-blue-800 underline">
@@ -179,6 +183,7 @@ export default ({ event, eventImage }: Props): ReactElement => {
                         &lt;- Zurück zur Übersicht
                     </Link>
                 </div>
+
                 <div ref={footerPosRef} />
             </ContentWrapper>
 

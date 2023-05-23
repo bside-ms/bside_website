@@ -1,14 +1,12 @@
-// eslint-disable-next-line simple-import-sort/imports
 import hirestime from 'hirestime';
-
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import logger from '@/lib/logger';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/common/HeaderBar';
 import Navigation from '@/components/navigation/Navigation';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
@@ -19,22 +17,15 @@ interface Props {
     mainMenu?: MainMenu;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const fetchAllPages = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+
     const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
 
-    return pages.docs
-        .map(({ breadcrumbs, id }) => {
-            return ({
-                params: {
-                    slug: [breadcrumbs ? (breadcrumbs[breadcrumbs.length - 1]?.url?.substring(1) ?? id) : id],
-                },
-            });
-        });
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = await fetchAllPages();
+    const paths = pages.docs.map(({ breadcrumbs, id }) => ({
+        params: {
+            slug: [breadcrumbs ? (breadcrumbs[breadcrumbs.length - 1]?.url?.substring(1) ?? id) : id],
+        },
+    }));
 
     return {
         fallback: true,
@@ -43,10 +34,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
+
     const getElapsed = hirestime();
 
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    const slug = context.params?.slug ? (context.params.slug as Array<string>).join('/') : '';
+    const rawSlug = context.params?.slug;
+
+    if (rawSlug === undefined) {
+        return { notFound: true };
+    }
+
+    const slug = typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
 
     if (isEmptyString(slug)) {
         return { notFound: true };
