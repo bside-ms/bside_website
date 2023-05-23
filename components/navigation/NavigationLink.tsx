@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ReactElement } from 'react';
+import type { ReactElement, SyntheticEvent } from 'react';
 import { useAppContext } from 'components/common/AppContext';
 
 interface Props {
@@ -14,28 +14,26 @@ const NavigationLink = ({ children, href }: Props): ReactElement => {
     const { pathname } = useRouter();
     const { toggleNavigation } = useAppContext();
 
-    const isActivePage = useMemo(() => pathname === href, [href, pathname]);
+    const isActivePage = pathname === href;
 
-    if (isActivePage) {
-        return (
-            <div className="text-2xl text-orange-500 font-serif" onClick={toggleNavigation}>
-                <span
-                    className="cursor-default md:cursor-pointer italic"
-                >
-                    {children}
-                </span>
-            </div>
-        );
-    }
+    const handleClick = useCallback((event: SyntheticEvent<HTMLDivElement>) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!isActivePage) {
+            toggleNavigation();
+        }
+    }, [isActivePage, toggleNavigation]);
 
     return (
-        <div className="text-2xl text-white font-serif">
-            <Link
-                href={href}
-                className="cursor-default md:cursor-pointer"
+        <div className="text-[30px] leading-[1.1] text-white font-serif" onClick={handleClick}>
+            <span
+                className="cursor-default md:cursor-pointer whitespace-nowrap"
+                style={{ fontStyle: isActivePage ? 'italic' : '' }}
             >
-                {children}
-            </Link>
+                {isActivePage ? children : <Link href={href}>{children}</Link>}
+            </span>
         </div>
     );
 };

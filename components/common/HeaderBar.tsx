@@ -27,38 +27,43 @@ const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = 
     );
 
     return (
-        <div
-            className="fixed top-0 left-0 right-0 z-10 transition-colors duration-200"
-            style={onlyWithBurgerMenu ? undefined : { backgroundColor: 'white' }}
-        >
-            <div className="lg:w-[60rem] lg:mx-auto">
-                <div>
-                    <div className="p-4 flex justify-between">
-                        <div
-                            className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200"
-                            style={onlyWithBurgerMenu ? { opacity: 0 } : { opacity: '100%' }}
-                            onClick={handleClickOnHeart}
-                        >
-                            <Heart />
-                        </div>
+        <>
+            <div
+                className="fixed top-0 left-0 right-0 z-10 transition-colors duration-200"
+                style={onlyWithBurgerMenu ? undefined : { backgroundColor: 'white' }}
+            >
+                <div className="lg:w-[60rem] lg:mx-auto">
+                    <div>
+                        <div className="p-4 flex justify-between">
+                            <div
+                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200"
+                                style={onlyWithBurgerMenu ? { opacity: 0 } : { opacity: '100%' }}
+                                onClick={handleClickOnHeart}
+                            >
+                                <Heart />
+                            </div>
 
-                        <div
-                            className="hidden lg:block text-center justify-center transition-none"
-                            style={onlyHeader ? undefined : { display: 'none' }}
-                        >
-                            <HeaderMenuItems mainMenu={mainMenu} />
-                        </div>
+                            <div
+                                className="hidden lg:block text-center justify-center transition-none"
+                                style={onlyHeader ? undefined : { display: 'none' }}
+                            >
+                                <HeaderMenuItems mainMenu={mainMenu} />
+                            </div>
 
-                        <div
-                            className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500"
-                            onClick={toggleNavigation}
-                        >
-                            <BurgerHeart />
+                            <div
+                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500"
+                                onClick={toggleNavigation}
+                            >
+                                <BurgerHeart />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {/* Just a placeholder for the navigation */}
+            {!onlyWithBurgerMenu && <div className="h-12" />}
+        </>
     );
 };
 

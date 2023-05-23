@@ -1,7 +1,7 @@
+import Image from 'next/image';
 import type { ReactElement } from 'react';
 import { useAppContext } from 'components/common/AppContext';
 import NavigationLinks from 'components/navigation/NavigationLinks';
-import Heart from 'components/svg/Heart';
 
 const Navigation = (): ReactElement | null => {
 
@@ -10,19 +10,16 @@ const Navigation = (): ReactElement | null => {
     return (
         <>
             <div
-                className={
-                    isNavigationOpen
-                        ? 'fixed w-[1000px] left-[calc(100%-320px)] top-1/2 -translate-y-1/2 transition-all z-40'
-                        : 'fixed w-[1000px] left-[100%] top-1/2 -translate-y-1/2 transition-all z-40'
-                }
+                className="fixed w-[360px] h-[833px] right-0 z-40 transition-all"
+                style={isNavigationOpen ? { right: 0 } : { right: '-833px' }}
             >
-                <Heart />
+                <Image src="/assets/navigationHeart.svg" fill={true} alt="navigation background" />
 
                 <div
                     className={`tw
                         absolute
-                        top-[150px]
-                        left-[50px]
+                        top-[100px]
+                        left-[95px]
                         rounded-full
                         w-16
                         h-16
@@ -34,6 +31,7 @@ const Navigation = (): ReactElement | null => {
                         items-center
                         text-4xl
                         md:cursor-pointer
+                        z-50
                     `}
                     onClick={toggleNavigation}
                 >
@@ -43,16 +41,10 @@ const Navigation = (): ReactElement | null => {
                 <div
                     className={`tw
                         absolute
-                        top-[230px]
-                        left-[50px]
-                        w-[230px]
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                        top-[130px]
+                        right-[30px]
+                        w-[270px]
+                        z-50
                     `}
                 >
                     <NavigationLinks />
