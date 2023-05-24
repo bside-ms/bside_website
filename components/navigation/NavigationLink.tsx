@@ -16,7 +16,7 @@ const NavigationLink = ({ children, href }: Props): ReactElement => {
 
     const isActivePage = pathname === href;
 
-    const handleClick = useCallback((event: SyntheticEvent<HTMLDivElement>) => {
+    const handleClick = useCallback((event: SyntheticEvent<HTMLSpanElement>) => {
 
         event.preventDefault();
         event.stopPropagation();
@@ -27,14 +27,13 @@ const NavigationLink = ({ children, href }: Props): ReactElement => {
     }, [isActivePage, toggleNavigation]);
 
     return (
-        <div className="text-[30px] leading-[1.1] text-white font-serif" onClick={handleClick}>
-            <span
-                className="cursor-default md:cursor-pointer whitespace-nowrap"
-                style={{ fontStyle: isActivePage ? 'italic' : '' }}
-            >
-                {isActivePage ? children : <Link href={href}>{children}</Link>}
-            </span>
-        </div>
+        <span
+            className="text-[30px] leading-[1.1] text-white font-serif cursor-default md:cursor-pointer whitespace-nowrap"
+            style={{ fontStyle: isActivePage ? 'italic' : '' }}
+            onClick={handleClick}
+        >
+            {isActivePage ? children : <Link href={href}>{children}</Link>}
+        </span>
     );
 };
 
