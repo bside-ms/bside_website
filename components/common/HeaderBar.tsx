@@ -35,8 +35,14 @@ const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = 
                     <div>
                         <div className="p-4 flex justify-between relative">
                             <div
-                                className="absolute top-0 left-0 border-[48px] md:border-[58px] border-transparent transition-all duration-200"
+                                className="absolute top-0 left-0 border-[50px] md:border-[60px] border-transparent transition-all duration-200"
                                 style={onlyWithBurgerMenu ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
+                            />
+
+                            {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
+                            <div
+                                className="hidden md:block absolute top-0 -left-[120px] md:border-[60px] border-transparent transition-all duration-200"
+                                style={onlyWithBurgerMenu ? undefined : { borderTopColor: 'white', borderRightColor: 'white' }}
                             />
 
                             <div
@@ -62,7 +68,13 @@ const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = 
                             </div>
 
                             <div
-                                className="absolute top-0 right-0 border-[48px] md:border-[58px] border-white border-l-transparent border-b-transparent transition-all duration-200"
+                                className="absolute top-0 right-0 border-[50px] md:border-[60px] border-white border-l-transparent border-b-transparent transition-all duration-200"
+                            />
+
+                            {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
+                            <div
+                                className="hidden md:block absolute top-0 -right-[120px] md:border-[60px] border-transparent transition-all duration-200"
+                                style={onlyWithBurgerMenu ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
                             />
                         </div>
                     </div>
