@@ -1,19 +1,7 @@
-const redirects = require('./lib/redirect/redirect')
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-  disable: !isProduction(),
-});
+const redirects = require('./lib/redirect/redirect');
 
 /** @type {import('next').NextConfig} */
-const path = require('path');
-
-function isProduction() {
-  return process.env.NODE_ENV === 'production';
-}
-
-const nextConfig = withPWA({
+const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
@@ -34,6 +22,6 @@ const nextConfig = withPWA({
   output: 'standalone',
 
   redirects,
-});
+};
 
 module.exports = nextConfig;
