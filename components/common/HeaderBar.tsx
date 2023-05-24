@@ -29,14 +29,18 @@ const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = 
     return (
         <>
             <div
-                className="fixed top-0 left-0 right-0 z-10 transition-colors duration-200"
-                style={onlyWithBurgerMenu ? undefined : { backgroundColor: 'white' }}
+                className="fixed top-0 left-0 right-0 z-10"
             >
                 <div className="lg:w-[60rem] lg:mx-auto">
                     <div>
-                        <div className="p-4 flex justify-between">
+                        <div className="p-4 flex justify-between relative">
                             <div
-                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200"
+                                className="absolute top-0 left-0 border-[48px] md:border-[58px] border-transparent transition-all duration-200"
+                                style={onlyWithBurgerMenu ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
+                            />
+
+                            <div
+                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200 z-20"
                                 style={onlyWithBurgerMenu ? { opacity: 0 } : { opacity: '100%' }}
                                 onClick={handleClickOnHeart}
                             >
@@ -51,11 +55,15 @@ const HeaderBar = ({ onlyWithBurgerMenu = false, onlyHeader = false, mainMenu = 
                             </div>
 
                             <div
-                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500"
+                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 z-20"
                                 onClick={toggleNavigation}
                             >
                                 <BurgerHeart />
                             </div>
+
+                            <div
+                                className="absolute top-0 right-0 border-[48px] md:border-[58px] border-white border-l-transparent border-b-transparent transition-all duration-200"
+                            />
                         </div>
                     </div>
                 </div>
