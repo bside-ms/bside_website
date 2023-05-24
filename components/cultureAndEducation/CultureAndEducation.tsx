@@ -1,6 +1,7 @@
 import { nextWednesday } from 'date-fns';
 import { range } from 'lodash';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { ReactElement } from 'react';
 import ContentWrapper from 'components/common/ContentWrapper';
 import NextEvents from 'components/events/NextEvents';
@@ -11,13 +12,28 @@ interface Props {
     events: Array<Event>;
 }
 
+interface WorkingGroup {
+    name: string;
+    color: string;
+}
+
+const workingGroups = new Array<WorkingGroup>(
+    { name: 'Booking', color: '#e72323' },
+    { name: 'B-Side Festival', color: '#f1760d' },
+    { name: 'Faltenrock', color: '#d51cce' },
+    { name: 'KuBi', color: '#6f36ee' },
+    { name: 'Ausstellungen', color: '#065088' },
+    { name: 'B-Side Funk', color: '#1e5675' },
+    { name: 'Luftruinen Festival', color: '#246726' },
+);
+
 const CultureAndEducation = ({ events }: Props): ReactElement => {
 
     return (
         <>
             <ContentWrapper>
                 <div className="w-full h-52 md:h-64 relative">
-                    <Image src="assets/stickFigures/artists.svg" alt="artists" fill={true} />
+                    <Image src="/assets/stickFigures/artists.svg" alt="artists" fill={true} objectFit="contain" />
                 </div>
 
                 <div className="font-serif text-white bg-black mt-4 text-2xl text-center p-3">
@@ -36,7 +52,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
 
                 <div className="mt-6 flex justify-end">
                     <div className="h-36 md:h-44 relative w-2/3 md:w-2/5">
-                        <Image src="assets/stickFigures/musicians.svg" alt="musicians" fill={true} />
+                        <Image src="/assets/stickFigures/musicians.svg" alt="musicians" fill={true} objectFit="contain" />
                     </div>
                 </div>
 
@@ -56,7 +72,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
                 {range(100).map(() => 'Hinweis | ')}
             </div>
 
-            <div className="mt-5 bg-black text-white">
+            <div className="mt-16 bg-black text-white">
                 <ContentWrapper>
                     <div className="font-serif text-2xl text-center py-2">
                         Von Vielen für Viele
@@ -81,7 +97,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
             </div>
 
             <ContentWrapper>
-                <div className="mt-8">
+                <div className="mt-16">
                     <div className="font-serif text-2xl text-center">
                         Arbeitskreise & Mitgliederversammlung
                     </div>
@@ -106,12 +122,20 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
                 </div>
             </ContentWrapper>
 
-            <NextEvents
-                title="Veranstaltungen des Kultur&nbsp;e.V.s"
-                events={events}
-            />
+            <ContentWrapper>
+                <NextEvents
+                    title="Veranstaltungen des Kultur&nbsp;e.V.s"
+                    events={events}
+                />
+            </ContentWrapper>
 
-            <div className="bg-black text-white">
+            <div className="mt-[90px] bg-black text-white relative">
+                <div className="absolute right-0 -top-[80px] w-[170px] h-[80px]">
+                    <div className="relative w-full h-full">
+                        <Image src="/assets/stickFigures/withDog.svg" alt="artists" fill={true} objectFit="contain" />
+                    </div>
+                </div>
+
                 <ContentWrapper>
                     <div className="font-serif text-2xl text-center py-2">
                         Die Rolle im Haus
@@ -139,6 +163,57 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
                     </div>
                 </ContentWrapper>
             </div>
+
+            <ContentWrapper>
+                <div className="mt-12">
+                    <div className="border-4 border-black">
+                        <div className="font-serif bg-black text-white text-center p-3">
+                            Alle Arbeitskreise des Kultur e.V.s
+                        </div>
+
+                        <div>
+                            {workingGroups.map(({ name, color }) => (
+                                <div
+                                    key={name}
+                                    className="group relative flex justify-between items-center px-4 py-1 border-b border-gray-300 last:border-none cursor-pointer"
+                                    // eslint-disable-next-line react/jsx-no-bind
+                                    onClick={(): void => alert('Coming soon...')}
+                                >
+                                    <div className="font-bold z-20 group-hover:text-white transition-all duration-100">{name}</div>
+
+                                    <div
+                                        className="absolute top-0 right-0 bottom-0 left-0 opacity-0 group-hover:opacity-100 transition-all duration-100"
+                                        style={{ backgroundColor: color }}
+                                    />
+
+                                    <div className="text-sm z-20 group-hover:text-white transition-all duration-100">» mehr</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-10">
+                    <div className="font-serif text-2xl text-center py-2">
+                        Unterstützen
+                    </div>
+
+                    <div>
+                        Der B-Side Kultur e.V. freut sich über tatkräftige Unterstützung. Komm gerne zum Kultur-Plenum,
+                        um dich innerhalb seiner Strukturen zu engagieren. Wenn du zu wenig Zeit hast, dich ehrenamtlich
+                        einzubringen, kannst du die Vereinsaktivitäten auch mit einer Fördermitgliedschaft oder Spenden
+                        unterstützen. Für weitere Informationen, schreib uns gerne
+                        an <Link href="mailto:kultur@b-side.ms" className="font-bold cursor-pointer">kultur@b-side.ms</Link>.
+                    </div>
+                </div>
+
+                <div className="mt-12">
+                    <button className="w-full cursor-pointer bg-black text-center py-3 px-5 font-serif text-lg font-bold text-white">
+                        Download Satzung & Rechtliches
+                    </button>
+                </div>
+
+            </ContentWrapper>
         </>
     );
 };
