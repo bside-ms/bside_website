@@ -19,12 +19,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     return {
         revalidate: 60,
         props: {
-
-            events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs ?? [],
-            mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
+            events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs,
+            mainMenu: await getPayloadResponse<MainMenu>('/api/globals/main-menu/'),
         },
     };
-
 };
 
 export default ({ events, mainMenu }: Props): ReactElement => {

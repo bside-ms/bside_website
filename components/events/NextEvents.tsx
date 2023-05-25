@@ -31,11 +31,12 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick
 };
 
 interface Props {
+    title?: string;
     events: Array<Event>;
     px?: boolean;
 }
 
-const NextEvents = ({ events: allEvents, px = false }: Props): ReactElement => {
+const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false }: Props): ReactElement => {
 
     const [filteredEventType, setFilteredEventType] = useState<EventType | null>(null);
 
@@ -44,11 +45,11 @@ const NextEvents = ({ events: allEvents, px = false }: Props): ReactElement => {
     const eventsGroupedByDay = useMemo(() => {
 
         return allEvents
-            // .filter(event => filteredEventType === null || event.type === filteredEventType)
             .sort((eventA, eventB) => isBefore(new Date(eventA.eventDate), new Date(eventB.eventDate)) ? -1 : 1)
             .reduce<Array<[Date, Array<Event>]>>(
                 (currentEventsGroupedByDay, event) => {
                     let foundDate = false;
+
                     currentEventsGroupedByDay.forEach(
                         ([date, events]) => {
                             if (isSameDay(date, new Date(event.eventDate))) {
@@ -72,7 +73,7 @@ const NextEvents = ({ events: allEvents, px = false }: Props): ReactElement => {
     return (
         <ContentWrapper px={px}>
             <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
-                Nächste Veranstaltungen
+                {title}
             </div>
 
             <div className="md:text-lg">

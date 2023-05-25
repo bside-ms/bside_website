@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
-import { getFullClientUrl } from '../../lib/url';
+import { getFullClientUrl } from '@/lib/common/url';
 
 const NextHead = (): ReactElement => {
 

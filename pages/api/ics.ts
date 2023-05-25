@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Event } from '@/types/payload/payload-types';
@@ -9,34 +10,35 @@ const createIcsFile = (event: Event): string => {
 
     let ics =
         // Calendar
-        'BEGIN:VCALENDAR\r\n' +
-        'VERSION:2.0\r\n' +
-        'PRODID:-//B-Side//DE\r\n' +
-        'CALSCALE:GREGORIAN\r\n' +
-
+        `BEGIN:VCALENDAR\r\n
+        VERSION:2.0\r\n
+        PRODID:-//B-Side//DE\r\n
+        CALSCALE:GREGORIAN\r\n
+        ` +
         // Time Zone Information
-        'BEGIN:VTIMEZONE\r\n' +
-        'TZID:Europe/Berlin\r\n' +
-        'TZURL:http://tzurl.org/zoneinfo-outlook/Europe/Berlin\r\n' +
-        'X-LIC-LOCATION:Europe/Berlin\r\n' +
-        'BEGIN:DAYLIGHT\r\n' +
-        'TZOFFSETFROM:+0100\r\n' +
-        'TZOFFSETTO:+0200\r\n' +
-        'TZNAME:CEST\r\n' +
-        'DTSTART:19700329T020000\r\n' +
-        'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\r\n' +
-        'END:DAYLIGHT\r\n' +
-        'BEGIN:STANDARD\r\n' +
-        'TZOFFSETFROM:+0200\r\n' +
-        'TZOFFSETTO:+0100\r\n' +
-        'TZNAME:CET\r\n' +
-        'DTSTART:19701025T030000\r\n' +
-        'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\r\n' +
-        'END:STANDARD\r\n' +
-        'END:VTIMEZONE\r\n' +
-
+        `BEGIN:VTIMEZONE\r\n
+        TZID:Europe/Berlin\r\n
+        TZURL:http://tzurl.org/zoneinfo-outlook/Europe/Berlin\r\n
+        X-LIC-LOCATION:Europe/Berlin\r\n
+        BEGIN:DAYLIGHT\r\n
+        TZOFFSETFROM:+0100\r\n
+        TZOFFSETTO:+0200\r\n
+        TZNAME:CEST\r\n
+        DTSTART:19700329T020000\r\n
+        RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\r\n
+        END:DAYLIGHT\r\n
+        BEGIN:STANDARD\r\n
+        TZOFFSETFROM:+0200\r\n
+        TZOFFSETTO:+0100\r\n
+        TZNAME:CET\r\n
+        DTSTART:19701025T030000\r\n
+        RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\r\n
+        END:STANDARD\r\n
+        END:VTIMEZONE\r\n
+        ` +
         // Event
-        'BEGIN:VEVENT\r\n';
+        `BEGIN:VEVENT\r\n
+    `;
 
     const eventEnd = new Date(event.eventDate);
     eventEnd.setDate(eventEnd.getDate() + 1);
@@ -46,7 +48,7 @@ const createIcsFile = (event: Event): string => {
 
     const update = `${formatDate(event.updatedAt, 'yyyyMMdd')}T${formatDate(event.updatedAt, 'HHmmss')}`;
 
-    if (event.eventEnd) {
+    if (isNotEmptyString(event.eventEnd)) {
         start = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventStart, 'HHmmss')}`;
         end = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}`;
     }
@@ -69,10 +71,11 @@ const createIcsFile = (event: Event): string => {
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-    const { eventId } = req.query;
+
+    const { eventId } = req.query as { eventId?: string };
 
     try {
-        if (isEmptyString(eventId as string)) {
+        if (isEmptyString(eventId)) {
             throw new Error('Event not found.');
         }
 
@@ -98,4 +101,3 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
             );
     }
 };
-

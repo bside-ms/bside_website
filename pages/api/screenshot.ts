@@ -1,21 +1,20 @@
-// eslint-disable-next-line simple-import-sort/imports
 import type { NextApiRequest, NextApiResponse } from 'next';
-
 import * as puppeteer from 'puppeteer';
-import { isValidBsideUrl } from '../../lib/url';
+import extractErrorMessage from '@/lib/common/helper/extractErrorMessage';
+import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
+import { isValidBsideUrl } from '@/lib/common/url';
 
-async function getBrowserInstance(): Promise<puppeteer.Browser> {
-    return puppeteer.launch({
-        args: ['--no-sandbox'],
-        headless: 'new',
-        defaultViewport: {
-            width: 1200,
-            height: 600,
-        },
-    });
-}
+const getBrowserInstance = async (): Promise<puppeteer.Browser> => puppeteer.launch({
+    args: ['--no-sandbox'],
+    headless: 'new',
+    defaultViewport: {
+        width: 1200,
+        height: 600,
+    },
+});
 
-async function takeScreenshot(url: string): Promise<Buffer> {
+const takeScreenshot = async (url: string): Promise<Buffer | null> => {
+
     let browser = null;
 
     try {
@@ -25,10 +24,16 @@ async function takeScreenshot(url: string): Promise<Buffer> {
 
         await page.goto(url);
 
-        // Dismiss the Save-Event banner
+        // Dismiss the save event banner
         if (url.includes('/events/')) {
             await page.evaluate(() => {
-                (document.querySelector('#ical-link')! as HTMLElement).style.display = 'none';
+                const icalLinkElement = document.getElementById('ical-link');
+
+                if (icalLinkElement === null) {
+                    return;
+                }
+
+                icalLinkElement.style.display = 'none';
             });
         }
 
@@ -41,14 +46,16 @@ async function takeScreenshot(url: string): Promise<Buffer> {
             await browser.close();
         }
     }
-}
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-    const { query } = req;
-    const url = query.url as string;
+    return null;
+};
+
+export default async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
+
+    const { url } = request.query as { url?: string };
 
     try {
-        if (url && isValidBsideUrl(url)) {
+        if (isNotEmptyString(url) && isValidBsideUrl(url)) {
             const screenshot = await takeScreenshot(url);
             const maxAge = 60 * 60 * 24;
 
@@ -56,17 +63,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 throw new Error('Screenshot could not be generated.');
             }
 
-            res.setHeader('Cache-Control', `max-age=${maxAge}, public`);
-            res.setHeader('Content-Type', 'image/png');
-            res.status(200).send(screenshot);
+            response.setHeader('Cache-Control', `max-age=${maxAge}, public`);
+            response.setHeader('Content-Type', 'image/png');
+            response.status(200).send(screenshot);
         } else {
             throw new Error(
-                'Either the url parameter wasn\'t passed of the URL is not allowed to be screenshotted.'
+                'Either the URL parameter wasn\'t passed or the URL is not allowed to be screenshot.'
             );
         }
     } catch (error) {
-        res.status(500).send(JSON.stringify((error as Error).message));
+
+        const errorMessage = extractErrorMessage(error);
+
+        response.status(500).send(errorMessage);
     }
 
-    res.status(500);
-}
+    response.status(500);
+};

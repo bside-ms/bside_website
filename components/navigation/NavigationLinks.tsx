@@ -4,7 +4,7 @@ import NavigationLink from 'components/navigation/NavigationLink';
 const NavigationLinks = (): ReactElement => {
 
     return (
-        <div className="flex flex-col items-end gap-5">
+        <div className="flex flex-col items-end gap-7 text-right">
             <NavigationLink href="/">
                 Start
             </NavigationLink>
@@ -15,6 +15,10 @@ const NavigationLinks = (): ReactElement => {
 
             <NavigationLink href="/haus">
                 Die B-Side
+            </NavigationLink>
+
+            <NavigationLink href="/kultur-und-bildung">
+                Kultur & Bildung
             </NavigationLink>
 
             <NavigationLink href="/kontakt">
