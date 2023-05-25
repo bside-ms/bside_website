@@ -2,7 +2,7 @@ import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import { useInView } from 'react-intersection-observer';
+import Banner from '@/components/common/Banner';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/common/HeaderBar';
@@ -83,38 +83,28 @@ export default ({
     event,
     eventImage,
 }: Props): ReactElement => {
-     
+
     if (!event) {
         return (
             <main className="min-h-screen flex flex-col justify-between" />
         );
     }
 
-    const { ref: startPosRef, inView: startPos } = useInView({ initialInView: true });
-    const { ref: footerPosRef, inView: footerPos } = useInView({ initialInView: true });
-
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <div ref={startPosRef} />
 
             <Navigation />
 
-            <HeaderBar />
-
             {isEmptyString(event.eventEnd) ? '' : (
-                <div
-                    id="ical-link"
-                    className="fixed bottom-3 left-3 right-3 lg:left-60 lg:right-60 z-10 bg-black py-2 text-center transition-opacity duration-100"
-                    style={startPos && !footerPos ? { opacity: 1 } : { opacity: 0 }}
-                >
-                    <a
-                        href={`/api/ics/?eventId=${event.id}`}
-                        className="text-white font-serif text-sm lg:text-lg hover:bg-orange-600"
-                    >
-                        Veranstaltung in meinen Kalender eintragen!
-                    </a>
-                </div>
+                <Banner
+                    bannerId="ical-link"
+                    bannerLink={`/api/ics/?eventId=${event.id}`}
+                    bannerText="Veranstaltung in meinen Kalender eintragen!"
+                    sticky={true}
+                />
             )}
+
+            <HeaderBar banner={!isEmptyString(event.eventEnd)} />
 
             <ContentWrapper>
                 <div className="mb-2 md:mb-3">
@@ -179,8 +169,6 @@ export default ({
                         &lt;- Zurück zur Übersicht
                     </Link>
                 </div>
-
-                <div ref={footerPosRef} />
             </ContentWrapper>
 
             <Footer />

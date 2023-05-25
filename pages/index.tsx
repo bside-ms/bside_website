@@ -40,8 +40,8 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             <Navigation />
 
             <HeaderBar
-                onlyWithBurgerMenu={isImageContainerInView}
-                onlyHeader={isHeaderInView}
+                leftLogo={isImageContainerInView}
+                headerMenu={isHeaderInView}
                 mainMenu={mainMenu}
             />
 
