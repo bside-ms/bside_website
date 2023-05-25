@@ -29,25 +29,25 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined 
     return (
         <>
             <div
-                className="fixed top-0 left-0 right-0 z-10"
+                className="sticky top-0 left-0 right-0 z-10"
             >
                 <div className="lg:w-[60rem] lg:mx-auto">
                     <div>
                         <div className="p-4 flex justify-between relative">
                             <div
                                 className="absolute top-0 left-0 border-[50px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={onlyWithBurgerMenu ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
+                                style={leftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
                             />
 
                             {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
                             <div
                                 className="hidden md:block absolute top-0 -left-[120px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={onlyWithBurgerMenu ? undefined : { borderTopColor: 'white', borderRightColor: 'white' }}
+                                style={leftLogo ? undefined : { borderTopColor: 'white', borderRightColor: 'white' }}
                             />
 
                             <div
                                 className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200 z-20"
-                                style={onlyWithBurgerMenu ? { opacity: 0 } : { opacity: '100%' }}
+                                style={leftLogo ? { opacity: 0 } : { opacity: '100%' }}
                                 onClick={handleClickOnHeart}
                             >
                                 <Heart />
@@ -55,7 +55,7 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined 
 
                             <div
                                 className="hidden lg:block text-center justify-center transition-none"
-                                style={onlyHeader ? undefined : { display: 'none' }}
+                                style={headerMenu ? undefined : { display: 'none' }}
                             >
                                 <HeaderMenuItems mainMenu={mainMenu} />
                             </div>
@@ -74,7 +74,7 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined 
                             {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
                             <div
                                 className="hidden md:block absolute top-0 -right-[120px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={onlyWithBurgerMenu ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
+                                style={leftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
                             />
                         </div>
                     </div>
@@ -82,7 +82,7 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined 
             </div>
 
             {/* Just a placeholder for the navigation */}
-            {!onlyWithBurgerMenu && <div className="h-12" />}
+            {!leftLogo && <div className="h-12" />}
         </>
     );
 };
