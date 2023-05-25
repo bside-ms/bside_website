@@ -11,9 +11,10 @@ interface Props {
     leftLogo?: boolean;
     headerMenu?: boolean;
     mainMenu?: MainMenu;
+    banner?: boolean;
 }
 
-const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined }: Props): ReactElement => {
+const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined, banner = false }: Props): ReactElement => {
 
     const { toggleNavigation } = useAppContext();
 
@@ -29,7 +30,7 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined 
     return (
         <>
             <div
-                className="sticky top-0 left-0 right-0 z-10"
+                className={`fixed top-${banner ? '[44px]' : '0'} left-0 right-0 z-10`}
             >
                 <div className="lg:w-[60rem] lg:mx-auto">
                     <div>

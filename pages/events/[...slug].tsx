@@ -100,10 +100,11 @@ export default ({
                     bannerId="ical-link"
                     bannerLink={`/api/ics/?eventId=${event.id}`}
                     bannerText="Veranstaltung in meinen Kalender eintragen!"
+                    sticky={true}
                 />
             )}
 
-            <HeaderBar />
+            <HeaderBar banner={!isEmptyString(event.eventEnd)} />
 
             <ContentWrapper>
                 <div className="mb-2 md:mb-3">
