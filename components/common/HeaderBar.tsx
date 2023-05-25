@@ -30,7 +30,8 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined,
     return (
         <>
             <div
-                className={`fixed top-${banner ? '[44px]' : '0'} left-0 right-0 z-10`}
+                className="fixed top-0 left-0 right-0 z-10"
+                style={!banner ? undefined : { top: '44px' }}
             >
                 <div className="lg:w-[60rem] lg:mx-auto">
                     <div>
