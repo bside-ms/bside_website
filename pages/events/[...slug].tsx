@@ -18,7 +18,7 @@ import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event, Media as MediaType } from 'types/payload/payload-types';
 
 interface Props {
-    event: Event;
+    event?: Event;
     eventImage: MediaType | string | null;
 }
 
@@ -80,19 +80,15 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 };
 
 export default ({
-    event: {
-        id,
-        title,
-        richText,
-        eventDate,
-        eventStart,
-        eventEnd,
-        eventExtra,
-        eventLocation,
-        eventOrganizer,
-    },
+    event,
     eventImage,
 }: Props): ReactElement => {
+     
+    if (!event) {
+        return (
+            <main className="min-h-screen flex flex-col justify-between" />
+        );
+    }
 
     const { ref: startPosRef, inView: startPos } = useInView({ initialInView: true });
     const { ref: footerPosRef, inView: footerPos } = useInView({ initialInView: true });
@@ -105,14 +101,14 @@ export default ({
 
             <HeaderBar />
 
-            {isNotEmptyString(eventEnd) && (
+            {isEmptyString(event.eventEnd) ? '' : (
                 <div
                     id="ical-link"
                     className="fixed bottom-3 left-3 right-3 lg:left-60 lg:right-60 z-10 bg-black py-2 text-center transition-opacity duration-100"
                     style={startPos && !footerPos ? { opacity: 1 } : { opacity: 0 }}
                 >
                     <a
-                        href={`/api/ics/?eventId=${id}`}
+                        href={`/api/ics/?eventId=${event.id}`}
                         className="text-white font-serif text-sm lg:text-lg hover:bg-orange-600"
                     >
                         Veranstaltung in meinen Kalender eintragen!
@@ -124,55 +120,55 @@ export default ({
                 <div className="mb-2 md:mb-3">
                     {eventImage !== null && (
                         <EventImage
-                            eventTitle={title}
+                            eventTitle={event.title}
                             eventImage={eventImage}
                         />
                     )}
 
                     <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                         <span className="sm:text-lg">
-                            {formatDate(eventDate, 'EE dd. MMM')}
+                            {formatDate(event.eventDate, 'EE dd. MMM')}
                         </span>
 
                         <span className="sm:text-lg">
-                            {formatDate(eventStart, 'HH:mm' + ' ')}
+                            {formatDate(event.eventStart, 'HH:mm' + ' ')}
 
-                            {isNotEmptyString(eventEnd) && `- ${formatDate(eventEnd, 'HH:mm')} `}
+                            {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')} `}
                         </span>
                     </div>
 
-                    {isNotEmptyString(eventExtra) && (
+                    {isNotEmptyString(event.eventExtra) && (
                         <>
-                            <div key={id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                                {eventExtra}
+                            <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+                                {event.eventExtra}
                             </div>
 
                             <hr className="w-1/3 mx-auto border-1 border-black" />
                         </>
                     )}
 
-                    <div key={id} className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                        {eventLocation}
+                    <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+                        {event.eventLocation}
                     </div>
 
                     <div className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif">
                         <span className="text-lg sm:text-2xl font-bold">
-                            {title}
+                            {event.title}
                         </span>
                     </div>
 
                     <div className="mt-2 sm:text-lg md:mt-4">
-                        {serializeRichTextToHtml(richText)}
+                        {serializeRichTextToHtml(event.richText)}
                     </div>
 
-                    {isNotEmptyString(eventOrganizer) && (
+                    {isNotEmptyString(event.eventOrganizer) && (
                         <>
                             <div className="mt-2 sm:text-lg md:mt-4 font-bold">
                                 Veranstaltet von:
                             </div>
 
                             <div className="sm:text-lg">
-                                {eventOrganizer}
+                                {event.eventOrganizer}
                             </div>
                         </>
                     )}
