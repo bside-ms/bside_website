@@ -24,7 +24,7 @@ interface Props {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
+    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100&');
 
     const paths = pages.docs.map(({ slug, id }) => ({
         params: {
@@ -74,7 +74,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         revalidate: 60,
         props: {
             event: page,
-            eventImage: page.general.eventImage ?? null,
+            eventImage: page.eventImage ?? null,
         },
     };
 };
@@ -95,7 +95,7 @@ export default ({
 
             <Navigation />
 
-            {isEmptyString(event.event.eventEnd) ? '' : (
+            {isEmptyString(event.eventEnd) ? '' : (
                 <Banner
                     bannerId="ical-link"
                     bannerLink={`/api/ics/?eventId=${event.id}`}
@@ -104,33 +104,33 @@ export default ({
                 />
             )}
 
-            <HeaderBar banner={!isEmptyString(event.event.eventEnd)} />
+            <HeaderBar banner={!isEmptyString(event.eventEnd)} />
 
             <ContentWrapper>
                 <div className="mb-2 md:mb-3">
                     {eventImage !== null && (
                         <EventImage
-                            eventTitle={event.general.title}
+                            eventTitle={event.title}
                             eventImage={eventImage}
                         />
                     )}
 
                     <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                         <span className="sm:text-lg">
-                            {formatDate(event.event.eventDate, 'EE dd. MMM')}
+                            {formatDate(event.eventDate, 'EE dd. MMM')}
                         </span>
 
                         <span className="sm:text-lg">
-                            {formatDate(event.event.eventStart, 'HH:mm' + ' ')}
+                            {formatDate(event.eventStart, 'HH:mm' + ' ')}
 
-                            {isNotEmptyString(event.event.eventEnd) && `- ${formatDate(event.event.eventEnd, 'HH:mm')} `}
+                            {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')} `}
                         </span>
                     </div>
 
-                    {isNotEmptyString(event.details.eventExtra) && (
+                    {isNotEmptyString(event.eventExtra) && (
                         <>
                             <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                                {event.details.eventExtra}
+                                {event.eventExtra}
                             </div>
 
                             <hr className="w-1/3 mx-auto border-1 border-black" />
@@ -138,27 +138,27 @@ export default ({
                     )}
 
                     <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                        {event.event.eventLocation}
+                        {event.eventLocation}
                     </div>
 
                     <div className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif">
                         <span className="text-lg sm:text-2xl font-bold">
-                            {event.general.title}
+                            {event.title}
                         </span>
                     </div>
 
                     <div className="mt-2 sm:text-lg md:mt-4">
-                        {serializeRichTextToHtml(event.general.richText)}
+                        {serializeRichTextToHtml(event.richText)}
                     </div>
 
-                    {isNotEmptyString(event.details.eventOrganizer) && (
+                    {isNotEmptyString(event.eventOrganizer) && (
                         <>
                             <div className="mt-2 sm:text-lg md:mt-4 font-bold">
                                 Veranstaltet von:
                             </div>
 
                             <div className="sm:text-lg">
-                                {event.details.eventOrganizer}
+                                {event.eventOrganizer}
                             </div>
                         </>
                     )}

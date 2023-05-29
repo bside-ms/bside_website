@@ -9,9 +9,9 @@ import NextEvents from '@/components/events/NextEvents';
 import ContactTeaser from '@/components/frontPage/ContactTeaser';
 import HouseHero from '@/components/frontPage/HouseHero';
 import Navigation from '@/components/navigation/Navigation';
+import { getUpcomingEvents } from '@/lib/events';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
-import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Event, MainMenu } from '@/types/payload/payload-types';
 
 interface Props {
@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
         props: {
-            events: (await getPayloadResponse<PaginatedDocs<Event>>('/api/events/')).docs,
+            events: await getUpcomingEvents(),
             mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
         },
     };

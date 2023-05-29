@@ -34,25 +34,25 @@ END:STANDARD\r\n
 END:VTIMEZONE\r\n
 BEGIN:VEVENT\r\n`;
 
-    const eventEnd = new Date(event.event.eventDate);
+    const eventEnd = new Date(event.eventDate);
     eventEnd.setDate(eventEnd.getDate() + 1);
 
-    let start = formatDate(event.event.eventDate, 'yyyyMMdd');
-    let end = formatDate(event.event.eventDate, 'yyyyMMdd');
+    let start = formatDate(event.eventDate, 'yyyyMMdd');
+    let end = formatDate(event.eventDate, 'yyyyMMdd');
 
     const update = `${formatDate(event.updatedAt, 'yyyyMMdd')}T${formatDate(event.updatedAt, 'HHmmss')}`;
 
-    if (isNotEmptyString(event.event.eventEnd)) {
-        start = `${formatDate(event.event.eventDate, 'yyyyMMdd')}T${formatDate(event.event.eventStart, 'HHmmss')}`;
-        end = `${formatDate(event.event.eventDate, 'yyyyMMdd')}T${formatDate(event.event.eventEnd, 'HHmmss')}`;
+    if (isNotEmptyString(event.eventEnd)) {
+        start = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventStart, 'HHmmss')}`;
+        end = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}`;
     }
 
     ics = ics.concat(`DTSTART;TZID=Europe/Berlin:${start}\r\n`);
     ics = ics.concat(`DTEND;TZID=Europe/Berlin:${end}\r\n`);
     ics = ics.concat(`DTSTAMP;TZID=Europe/Berlin:${update}\r\n`);
 
-    ics = ics.concat(`SUMMARY:${event.general.title}\r\n`);
-    ics = ics.concat(`LOCATION:${event.event.eventLocation}\r\n`);
+    ics = ics.concat(`SUMMARY:${event.title}\r\n`);
+    ics = ics.concat(`LOCATION:${event.eventLocation}\r\n`);
 
     ics = ics.concat(`URL:https://b-side.ovh/events/${event.id}\r\n`);
     ics = ics.concat(`DESCRIPTION:https://b-side.ovh/events/${event.id}\r\n`);
