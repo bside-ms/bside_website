@@ -33,7 +33,13 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
         <>
             <ContentWrapper>
                 <div className="w-full h-52 md:h-64 relative">
-                    <Image src="/assets/stickFigures/artists.svg" alt="artists" fill={true} objectFit="contain" />
+                    <Image
+                        src="/assets/stickFigures/artists.svg"
+                        alt="artists"
+                        fill={true}
+                        className="object-contain"
+                        priority={true}
+                    />
                 </div>
 
                 <div className="font-serif text-white bg-black mt-4 text-2xl text-center p-3">
@@ -52,7 +58,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
 
                 <div className="mt-6 flex justify-end">
                     <div className="h-36 md:h-44 relative w-2/3 md:w-2/5">
-                        <Image src="/assets/stickFigures/musicians.svg" alt="musicians" fill={true} objectFit="contain" />
+                        <Image src="/assets/stickFigures/musicians.svg" alt="musicians" fill={true} className="object-contain" />
                     </div>
                 </div>
 
@@ -132,7 +138,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
             <div className="mt-[90px] bg-black text-white relative">
                 <div className="absolute right-0 -top-[80px] w-[170px] h-[80px]">
                     <div className="relative w-full h-full">
-                        <Image src="/assets/stickFigures/withDog.svg" alt="artists" fill={true} objectFit="contain" />
+                        <Image src="/assets/stickFigures/withDog.svg" alt="artists" fill={true} className="object-contain" />
                     </div>
                 </div>
 

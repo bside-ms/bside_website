@@ -42,7 +42,8 @@ const ParallaxScrollImage = ({ image, display, fade, scrollY }: ParallaxScrollIm
     return (
         <Image
             src={image.src}
-            style={{ opacity, objectFit: 'contain' }}
+            style={{ opacity }}
+            className="object-contain"
             fill={true}
             alt="B-Side"
             priority={true}

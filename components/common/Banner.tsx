@@ -11,8 +11,7 @@ const Banner = ({ bannerId, bannerText, bannerLink, sticky = false }: Props): Re
     return (
         <div
             id={bannerId}
-            className={`${sticky ? 'sticky' : ''} top-0 left-0 right-0 z-10 bg-black py-2 text-center transition-opacity duration-100`}
-            style={{ height: '44px' }}
+            className={`${sticky ? 'sticky' : ''} top-0 left-0 right-0 z-10 h-[44px] bg-black py-2 text-center transition-opacity duration-100`}
         >
             <a
                 href={bannerLink}

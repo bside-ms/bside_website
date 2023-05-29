@@ -28,8 +28,7 @@ const NavigationLink = ({ children, href }: Props): ReactElement => {
 
     return (
         <span
-            className="text-[30px] leading-[1.1] text-white font-serif cursor-default md:cursor-pointer whitespace-nowrap"
-            style={{ fontStyle: isActivePage ? 'italic' : '' }}
+            className={`text-[30px] leading-[1.1] text-white font-serif cursor-default md:cursor-pointer whitespace-nowrap ${isActivePage ? 'italic' : ''}`}
             onClick={handleClick}
         >
             {isActivePage ? children : <Link href={href}>{children}</Link>}
