@@ -45,14 +45,14 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
     const eventsGroupedByDay = useMemo(() => {
 
         return allEvents
-            .sort((eventA, eventB) => isBefore(new Date(eventA.eventDate), new Date(eventB.eventDate)) ? -1 : 1)
+            .sort((eventA, eventB) => isBefore(new Date(eventA.event.eventDate), new Date(eventB.event.eventDate)) ? -1 : 1)
             .reduce<Array<[Date, Array<Event>]>>(
                 (currentEventsGroupedByDay, event) => {
                     let foundDate = false;
 
                     currentEventsGroupedByDay.forEach(
                         ([date, events]) => {
-                            if (isSameDay(date, new Date(event.eventDate))) {
+                            if (isSameDay(date, new Date(event.event.eventDate))) {
                                 foundDate = true;
                                 events.push(event);
                             }
@@ -61,7 +61,7 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
 
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (!foundDate) {
-                        currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
+                        currentEventsGroupedByDay.push([new Date(event.event.eventDate), [event]]);
                     }
 
                     return currentEventsGroupedByDay;
@@ -106,8 +106,8 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
 
                             {events.map(event => (
                                 <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
-                                    <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
-                                    <div className="truncate flex-1">{event.title}</div>
+                                    <div className="w-14">{formatDate(new Date(event.event.eventStart), 'HH:mm')}</div>
+                                    <div className="truncate flex-1">{event.general.title}</div>
                                     <Link href={`/events/${event.slug ?? event.id}`} className="truncate">... mehr</Link>
                                 </div>
                             ))}

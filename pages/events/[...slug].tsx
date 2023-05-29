@@ -74,7 +74,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         revalidate: 60,
         props: {
             event: page,
-            eventImage: page.eventImage ?? null,
+            eventImage: page.general.eventImage ?? null,
         },
     };
 };
@@ -95,7 +95,7 @@ export default ({
 
             <Navigation />
 
-            {isEmptyString(event.eventEnd) ? '' : (
+            {isEmptyString(event.event.eventEnd) ? '' : (
                 <Banner
                     bannerId="ical-link"
                     bannerLink={`/api/ics/?eventId=${event.id}`}
@@ -104,33 +104,33 @@ export default ({
                 />
             )}
 
-            <HeaderBar banner={!isEmptyString(event.eventEnd)} />
+            <HeaderBar banner={!isEmptyString(event.event.eventEnd)} />
 
             <ContentWrapper>
                 <div className="mb-2 md:mb-3">
                     {eventImage !== null && (
                         <EventImage
-                            eventTitle={event.title}
+                            eventTitle={event.general.title}
                             eventImage={eventImage}
                         />
                     )}
 
                     <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                         <span className="sm:text-lg">
-                            {formatDate(event.eventDate, 'EE dd. MMM')}
+                            {formatDate(event.event.eventDate, 'EE dd. MMM')}
                         </span>
 
                         <span className="sm:text-lg">
-                            {formatDate(event.eventStart, 'HH:mm' + ' ')}
+                            {formatDate(event.event.eventStart, 'HH:mm' + ' ')}
 
-                            {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')} `}
+                            {isNotEmptyString(event.event.eventEnd) && `- ${formatDate(event.event.eventEnd, 'HH:mm')} `}
                         </span>
                     </div>
 
-                    {isNotEmptyString(event.eventExtra) && (
+                    {isNotEmptyString(event.details.eventExtra) && (
                         <>
                             <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                                {event.eventExtra}
+                                {event.details.eventExtra}
                             </div>
 
                             <hr className="w-1/3 mx-auto border-1 border-black" />
@@ -138,27 +138,27 @@ export default ({
                     )}
 
                     <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                        {event.eventLocation}
+                        {event.event.eventLocation}
                     </div>
 
                     <div className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif">
                         <span className="text-lg sm:text-2xl font-bold">
-                            {event.title}
+                            {event.general.title}
                         </span>
                     </div>
 
                     <div className="mt-2 sm:text-lg md:mt-4">
-                        {serializeRichTextToHtml(event.richText)}
+                        {serializeRichTextToHtml(event.general.richText)}
                     </div>
 
-                    {isNotEmptyString(event.eventOrganizer) && (
+                    {isNotEmptyString(event.details.eventOrganizer) && (
                         <>
                             <div className="mt-2 sm:text-lg md:mt-4 font-bold">
                                 Veranstaltet von:
                             </div>
 
                             <div className="sm:text-lg">
-                                {event.eventOrganizer}
+                                {event.details.eventOrganizer}
                             </div>
                         </>
                     )}
