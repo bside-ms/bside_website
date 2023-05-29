@@ -107,7 +107,7 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
 
             default:
                 return (
-                    <p key={index}>
+                    <p key={index} className="py-1">
                         {serializeRichTextToHtml(nodeChildren)}
                     </p>
                 );
