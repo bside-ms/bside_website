@@ -11,3 +11,12 @@ export const getUpcomingEvents = async (): Promise<Array<Event>> => {
 
     return (await getPayloadResponse<PaginatedDocs<Event>>(`/api/events/?where[eventDate][greater_than]=${formatDate(yesterday, 'yyyy-MM-dd')}`)).docs;
 };
+
+export const getPastEvents = async (): Promise<Array<Event>> => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+
+    return (await getPayloadResponse<PaginatedDocs<Event>>(`/api/events/?where[eventDate][less_than]=${formatDate(tomorrow, 'yyyy-MM-dd')}`)).docs;
+};

@@ -100,7 +100,7 @@ export default ({ page, mainMenu }: Props): ReactElement => {
             <Navigation />
 
             <HeaderBar
-                leftLogo={false}
+                disableLeftLogo={false}
                 headerMenu={true}
                 mainMenu={mainMenu}
             />

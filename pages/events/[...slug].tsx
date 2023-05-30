@@ -104,7 +104,10 @@ export default ({
                 />
             )}
 
-            <HeaderBar banner={!isEmptyString(event.eventEnd)} />
+            <HeaderBar
+                headerMenu={false}
+                banner={!isEmptyString(event.eventEnd)}
+            />
 
             <ContentWrapper>
                 <div className="mb-2 md:mb-3">

@@ -8,13 +8,13 @@ import BurgerHeart from 'components/svg/BurgerHeart';
 import Heart from 'components/svg/Heart';
 
 interface Props {
-    leftLogo?: boolean;
+    disableLeftLogo?: boolean;
     headerMenu?: boolean;
     mainMenu?: MainMenu;
     banner?: boolean;
 }
 
-const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined, banner = false }: Props): ReactElement => {
+const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, mainMenu = undefined, banner = false }: Props): ReactElement => {
 
     const { toggleNavigation } = useAppContext();
 
@@ -35,26 +35,26 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined,
                         <div className="p-4 flex justify-between relative">
                             <div
                                 className="absolute top-0 left-0 border-[50px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={leftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
+                                style={disableLeftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
                             />
 
                             {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
                             <div
                                 className="hidden md:block absolute top-0 -left-[120px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={leftLogo ? undefined : { borderTopColor: 'white', borderRightColor: 'white' }}
+                                style={disableLeftLogo ? undefined : { borderTopColor: 'white', borderRightColor: 'white' }}
                             />
 
                             <div
                                 className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200 z-20"
-                                style={leftLogo ? { opacity: 0 } : { opacity: '100%' }}
+                                style={disableLeftLogo ? { opacity: 0 } : { opacity: '100%' }}
                                 onClick={handleClickOnHeart}
                             >
                                 <Heart />
                             </div>
 
                             <div
-                                className="hidden lg:block text-center justify-center transition-none"
-                                style={headerMenu ? undefined : { display: 'none' }}
+                                className="hidden lg:block w-full -mt-[44px] border-t-white border-t-[50px] bg-white text-center justify-center transition-none"
+                                style={banner || headerMenu ? { display: 'none' } : undefined}
                             >
                                 <HeaderMenuItems mainMenu={mainMenu} />
                             </div>
@@ -73,7 +73,7 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined,
                             {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
                             <div
                                 className="hidden md:block absolute top-0 -right-[120px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={leftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
+                                style={disableLeftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
                             />
                         </div>
                     </div>
@@ -81,7 +81,7 @@ const HeaderBar = ({ leftLogo = false, headerMenu = false, mainMenu = undefined,
             </div>
 
             {/* Just a placeholder for the navigation */}
-            {!leftLogo && <div className="h-12" />}
+            {!disableLeftLogo && <div className="h-12" />}
         </>
     );
 };
