@@ -6,7 +6,7 @@ import HeaderBar from '@/components/common/HeaderBar';
 import NextEvents from '@/components/events/NextEvents';
 import Navigation from '@/components/navigation/Navigation';
 import { getUpcomingEvents } from '@/lib/events';
-import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import { getHeadNavigation } from '@/lib/navigation';
 import eventImage from '@/public/assets/veranstaltung.png';
 import type { Event, MainMenu } from '@/types/payload/payload-types';
 
@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         revalidate: 60,
         props: {
             events: await getUpcomingEvents(),
-            mainMenu: await getPayloadResponse<MainMenu>('/api/globals/main-menu/'),
+            mainMenu: await getHeadNavigation(),
         },
     };
 };

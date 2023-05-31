@@ -10,7 +10,7 @@ import ContactTeaser from '@/components/frontPage/ContactTeaser';
 import HouseHero from '@/components/frontPage/HouseHero';
 import Navigation from '@/components/navigation/Navigation';
 import { getUpcomingEvents } from '@/lib/events';
-import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import { getHeadNavigation } from '@/lib/navigation';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event, MainMenu } from '@/types/payload/payload-types';
 
@@ -22,9 +22,10 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async () => {
 
     return {
+        revalidate: 60,
         props: {
             events: await getUpcomingEvents(),
-            mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
+            mainMenu: await getHeadNavigation(),
         },
     };
 };
@@ -32,16 +33,15 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 export default ({ events, mainMenu }: Props): ReactElement => {
 
     const { ref: inViewImageRef, inView: isImageContainerInView } = useInView({ initialInView: true });
-    const { ref: inViewHeaderRef, inView: isHeaderInView } = useInView({ initialInView: true });
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <div ref={inViewHeaderRef} />
             <Navigation />
 
             <HeaderBar
                 disableLeftLogo={isImageContainerInView}
-                headerMenu={isHeaderInView}
+                headerMenu={true}
+                banner={false}
                 mainMenu={mainMenu}
             />
 

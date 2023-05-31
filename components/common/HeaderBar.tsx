@@ -54,7 +54,7 @@ const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, mainMenu = und
 
                             <div
                                 className="hidden lg:block w-full -mt-[44px] border-t-white border-t-[50px] bg-white text-center justify-center transition-none"
-                                style={banner || headerMenu ? { display: 'none' } : undefined}
+                                style={!banner && headerMenu ? undefined : { display: 'none' }}
                             >
                                 <HeaderMenuItems mainMenu={mainMenu} />
                             </div>

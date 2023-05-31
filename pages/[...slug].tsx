@@ -7,6 +7,7 @@ import HeaderBar from '@/components/common/HeaderBar';
 import Navigation from '@/components/navigation/Navigation';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import logger from '@/lib/common/logger';
+import { getHeadNavigation } from '@/lib/navigation';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
@@ -84,7 +85,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         revalidate: 60,
         props: {
             page,
-            mainMenu: (await getPayloadResponse<MainMenu>('/api/globals/main-menu/')),
+            mainMenu: await getHeadNavigation(),
         },
     };
 };
