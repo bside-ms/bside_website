@@ -23,8 +23,11 @@ const NextHead = (): ReactElement => {
             <meta name="mobile-web-app-capable" content="yes" />
 
             <link rel="manifest" href="/manifest.json" />
-            <link rel="apple-touch-icon" href="/favicon-512.png" />
+            <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
             <link rel="shortcut icon" href="/favicon.ico" />
+            <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+            <link rel="icon" type="image/png" href="/android-chrome-512x512.png" sizes="512x512" />
+            <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192" />
 
             <meta property="og:title" content={title} key="title" />
             <meta property="og:type" content="website" />
