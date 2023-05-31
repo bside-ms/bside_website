@@ -1,4 +1,4 @@
-import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { getHeadNavigation } from '@/lib/navigation';
 import Footer from 'components/common/Footer';
@@ -14,11 +14,11 @@ interface Props {
     mainMenu: MainMenu;
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (): Promise<GetServerSidePropsResult<Props>> => {
-
+export const getStaticProps: GetStaticProps<Props> = async () => {
     const events = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/');
 
     return {
+        revalidate: 60,
         props: {
             events: events.docs,
             mainMenu: await getHeadNavigation(),
