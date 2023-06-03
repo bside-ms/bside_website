@@ -37,26 +37,31 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             />
 
             <ContentWrapper>
-                <div className="mb-1 md:mb-3">
-                    <div className="font-bold font-serif text-2xl md:text-4xl">
-                        Vergangene Veranstaltungen
-                    </div>
-
-                    <div className="mt-1 text-md md:text-lg md:mt-3">
-                        Dies ist eine Übersicht über vergangene Veranstaltungen.
-                    </div>
-
-                    <div className="mt-1 text-md md:text-lg md:mt-3">
-                        Um aktuelle und kommende Veranstaltungen zu sehen, klicke folgenden Button:
-                    </div>
-
-                    <ButtonBig
-                        buttonText="Aktuelle Veranstaltungen"
-                        buttonLink="/events"
-                    />
-
-                    <NextEvents events={events} px={false} pastEvents={true} />
+                <div className="font-serif text-white bg-black mt-4 text-2xl text-center p-3">
+                    Vergangene Veranstaltungen
                 </div>
+
+                <div className="mt-1 text-md md:text-lg md:mt-3">
+                    Dies ist das Archiv für vergangene Veranstaltungen.
+                </div>
+
+                <div className="mt-1 text-md md:text-lg md:mt-3 md:mb-3">
+                    Aktuelle und kommende Veranstaltungen findest du hier:
+                </div>
+
+                <ButtonBig
+                    buttonText="Aktuelle Veranstaltungen"
+                    buttonLink="/events"
+                />
+            </ContentWrapper>
+
+            <ContentWrapper>
+                <NextEvents
+                    title="Vergangene Veranstaltungen"
+                    events={events}
+                    px={false}
+                    pastEvents={true}
+                />
             </ContentWrapper>
 
             <Footer />
