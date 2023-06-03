@@ -9,6 +9,19 @@ import type { Event } from 'types/payload/payload-types';
 
 type EventType = 'concert' | 'movie' | 'theatre';
 
+interface NoEventProps {
+    title?: string;
+    px?: boolean;
+}
+
+interface Props {
+    title?: string;
+    events: Array<Event>;
+    px?: boolean;
+    pastEvents?: boolean;
+    disableFilter?: boolean;
+}
+
 const eventTitles: Record<EventType, string> = {
     concert: 'Konzert',
     movie: 'Film',
@@ -31,13 +44,31 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick
     );
 };
 
-interface Props {
-    title?: string;
-    events: Array<Event>;
-    px?: boolean;
-    pastEvents?: boolean;
-    disableFilter?: boolean;
-}
+const NoNextEvents = ({ title = 'Nächste Veranstaltungen', px = false }: NoEventProps): ReactElement => {
+    return (
+        <ContentWrapper px={px}>
+            {!isEmptyString(title) ? (
+                <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
+                    {title}
+                </div>
+            ) : (<div />)}
+
+            <div className="md:text-lg">
+                <div>
+                    <div className="mb-2">
+                        <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
+                            Nichts gefunden!
+                        </div>
+
+                        <div className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
+                            <div className="w-full">Hier gibt es aktuell keine Termine.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ContentWrapper>
+    );
+};
 
 const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false, pastEvents = false, disableFilter = false }: Props): ReactElement => {
 
@@ -51,7 +82,11 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
             events.reverse();
         }
         return events;
-    }, [allEvents]);
+    }, [allEvents, pastEvents]);
+
+    if (allEvents.length === 0) {
+        return NoNextEvents({ title, px });
+    }
 
     return (
         <ContentWrapper px={px}>
