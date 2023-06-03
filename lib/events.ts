@@ -22,6 +22,18 @@ export const getPastEvents = async (): Promise<Array<Event>> => {
     return (await getPayloadResponse<PaginatedDocs<Event>>(`/api/events/?where[eventDate][less_than]=${formatDate(tomorrow, 'yyyy-MM-dd')}`)).docs;
 };
 
+export const filterForMeetings = (events: Array<Event>): Array<Event> => {
+    return events.filter((event) => {
+        return event.category?.includes('plenum') ?? false;
+    });
+};
+
+export const filterNoMeetings = (events: Array<Event>): Array<Event> => {
+    return events.filter((event) => {
+        return !(event.category?.includes('plenum') ?? false);
+    });
+};
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/explicit-function-return-type
 export const groupEventsByDay = (eventList: Array<Event>) => {
 

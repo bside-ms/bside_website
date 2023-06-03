@@ -36,9 +36,10 @@ interface Props {
     events: Array<Event>;
     px?: boolean;
     pastEvents?: boolean;
+    disableFilter?: boolean;
 }
 
-const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false, pastEvents = false }: Props): ReactElement => {
+const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false, pastEvents = false, disableFilter = false }: Props): ReactElement => {
 
     const [filteredEventType, setFilteredEventType] = useState<EventType | null>(null);
 
@@ -61,25 +62,27 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
             ) : (<div />)}
 
             <div className="md:text-lg">
-                <div className="mb-3 flex flex-wrap">
-                    <div
-                        onClick={unsetFilteredEventType}
-                        className="border-r border-gray-800 pr-3 leading-4 md:cursor-pointer md:hover:text-orange-500"
-                    >
-                        <div className={filteredEventType === null ? 'text-gray-500 cursor-default' : ''}>
-                            Alle
+                {disableFilter ? (<div />) : (
+                    <div className="mb-3 flex flex-wrap">
+                        <div
+                            onClick={unsetFilteredEventType}
+                            className="border-r border-gray-800 pr-3 leading-4 md:cursor-pointer md:hover:text-orange-500"
+                        >
+                            <div className={filteredEventType === null ? 'text-gray-500 cursor-default' : ''}>
+                                Alle
+                            </div>
                         </div>
-                    </div>
 
-                    {(Object.keys(eventTitles) as Array<EventType>).map(eventType => (
-                        <EventTypeFilter
-                            key={eventType}
-                            type={eventType}
-                            onClick={setFilteredEventType}
-                            isActive={filteredEventType === eventType}
-                        />
-                    ))}
-                </div>
+                        {(Object.keys(eventTitles) as Array<EventType>).map(eventType => (
+                            <EventTypeFilter
+                                key={eventType}
+                                type={eventType}
+                                onClick={setFilteredEventType}
+                                isActive={filteredEventType === eventType}
+                            />
+                        ))}
+                    </div>
+                )}
 
                 <div>
                     {groupByDay.map(([date, events]) => (

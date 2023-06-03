@@ -7,27 +7,31 @@ import HeaderBar from '@/components/common/HeaderBar';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
 import NextEvents from '@/components/events/NextEvents';
 import Navigation from '@/components/navigation/Navigation';
-import { getUpcomingEvents } from '@/lib/events';
+import { filterForMeetings, filterNoMeetings, getUpcomingEvents } from '@/lib/events';
 import { getHeadNavigation } from '@/lib/navigation';
 import eventImage from '@/public/assets/veranstaltung.png';
 import type { Event, MainMenu } from '@/types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
+    meetings: Array<Event>;
     mainMenu?: MainMenu;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+    const allEvents = await getUpcomingEvents();
+
     return {
         revalidate: 60,
         props: {
-            events: await getUpcomingEvents(),
+            events: filterNoMeetings(allEvents),
+            meetings: filterForMeetings(allEvents),
             mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ events, mainMenu }: Props): ReactElement => {
+export default ({ events, meetings, mainMenu }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
             <Navigation />
@@ -70,7 +74,32 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                     </div>
                 </ContentWrapper>
 
-                <NextEvents events={events} px={false} />
+                <ContentWrapper>
+                    <div className="font-serif text-white bg-black mt-4 text-2xl text-center p-3">
+                        Komm zum Plenum und mach mit!
+                    </div>
+
+                    <p className="mt-3 md:text-lg">
+                        Folgend findest du unsere nächsten öffentlichen Plena. Ein Plenum ist unsere interne
+                        Veranstaltungsform, bei der alle Mitglieder eines Arbeitskreises zusammenkommen,
+                        um gemeinsame Entscheidungen zu treffen, Fragen zu klären und Probleme zu lösen.
+                    </p>
+                    <p className="mt-3 md:text-lg">
+                        Unsere öffentlichen Plena bieten nicht nur die Möglichkeit, aktiv an
+                        unserem Kollektiv teilzuhaben und einzubringen, sondern sind auch eine
+                        gute Gelegenheit, uns kennenzulernen.
+                    </p>
+                    <p className="mt-3 md:text-lg">
+                        Wir freuen uns darauf, euch bei unseren Plena zu treffen!
+                    </p>
+                </ContentWrapper>
+
+                <NextEvents
+                    title=""
+                    events={meetings}
+                    px={false}
+                    disableFilter={true}
+                />
 
                 <ContentWrapper>
                     <ButtonBig
