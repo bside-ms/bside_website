@@ -1,8 +1,10 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
+import ButtonBig from '@/components/common/ButtonBig';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/common/HeaderBar';
+import HeroImageSvg from '@/components/common/HeroImageSvg';
 import NextEvents from '@/components/events/NextEvents';
 import Navigation from '@/components/navigation/Navigation';
 import { getUpcomingEvents } from '@/lib/events';
@@ -36,18 +38,14 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                 mainMenu={mainMenu}
             />
 
-            <ContentWrapper>
-                <div className="mb-1 md:mb-3">
-                    <div className="font-bold font-serif text-2xl md:text-4xl">
-                        Veranstaltungsübersicht
-                    </div>
+            <HeroImageSvg
+                imageSrc="event"
+                imageAlt="event"
+                title="Veranstaltungen"
+            />
 
-                    <div className="mt-1 text-md md:text-lg md:mt-3">
-                        Hier entsteht die Veranstaltungsübersicht.
-                    </div>
-
-                    <NextEvents events={events} px={false} />
-                </div>
+            <ContentWrapper py={false}>
+                <NextEvents title="" events={events} px={false} />
             </ContentWrapper>
 
             <div className="w-full lg:w-[60rem] lg:mx-auto">
@@ -73,6 +71,14 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                 </ContentWrapper>
 
                 <NextEvents events={events} px={false} />
+
+                <ContentWrapper>
+                    <ButtonBig
+                        buttonText="Vergangene Veranstaltungen"
+                        buttonLink="/events/history"
+                    />
+                </ContentWrapper>
+
             </div>
 
             <Footer />

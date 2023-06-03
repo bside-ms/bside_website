@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
-import { isBefore, isSameDay } from 'date-fns';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
+import { groupEventsByDay } from '@/lib/events';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
 import type { Event } from 'types/payload/payload-types';
@@ -34,47 +35,30 @@ interface Props {
     title?: string;
     events: Array<Event>;
     px?: boolean;
+    pastEvents?: boolean;
 }
 
-const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false }: Props): ReactElement => {
+const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false, pastEvents = false }: Props): ReactElement => {
 
     const [filteredEventType, setFilteredEventType] = useState<EventType | null>(null);
 
     const unsetFilteredEventType = useCallback(() => setFilteredEventType(null), []);
 
-    const eventsGroupedByDay = useMemo(() => {
-
-        return allEvents
-            .sort((eventA, eventB) => isBefore(new Date(eventA.eventDate), new Date(eventB.eventDate)) ? -1 : 1)
-            .reduce<Array<[Date, Array<Event>]>>(
-                (currentEventsGroupedByDay, event) => {
-                    let foundDate = false;
-
-                    currentEventsGroupedByDay.forEach(
-                        ([date, events]) => {
-                            if (isSameDay(date, new Date(event.eventDate))) {
-                                foundDate = true;
-                                events.push(event);
-                            }
-                        }
-                    );
-
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    if (!foundDate) {
-                        currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
-                    }
-
-                    return currentEventsGroupedByDay;
-                },
-                []
-            );
+    const groupByDay = useMemo(() => {
+        const events = groupEventsByDay(allEvents);
+        if (pastEvents) {
+            events.reverse();
+        }
+        return events;
     }, [allEvents]);
 
     return (
         <ContentWrapper px={px}>
-            <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
-                {title}
-            </div>
+            {!isEmptyString(title) ? (
+                <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
+                    {title}
+                </div>
+            ) : (<div />)}
 
             <div className="md:text-lg">
                 <div className="mb-3 flex flex-wrap">
@@ -98,7 +82,7 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
                 </div>
 
                 <div>
-                    {eventsGroupedByDay.map(([date, events]) => (
+                    {groupByDay.map(([date, events]) => (
                         <div key={date.toString()} className="mb-2">
                             <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
                                 {formatDate(date, 'EE dd. MMMM')}
