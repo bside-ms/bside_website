@@ -13,7 +13,7 @@ const EventImage = ({ eventImage, justify = '' }: Props): ReactElement | null =>
         return null;
     }
 
-    const src = typeof eventImage === 'string' ? eventImage : eventImage.sizes?.event?.url ?? null;
+    const src = typeof eventImage === 'string' ? eventImage : eventImage.url ?? null;
 
     if (src === null) {
         return null;

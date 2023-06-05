@@ -16,7 +16,7 @@ export interface RichTextUploadNodeType {
 const serializeText = (node: Record<string, unknown>, index: number): ReactElement => {
     // @ts-expect-error eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // eslint-disable-next-line react/no-danger
-    let text = <span key={index} dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replace(/\n/, '<br/>') }} />;
+    let text = <span key={index} dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replaceAll(/\n/g, '<br/>') }} />;
 
     if (node.bold === true) {
         text = (
