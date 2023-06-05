@@ -3,47 +3,83 @@ import { Fragment } from 'react';
 import escapeHTML from 'escape-html';
 import type { ReactElement } from 'react';
 import { Text } from 'slate';
+import EventImage from '@/components/events/EventImage';
+import type { Media as MediaType } from 'types/payload/payload-types';
 
 type SlateChildren = Array<Record<string, unknown>>;
+
+export interface RichTextUploadNodeType {
+    value?: MediaType;
+    relationTo: string;
+}
+
+const serializeText = (node: Record<string, unknown>, index: number): ReactElement => {
+    // @ts-expect-error eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // eslint-disable-next-line react/no-danger
+    let text = <span key={index} dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replace(/\n/, '<br/>') }} />;
+
+    if (node.bold === true) {
+        text = (
+            <span className="font-bold" key={index}>
+                {text}
+            </span>
+        );
+    }
+
+    if (node.underline === true) {
+        text = (
+            <span className="underline" key={index}>
+                {text}
+            </span>
+        );
+    }
+
+    if (node.italic === true) {
+        text = (
+            <span className="italic" key={index}>
+                {text}
+            </span>
+        );
+    }
+
+    if (node.strikethrough === true) {
+        text = (
+            <span className="line-through sm:decoration-2" key={index}>
+                {text}
+            </span>
+        );
+    }
+
+    if (node.text === '') {
+        text = (
+            <span key={index} />
+        );
+    }
+
+    return (
+        <Fragment key={index}>
+            {text}
+        </Fragment>
+    );
+};
+
+const serializeMedia = (node: Record<string, unknown>, index: number): ReactElement | null => {
+
+    return (
+        <EventImage
+            key={index}
+            eventImage={node.value as MediaType}
+            // @ts-expect-error Need to find more type safe solution in future
+            justify={node.fields?.alignment}
+        />
+    );
+};
 
 const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | null> => {
 
     return children.map((node, index): ReactElement | null => {
-
         if (Text.isText(node)) {
-
-            // eslint-disable-next-line react/no-danger
-            let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />;
-
-            if (node.bold === true) {
-                text = (
-                    <span className="font-bold" key={index}>
-                        {text}
-                    </span>
-                );
-            }
-
-            if (node.underline === true) {
-                text = (
-                    <span className="underline" key={index}>
-                        {text}
-                    </span>
-                );
-            }
-
-            if (node.italic === true) {
-                text = (
-                    <span className="italic" key={index}>
-                        {text}
-                    </span>
-                );
-            }
-
-            return (
-                <Fragment key={index}>
-                    {text}
-                </Fragment>
-            );
+            return serializeText(node, index);
         }
 
         const nodeType = node.type;
@@ -78,20 +114,6 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
                     </h4>
                 );
 
-            case 'h5':
-                return (
-                    <h5 key={index} className="text-lg">
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </h5>
-                );
-
-            case 'h6':
-                return (
-                    <h6 key={index} className="text-md">
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </h6>
-                );
-
             case 'link':
                 return (
                     <a
@@ -99,15 +121,32 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
                         // @ts-expect-error Need to find more type safe solution in future
                         href={escapeHTML(node.url)}
                         target={node.newTab === true ? '_blank' : '_self'}
-                        className="underline hover:text-orange-500"
+                        className="underline text-blue-800 hover:text-orange-500 sm:text-lg"
                     >
                         {serializeRichTextToHtml(nodeChildren)}
                     </a>
                 );
 
+            case 'ul':
+                return (
+                    <ul key={index}>
+                        {serializeRichTextToHtml(nodeChildren)}
+                    </ul>
+                );
+
+            case 'li':
+                return (
+                    <li key={index}>
+                        {serializeRichTextToHtml(nodeChildren)}
+                    </li>
+                );
+
+            case 'upload':
+                return serializeMedia(node, index);
+
             default:
                 return (
-                    <p key={index} className="py-1">
+                    <p key={index} className="py-1 sm:text-lg">
                         {serializeRichTextToHtml(nodeChildren)}
                     </p>
                 );

@@ -113,7 +113,6 @@ export default ({
                 <div className="mb-2 md:mb-3">
                     {eventImage !== null && (
                         <EventImage
-                            eventTitle={event.title}
                             eventImage={eventImage}
                         />
                     )}

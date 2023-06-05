@@ -123,7 +123,7 @@ module.exports = {
             ERROR,
             { max: 1 }
         ],
-        'no-nested-ternary': ERROR,
+        'no-nested-ternary': WARNING,
         'no-new-func': ERROR,
         'no-new-wrappers': ERROR,
         'no-prototype-builtins': OFF, // We take the risk, plus we only use it in a few occasions
