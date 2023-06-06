@@ -100,7 +100,6 @@ export default ({
                     bannerId="ical-link"
                     bannerLink={`/api/ics/?eventId=${event.id}`}
                     bannerText="Veranstaltung in meinen Kalender eintragen!"
-                    sticky={true}
                 />
             )}
 
