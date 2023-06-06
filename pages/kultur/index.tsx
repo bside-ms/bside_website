@@ -1,6 +1,6 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import { getHeadNavigation } from '@/lib/navigation';
+import getHeadNavigation from '@/lib/getHeadNavigation';
 import Footer from 'components/common/Footer';
 import HeaderBar from 'components/common/HeaderBar';
 import CultureAndEducation from 'components/cultureAndEducation/CultureAndEducation';

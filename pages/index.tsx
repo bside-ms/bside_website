@@ -10,7 +10,7 @@ import ContactTeaser from '@/components/frontPage/ContactTeaser';
 import HouseHero from '@/components/frontPage/HouseHero';
 import Navigation from '@/components/navigation/Navigation';
 import { getUpcomingEvents } from '@/lib/events';
-import { getHeadNavigation } from '@/lib/navigation';
+import getHeadNavigation from '@/lib/getHeadNavigation';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event, MainMenu } from '@/types/payload/payload-types';
 
