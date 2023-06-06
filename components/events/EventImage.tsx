@@ -1,37 +1,51 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { ReactElement } from 'react';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
+import isEventImageString from '@/lib/events/isEventImageString';
 import type { Media as MediaType } from 'types/payload/payload-types';
 
 interface Props {
     eventTitle: string;
-    eventImage: MediaType | string | null;
+    eventImage: MediaType | string;
 }
 
 const EventImage = ({ eventTitle, eventImage }: Props): ReactElement | null => {
 
-    if (eventImage === null || eventImage === '') {
-        return null;
+    if (isEventImageString(eventImage)) {
+        return (
+            <Link href={eventImage} target="_blank" className="cursor-default">
+                <Image
+                    src={eventImage}
+                    width={342}
+                    height={342}
+                    alt={eventTitle}
+                    sizes="thumbnail"
+                    className="mx-auto mb-4 md:cursor-pointer"
+                />
+            </Link>
+        );
     }
 
-    const src = typeof eventImage === 'string' ? eventImage : eventImage.sizes?.event?.url ?? null;
-    const altText = typeof eventImage === 'string' ? eventTitle : eventImage.alt;
+    const imageUrl = eventImage.sizes?.event?.url ?? eventImage.sizes?.thumbnail?.url ?? eventImage.url;
 
-    if (src === null) {
+    if (isEmptyString(imageUrl)) {
         return null;
     }
 
     return (
-        <div>
+        <Link href={imageUrl} target="_blank" className="cursor-default">
             <Image
-                src={src}
+                src={imageUrl}
                 width={342}
                 height={342}
-                alt={altText}
+                alt={eventImage.alt}
                 sizes="thumbnail"
-                className="mx-auto mb-4"
+                className="mx-auto mb-4 md:cursor-pointer"
             />
-        </div>
+        </Link>
     );
+
 };
 
 export default EventImage;

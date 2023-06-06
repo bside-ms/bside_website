@@ -1,3 +1,5 @@
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
@@ -6,29 +8,27 @@ import Banner from '@/components/common/Banner';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/common/HeaderBar';
-import EventImage from '@/components/events/EventImage';
+import EventDetails from '@/components/events/EventDetails';
 import Navigation from '@/components/navigation/Navigation';
-import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import logger from '@/lib/common/logger';
+import createEventSlug from '@/lib/events/createEventSlug';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
-import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
-import type { Event, Media as MediaType } from 'types/payload/payload-types';
+import type { Event } from 'types/payload/payload-types';
 
 interface Props {
     event?: Event;
-    eventImage: MediaType | string | null;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100&');
+    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
 
-    const paths = pages.docs.map(({ slug, id }) => ({
+    const paths = pages.docs.map(event => ({
         params: {
-            slug: [slug === undefined ? id : slug],
+            slug: [createEventSlug(event)],
         },
     }));
 
@@ -54,13 +54,17 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         return { notFound: true };
     }
 
+    const idInSlugMatch = /-([a-z0-9]+)$/.exec(slug);
+
+    const idInSlug = idInSlugMatch === null ? null : idInSlugMatch[1] ?? null;
+
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
 
-    const page = pagesResponse.docs.find(event => {
-        return event.slug === `${slug}` || event.id === `${slug}`;
-    });
+    const event = pagesResponse.docs.find(eventItem => (
+        eventItem.slug === slug || eventItem.id === idInSlug
+    ));
 
-    if (page === undefined) {
+    if (event === undefined) {
         return { notFound: true };
     }
 
@@ -73,18 +77,14 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     return {
         revalidate: 60,
         props: {
-            event: page,
-            eventImage: page.eventImage ?? null,
+            event,
         },
     };
 };
 
-export default ({
-    event,
-    eventImage,
-}: Props): ReactElement => {
+export default ({ event }: Props): ReactElement => {
 
-    if (!event) {
+    if (event === undefined) {
         return (
             <main className="min-h-screen flex flex-col justify-between" />
         );
@@ -95,7 +95,7 @@ export default ({
 
             <Navigation />
 
-            {isEmptyString(event.eventEnd) ? '' : (
+            {isNotEmptyString(event.id) && (
                 <Banner
                     bannerId="ical-link"
                     bannerLink={`/api/ics/?eventId=${event.id}`}
@@ -109,68 +109,11 @@ export default ({
             />
 
             <ContentWrapper>
-                <div className="mb-2 md:mb-3">
-                    {eventImage !== null && (
-                        <EventImage
-                            eventTitle={event.title}
-                            eventImage={eventImage}
-                        />
-                    )}
+                <EventDetails event={event} />
 
-                    <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
-                        <span className="sm:text-lg">
-                            {formatDate(event.eventDate, 'EE dd. MMM')}
-                        </span>
-
-                        <span className="sm:text-lg">
-                            {formatDate(event.eventStart, 'HH:mm' + ' ')}
-
-                            {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')} `}
-                        </span>
-                    </div>
-
-                    {isNotEmptyString(event.eventExtra) && (
-                        <>
-                            <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                                {event.eventExtra}
-                            </div>
-
-                            <hr className="w-1/3 mx-auto border-1 border-black" />
-                        </>
-                    )}
-
-                    <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
-                        {event.eventLocation}
-                    </div>
-
-                    <div className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif">
-                        <span className="text-lg sm:text-2xl font-bold">
-                            {event.title}
-                        </span>
-                    </div>
-
-                    <div className="mt-2 sm:text-lg md:mt-4">
-                        {serializeRichTextToHtml(event.richText)}
-                    </div>
-
-                    {isNotEmptyString(event.eventOrganizer) && (
-                        <>
-                            <div className="mt-2 sm:text-lg md:mt-4 font-bold">
-                                Veranstaltet von:
-                            </div>
-
-                            <div className="sm:text-lg">
-                                {event.eventOrganizer}
-                            </div>
-                        </>
-                    )}
-                </div>
-
-                <div className="sm:text-lg mt-4 text-blue-800 underline">
-                    <Link href="/events">
-                        &lt;- Zurück zur Übersicht
-                    </Link>
-                </div>
+                <Link href="/events" className="mt-4 text-blue-800 flex items-center gap-2">
+                    <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> Zurück zur Übersicht
+                </Link>
             </ContentWrapper>
 
             <Footer />

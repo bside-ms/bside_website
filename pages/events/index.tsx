@@ -1,4 +1,5 @@
 import type { GetStaticProps } from 'next';
+import Image from 'next/image';
 import type { ReactElement } from 'react';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
@@ -51,10 +52,9 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             </ContentWrapper>
 
             <div className="w-full lg:w-[60rem] lg:mx-auto">
-                <div
-                    className="bg-cover bg-center w-full h-52 md:h-72"
-                    style={{ backgroundImage: `url(${eventImage.src})` }}
-                />
+                <div className="bg-cover bg-center w-full h-52 md:h-72 relative">
+                    <Image src={eventImage.src} alt="Veranstaltungen" fill={true} className="object-cover" />
+                </div>
             </div>
 
             <div className="-translate-y-10 -mb-10 md:-translate-y-20 md:-mb-20">
@@ -64,10 +64,13 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                             Selbst Veranstalter*in sein?
                         </div>
                         <p className="mt-3 md:text-lg">
-                            Egal ob Konzert, Ausstellung, Workshop, Flohmarkt, Lesung, Theater oder andere verrückte, nicht-kommerzielle Dinge: melde dich per E-Mail an den Kulturverein oder komm zum nächsten Kulturplenum. Wir versuchen, die Veranstaltung mit dir möglich zu machen!
+                            Egal ob Konzert, Ausstellung, Workshop, Flohmarkt, Lesung, Theater oder andere verrückte,
+                            nicht-kommerzielle Dinge: melde dich per E-Mail an den Kulturverein oder komm zum nächsten
+                            Kulturplenum. Wir versuchen, die Veranstaltung mit dir möglich zu machen!
                         </p>
                         <p className="mt-3 md:text-lg">
-                            Bis zur Eröffnung der B-Side am Mittelhafen (Q1/2024) stehen unsere Räume am Hawerkamp für Veranstaltungen zur Verfügung.
+                            Bis zur Eröffnung der B-Side am Mittelhafen (Q1/2024) stehen unsere Räume am
+                            Hawerkamp für Veranstaltungen zur Verfügung.
                         </p>
                     </div>
                 </ContentWrapper>

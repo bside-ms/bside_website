@@ -17,7 +17,7 @@ const NavigationLinks = (): ReactElement => {
                 Die B-Side
             </NavigationLink>
 
-            <NavigationLink href="/kultur/">
+            <NavigationLink href="/kultur">
                 Kultur & Bildung
             </NavigationLink>
 
