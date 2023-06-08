@@ -7,45 +7,19 @@
 
 export interface Config {
   collections: {
-    users: User;
-    'api-users': ApiUser;
     events: Event;
-    pages: Page;
+    circles: Circle;
+    organisations: Organisation;
     media: Media;
+    users: User;
+    pages: Page;
+    'api-users': ApiUser;
     redirects: Redirect;
   };
   globals: {
     footer: Footer;
     'main-menu': MainMenu;
   };
-}
-export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  roles: Array<'public' | 'editor' | 'admin'>;
-  updatedAt: string;
-  createdAt: string;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
-}
-export interface ApiUser {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
-  enableAPIKey?: boolean;
-  apiKey?: string;
-  apiKeyIndex?: string;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
 }
 export interface Event {
   id: string;
@@ -56,6 +30,23 @@ export interface Event {
   eventDate: string;
   eventStart: string;
   eventEnd?: string;
+  eventOwner?:
+      | Array< | {
+    value: string;
+    relationTo: 'organisations';
+  }
+      | {
+    value: string;
+    relationTo: 'circles';
+  }>
+      | Array< | {
+    value: Organisation;
+    relationTo: 'organisations';
+  }
+      | {
+    value: Circle;
+    relationTo: 'circles';
+  }>;
   eventOrganizer?: string;
   eventExtra?: string;
   category?: Array<'concert' | 'movie' | 'theater' | 'plenum' | 'workshop' | 'workshop'>;
@@ -107,6 +98,39 @@ export interface Media {
     };
   };
 }
+export interface Organisation {
+  id: string;
+  name: string;
+  shortName: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface Circle {
+  id: string;
+  name: string;
+  organisation: string | Organisation;
+  color?: string;
+  circleImage?: string | Media;
+  fallbackImage: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  roles: Array<'public' | 'editor' | 'admin'>;
+  updatedAt: string;
+  createdAt: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  password?: string;
+}
 export interface Page {
   id: string;
   title: string;
@@ -122,6 +146,20 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
+}
+export interface ApiUser {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean;
+  apiKey?: string;
+  apiKeyIndex?: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  password?: string;
 }
 export interface Redirect {
   id: string;

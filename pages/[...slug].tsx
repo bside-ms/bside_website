@@ -107,12 +107,12 @@ export default ({ page, mainMenu }: Props): ReactElement => {
             />
 
             <ContentWrapper>
-                <div className="px-8 mb-2 md:mb-3">
+                <div className="mb-2 mt-4 md:mb-3">
                     <div className="font-bold font-serif text-2xl md:text-4xl">
                         {page.title}
                     </div>
 
-                    <div className="mt-1 text-sm md:text-lg md:mt-3">
+                    <div className="mt-1 text-sm sm:text-lg md:mt-3">
                         {serializeRichTextToHtml(page.richText)}
                     </div>
                 </div>

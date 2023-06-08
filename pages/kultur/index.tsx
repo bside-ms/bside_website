@@ -1,12 +1,11 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
+import { getUpcomingEvents } from '@/lib/events';
 import getHeadNavigation from '@/lib/getHeadNavigation';
 import Footer from 'components/common/Footer';
 import HeaderBar from 'components/common/HeaderBar';
 import CultureAndEducation from 'components/cultureAndEducation/CultureAndEducation';
 import Navigation from 'components/navigation/Navigation';
-import getPayloadResponse from 'lib/payload/getPayloadResponse';
-import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event, MainMenu } from 'types/payload/payload-types';
 
 interface Props {
@@ -15,12 +14,10 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const events = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/');
-
     return {
         revalidate: 60,
         props: {
-            events: events.docs,
+            events: await getUpcomingEvents(),
             mainMenu: await getHeadNavigation(),
         },
     };

@@ -1,7 +1,7 @@
 import type { GetStaticProps } from 'next';
-import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
+import ButtonBig from '@/components/common/ButtonBig';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/common/HeaderBar';
@@ -60,17 +60,10 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                         der von vielen Menschen selbstorganisiert entwickelt, gestaltet und verwaltet wird. Auch du kannst hier kreativ und aktiv werden oder einfach eine gute Zeit haben!
                     </div>
 
-                    <div className="mt-3 mx-8 text-md md:text-lg md:mx-16 md:px-16">
-                        <Link
-                            href="/bside"
-                            className="block text-lg text-center font-serif
-                            py-1 md:py-3 mt-1 md:mt-3
-                            text-white bg-black
-                            md:cursor-pointer md:hover:text-black md:hover:bg-orange-500"
-                        >
-                            Mehr erfahren
-                        </Link>
-                    </div>
+                    <ButtonBig
+                        buttonText="Mehr erfahren"
+                        buttonLink="/bside"
+                    />
                 </div>
             </ContentWrapper>
 

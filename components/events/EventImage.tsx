@@ -8,9 +8,10 @@ import type { Media as MediaType } from 'types/payload/payload-types';
 interface Props {
     eventTitle: string;
     eventImage: MediaType | string;
+    justify?: string;
 }
 
-const EventImage = ({ eventTitle, eventImage }: Props): ReactElement | null => {
+const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactElement | null => {
 
     if (isEventImageString(eventImage)) {
         return (
@@ -22,6 +23,8 @@ const EventImage = ({ eventTitle, eventImage }: Props): ReactElement | null => {
                     alt={eventTitle}
                     sizes="thumbnail"
                     className="mx-auto mb-4 md:cursor-pointer"
+                    style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
+                        (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
                 />
             </Link>
         );
@@ -42,6 +45,8 @@ const EventImage = ({ eventTitle, eventImage }: Props): ReactElement | null => {
                 alt={eventImage.alt}
                 sizes="thumbnail"
                 className="mx-auto mb-4 md:cursor-pointer"
+                style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
+                    (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
             />
         </Link>
     );

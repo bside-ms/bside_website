@@ -32,7 +32,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
     return (
         <>
             <ContentWrapper>
-                <div className="w-full h-52 md:h-64 relative">
+                <div className="w-full h-32 xs:h-40 md:h-52 relative lg:mt-4">
                     <Image
                         src="/assets/stickFigures/artists.svg"
                         alt="artists"
@@ -46,19 +46,44 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
                     Kultur & Bildung
                 </div>
 
-                <div className="font-serif text-center mt-6 font-bold md:text-lg">
-                    Im Haus und im Quartier
-                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-4 mt-6">
 
-                <div className="mt-4 md:text-lg">
-                    Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein der B-Side. Er wurde 2016 gegründet.
-                    Seine Satzungszwecke sind die Förderung der Kunst und Kultur, sowie die Förderung der Erziehung,
-                    Volks- und Berufsbildung.
-                </div>
+                    <p className="font-serif text-center font-bold md:text-lg lg:col-span-4">
+                        Im Haus und im Quartier
+                    </p>
 
-                <div className="mt-6 flex justify-end">
-                    <div className="h-36 md:h-44 relative w-2/3 md:w-2/5">
-                        <Image src="/assets/stickFigures/musicians.svg" alt="musicians" fill={true} className="object-contain" />
+                    <div className="lg:col-span-4">
+
+                        <p className="mt-4 md:text-lg">
+                            Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.
+                            Der Verein wurde 2016 gegründet und organisiert und beteiligt sich an Kunstausstellungen,
+                            Konzerten, Filmvorführungen, Theateraufführungen, Lesungen und anderen kulturellen Veranstaltungen.
+                        </p>
+                    </div>
+
+                    <div className="mt-4 lg:col-span-2">
+
+                        <p className="md:text-lg">
+                            Der B-Side Kultur e.V. verfolgt das Ziel, ein vielfältiges kulturelles Angebot zu schaffen und
+                            Künstlern und Künstlerinnen eine Plattform zu bieten, um ihre Werke einem breiten Publikum zu
+                            präsentieren. Der Verein arbeitet dabei eng mit lokalen Künstlern, Kulturschaffenden und anderen
+                            kulturellen Einrichtungen zusammen.
+                        </p>
+
+                    </div>
+
+                    <div className="flex justify-center align-middle lg:col-span-2 lg:mb-4">
+                        <div className="mt-4 relative w-full py-auto h-[200px] md:h-[400px] lg:h-full">
+                            <Image src="/assets/veranstaltung.png" alt="musicians" fill={true} />
+                        </div>
+                    </div>
+
+                    <div className="lg:col-span-4">
+                        <p className="mt-4 md:text-lg ">
+                            Zusätzlich zu seinen eigenen Veranstaltungen unterstützt der B-Side Kultur e.V. auch andere
+                            kulturelle Projekte und Initiativen in Münster. Der Verein möchte die kulturelle Vielfalt und
+                            den kreativen Austausch in der Stadt fördern und das kulturelle Leben bereichern.
+                        </p>
                     </div>
                 </div>
 

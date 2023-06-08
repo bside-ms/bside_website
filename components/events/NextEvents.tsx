@@ -1,13 +1,27 @@
 import { useCallback, useMemo, useState } from 'react';
-import { isBefore, isSameDay } from 'date-fns';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
+import { groupEventsByDay } from '@/lib/events';
 import createEventSlug from '@/lib/events/createEventSlug';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
 import type { Event } from 'types/payload/payload-types';
 
 type EventType = 'concert' | 'movie' | 'theatre';
+
+interface NoEventProps {
+    title?: string;
+    px?: boolean;
+}
+
+interface Props {
+    title?: string;
+    events: Array<Event>;
+    px?: boolean;
+    pastEvents?: boolean;
+    disableFilter?: boolean;
+}
 
 const eventTitles: Record<EventType, string> = {
     concert: 'Konzert',
@@ -31,82 +45,90 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick
     );
 };
 
-interface Props {
-    title?: string;
-    events: Array<Event>;
-    px?: boolean;
-}
+const NoNextEvents = ({ title = 'Nächste Veranstaltungen', px = false }: NoEventProps): ReactElement => {
+    return (
+        <ContentWrapper px={px}>
+            {!isEmptyString(title) ? (
+                <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
+                    {title}
+                </div>
+            ) : (<div />)}
 
-const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false }: Props): ReactElement => {
+            <div className="md:text-lg">
+                <div>
+                    <div className="mb-2">
+                        <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
+                            Nichts gefunden!
+                        </div>
+
+                        <div className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
+                            <div className="w-full">Hier gibt es aktuell keine Termine.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ContentWrapper>
+    );
+};
+
+const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false, pastEvents = false, disableFilter = false }: Props): ReactElement => {
 
     const [filteredEventType, setFilteredEventType] = useState<EventType | null>(null);
 
     const unsetFilteredEventType = useCallback(() => setFilteredEventType(null), []);
 
-    const eventsGroupedByDay = useMemo(() => {
+    const groupByDay = useMemo(() => {
+        const events = groupEventsByDay(allEvents);
+        if (pastEvents) {
+            events.reverse();
+        }
+        return events;
+    }, [allEvents, pastEvents]);
 
-        return allEvents
-            .sort((eventA, eventB) => isBefore(new Date(eventA.eventDate), new Date(eventB.eventDate)) ? -1 : 1)
-            .reduce<Array<[Date, Array<Event>]>>(
-                (currentEventsGroupedByDay, event) => {
-                    let foundDate = false;
-
-                    currentEventsGroupedByDay.forEach(
-                        ([date, events]) => {
-                            if (isSameDay(date, new Date(event.eventDate))) {
-                                foundDate = true;
-                                events.push(event);
-                            }
-                        }
-                    );
-
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    if (!foundDate) {
-                        currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
-                    }
-
-                    return currentEventsGroupedByDay;
-                },
-                []
-            );
-    }, [allEvents]);
+    if (allEvents.length === 0) {
+        return NoNextEvents({ title, px });
+    }
 
     return (
         <ContentWrapper px={px}>
-            <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
-                {title}
-            </div>
+            {!isEmptyString(title) ? (
+                <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
+                    {title}
+                </div>
+            ) : (<div />)}
 
             <div className="md:text-lg">
-                <div className="mb-3 flex flex-wrap">
-                    <div
-                        onClick={unsetFilteredEventType}
-                        className="border-r border-gray-800 pr-3 leading-4 md:cursor-pointer md:hover:text-orange-500"
-                    >
-                        <div className={filteredEventType === null ? 'text-gray-500 cursor-default' : ''}>
-                            Alle
+                {disableFilter ? (<div />) : (
+                    <div className="mb-3 flex flex-wrap">
+                        <div
+                            onClick={unsetFilteredEventType}
+                            className="border-r border-gray-800 pr-3 leading-4 md:cursor-pointer md:hover:text-orange-500"
+                        >
+                            <div className={filteredEventType === null ? 'text-gray-500 cursor-default' : ''}>
+                                Alle
+                            </div>
                         </div>
-                    </div>
 
-                    {(Object.keys(eventTitles) as Array<EventType>).map(eventType => (
-                        <EventTypeFilter
-                            key={eventType}
-                            type={eventType}
-                            onClick={setFilteredEventType}
-                            isActive={filteredEventType === eventType}
-                        />
-                    ))}
-                </div>
+                        {(Object.keys(eventTitles) as Array<EventType>).map(eventType => (
+                            <EventTypeFilter
+                                key={eventType}
+                                type={eventType}
+                                onClick={setFilteredEventType}
+                                isActive={filteredEventType === eventType}
+                            />
+                        ))}
+                    </div>
+                )}
 
                 <div>
-                    {eventsGroupedByDay.map(([date, events]) => (
+                    {groupByDay.map(([date, events]) => (
                         <div key={date.toString()} className="mb-2">
                             <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
                                 {formatDate(date, 'EE dd. MMMM')}
                             </div>
 
                             {events.map(event => (
-                                <div key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
+                                <Link href={`/events/${event.slug ?? event.id}`} key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
                                     <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
                                     <div className="truncate flex-1">{event.title}</div>
                                     <Link href={`/events/${createEventSlug(event)}`} className="truncate">... mehr</Link>
