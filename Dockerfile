@@ -25,9 +25,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
 ARG PAYLOAD_URL
 ENV PAYLOAD_URL=${PAYLOAD_URL}
 
@@ -36,9 +33,7 @@ ENV FRONTEND_URL=${FRONTEND_URL}
 
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-RUN npm run build && chown -R nextjs:nodejs /app
-
-USER nextjs
+RUN npm run build
 
 EXPOSE 3000
 ENV PORT 3000

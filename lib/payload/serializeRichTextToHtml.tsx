@@ -71,6 +71,7 @@ const serializeMedia = (node: Record<string, unknown>, index: number): ReactElem
             eventImage={node.value as MediaType}
             // @ts-expect-error Need to find more type safe solution in future
             justify={node.fields?.alignment}
+            eventTitle={node.alt as string}
         />
     );
 };

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { groupEventsByDay } from '@/lib/events';
-import createEventSlug from '@/lib/events/createEventSlug';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
 import type { Event } from 'types/payload/payload-types';
@@ -131,8 +130,8 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
                                 <Link href={`/events/${event.slug ?? event.id}`} key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
                                     <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
                                     <div className="truncate flex-1">{event.title}</div>
-                                    <Link href={`/events/${createEventSlug(event)}`} className="truncate">... mehr</Link>
-                                </div>
+                                    <div className="truncate">... mehr</div>
+                                </Link>
                             ))}
                         </div>
                     ))}

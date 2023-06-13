@@ -8,7 +8,6 @@ module.exports = {
     './pages/**/*.tsx',
   ],
   plugins: [
-    require('@tailwindcss/line-clamp'),
   ],
   theme: {
     extend: {

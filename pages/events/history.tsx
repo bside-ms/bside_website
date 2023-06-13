@@ -7,7 +7,7 @@ import HeaderBar from '@/components/common/HeaderBar';
 import NextEvents from '@/components/events/NextEvents';
 import Navigation from '@/components/navigation/Navigation';
 import { getPastEvents } from '@/lib/events';
-import { getHeadNavigation } from '@/lib/navigation';
+import getHeadNavigation from '@/lib/getHeadNavigation';
 import type { Event, MainMenu } from '@/types/payload/payload-types';
 
 interface Props {
