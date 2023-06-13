@@ -1,13 +1,12 @@
-import { useCallback, useMemo, useState } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { groupEventsByDay } from '@/lib/events';
+import createEventSlug from '@/lib/events/createEventSlug';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
 import type { Event } from 'types/payload/payload-types';
-
-type EventType = 'concert' | 'movie' | 'theatre';
 
 interface NoEventProps {
     title?: string;
@@ -22,10 +21,13 @@ interface Props {
     disableFilter?: boolean;
 }
 
+type EventType = 'concert' | 'movie' | 'theater' | 'plenum' | 'workshop';
 const eventTitles: Record<EventType, string> = {
     concert: 'Konzert',
     movie: 'Film',
-    theatre: 'Theater',
+    theater: 'Theater',
+    plenum: 'Plenum',
+    workshop: 'Workshop',
 };
 
 const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick: (type: EventType) => void, isActive: boolean }): ReactElement => {
@@ -127,11 +129,30 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
                             </div>
 
                             {events.map(event => (
-                                <Link href={`/events/${event.slug ?? event.id}`} key={event.id} className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
-                                    <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
-                                    <div className="truncate flex-1">{event.title}</div>
-                                    <div className="truncate">... mehr</div>
-                                </Link>
+                                <Fragment key={event.id}>
+                                    <Link href={`/events/${createEventSlug(event)}`} className="px-3 md:px-4 pt-1 md:pt-2 flex gap-3">
+                                        <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
+                                        <div className="truncate flex-1">{event.title}</div>
+                                        <div className="truncate">... mehr</div>
+                                    </Link>
+
+                                    <div className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3 relative">
+                                        <Link href={`/events/${createEventSlug(event)}`} className="absolute top-0 bottom-0 right-0 left-0" />
+                                        <div className="w-14" />
+                                        {event.category?.map(cat => (
+                                            <div key={cat} className="truncate p-1 font-serif text-sm bg-black text-white">
+                                                {eventTitles[cat]}
+                                            </div>
+                                        ))}
+                                        {event.eventOwner?.length !== 0 ? 'todo' : (
+                                            isEmptyString(event.eventOrganizer) ? '' : (
+                                                <div className="truncate p-1 font-serif text-sm border border-black text-black z-10">
+                                                    {event.eventOrganizer}
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                </Fragment>
                             ))}
                         </div>
                     ))}
