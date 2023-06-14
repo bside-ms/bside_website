@@ -12,7 +12,7 @@ const nextConfig = {
       'cms.b-side.ms',
     ],
     minimumCacheTTL: 60 * 60 * 24,
-    formats: ['image/avif', 'image/webp'],
+    formats: ['image/webp', 'image/avif'],
   },
 
   // ToDo: Test.

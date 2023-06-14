@@ -49,7 +49,7 @@ export interface Event {
   }>;
   eventOrganizer?: string;
   eventExtra?: string;
-  category?: Array<'concert' | 'movie' | 'theater' | 'plenum' | 'workshop' | 'workshop'>;
+  category?: Array<'concert' | 'movie' | 'theater' | 'plenum' | 'workshop'>;
   displayOnHome?: boolean;
   displayOnOverview?: boolean;
   displayOnOrgansation?: boolean;

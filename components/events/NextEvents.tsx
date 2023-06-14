@@ -3,10 +3,12 @@ import Link from 'next/link';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { groupEventsByDay } from '@/lib/events';
+import createCircleLink from '@/lib/events/createCircleLink';
 import createEventSlug from '@/lib/events/createEventSlug';
+import createOrganisationLink from '@/lib/events/createOrganisationLink';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
-import type { Event } from 'types/payload/payload-types';
+import type { Circle, Event, Organisation } from 'types/payload/payload-types';
 
 interface NoEventProps {
     title?: string;
@@ -69,6 +71,48 @@ const NoNextEvents = ({ title = 'Nächste Veranstaltungen', px = false }: NoEven
                 </div>
             </div>
         </ContentWrapper>
+    );
+};
+
+const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisations' } | { value: string, relationTo: 'circles' } | { value: Organisation, relationTo: 'organisations' } | { value: Circle, relationTo: 'circles' } }): ReactElement => {
+    if (owner.relationTo === 'organisations') {
+        const organisation = owner.value as Organisation;
+        return (
+            <Link href={createOrganisationLink(organisation)} className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10">
+                {organisation.name}
+            </Link>
+        );
+    }
+
+    // It's a circle!
+    const circle = owner.value as Circle;
+    return (
+        <Link href={createCircleLink(circle)} className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10">
+            {circle.name}
+        </Link>
+    );
+};
+
+const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
+    const hasOwner = event.eventOwner?.length !== 0;
+    const hasOrganiser = !isEmptyString(event.eventOrganizer);
+
+    if (!hasOwner && !hasOrganiser) {
+        return <div />;
+    }
+
+    if (!hasOwner && hasOrganiser) {
+        return (
+            <Link href={`/events/${createEventSlug(event)}`} className="truncate p-1 font-serif text-sm border border-black text-black z-10">
+                {event.eventOrganizer}
+            </Link>
+        );
+    }
+
+    return (
+        <Fragment>
+            {event.eventOwner?.map(owner => <EventOwner key={event.id} owner={owner} />)}
+        </Fragment>
     );
 };
 
@@ -144,13 +188,7 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
                                                 {eventTitles[cat]}
                                             </div>
                                         ))}
-                                        {event.eventOwner?.length !== 0 ? 'todo' : (
-                                            isEmptyString(event.eventOrganizer) ? '' : (
-                                                <div className="truncate p-1 font-serif text-sm border border-black text-black z-10">
-                                                    {event.eventOrganizer}
-                                                </div>
-                                            )
-                                        )}
+                                        <EventOrganiser key={event.id} event={event} />
                                     </div>
                                 </Fragment>
                             ))}
