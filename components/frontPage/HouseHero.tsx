@@ -9,7 +9,7 @@ const HouseHero = (): ReactElement => {
 
     return (
         <div className="relative overflow-hidden md:overflow-visible md:flex md:justify-center pt-5">
-            <Link href="/haus" className="cursor-default md:cursor-pointer">
+            <Link href="/bside/haus" className="cursor-default md:cursor-pointer">
                 <div className="relative md:flex md:justify-center">
                     <div className="md:relative h-[400px] md:h-auto md:w-[45rem]">
                         <img

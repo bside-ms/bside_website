@@ -13,7 +13,7 @@ const NavigationLinks = (): ReactElement => {
                 Veranstaltungen
             </NavigationLink>
 
-            <NavigationLink href="/haus">
+            <NavigationLink href="/bside">
                 Die B-Side
             </NavigationLink>
 
