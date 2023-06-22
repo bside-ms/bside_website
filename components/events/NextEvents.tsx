@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useMemo, useState } from 'react';
+import { uniq } from 'lodash';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
@@ -6,6 +7,8 @@ import { groupEventsByDay } from '@/lib/events';
 import createCircleLink from '@/lib/events/createCircleLink';
 import createEventSlug from '@/lib/events/createEventSlug';
 import createOrganisationLink from '@/lib/events/createOrganisationLink';
+import type EventCategory from '@/lib/events/EventCategory';
+import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
 import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
 import type { Circle, Event, Organisation } from 'types/payload/payload-types';
@@ -20,29 +23,19 @@ interface Props {
     events: Array<Event>;
     px?: boolean;
     pastEvents?: boolean;
-    disableFilter?: boolean;
 }
 
-type EventType = 'concert' | 'movie' | 'theater' | 'plenum' | 'workshop';
-const eventTitles: Record<EventType, string> = {
-    concert: 'Konzert',
-    movie: 'Film',
-    theater: 'Theater',
-    plenum: 'Plenum',
-    workshop: 'Workshop',
-};
-
-const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick: (type: EventType) => void, isActive: boolean }): ReactElement => {
+const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onClick: (type: EventCategory) => void, isActive: boolean }): ReactElement => {
 
     const handleClick = useCallback(() => onClick(type), [onClick, type]);
 
     return (
         <div
             onClick={handleClick}
-            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500"
+            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
         >
-            <div className={isActive ? 'text-gray-500 cursor-default' : ''}>
-                {eventTitles[type]}
+            <div className={isActive ? 'text-gray-500' : ''}>
+                {getEventCategoryTitle(type)}
             </div>
         </div>
     );
@@ -51,11 +44,11 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventType, onClick
 const NoNextEvents = ({ title = 'Nächste Veranstaltungen', px = false }: NoEventProps): ReactElement => {
     return (
         <ContentWrapper px={px}>
-            {!isEmptyString(title) ? (
+            {!isEmptyString(title) && (
                 <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
                     {title}
                 </div>
-            ) : (<div />)}
+            )}
 
             <div className="md:text-lg">
                 <div>
@@ -116,45 +109,71 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
     );
 };
 
-const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px = false, pastEvents = false, disableFilter = false }: Props): ReactElement => {
+const NextEvents = ({
+    title = 'Nächste Veranstaltungen',
+    events: allEvents,
+    px = false,
+    pastEvents = false,
+}: Props): ReactElement => {
 
-    const [filteredEventType, setFilteredEventType] = useState<EventType | null>(null);
+    const allAvailableCategories = useMemo((): Array<EventCategory> => (
+        uniq(
+            allEvents.reduce(
+                (availableCategories, eventItem) => {
+                    // It can be null on the server, maybe we need to check the payload types.
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    if (eventItem.category !== undefined && eventItem.category !== null) {
+                        availableCategories.push(...eventItem.category);
+                    }
+
+                    return availableCategories;
+                },
+                new Array<EventCategory>()
+            )
+        )
+    ), [allEvents]);
+
+    const [filteredEventType, setFilteredEventType] = useState<EventCategory | null>(null);
+
+    const filteredEvents = allEvents.filter(eventItem => (
+        filteredEventType === null || (eventItem.category ?? []).includes(filteredEventType)
+    ));
 
     const unsetFilteredEventType = useCallback(() => setFilteredEventType(null), []);
 
     const groupByDay = useMemo(() => {
-        const events = groupEventsByDay(allEvents);
+        const events = groupEventsByDay(filteredEvents);
         if (pastEvents) {
             events.reverse();
         }
         return events;
-    }, [allEvents, pastEvents]);
+    }, [filteredEvents, pastEvents]);
 
-    if (allEvents.length === 0) {
+    if (filteredEvents.length === 0) {
         return NoNextEvents({ title, px });
     }
 
     return (
         <ContentWrapper px={px}>
-            {!isEmptyString(title) ? (
+            {!isEmptyString(title) && (
                 <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
                     {title}
                 </div>
-            ) : (<div />)}
+            )}
 
             <div className="md:text-lg">
-                {disableFilter ? (<div />) : (
+                {allAvailableCategories.length > 1 && (
                     <div className="mb-3 flex flex-wrap">
                         <div
                             onClick={unsetFilteredEventType}
-                            className="border-r border-gray-800 pr-3 leading-4 md:cursor-pointer md:hover:text-orange-500"
+                            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
                         >
-                            <div className={filteredEventType === null ? 'text-gray-500 cursor-default' : ''}>
+                            <div className={filteredEventType === null ? 'text-gray-500' : ''}>
                                 Alle
                             </div>
                         </div>
 
-                        {(Object.keys(eventTitles) as Array<EventType>).map(eventType => (
+                        {allAvailableCategories.map(eventType => (
                             <EventTypeFilter
                                 key={eventType}
                                 type={eventType}
@@ -182,13 +201,16 @@ const NextEvents = ({ title = 'Nächste Veranstaltungen', events: allEvents, px 
 
                                     <div className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3 relative">
                                         <Link href={`/events/${createEventSlug(event)}`} className="absolute top-0 bottom-0 right-0 left-0" />
+
                                         <div className="w-14" />
+
                                         {event.category?.map(cat => (
                                             <div key={cat} className="truncate p-1 font-serif text-sm bg-black text-white">
-                                                {eventTitles[cat]}
+                                                {getEventCategoryTitle(cat)}
                                             </div>
                                         ))}
-                                        <EventOrganiser key={event.id} event={event} />
+
+                                        <EventOrganiser event={event} />
                                     </div>
                                 </Fragment>
                             ))}

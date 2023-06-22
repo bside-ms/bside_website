@@ -101,7 +101,6 @@ export default ({ events, meetings, mainMenu }: Props): ReactElement => {
                     title=""
                     events={meetings}
                     px={false}
-                    disableFilter={true}
                 />
 
                 <ContentWrapper>
