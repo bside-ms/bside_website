@@ -34,7 +34,7 @@ const NextHead = (): ReactElement => {
             <meta property="og:locale" content="de_DE" />
             <meta property="og:description" content={description} />
             <meta property="og:site_name" content={title} />
-            <meta property="og:url" content="https://yourdomain.com" />
+            <meta property="og:url" content="https://b-side.ms" />
             <meta property="og:image" content={getFullClientUrl(`/api/screenshot?url=${getFullClientUrl(asPath)}`)} />
 
             <meta name="twitter:card" content="summary" />

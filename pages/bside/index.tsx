@@ -60,11 +60,10 @@ export default ({ mainMenu }: Props): ReactElement => {
                     <Link href="/bside/haus" className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500">
                         <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
                             <Image
-                                src="/assets/stickFigures/artists-white.svg"
+                                src="/assets/stickFigures/house-white.svg"
                                 alt="Eine Grafik des Hauses"
-                                height={80}
-                                width={80}
-                                objectFit="cover"
+                                height={50}
+                                width={50}
                                 className="pl-2 sm:px-8 w-40"
                             />
                         </div>
@@ -84,11 +83,10 @@ export default ({ mainMenu }: Props): ReactElement => {
                     <div className="bg-black mt-6 py-4 text-white flex w-full md:w-1/2 md:mx-2">
                         <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
                             <Image
-                                src="/assets/stickFigures/artists-white.svg"
-                                alt="Eine Grafik des Hauses"
-                                height={80}
-                                width={80}
-                                objectFit="cover"
+                                src="/assets/stickFigures/blumentopf-white.svg"
+                                alt="Ist das ein Blumentopf?"
+                                height={50}
+                                width={50}
                                 className="pl-2 sm:px-8 w-40"
                             />
                         </div>
@@ -111,11 +109,10 @@ export default ({ mainMenu }: Props): ReactElement => {
                     <div className="bg-black mt-6 py-4 text-white flex w-full md:w-1/2 md:mx-2">
                         <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
                             <Image
-                                src="/assets/stickFigures/artists-white.svg"
-                                alt="Eine Grafik des Hauses"
-                                height={80}
-                                width={80}
-                                objectFit="cover"
+                                src="/assets/stickFigures/history-white.svg"
+                                alt="Eine alte Person kennt den Weg"
+                                height={50}
+                                width={50}
                                 className="pl-2 sm:px-8 w-40"
                             />
                         </div>
@@ -133,11 +130,10 @@ export default ({ mainMenu }: Props): ReactElement => {
                     <div className="bg-black mt-6 py-4 text-white flex w-full md:w-1/2 md:mx-2">
                         <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
                             <Image
-                                src="/assets/stickFigures/artists-white.svg"
-                                alt="Eine Grafik des Hauses"
-                                height={80}
-                                width={80}
-                                objectFit="cover"
+                                src="/assets/stickFigures/traegerschaft-white.svg"
+                                alt="Strichfiguren über einem Bauplan"
+                                height={50}
+                                width={50}
                                 className="pl-2 sm:px-8 w-40"
                             />
                         </div>

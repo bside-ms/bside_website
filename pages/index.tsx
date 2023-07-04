@@ -55,7 +55,7 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                         Die B-Side in Münster
                     </div>
 
-                    <div className="mt-1 text-md md:text-lg md:mt-3">
+                    <div className="mt-1 text-md md:text-lg md:mt-3 line-through">
                         Die B-Side ist ein offener Ort der Möglichkeiten am <span className="line-through">Münsteraner Hafen</span> Hawerkamp,
                         der von vielen Menschen selbstorganisiert entwickelt, gestaltet und verwaltet wird. Auch du kannst hier kreativ und aktiv werden oder einfach eine gute Zeit haben!
                     </div>
@@ -75,7 +75,7 @@ export default ({ events, mainMenu }: Props): ReactElement => {
             </div>
 
             <div className="-translate-y-10 -mb-10 md:-translate-y-20 md:-mb-20">
-                <ContentWrapper>
+                <ContentWrapper px={false} pxsm={true}>
                     <div className="bg-black text-white p-6">
                         <div className="font-bold font-serif text-lg md:text-xl">
                             Öffnungszeiten
@@ -88,7 +88,9 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                 </ContentWrapper>
             </div>
 
-            <NextEvents events={events} px={true} />
+            <ContentWrapper px={false} pxsm={true}>
+                <NextEvents events={events} />
+            </ContentWrapper>
 
             <ContactTeaser />
 

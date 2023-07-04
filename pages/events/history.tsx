@@ -55,11 +55,10 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                 />
             </ContentWrapper>
 
-            <ContentWrapper>
+            <ContentWrapper px={false} pxsm={true}>
                 <NextEvents
                     title="Vergangene Veranstaltungen"
                     events={events}
-                    px={false}
                     pastEvents={true}
                 />
             </ContentWrapper>

@@ -49,8 +49,8 @@ export default ({ events, meetings, mainMenu }: Props): ReactElement => {
                 title="Veranstaltungen"
             />
 
-            <ContentWrapper py={false}>
-                <NextEvents title="" events={events} px={false} />
+            <ContentWrapper py={false} px={false} pxsm={true}>
+                <NextEvents title="" events={events} />
             </ContentWrapper>
 
             <div className="w-full lg:w-[60rem] lg:mx-auto">
@@ -60,7 +60,7 @@ export default ({ events, meetings, mainMenu }: Props): ReactElement => {
             </div>
 
             <div className="-translate-y-10 -mb-10 md:-translate-y-20 md:-mb-20">
-                <ContentWrapper>
+                <ContentWrapper px={false} pxsm={true}>
                     <div className="bg-black text-white p-6">
                         <div className="font-bold font-serif text-lg md:text-xl">
                             Selbst Veranstalter*in sein?
@@ -97,11 +97,13 @@ export default ({ events, meetings, mainMenu }: Props): ReactElement => {
                     </p>
                 </ContentWrapper>
 
-                <NextEvents
-                    title=""
-                    events={meetings}
-                    px={false}
-                />
+                <ContentWrapper px={false} pxsm={true}>
+                    <NextEvents
+                        title=""
+                        events={meetings}
+                        // disableFilter={true}
+                    />
+                </ContentWrapper>
 
                 <ContentWrapper>
                     <ButtonBig

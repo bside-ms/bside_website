@@ -9,19 +9,16 @@ import createEventSlug from '@/lib/events/createEventSlug';
 import createOrganisationLink from '@/lib/events/createOrganisationLink';
 import type EventCategory from '@/lib/events/EventCategory';
 import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
-import ContentWrapper from 'components/common/ContentWrapper';
 import formatDate from 'lib/common/helper/formatDate';
 import type { Circle, Event, Organisation } from 'types/payload/payload-types';
 
 interface NoEventProps {
     title?: string;
-    px?: boolean;
 }
 
 interface Props {
     title?: string;
     events: Array<Event>;
-    px?: boolean;
     pastEvents?: boolean;
 }
 
@@ -41,9 +38,9 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onC
     );
 };
 
-const NoNextEvents = ({ title = 'Nächste Veranstaltungen', px = false }: NoEventProps): ReactElement => {
+const NoNextEvents = ({ title = 'Nächste Veranstaltungen' }: NoEventProps): ReactElement => {
     return (
-        <ContentWrapper px={px}>
+        <div>
             {!isEmptyString(title) && (
                 <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
                     {title}
@@ -63,7 +60,7 @@ const NoNextEvents = ({ title = 'Nächste Veranstaltungen', px = false }: NoEven
                     </div>
                 </div>
             </div>
-        </ContentWrapper>
+        </div>
     );
 };
 
@@ -112,7 +109,6 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
 const NextEvents = ({
     title = 'Nächste Veranstaltungen',
     events: allEvents,
-    px = false,
     pastEvents = false,
 }: Props): ReactElement => {
 
@@ -150,11 +146,11 @@ const NextEvents = ({
     }, [filteredEvents, pastEvents]);
 
     if (filteredEvents.length === 0) {
-        return NoNextEvents({ title, px });
+        return NoNextEvents({ title });
     }
 
     return (
-        <ContentWrapper px={px}>
+        <div>
             {!isEmptyString(title) && (
                 <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
                     {title}
@@ -163,7 +159,7 @@ const NextEvents = ({
 
             <div className="md:text-lg">
                 {allAvailableCategories.length > 1 && (
-                    <div className="mb-3 flex flex-wrap">
+                    <div className="px-4 sm:px-0 mb-3 flex flex-wrap">
                         <div
                             onClick={unsetFilteredEventType}
                             className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
@@ -201,9 +197,7 @@ const NextEvents = ({
 
                                     <div className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3 relative">
                                         <Link href={`/events/${createEventSlug(event)}`} className="absolute top-0 bottom-0 right-0 left-0" />
-
-                                        <div className="w-14" />
-
+                                        <div className="w-0 sm:w-14" />
                                         {event.category?.map(cat => (
                                             <div key={cat} className="truncate p-1 font-serif text-sm bg-black text-white">
                                                 {getEventCategoryTitle(cat)}
@@ -218,7 +212,7 @@ const NextEvents = ({
                     ))}
                 </div>
             </div>
-        </ContentWrapper>
+        </div>
     );
 };
 
