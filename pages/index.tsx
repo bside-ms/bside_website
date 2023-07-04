@@ -1,6 +1,7 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
+import Banner from '@/components/common/Banner';
 import ButtonBig from '@/components/common/ButtonBig';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
@@ -32,7 +33,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 export default ({ events, mainMenu }: Props): ReactElement => {
 
-    const { ref: inViewImageRef, inView: isImageContainerInView } = useInView({ initialInView: true });
+    const { ref: inViewImageRef, inView: isImageContainerInView } =
+        useInView({ initialInView: true });
+
+    const { ref: inViewFooterRef, inView: isFooterInView }
+        = useInView({
+            initialInView: true,
+            threshold: 1,
+        });
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
@@ -43,6 +51,13 @@ export default ({ events, mainMenu }: Props): ReactElement => {
                 headerMenu={true}
                 banner={false}
                 mainMenu={mainMenu}
+            />
+
+            <Banner
+                bannerId="banner__index"
+                bannerText="Hinweis | Hinweis | Hinweis | Hinweis | Hinweis"
+                bannerLink=""
+                footerInView={isFooterInView}
             />
 
             <div ref={inViewImageRef} className="mt-0 lg:mt-12">
@@ -94,7 +109,9 @@ export default ({ events, mainMenu }: Props): ReactElement => {
 
             <ContactTeaser />
 
-            <Footer />
+            <Footer>
+                <div ref={inViewFooterRef} />
+            </Footer>
         </main>
     );
 };

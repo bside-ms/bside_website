@@ -4,6 +4,7 @@ import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
+import { useInView } from 'react-intersection-observer';
 import Banner from '@/components/common/Banner';
 import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
@@ -14,12 +15,14 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import logger from '@/lib/common/logger';
 import createEventSlug from '@/lib/events/createEventSlug';
+import getHeadNavigation from '@/lib/getHeadNavigation';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
-import type { Event } from 'types/payload/payload-types';
+import type { Event, MainMenu } from 'types/payload/payload-types';
 
 interface Props {
     event?: Event;
+    mainMenu: MainMenu;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -78,11 +81,12 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         revalidate: 60,
         props: {
             event,
+            mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ event }: Props): ReactElement => {
+export default ({ event, mainMenu }: Props): ReactElement => {
 
     if (event === undefined) {
         return (
@@ -90,8 +94,19 @@ export default ({ event }: Props): ReactElement => {
         );
     }
 
+    const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
+        initialInView: true,
+        threshold: 1,
+    });
+
     return (
         <main className="min-h-screen flex flex-col justify-between">
+
+            <HeaderBar
+                disableLeftLogo={false}
+                headerMenu={true}
+                mainMenu={mainMenu}
+            />
 
             <Navigation />
 
@@ -100,13 +115,9 @@ export default ({ event }: Props): ReactElement => {
                     bannerId="ical-link"
                     bannerLink={`/api/ics/?eventId=${event.id}`}
                     bannerText="Veranstaltung in meinen Kalender eintragen!"
+                    footerInView={isFooterInView}
                 />
             )}
-
-            <HeaderBar
-                headerMenu={false}
-                banner={!isEmptyString(event.eventEnd)}
-            />
 
             <ContentWrapper>
                 <EventDetails event={event} />
@@ -116,7 +127,9 @@ export default ({ event }: Props): ReactElement => {
                 </Link>
             </ContentWrapper>
 
-            <Footer />
+            <Footer>
+                <div ref={inViewFooterRef} />
+            </Footer>
         </main>
     );
 };

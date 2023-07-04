@@ -7,19 +7,11 @@ import { useAppContext } from 'components/common/AppContext';
 import BurgerHeart from 'components/svg/BurgerHeart';
 import Heart from 'components/svg/Heart';
 
-interface Props {
-    disableLeftLogo?: boolean;
-    headerMenu?: boolean;
-    mainMenu?: MainMenu;
-    banner?: boolean;
+interface MobileLogoProps {
+disableLogo: boolean;
 }
-
-const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, mainMenu = undefined, banner = false }: Props): ReactElement => {
-
-    const { toggleNavigation } = useAppContext();
-
+const MobileLogo = ({ disableLogo = false }: MobileLogoProps): ReactElement => {
     const { pathname, push } = useRouter();
-
     const handleClickOnHeart = useCallback(
         () => pathname === '/'
             ? window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -29,60 +21,68 @@ const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, mainMenu = und
 
     return (
         <>
-            <div className={`fixed top-0 left-0 right-0 z-10 ${banner ? 'top-[44px]' : ''}`}>
-                <div className="lg:w-[60rem] lg:mx-auto">
-                    <div>
-                        <div className="p-4 flex justify-between relative">
-                            <div
-                                className="absolute top-0 left-0 border-[50px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={disableLeftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
-                            />
+            <div
+                className="sm:hidden absolute top-0 left-0 border-[50px] md:border-[60px] border-transparent transition-all duration-200"
+                style={disableLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
+            />
+            <div
+                className="sm:hidden w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200 z-20"
+                style={disableLogo ? { opacity: 0 } : { opacity: '100%' }}
+                onClick={handleClickOnHeart}
+            >
+                <Heart />
+            </div>
+        </>
+    );
+};
 
-                            {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
-                            <div
-                                className="hidden md:block absolute top-0 -left-[120px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={disableLeftLogo ? undefined : { borderTopColor: 'white', borderRightColor: 'white' }}
-                            />
+const MobileNavigation = (): ReactElement => {
+    const { toggleNavigation } = useAppContext();
 
-                            <div
-                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200 z-20"
-                                style={disableLeftLogo ? { opacity: 0 } : { opacity: '100%' }}
-                                onClick={handleClickOnHeart}
-                            >
-                                <Heart />
-                            </div>
+    return (
+        <>
+            <div
+                className="sm:hidden w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 z-20"
+                onClick={toggleNavigation}
+            >
+                <BurgerHeart />
+            </div>
+            <div
+                className="sm:hidden absolute top-0 right-0 border-[50px] md:border-[60px] border-white border-l-transparent border-b-transparent transition-all duration-200"
+            />
+        </>
+    );
+};
 
-                            <div
-                                className="hidden lg:block w-full -mt-[44px] border-t-white border-t-[50px] bg-white text-center justify-center transition-none pb-2"
-                                style={!banner && headerMenu ? undefined : { display: 'none' }}
-                            >
-                                <HeaderMenuItems mainMenu={mainMenu} />
-                            </div>
+interface Props {
+    disableLeftLogo?: boolean;
+    headerMenu?: boolean;
+    mainMenu?: MainMenu;
+    banner?: boolean;
+}
 
-                            <div
-                                className="w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 z-20"
-                                onClick={toggleNavigation}
-                            >
-                                <BurgerHeart />
-                            </div>
+const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, mainMenu = undefined, banner = false }: Props): ReactElement => {
+    return (
+        <div className={`fixed top-0 left-0 right-0 z-10 ${banner ? 'top-[44px]' : ''}`}>
+            <div className="">
+                <div>
+                    <div className="p-4 sm:p-0 flex justify-between relative">
 
-                            <div
-                                className="absolute top-0 right-0 border-[50px] md:border-[60px] border-white border-l-transparent border-b-transparent transition-all duration-200"
-                            />
+                        <MobileLogo disableLogo={disableLeftLogo} />
 
-                            {/* Only here since background triangle looks unsexy on desktop (not that this looks that much better.. still WIP) */}
-                            <div
-                                className="hidden md:block absolute top-0 -right-[120px] md:border-[60px] border-transparent transition-all duration-200"
-                                style={disableLeftLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
-                            />
+                        <div
+                            className="hidden lg:block w-full bg-white text-center justify-center transition-none py-2"
+                            style={!banner && headerMenu ? undefined : { display: 'none' }}
+                        >
+                            <HeaderMenuItems mainMenu={mainMenu} />
                         </div>
+
+                        <MobileNavigation />
+
                     </div>
                 </div>
             </div>
-
-            {/* Just a placeholder for the navigation */}
-            {!disableLeftLogo && <div className="h-12" />}
-        </>
+        </div>
     );
 };
 

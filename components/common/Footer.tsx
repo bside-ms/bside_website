@@ -1,9 +1,13 @@
 import Link from 'next/link';
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
-const Footer = (): ReactElement => {
+interface FooterProps {
+    children?: ReactNode;
+}
+
+const Footer = ({ children }: FooterProps): ReactElement => {
     return (
-        <footer className="mb-auto">
+        <footer className="mb-auto" key="footer">
             <div className="bg-black mt-5 py-2">
                 <div className="py-auto text-center text-white font-bold font-serif">
                     <Link
@@ -28,6 +32,8 @@ const Footer = (): ReactElement => {
                     </Link>
                 </div>
             </div>
+
+            {children}
 
             <div className="px-2 my-4 flex justify-center text-center font-serif text-sm">
                 Platzhalter für Footer-Text
