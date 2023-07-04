@@ -1,16 +1,14 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { getUpcomingEvents } from '@/lib/events';
-import getHeadNavigation from '@/lib/getHeadNavigation';
 import Footer from 'components/common/Footer';
-import HeaderBar from 'components/common/HeaderBar';
 import CultureAndEducation from 'components/cultureAndEducation/CultureAndEducation';
-import Navigation from 'components/navigation/Navigation';
-import type { Event, MainMenu } from 'types/payload/payload-types';
+import HeaderBar from 'components/Layout/Header/HeaderBar';
+import type { Event } from 'types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
-    mainMenu: MainMenu;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -18,21 +16,19 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         revalidate: 60,
         props: {
             events: await getUpcomingEvents(),
-            mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ events, mainMenu }: Props): ReactElement => {
+export default ({ events }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
-                mainMenu={mainMenu}
             />
 
             <CultureAndEducation events={events} />

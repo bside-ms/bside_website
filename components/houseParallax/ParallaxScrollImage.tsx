@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
-import type { ScrollImage } from 'lib/houseParallax/getScrollElements';
+import type { ScrollImage } from '@/lib/houseParallax/getScrollElements';
 
 interface ParallaxScrollImageProps extends ScrollImage {
     scrollY: number;

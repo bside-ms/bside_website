@@ -5,24 +5,22 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
-import Banner from '@/components/common/Banner';
-import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
 import EventDetails from '@/components/events/EventDetails';
-import Navigation from '@/components/navigation/Navigation';
+import Banner from '@/components/Layout/Banner';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import logger from '@/lib/common/logger';
 import createEventSlug from '@/lib/events/createEventSlug';
-import getHeadNavigation from '@/lib/getHeadNavigation';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from 'types/payload/PaginatedDocs';
-import type { Event, MainMenu } from 'types/payload/payload-types';
+import type { Event } from 'types/payload/payload-types';
 
 interface Props {
     event?: Event;
-    mainMenu: MainMenu;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -81,12 +79,11 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         revalidate: 60,
         props: {
             event,
-            mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ event, mainMenu }: Props): ReactElement => {
+export default ({ event }: Props): ReactElement => {
 
     if (event === undefined) {
         return (
@@ -105,10 +102,9 @@ export default ({ event, mainMenu }: Props): ReactElement => {
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
-                mainMenu={mainMenu}
             />
 
-            <Navigation />
+            <MobileNavigation />
 
             {isNotEmptyString(event.id) && (
                 <Banner

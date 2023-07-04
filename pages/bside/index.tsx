@@ -1,37 +1,19 @@
-import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
-import Navigation from '@/components/navigation/Navigation';
-import getHeadNavigation from '@/lib/getHeadNavigation';
-import type { MainMenu } from '@/types/payload/payload-types';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 
-interface Props {
-    mainMenu?: MainMenu;
-}
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-
-    return {
-        revalidate: 60,
-        props: {
-            mainMenu: await getHeadNavigation(),
-        },
-    };
-};
-
-export default ({ mainMenu }: Props): ReactElement => {
+export default (): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
-                mainMenu={mainMenu}
             />
 
             <ContentWrapper>

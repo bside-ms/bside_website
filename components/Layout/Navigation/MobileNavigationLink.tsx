@@ -2,14 +2,14 @@ import { useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement, SyntheticEvent } from 'react';
-import { useAppContext } from 'components/common/AppContext';
+import { useAppContext } from '@/components/Layout/Next/AppContext';
 
 interface Props {
     children: ReactElement | string;
     href: string;
 }
 
-const NavigationLink = ({ children, href }: Props): ReactElement => {
+const MobileNavigationLink = ({ children, href }: Props): ReactElement => {
 
     const { pathname } = useRouter();
     const { toggleNavigation } = useAppContext();
@@ -36,4 +36,4 @@ const NavigationLink = ({ children, href }: Props): ReactElement => {
     );
 };
 
-export default NavigationLink;
+export default MobileNavigationLink;

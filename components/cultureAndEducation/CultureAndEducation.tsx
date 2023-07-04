@@ -3,10 +3,10 @@ import { range } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import ContentWrapper from 'components/common/ContentWrapper';
-import NextEvents from 'components/events/NextEvents';
-import formatDate from 'lib/common/helper/formatDate';
-import type { Event } from 'types/payload/payload-types';
+import NextEvents from '@/components/events/NextEvents';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import formatDate from '@/lib/common/helper/formatDate';
+import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;

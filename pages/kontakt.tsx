@@ -1,15 +1,15 @@
 import type { ReactElement } from 'react';
-import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
 import ContactForm from '@/components/contactForm/ContactForm';
-import Navigation from '@/components/navigation/Navigation';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 
 export default (): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar />
 

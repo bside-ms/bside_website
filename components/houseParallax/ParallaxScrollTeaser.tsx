@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 import { BsArrowDownCircle } from 'react-icons/bs';
 import { RxChevronDown } from 'react-icons/rx';
-import isEmptyNumber from 'lib/common/helper/isEmptyNumber';
-import useIsMounted from 'lib/common/hooks/useIsMounted';
+import isEmptyNumber from '@/lib/common/helper/isEmptyNumber';
+import useIsMounted from '@/lib/common/hooks/useIsMounted';
 
 interface Props {
     scrollY: number;

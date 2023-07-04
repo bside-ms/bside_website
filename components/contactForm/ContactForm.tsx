@@ -2,8 +2,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
-import Spinner from 'components/common/Spinner';
-import delayExecution from 'lib/common/helper/delayExecution';
+import Spinner from '@/components/common/Spinner';
+import delayExecution from '@/lib/common/helper/delayExecution';
 
 interface FormValues {
     fullName: string;

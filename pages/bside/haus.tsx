@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
 import ParallaxScrollImage from '@/components/houseParallax/ParallaxScrollImage';
 import ParallaxScrollInfoBox from '@/components/houseParallax/ParallaxScrollInfoBox';
 import ParallaxScrollTeaser from '@/components/houseParallax/ParallaxScrollTeaser';
-import Navigation from '@/components/navigation/Navigation';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import formatNumber from '@/lib/common/helper/formatNumber';
 import useIsMounted from '@/lib/common/hooks/useIsMounted';
 import getInfoBoxPositions from '@/lib/houseParallax/getInfoBoxPositions';
@@ -39,7 +39,7 @@ export default (): ReactElement | null => {
 
     return (
         <>
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar />
 

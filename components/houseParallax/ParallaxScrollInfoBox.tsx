@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import type { ReactElement } from 'react';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import isEmptyNumber from 'lib/common/helper/isEmptyNumber';
-import isNotEmptyNumber from 'lib/common/helper/isNotEmptyNumber';
-import isNotEmptyString from 'lib/common/helper/isNotEmptyString';
-import { getInfoBoxPosition } from 'lib/houseParallax/getInfoBoxPositions';
-import type { ScrollInfoBox } from 'lib/houseParallax/getScrollElements';
+import isEmptyNumber from '@/lib/common/helper/isEmptyNumber';
+import isNotEmptyNumber from '@/lib/common/helper/isNotEmptyNumber';
+import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
+import { getInfoBoxPosition } from '@/lib/houseParallax/getInfoBoxPositions';
+import type { ScrollInfoBox } from '@/lib/houseParallax/getScrollElements';
 
 interface ParallaxScrollInfoBoxProps extends ScrollInfoBox {
     scrollY: number;

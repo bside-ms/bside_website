@@ -1,23 +1,21 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
-import Banner from '@/components/common/Banner';
 import ButtonBig from '@/components/common/ButtonBig';
-import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
 import NextEvents from '@/components/events/NextEvents';
 import ContactTeaser from '@/components/frontPage/ContactTeaser';
 import HouseHero from '@/components/frontPage/HouseHero';
-import Navigation from '@/components/navigation/Navigation';
+import Banner from '@/components/Layout/Banner';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { getUpcomingEvents } from '@/lib/events';
-import getHeadNavigation from '@/lib/getHeadNavigation';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
-import type { Event, MainMenu } from '@/types/payload/payload-types';
+import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
-    mainMenu?: MainMenu;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -26,12 +24,11 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         revalidate: 60,
         props: {
             events: await getUpcomingEvents(),
-            mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ events, mainMenu }: Props): ReactElement => {
+export default ({ events }: Props): ReactElement => {
 
     const { ref: inViewImageRef, inView: isImageContainerInView } =
         useInView({ initialInView: true });
@@ -44,13 +41,12 @@ export default ({ events, mainMenu }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar
                 disableLeftLogo={isImageContainerInView}
                 headerMenu={true}
                 banner={false}
-                mainMenu={mainMenu}
             />
 
             <Banner

@@ -2,21 +2,19 @@ import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
 import ButtonBig from '@/components/common/ButtonBig';
-import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
 import NextEvents from '@/components/events/NextEvents';
-import Navigation from '@/components/navigation/Navigation';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { filterForMeetings, filterNoMeetings, getUpcomingEvents } from '@/lib/events';
-import getHeadNavigation from '@/lib/getHeadNavigation';
 import eventImage from '@/public/assets/veranstaltung.png';
-import type { Event, MainMenu } from '@/types/payload/payload-types';
+import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
     meetings: Array<Event>;
-    mainMenu?: MainMenu;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -27,20 +25,18 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         props: {
             events: filterNoMeetings(allEvents),
             meetings: filterForMeetings(allEvents),
-            mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ events, meetings, mainMenu }: Props): ReactElement => {
+export default ({ events, meetings }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
-                mainMenu={mainMenu}
             />
 
             <HeroImageSvg

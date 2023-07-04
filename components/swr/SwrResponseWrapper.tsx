@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { SWRResponse } from 'swr';
-import type PaginatedDocs from 'types/payload/PaginatedDocs';
+import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 
 interface Props<T> {
     response: SWRResponse<PaginatedDocs<T>, Error>;

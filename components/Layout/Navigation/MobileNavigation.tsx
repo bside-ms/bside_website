@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import type { ReactElement, SyntheticEvent } from 'react';
-import { useAppContext } from 'components/common/AppContext';
-import NavigationLinks from 'components/navigation/NavigationLinks';
+import MobileMenuItems from '@/components/Layout/Navigation/MobileMenuItems';
+import { useAppContext } from '@/components/Layout/Next/AppContext';
 
-const Navigation = (): ReactElement | null => {
+const MobileNavigation = (): ReactElement | null => {
 
     const { isNavigationOpen, toggleNavigation } = useAppContext();
 
@@ -71,7 +71,7 @@ const Navigation = (): ReactElement | null => {
                         z-40
                     `}
                 >
-                    <NavigationLinks />
+                    <MobileMenuItems />
                 </div>
             </div>
 
@@ -87,4 +87,4 @@ const Navigation = (): ReactElement | null => {
     );
 };
 
-export default Navigation;
+export default MobileNavigation;

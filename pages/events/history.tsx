@@ -1,18 +1,16 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import ButtonBig from '@/components/common/ButtonBig';
-import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
 import NextEvents from '@/components/events/NextEvents';
-import Navigation from '@/components/navigation/Navigation';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { getPastEvents } from '@/lib/events';
-import getHeadNavigation from '@/lib/getHeadNavigation';
-import type { Event, MainMenu } from '@/types/payload/payload-types';
+import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     events: Array<Event>;
-    mainMenu?: MainMenu;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -20,20 +18,18 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         revalidate: 60,
         props: {
             events: await getPastEvents(),
-            mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ events, mainMenu }: Props): ReactElement => {
+export default ({ events }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
-                mainMenu={mainMenu}
             />
 
             <ContentWrapper>

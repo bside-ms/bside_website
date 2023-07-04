@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import ContentWrapper from 'components/common/ContentWrapper';
-import Chevron from 'components/svg/Chevron';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import Chevron from '@/components/svg/Chevron';
 
 const ContactTeaser = (): ReactElement => {
 

@@ -1,21 +1,19 @@
 import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import ContentWrapper from '@/components/common/ContentWrapper';
 import Footer from '@/components/common/Footer';
-import HeaderBar from '@/components/common/HeaderBar';
-import Navigation from '@/components/navigation/Navigation';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import logger from '@/lib/common/logger';
-import getHeadNavigation from '@/lib/getHeadNavigation';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { MainMenu, Page } from '@/types/payload/payload-types';
+import type { Page } from '@/types/payload/payload-types';
 
 interface Props {
     page?: Page;
-    mainMenu?: MainMenu;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -85,12 +83,11 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         revalidate: 60,
         props: {
             page,
-            mainMenu: await getHeadNavigation(),
         },
     };
 };
 
-export default ({ page, mainMenu }: Props): ReactElement => {
+export default ({ page }: Props): ReactElement => {
 
     if (!page) {
         return <main className="min-h-screen flex flex-col justify-between" />;
@@ -98,12 +95,11 @@ export default ({ page, mainMenu }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <Navigation />
+            <MobileNavigation />
 
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
-                mainMenu={mainMenu}
             />
 
             <ContentWrapper>
