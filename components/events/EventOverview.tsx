@@ -106,7 +106,7 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
     );
 };
 
-const NextEvents = ({
+const EventOverview = ({
     title = 'Nächste Veranstaltungen',
     events: allEvents,
     pastEvents = false,
@@ -216,4 +216,4 @@ const NextEvents = ({
     );
 };
 
-export default NextEvents;
+export default EventOverview;

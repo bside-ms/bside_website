@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
-import NextEvents from '@/components/events/NextEvents';
+import EventOverview from '@/components/events/EventOverview';
 import ContactTeaser from '@/components/frontPage/ContactTeaser';
 import HouseHero from '@/components/frontPage/HouseHero';
 import Banner from '@/components/Layout/Banner';
@@ -100,7 +100,7 @@ export default ({ events }: Props): ReactElement => {
             </div>
 
             <ContentWrapper px={false} pxsm={true}>
-                <NextEvents events={events} />
+                <EventOverview events={events} />
             </ContentWrapper>
 
             <ContactTeaser />

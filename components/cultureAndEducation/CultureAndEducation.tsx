@@ -3,7 +3,7 @@ import { range } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import NextEvents from '@/components/events/NextEvents';
+import EventOverview from '@/components/events/EventOverview';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import formatDate from '@/lib/common/helper/formatDate';
 import type { Event } from '@/types/payload/payload-types';
@@ -154,7 +154,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
             </ContentWrapper>
 
             <ContentWrapper>
-                <NextEvents
+                <EventOverview
                     title="Veranstaltungen des Kultur&nbsp;e.V.s"
                     events={events}
                 />

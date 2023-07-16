@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
-import NextEvents from '@/components/events/NextEvents';
+import EventOverview from '@/components/events/EventOverview';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
@@ -49,7 +49,7 @@ export default ({ events, meetings }: Props): ReactElement => {
             />
 
             <ContentWrapper py={false} px={false} pxsm={true}>
-                <NextEvents title="" events={events} />
+                <EventOverview title="" events={events} />
             </ContentWrapper>
 
             <div className="w-full lg:w-[60rem] lg:mx-auto">
@@ -97,7 +97,7 @@ export default ({ events, meetings }: Props): ReactElement => {
                 </ContentWrapper>
 
                 <ContentWrapper px={false} pxsm={true}>
-                    <NextEvents
+                    <EventOverview
                         title=""
                         events={meetings}
                         // disableFilter={true}

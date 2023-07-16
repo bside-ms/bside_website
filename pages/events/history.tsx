@@ -2,7 +2,7 @@ import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
-import NextEvents from '@/components/events/NextEvents';
+import EventOverview from '@/components/events/EventOverview';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
@@ -53,7 +53,7 @@ export default ({ events }: Props): ReactElement => {
             </ContentWrapper>
 
             <ContentWrapper px={false} pxsm={true}>
-                <NextEvents
+                <EventOverview
                     title="Vergangene Veranstaltungen"
                     events={events}
                     pastEvents={true}
