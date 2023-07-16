@@ -1,12 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import type { PropsWithChildren, ReactElement } from 'react';
-import type { MainMenu } from '@/types/payload/payload-types';
 
 interface AppContextData {
     isNavigationOpen: boolean;
     toggleNavigation: () => void;
-    mainMenu?: MainMenu;
 }
 
 const AppContext = createContext<AppContextData | null>(null);
