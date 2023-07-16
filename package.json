@@ -28,7 +28,7 @@
     "next-auth": "4.22.x",
     "nodemailer": "6.9.x",
     "parallax-controller": "1.7.x",
-    "puppeteer": "20.5.x",
+    "puppeteer": "20.8.x",
     "qs": "6.11.x",
     "react": "18.2.x",
     "react-dom": "18.2.x",
