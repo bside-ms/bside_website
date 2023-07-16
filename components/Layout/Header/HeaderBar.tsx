@@ -13,7 +13,7 @@ interface Props {
 
 const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, banner = false }: Props): ReactElement => {
     return (
-        <div className={`fixed top-0 left-0 right-0 z-40 ${banner ? 'top-[44px]' : ''}`}>
+        <div className={`fixed top-0 left-0 right-0 z-20 ${banner ? 'top-[44px]' : ''}`}>
             <div className="">
                 <div>
                     <div className="p-4 sm:p-0 flex justify-between relative">
@@ -21,7 +21,7 @@ const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, banner = false
                         <MobileLogo disableLogo={disableLeftLogo} />
 
                         <div
-                            className="hidden sm:block w-full bg-white text-center transition-none py-2"
+                            className="hidden sm:block w-full bg-white text-center transition-none px-4 py-2"
                             style={!banner && headerMenu ? undefined : { display: 'none' }}
                         >
                             <Link
