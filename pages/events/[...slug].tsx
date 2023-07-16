@@ -8,6 +8,7 @@ import { useInView } from 'react-intersection-observer';
 import Footer from '@/components/common/Footer';
 import EventDetails from '@/components/events/EventDetails';
 import Banner from '@/components/Layout/Banner';
+import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
@@ -99,12 +100,12 @@ export default ({ event }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
 
+            <MobileNavigation />
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
             />
-
-            <MobileNavigation />
+            <ContentDivider />
 
             {isNotEmptyString(event.id) && (
                 <Banner

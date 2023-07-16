@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
+import ContentDivider from '@/components/Layout/ContentDivider';
 import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { getUpcomingEvents } from '@/lib/events';
 import Footer from 'components/common/Footer';
@@ -25,11 +26,11 @@ export default ({ events }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
             <MobileNavigation />
-
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
             />
+            <ContentDivider />
 
             <CultureAndEducation events={events} />
 

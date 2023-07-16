@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement, SyntheticEvent } from 'react';
 import { useAppContext } from '@/components/Layout/Next/AppContext';
-import Protocol from 'devtools-protocol';
-import integer = Protocol.integer;
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 
 interface Props {

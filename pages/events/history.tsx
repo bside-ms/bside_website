@@ -3,6 +3,7 @@ import type { ReactElement } from 'react';
 import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
 import NextEvents from '@/components/events/NextEvents';
+import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
@@ -26,11 +27,11 @@ export default ({ events }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
             <MobileNavigation />
-
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
             />
+            <ContentDivider />
 
             <ContentWrapper>
                 <div className="font-serif text-white bg-black mt-4 text-2xl text-center p-3">

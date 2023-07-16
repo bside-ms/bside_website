@@ -5,6 +5,7 @@ import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
 import NextEvents from '@/components/events/NextEvents';
+import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
@@ -38,6 +39,8 @@ export default ({ events, meetings }: Props): ReactElement => {
                 disableLeftLogo={false}
                 headerMenu={true}
             />
+
+            <ContentDivider />
 
             <HeroImageSvg
                 imageSrc="event"
