@@ -1,10 +1,10 @@
 import type { ReactElement } from 'react';
+import RichText from '@/components/Blocks/RichText';
 import EventImage from '@/components/events/EventImage';
 import formatDate from '@/lib/common/helper/formatDate';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import isEventImageMedia from '@/lib/events/isEventImageMedia';
 import isEventImageString from '@/lib/events/isEventImageString';
-import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
@@ -54,9 +54,7 @@ const EventDetails = ({ event }: Props): ReactElement => {
                 </span>
             </div>
 
-            <div className="mt-2 sm:text-lg md:mt-4">
-                {serializeRichTextToHtml(event.richText)}
-            </div>
+            <RichText className="mt-2 sm:text-lg md:mt-4" content={event.richText} />
 
             {isNotEmptyString(event.eventOrganizer) && (
                 <>

@@ -1,6 +1,7 @@
 import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
+import RichText from '@/components/Blocks/RichText';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
@@ -9,7 +10,6 @@ import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
-import serializeRichTextToHtml from '@/lib/payload/serializeRichTextToHtml';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
 
@@ -109,9 +109,7 @@ export default ({ page }: Props): ReactElement => {
                         {page.title}
                     </div>
 
-                    <div className="mt-1 text-sm sm:text-lg md:mt-3">
-                        {serializeRichTextToHtml(page.richText)}
-                    </div>
+                    <RichText className="mt-1 text-sm sm:text-lg md:mt-3" content={page.richText} />
                 </div>
             </ContentWrapper>
 
