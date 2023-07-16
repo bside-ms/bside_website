@@ -18,38 +18,43 @@ export interface Config {
   };
   globals: {
     footer: Footer;
-    'main-menu': MainMenu;
   };
 }
 export interface Event {
   id: string;
   title: string;
-  richText: Array<Record<string, unknown>>;
+  richText: {
+    [k: string]: unknown;
+  }[];
   eventImage?: string | Media;
   eventLocation: string;
   eventDate: string;
   eventStart: string;
   eventEnd?: string;
   eventOwner?:
-      | Array< | {
-    value: string;
-    relationTo: 'organisations';
-  }
-      | {
-    value: string;
-    relationTo: 'circles';
-  }>
-      | Array< | {
-    value: Organisation;
-    relationTo: 'organisations';
-  }
-      | {
-    value: Circle;
-    relationTo: 'circles';
-  }>;
+    | (
+        | {
+            value: string;
+            relationTo: 'organisations';
+          }
+        | {
+            value: string;
+            relationTo: 'circles';
+          }
+      )[]
+    | (
+        | {
+            value: Organisation;
+            relationTo: 'organisations';
+          }
+        | {
+            value: Circle;
+            relationTo: 'circles';
+          }
+      )[];
   eventOrganizer?: string;
   eventExtra?: string;
-  category?: Array<'concert' | 'movie' | 'theater' | 'plenum' | 'workshop'>;
+  category?: ('concert' | 'movie' | 'theater' | 'plenum' | 'workshop')[];
   displayOnHome?: boolean;
   displayOnOverview?: boolean;
   displayOnOrgansation?: boolean;
@@ -62,7 +67,6 @@ export interface Event {
 export interface Media {
   id: string;
   alt: string;
-  darkModeFallback?: string | Media;
   updatedAt: string;
   createdAt: string;
   url?: string;
@@ -81,6 +85,14 @@ export interface Media {
       filename?: string;
     };
     thumbnail?: {
+      url?: string;
+      width?: number;
+      height?: number;
+      mimeType?: string;
+      filesize?: number;
+      filename?: string;
+    };
+    portrait?: {
       url?: string;
       width?: number;
       height?: number;
@@ -113,6 +125,53 @@ export interface Circle {
   color?: string;
   circleImage?: string | Media;
   fallbackImage: string;
+  layout?: (
+    | {
+        columns: {
+          width: 'oneThird' | 'half' | 'twoThirds' | 'full';
+          alignment: 'left' | 'center' | 'right';
+          richText: {
+            [k: string]: unknown;
+          }[];
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        media: string | Media;
+        size?: 'normal' | 'wide' | 'fullscreen';
+        caption?: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        alignment: 'contentOnLeft' | 'contentOnRight';
+        richText: {
+          [k: string]: unknown;
+        }[];
+        media: string | Media;
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        introContent: {
+          [k: string]: unknown;
+        }[];
+        slides: {
+          media: string | Media;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaSlider';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
@@ -121,7 +180,7 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
-  roles: Array<'public' | 'editor' | 'admin'>;
+  roles: ('public' | 'editor' | 'admin')[];
   updatedAt: string;
   createdAt: string;
   email?: string;
@@ -134,15 +193,17 @@ export interface User {
 export interface Page {
   id: string;
   title: string;
-  richText: Array<Record<string, unknown>>;
+  richText: {
+    [k: string]: unknown;
+  }[];
   slug?: string;
   parent?: string | Page;
-  breadcrumbs?: Array<{
+  breadcrumbs?: {
     doc?: string | Page;
     url?: string;
     label?: string;
     id?: string;
-  }>;
+  }[];
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
@@ -177,8 +238,8 @@ export interface Redirect {
 }
 export interface Footer {
   id: string;
-  columns: Array<{
-    navItems: Array<{
+  columns: {
+    navItems: {
       link: {
         type?: 'reference' | 'custom';
         newTab?: boolean;
@@ -190,23 +251,7 @@ export interface Footer {
         label: string;
       };
       id?: string;
-    }>;
+    }[];
     id?: string;
-  }>;
-}
-export interface MainMenu {
-  id: string;
-  navItems: Array<{
-    link: {
-      type?: 'reference' | 'custom';
-      newTab?: boolean;
-      reference: {
-        value: string | Page;
-        relationTo: 'pages';
-      };
-      url: string;
-      label: string;
-    };
-    id?: string;
-  }>;
+  }[];
 }
