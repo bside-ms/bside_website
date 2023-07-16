@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import type React from 'react';
 import { ContentBlock } from '@/components/Blocks/Content';
+import { toKebabCase } from '@/lib/common/toKebabCase';
 import type { Circle } from '@/types/payload/payload-types';
 
 const blockComponents = {
@@ -32,8 +33,8 @@ const Blocks: React.FC<{
 
                     return (
                         <Block
-                            id={blockName}
-                            key={blockName}
+                            id={toKebabCase(blockName!)}
+                            key={blockName!}
                             // eslint-disable-next-line react/jsx-props-no-spreading
                             {...block}
                         />
