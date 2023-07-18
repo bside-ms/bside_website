@@ -19,3 +19,5 @@ export const isValidBsideUrl = (string: string): boolean => {
 };
 
 export const getFullClientUrl = (path: string): string => `${process.env.FRONTEND_URL}${path}`;
+
+export const getPayloadUrl = (path: string): string => `${process.env.PAYLOAD_URL}${path}`;

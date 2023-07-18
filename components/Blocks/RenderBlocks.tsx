@@ -1,11 +1,13 @@
 import { Fragment } from 'react';
 import type React from 'react';
 import { ContentBlock } from '@/components/Blocks/Content';
+import { MediaContentBlock } from '@/components/Blocks/MediaContent';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 import type { Circle } from '@/types/payload/payload-types';
 
 const blockComponents = {
     content: ContentBlock,
+    mediaContent: MediaContentBlock,
 };
 
 interface Props {
