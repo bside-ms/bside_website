@@ -8,13 +8,15 @@ const blockComponents = {
     content: ContentBlock,
 };
 
-const Blocks: React.FC<{
+interface Props {
     blocks: Circle['layout'];
-}> = (props) => {
-    const { blocks } = props;
+}
 
-    const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0;
-    if (hasBlocks === false || blocks === undefined) {
+export const RenderBlocks: React.FC<Props> = props => {
+    const { blocks } = props;
+    const hasBlocks = Array.isArray(blocks) && blocks.length > 0;
+
+    if (!hasBlocks) {
         return null;
     }
 
@@ -27,12 +29,13 @@ const Blocks: React.FC<{
                 } = block;
 
                 if (blockType in blockComponents) {
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // eslint-disable-next-line ,@typescript-eslint/ban-ts-comment,@typescript-eslint/ban-ts-comment
                     // @ts-expect-error
-                    const Block = blockComponents[blockType];
+
+                    const BlockType = blockComponents[blockType];
 
                     return (
-                        <Block
+                        <BlockType
                             id={toKebabCase(blockName!)}
                             key={blockName!}
                             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -45,5 +48,3 @@ const Blocks: React.FC<{
         </Fragment>
     );
 };
-
-export default Blocks;
