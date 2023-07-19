@@ -1,23 +1,16 @@
 import { Fragment } from 'react';
 import { Cell, Grid } from '@faceless-ui/css-grid';
+import type { ReactElement } from 'react';
 import RichText from '@/components/Blocks/RichText';
 import { PayloadImage } from '@/components/common/Image';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import type { Circle, Media } from '@/types/payload/payload-types';
+import type { MediaBlockProps } from '@/types/payload/Blocks';
 
-type SlateChildren = Array<Record<string, unknown>>;
-interface MediaBlockProps {
-    media: Media;
-    richText: SlateChildren;
-    alignment: string;
-}
-
-export const MediaContentBlock: React.FC<MediaBlockProps> = (mediaContentFields: MediaBlockProps) => {
-    const { media, richText, alignment } = mediaContentFields;
+export const MediaContentBlock = ({ media, richText, alignment }: MediaBlockProps): ReactElement => {
 
     return (
         <Grid>
-            {alignment === 'mediaContent' ? (
+            {alignment === 'contentOnRight' ? (
             // media-content
                 <Fragment>
                     <Cell
@@ -64,16 +57,10 @@ export const MediaContentBlock: React.FC<MediaBlockProps> = (mediaContentFields:
     );
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-export type MediaContentProps = Extract<Circle['layout'][0], { blockType: 'mediaContent' }>;
-
-export const MediaContent: React.FC<MediaContentProps> = props => {
-
+export const MediaContent = (props: MediaBlockProps): ReactElement => {
     return (
         <ContentWrapper px={false}>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <MediaContentBlock {...props} />
+            <MediaContentBlock media={props.media} richText={props.richText} alignment={props.alignment} />
         </ContentWrapper>
     );
 };

@@ -1,24 +1,11 @@
 import { Fragment } from 'react';
 import { Cell, Grid } from '@faceless-ui/css-grid';
-import type React from 'react';
+import type { ReactElement } from 'react';
 import RichText from '@/components/Blocks/RichText';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
+import type { ContentProps } from '@/types/payload/Blocks';
 
-type SlateChildren = Array<Record<string, unknown>>;
-interface ColumnProps {
-    width: string;
-    alignment: string;
-    richText: SlateChildren;
-    id: string;
-}
-interface ContentProps {
-    columns: Array<ColumnProps>;
-}
-
-const Columns: React.FC<ContentProps> = ({
-    columns,
-}) => {
-
+const Columns = ({ columns }: ContentProps): ReactElement => {
     switch (columns[0]?.width) {
         case 'full': {
             return (
@@ -41,11 +28,9 @@ const Columns: React.FC<ContentProps> = ({
             return (
                 <Fragment>
                     <Cell cols={col1Cols} colsM={12}>
-                        { }
                         <RichText content={columns[0]!.richText} />
                     </Cell>
                     <Cell cols={col2Cols} colsM={12}>
-                        { }
                         <RichText content={columns[1]!.richText} />
                     </Cell>
                 </Fragment>
@@ -58,15 +43,12 @@ const Columns: React.FC<ContentProps> = ({
                 return (
                     <Fragment>
                         <Cell cols={4} colsM={12}>
-                            { }
                             <RichText content={columns[0]!.richText} />
                         </Cell>
                         <Cell cols={4} colsM={12}>
-                            { }
                             <RichText content={columns[1]!.richText} />
                         </Cell>
                         <Cell cols={4} colsM={12}>
-                            { }
                             <RichText content={columns[2]!.richText} />
                         </Cell>
                     </Fragment>
@@ -77,11 +59,9 @@ const Columns: React.FC<ContentProps> = ({
             return (
                 <Fragment>
                     <Cell cols={4} colsM={12}>
-                        { }
                         <RichText content={columns[0]!.richText} />
                     </Cell>
                     <Cell cols={8} colsM={12}>
-                        { }
                         <RichText content={columns[1]!.richText} />
                     </Cell>
                 </Fragment>
@@ -89,19 +69,13 @@ const Columns: React.FC<ContentProps> = ({
         }
     }
 
-    return null;
+    return (<div />);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-type Props = Extract<Circle['layout'][0], { blockType: 'content' }>;
-
-export const ContentBlock: React.FC<Props> = (props) => {
-
+export const ContentBlock = (props: ContentProps): ReactElement => {
     return (
         <ContentWrapper px={false}>
             <Grid>
-                {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
                 <Columns columns={props.columns} />
             </Grid>
         </ContentWrapper>

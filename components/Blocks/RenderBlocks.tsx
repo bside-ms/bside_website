@@ -1,25 +1,20 @@
 import { Fragment } from 'react';
-import type React from 'react';
+import type { ReactElement } from 'react';
 import { ContentBlock } from '@/components/Blocks/Content';
 import { MediaContentBlock } from '@/components/Blocks/MediaContent';
 import { toKebabCase } from '@/lib/common/toKebabCase';
-import type { Circle } from '@/types/payload/payload-types';
+import type { BlockLayoutProps } from '@/types/payload/Blocks';
 
 const blockComponents = {
     content: ContentBlock,
     mediaContent: MediaContentBlock,
 };
 
-interface Props {
-    blocks: Circle['layout'];
-}
-
-export const RenderBlocks: React.FC<Props> = props => {
-    const { blocks } = props;
+export const RenderBlocks = ({ blocks }: BlockLayoutProps): ReactElement => {
     const hasBlocks = Array.isArray(blocks) && blocks.length > 0;
 
     if (!hasBlocks) {
-        return null;
+        return (<div />);
     }
 
     return (
@@ -31,9 +26,8 @@ export const RenderBlocks: React.FC<Props> = props => {
                 } = block;
 
                 if (blockType in blockComponents) {
-                    // eslint-disable-next-line ,@typescript-eslint/ban-ts-comment,@typescript-eslint/ban-ts-comment
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-expect-error
-
                     const BlockType = blockComponents[blockType];
 
                     return (
