@@ -4,9 +4,9 @@ import type { ReactElement } from 'react';
 import RichText from '@/components/Blocks/RichText';
 import { PayloadImage } from '@/components/common/Image';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import type { MediaBlockProps } from '@/types/payload/Blocks';
+import type { MediaContentBlockProps } from '@/types/payload/Blocks';
 
-export const MediaContentBlock = ({ media, richText, alignment }: MediaBlockProps): ReactElement => {
+export const MediaContentBlock = ({ media, richText, alignment }: MediaContentBlockProps): ReactElement => {
 
     return (
         <Grid>
@@ -57,7 +57,7 @@ export const MediaContentBlock = ({ media, richText, alignment }: MediaBlockProp
     );
 };
 
-export const MediaContent = (props: MediaBlockProps): ReactElement => {
+export const MediaContent = (props: MediaContentBlockProps): ReactElement => {
     return (
         <ContentWrapper px={false}>
             <MediaContentBlock media={props.media} richText={props.richText} alignment={props.alignment} />

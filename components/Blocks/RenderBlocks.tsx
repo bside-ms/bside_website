@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import type { ReactElement } from 'react';
 import { ContentBlock } from '@/components/Blocks/Content';
+import { MediaBlock } from '@/components/Blocks/MediaBlock';
 import { MediaContentBlock } from '@/components/Blocks/MediaContent';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';
@@ -8,6 +9,7 @@ import type { BlockLayoutProps } from '@/types/payload/Blocks';
 const blockComponents = {
     content: ContentBlock,
     mediaContent: MediaContentBlock,
+    mediaBlock: MediaBlock,
 };
 
 export const RenderBlocks = ({ blocks }: BlockLayoutProps): ReactElement => {

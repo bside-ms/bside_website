@@ -17,8 +17,14 @@ export interface ContentProps {
     columns: Array<ContentColumnProps>;
 }
 
-export interface MediaBlockProps {
+export interface MediaContentBlockProps {
     media: Media;
     richText: SlateChildren;
     alignment: string;
+}
+
+export interface MediaBlogProps {
+    media: Media;
+    size: string;
+    caption?: SlateChildren;
 }
