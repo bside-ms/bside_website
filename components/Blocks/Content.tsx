@@ -1,5 +1,3 @@
-import { Fragment } from 'react';
-import { Cell, Grid } from '@faceless-ui/css-grid';
 import type { ReactElement } from 'react';
 import RichText from '@/components/Blocks/RichText';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
@@ -9,31 +7,32 @@ const Columns = ({ columns }: ContentProps): ReactElement => {
     switch (columns[0]?.width) {
         case 'full': {
             return (
-                <Cell cols={12}>
-                    <RichText content={columns[0]!.richText} />
-                </Cell>
+                <RichText content={columns[0]!.richText} />
             );
         }
 
         case 'half':
-        case 'twoThirds': {
-            let col1Cols = 6;
-            let col2Cols = 6;
-
-            if (columns[0]?.width === 'twoThirds') {
-                col1Cols = 8;
-                col2Cols = 4;
-            }
-
             return (
-                <Fragment>
-                    <Cell cols={col1Cols} colsM={12}>
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="">
                         <RichText content={columns[0]!.richText} />
-                    </Cell>
-                    <Cell cols={col2Cols} colsM={12}>
+                    </div>
+                    <div className="">
                         <RichText content={columns[1]!.richText} />
-                    </Cell>
-                </Fragment>
+                    </div>
+                </div>
+            );
+
+        case 'twoThirds': {
+            return (
+                <div className="grid grid-cols-6 gap-4">
+                    <div className="col-span-4">
+                        <RichText content={columns[0]!.richText} />
+                    </div>
+                    <div className="col-span-2">
+                        <RichText content={columns[1]!.richText} />
+                    </div>
+                </div>
             );
         }
 
@@ -41,30 +40,30 @@ const Columns = ({ columns }: ContentProps): ReactElement => {
             // Three Columns
             if (columns[1]?.width === 'oneThird') {
                 return (
-                    <Fragment>
-                        <Cell cols={4} colsM={12}>
+                    <div className="grid grid-cols-3 gap-4">
+                        <div>
                             <RichText content={columns[0]!.richText} />
-                        </Cell>
-                        <Cell cols={4} colsM={12}>
+                        </div>
+                        <div>
                             <RichText content={columns[1]!.richText} />
-                        </Cell>
-                        <Cell cols={4} colsM={12}>
+                        </div>
+                        <div>
                             <RichText content={columns[2]!.richText} />
-                        </Cell>
-                    </Fragment>
+                        </div>
+                    </div>
                 );
             }
 
             // Two Columns.
             return (
-                <Fragment>
-                    <Cell cols={4} colsM={12}>
+                <div className="grid grid-cols-6 gap-4">
+                    <div className="col-span-2">
                         <RichText content={columns[0]!.richText} />
-                    </Cell>
-                    <Cell cols={8} colsM={12}>
+                    </div>
+                    <div className="col-span-4">
                         <RichText content={columns[1]!.richText} />
-                    </Cell>
-                </Fragment>
+                    </div>
+                </div>
             );
         }
     }
@@ -75,9 +74,7 @@ const Columns = ({ columns }: ContentProps): ReactElement => {
 export const ContentBlock = (props: ContentProps): ReactElement => {
     return (
         <ContentWrapper px={false}>
-            <Grid>
-                <Columns columns={props.columns} />
-            </Grid>
+            <Columns columns={props.columns} />
         </ContentWrapper>
     );
 };

@@ -12,7 +12,6 @@
     "tsc:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "@faceless-ui/css-grid": "^1.2.0",
     "@fortawesome/fontawesome-svg-core": "6.4.x",
     "@fortawesome/free-brands-svg-icons": "6.4.x",
     "@fortawesome/free-regular-svg-icons": "6.4.x",

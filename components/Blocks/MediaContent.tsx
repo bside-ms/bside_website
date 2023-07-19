@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { Cell, Grid } from '@faceless-ui/css-grid';
 import type { ReactElement } from 'react';
 import RichText from '@/components/Blocks/RichText';
 import { PayloadImage } from '@/components/common/Image';
@@ -9,51 +8,27 @@ import type { MediaContentBlockProps } from '@/types/payload/Blocks';
 export const MediaContentBlock = ({ media, richText, alignment }: MediaContentBlockProps): ReactElement => {
 
     return (
-        <Grid>
+        <Fragment>
             {alignment === 'contentOnRight' ? (
-            // media-content
-                <Fragment>
-                    <Cell
-                        start={1}
-                        cols={6}
-                        colsM={12}
-                        className="my-auto"
-                    >
+                <div className="grid grid-cols-12 gap-4">
+                    <div className="my-auto col-span-12 md:col-span-6">
                         <PayloadImage resource={media} />
-                    </Cell>
-                    <Cell
-                        start={8}
-                        cols={5}
-                        startM={1}
-                        colsM={12}
-                        className="my-auto"
-                    >
+                    </div>
+                    <div className="my-auto col-span-12 md:col-span-6">
                         <RichText content={richText} />
-                    </Cell>
-                </Fragment>
+                    </div>
+                </div>
             ) : (
-            // content-media
-                <Fragment>
-                    <Cell
-                        start={1}
-                        cols={5}
-                        colsM={12}
-                        className="my-auto"
-                    >
+                <div className="grid grid-cols-12 gap-4">
+                    <div className="my-auto col-span-12 md:col-span-6">
                         <RichText content={richText} />
-                    </Cell>
-                    <Cell
-                        start={7}
-                        cols={6}
-                        startM={1}
-                        colsM={12}
-                        className="my-auto"
-                    >
+                    </div>
+                    <div className="my-auto col-span-12 md:col-span-6">
                         <PayloadImage resource={media} />
-                    </Cell>
-                </Fragment>
+                    </div>
+                </div>
             )}
-        </Grid>
+        </Fragment>
     );
 };
 
