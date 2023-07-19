@@ -23,7 +23,7 @@ export interface MediaContentBlockProps {
     alignment: string;
 }
 
-export interface MediaBlogProps {
+export interface MediaBlockProps {
     media: Media;
     size: string;
     caption?: SlateChildren;

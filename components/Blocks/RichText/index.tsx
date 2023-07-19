@@ -11,7 +11,6 @@ const RichText: React.FC<{ className?: string, content: SlateChildren}> = ({ cla
 
     return (
         <div className={className}>
-            { }
             {serialize(content as SlateChildren)}
         </div>
     );

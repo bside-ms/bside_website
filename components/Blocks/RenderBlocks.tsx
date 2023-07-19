@@ -28,11 +28,11 @@ export const RenderBlocks = ({ blocks }: BlockLayoutProps): ReactElement => {
                 } = block;
 
                 if (blockType in blockComponents) {
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-expect-error
                     const BlockType = blockComponents[blockType];
 
                     return (
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-expect-error
                         <BlockType
                             id={toKebabCase(blockName!)}
                             key={blockName!}
