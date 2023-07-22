@@ -151,10 +151,11 @@ export interface Circle {
   }
       | {
     alignment: 'contentOnLeft' | 'contentOnRight';
+    backgroundColor: 'white' | 'black';
+    media: string | Media;
     richText: {
       [k: string]: unknown;
     }[];
-    media: string | Media;
     id?: string;
     blockName?: string;
     blockType: 'mediaContent';

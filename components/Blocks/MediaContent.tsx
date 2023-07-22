@@ -1,14 +1,13 @@
-import { Fragment } from 'react';
 import type { ReactElement } from 'react';
 import RichText from '@/components/Blocks/RichText';
 import { PayloadImage } from '@/components/common/Image';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import type { MediaContentBlockProps } from '@/types/payload/Blocks';
 
-export const MediaContentBlock = ({ media, richText, alignment }: MediaContentBlockProps): ReactElement => {
+const MediaContent = ({ media, richText, alignment }: MediaContentBlockProps): ReactElement => {
 
     return (
-        <Fragment>
+        <ContentWrapper px={false}>
             {alignment === 'contentOnRight' ? (
                 <div className="grid grid-cols-12 gap-4">
                     <div className="my-auto col-span-12 md:col-span-6">
@@ -28,14 +27,20 @@ export const MediaContentBlock = ({ media, richText, alignment }: MediaContentBl
                     </div>
                 </div>
             )}
-        </Fragment>
+        </ContentWrapper>
     );
 };
 
-export const MediaContent = (props: MediaContentBlockProps): ReactElement => {
+export const MediaContentBlock = (props: MediaContentBlockProps): ReactElement => {
     return (
-        <ContentWrapper px={false}>
-            <MediaContentBlock media={props.media} richText={props.richText} alignment={props.alignment} />
-        </ContentWrapper>
+        (props.backgroundColor === 'black' ? (
+            <div className="flex-grow">
+                <div className="bg-black text-white">
+                    <MediaContent media={props.media} richText={props.richText} alignment={props.alignment} />
+                </div>
+            </div>
+        ) : (
+            <MediaContent media={props.media} richText={props.richText} alignment={props.alignment} />
+        ))
     );
 };
