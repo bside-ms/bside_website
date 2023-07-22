@@ -128,6 +128,14 @@ export interface Circle {
   fallbackImage: string;
   layout?: (
       | {
+    title: string;
+    text: string;
+    href: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'callToAction';
+  }
+      | {
     backgroundColor: 'white' | 'black';
     backgroundWidth: 'full' | 'block';
     columns?: {

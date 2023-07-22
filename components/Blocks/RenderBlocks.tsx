@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import type { ReactElement } from 'react';
+import { CallToActionBlock } from '@/components/Blocks/CallToAction';
 import { ContentBlock } from '@/components/Blocks/Content';
 import { MediaBlock } from '@/components/Blocks/MediaBlock';
 import { MediaContentBlock } from '@/components/Blocks/MediaContent';
@@ -9,6 +10,7 @@ const blockComponents = {
     content: ContentBlock,
     mediaContent: MediaContentBlock,
     mediaBlock: MediaBlock,
+    callToAction: CallToActionBlock,
 };
 
 export const RenderBlocks = ({ blocks }: BlockLayoutProps): ReactElement => {

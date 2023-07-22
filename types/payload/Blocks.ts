@@ -30,3 +30,9 @@ export interface MediaBlockProps {
     size: string;
     caption?: string;
 }
+
+export interface CallToActionBlockProps {
+    title: string;
+    text: string;
+    href: string;
+}
