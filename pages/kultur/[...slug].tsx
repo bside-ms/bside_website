@@ -95,12 +95,10 @@ export default ({ page }: Props): ReactElement => {
                     <div className="font-bold font-serif text-2xl md:text-4xl">
                         {page.name}
                     </div>
-
-                    <div id="blocks">
-                        <RenderBlocks blocks={page.layout} />
-                    </div>
                 </div>
             </ContentWrapper>
+
+            <RenderBlocks blocks={page.layout} />
 
             <Footer />
         </main>

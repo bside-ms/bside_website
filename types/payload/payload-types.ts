@@ -128,9 +128,10 @@ export interface Circle {
   fallbackImage: string;
   layout?: (
       | {
+    backgroundColor: 'white' | 'black';
+    backgroundWidth: 'full' | 'block';
     columns?: {
-      width: 'oneThird' | 'half' | 'twoThirds' | 'full';
-      alignment: 'left' | 'center' | 'right';
+      width: 'full' | 'half' | 'oneThird' | 'twoThirds';
       richText: {
         [k: string]: unknown;
       }[];
@@ -142,10 +143,8 @@ export interface Circle {
   }
       | {
     media: string | Media;
-    size?: 'normal' | 'wide' | 'fullscreen';
-    caption?: {
-      [k: string]: unknown;
-    }[];
+    size?: 'normal' | 'wide';
+    caption?: string;
     id?: string;
     blockName?: string;
     blockType: 'mediaBlock';

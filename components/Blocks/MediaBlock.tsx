@@ -1,10 +1,10 @@
 import type { ReactElement } from 'react';
-import RichText from '@/components/Blocks/RichText';
 import { PayloadImage } from '@/components/common/Image';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
 import type { MediaBlockProps } from '@/types/payload/Blocks';
 
-export const MediaBlock = ({ media, caption, size }: MediaBlockProps): ReactElement => {
+export const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): ReactElement => {
 
     return (
         <ContentWrapper px={false}>
@@ -12,11 +12,10 @@ export const MediaBlock = ({ media, caption, size }: MediaBlockProps): ReactElem
                 resource={media}
                 imgClassName={size}
             />
-            {caption && (
+            {!isEmptyString(caption) && (
                 <div>
-                    { /* ToDo: Small does not apply for the RichText-Field */ }
                     <small>
-                        <RichText content={caption} />
+                        <p>{caption}</p>
                     </small>
                 </div>
             )}

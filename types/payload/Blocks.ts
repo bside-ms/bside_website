@@ -8,13 +8,14 @@ export interface BlockLayoutProps {
 
 export interface ContentColumnProps {
     width: string;
-    alignment: string;
     richText: SlateChildren;
     id: string;
 }
 
 export interface ContentProps {
     columns: Array<ContentColumnProps>;
+    backgroundColor?: string;
+    backgroundWidth?: string;
 }
 
 export interface MediaContentBlockProps {
@@ -26,5 +27,5 @@ export interface MediaContentBlockProps {
 export interface MediaBlockProps {
     media: Media;
     size: string;
-    caption?: SlateChildren;
+    caption?: string;
 }

@@ -72,9 +72,22 @@ const Columns = ({ columns }: ContentProps): ReactElement => {
 };
 
 export const ContentBlock = (props: ContentProps): ReactElement => {
+
     return (
-        <ContentWrapper px={false}>
-            <Columns columns={props.columns} />
-        </ContentWrapper>
+        (props.backgroundWidth === 'full' && props.backgroundColor === 'black' ? (
+            <div className="flex-grow">
+                <div className="bg-black text-white">
+                    <ContentWrapper px={false}>
+                        <Columns columns={props.columns} />
+                    </ContentWrapper>
+                </div>
+            </div>
+        ) : (
+            <ContentWrapper px={false}>
+                <div className={`${(props.backgroundColor === 'black' ? 'p-4 bg-black text-white' : '')}`}>
+                    <Columns columns={props.columns} />
+                </div>
+            </ContentWrapper>
+        ))
     );
 };
