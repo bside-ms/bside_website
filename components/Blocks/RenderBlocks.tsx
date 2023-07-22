@@ -3,7 +3,6 @@ import type { ReactElement } from 'react';
 import { ContentBlock } from '@/components/Blocks/Content';
 import { MediaBlock } from '@/components/Blocks/MediaBlock';
 import { MediaContentBlock } from '@/components/Blocks/MediaContent';
-import { toKebabCase } from '@/lib/common/toKebabCase';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';
 
 const blockComponents = {
@@ -21,7 +20,7 @@ export const RenderBlocks = ({ blocks }: BlockLayoutProps): ReactElement => {
 
     return (
         <Fragment>
-            {blocks.map((block) => {
+            {blocks.map((block, index) => {
                 const {
                     blockName,
                     blockType,
@@ -34,8 +33,8 @@ export const RenderBlocks = ({ blocks }: BlockLayoutProps): ReactElement => {
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-expect-error
                         <BlockType
-                            id={toKebabCase(blockName!)}
-                            key={blockName!}
+                            id={blockName ?? `block-${index}`}
+                            key={blockName ?? `block-${index}`}
                             // eslint-disable-next-line react/jsx-props-no-spreading
                             {...block}
                         />
