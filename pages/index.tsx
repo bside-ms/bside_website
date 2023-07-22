@@ -1,10 +1,10 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { CallToActionBlock } from '@/components/Blocks/CallToAction';
 import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
 import EventOverview from '@/components/events/EventOverview';
-import ContactTeaser from '@/components/frontPage/ContactTeaser';
 import HouseHero from '@/components/frontPage/HouseHero';
 import Banner from '@/components/Layout/Banner';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
@@ -103,7 +103,11 @@ export default ({ events }: Props): ReactElement => {
                 <EventOverview events={events} />
             </ContentWrapper>
 
-            <ContactTeaser />
+            <CallToActionBlock
+                title="Bock auf Mitmachen?"
+                text="Schreib uns ne Mail!"
+                href="/kontakt"
+            />
 
             <Footer>
                 <div ref={inViewFooterRef} />

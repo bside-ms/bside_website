@@ -1,7 +1,7 @@
 import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import RichText from '@/components/Blocks/RichText';
+import { RenderBlocks } from '@/components/Blocks/RenderBlocks';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
@@ -11,19 +11,19 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Page } from '@/types/payload/payload-types';
+import type { Circle } from '@/types/payload/payload-types';
 
 interface Props {
-    page?: Page;
+    page?: Circle;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
+    const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
 
-    const paths = pages.docs.map(({ breadcrumbs, id }) => ({
+    const paths = pages.docs.map(({ id }) => ({
         params: {
-            slug: [breadcrumbs ? (breadcrumbs[breadcrumbs.length - 1]?.url?.substring(1) ?? id) : id],
+            slug: [id],
         },
     }));
 
@@ -38,37 +38,24 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     const getElapsed = hirestime();
 
     const rawSlug = context.params?.slug;
+    logger.info('raw: {}', rawSlug);
 
     if (rawSlug === undefined) {
         return { notFound: true };
     }
 
     const slug = typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
+    logger.info('joined: {}', slug);
 
     if (isEmptyString(slug)) {
         return { notFound: true };
     }
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
 
-    let page = pagesResponse.docs.find(doc => {
-        if (doc.breadcrumbs === undefined) {
-            return;
-        }
-
-        let breadcrumbs = doc.breadcrumbs[doc.breadcrumbs.length - 1]?.url ?? '';
-        if (breadcrumbs.startsWith('/')) {
-            breadcrumbs = breadcrumbs.substring(1);
-        }
-
-        return breadcrumbs === `${slug}`;
+    const page = pagesResponse.docs.find(doc => {
+        return doc.id === `${slug}`;
     });
-
-    if (page === undefined) {
-        page = pagesResponse.docs.find(doc => {
-            return doc.id === `${slug}`;
-        });
-    }
 
     if (page === undefined) {
         return { notFound: true };
@@ -76,7 +63,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
     logger.info({
         message: 'timing',
-        path: `/pages/[${slug}]`,
+        path: `/circles/[${slug}]`,
         time: getElapsed.seconds(),
     });
 
@@ -106,12 +93,12 @@ export default ({ page }: Props): ReactElement => {
             <ContentWrapper>
                 <div className="mb-2 mt-4 md:mb-3">
                     <div className="font-bold font-serif text-2xl md:text-4xl">
-                        {page.title}
+                        {page.name}
                     </div>
-
-                    <RichText className="mt-1 text-sm sm:text-lg md:mt-3" content={page.richText} />
                 </div>
             </ContentWrapper>
+
+            <RenderBlocks blocks={page.layout} />
 
             <Footer />
         </main>

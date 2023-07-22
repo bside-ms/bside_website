@@ -10,7 +10,6 @@ const App = ({ Component, pageProps }: AppProps): ReactElement => {
     return (
         <AppContextProvider>
             <NextHead />
-
             {/* eslint-disable-next-line react/jsx-props-no-spreading*/}
             <Component {...pageProps} />
         </AppContextProvider>
