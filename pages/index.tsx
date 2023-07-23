@@ -62,11 +62,11 @@ export default ({ events }: Props): ReactElement => {
 
             <ContentWrapper>
                 <div className="px-0 lg:px-8 mb-2 md:mb-3">
-                    <div className="font-bold font-serif text-2xl md:text-4xl">
+                    <div className="font-bold font-serif text-2xl md:text-4xl md:scroll-mt-[64px]">
                         Die B-Side in Münster
                     </div>
 
-                    <div className="mt-1 text-md md:text-lg md:mt-3 line-through">
+                    <div className="mt-1 text-md md:text-lg md:mt-3">
                         Die B-Side ist ein offener Ort der Möglichkeiten am <span className="line-through">Münsteraner Hafen</span> Hawerkamp,
                         der von vielen Menschen selbstorganisiert entwickelt, gestaltet und verwaltet wird. Auch du kannst hier kreativ und aktiv werden oder einfach eine gute Zeit haben!
                     </div>
@@ -104,6 +104,7 @@ export default ({ events }: Props): ReactElement => {
             </ContentWrapper>
 
             <CallToActionBlock
+                id="mitmachen"
                 title="Bock auf Mitmachen?"
                 text="Schreib uns ne Mail!"
                 href="/kontakt"

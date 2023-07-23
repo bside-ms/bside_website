@@ -168,6 +168,13 @@ export interface Circle {
     blockName?: string;
     blockType: 'mediaContent';
   }
+      | {
+    title: string;
+    anchor?: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'headlineBlock';
+  }
       )[];
   updatedAt: string;
   createdAt: string;

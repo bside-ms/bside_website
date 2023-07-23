@@ -2,13 +2,17 @@ import Link from 'next/link';
 import type { ReactElement } from 'react';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import Chevron from '@/components/svg/Chevron';
+import { toKebabCase } from '@/lib/common/toKebabCase';
 import type { CallToActionBlockProps } from '@/types/payload/Blocks';
 
 const CallToAction = ({ title, href, text }: CallToActionBlockProps): ReactElement => {
     return (
 
         <ContentWrapper>
-            <div className="relative border-4 border-black px-6 py-4 text-center">
+            <div
+                key={`cta-${toKebabCase(title)}`}
+                className="relative border-4 border-black px-6 py-4 text-center"
+            >
                 <div className="absolute w-4 md:w-6 top-1/2 -translate-y-1/2 right-[102%]">
                     <Chevron />
                 </div>

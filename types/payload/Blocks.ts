@@ -36,3 +36,8 @@ export interface CallToActionBlockProps {
     text: string;
     href: string;
 }
+
+export interface HeadlineBlockProps {
+    title: string;
+    anchor: string;
+}
