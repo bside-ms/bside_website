@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import type { ReactElement } from 'react';
 
 interface SvgProps {
@@ -14,7 +16,6 @@ export const SvgKollektiv = (props: SvgProps): ReactElement => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
     >
-
         <g
             id="g5814"
             transform="matrix(7.0561671,0,0,7.0561671,-3027.0957,-3125.882)"
