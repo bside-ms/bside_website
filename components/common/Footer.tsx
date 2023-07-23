@@ -12,21 +12,24 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                 <div className="py-auto text-center text-white font-bold font-serif">
                     <Link
                         href="/impressum"
-                        className="text-md md:text-lg font-bold font-serif"
+                        aria-label="Alle rechtlichen Angaben sind hier zu finden"
+                        className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
                     >
                         Impressum
                     </Link>
                     <span className="px-2">|</span>
                     <Link
                         href="/datenschutz"
-                        className="text-md md:text-lg font-bold font-serif"
+                        aria-label="Erfahre mehr darüber, wie wir mit deinen Daten umgehen"
+                        className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
                     >
                         Datenschutz
                     </Link>
                     <span className="px-2">|</span>
                     <Link
                         href="/kontakt"
-                        className="text-md md:text-lg font-bold font-serif"
+                        aria-label="Trete mit uns in den Kontakt"
+                        className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
                     >
                         Kontakt
                     </Link>
