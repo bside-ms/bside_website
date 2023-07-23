@@ -5,6 +5,10 @@ import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
+import { SvgHistory } from '@/components/svg/History';
+import { SvgHouse } from '@/components/svg/House';
+import { SvgKollektiv } from '@/components/svg/Kollektiv';
+import { SvgLegal } from '@/components/svg/Legal';
 
 export default (): ReactElement => {
     return (
@@ -39,14 +43,14 @@ export default (): ReactElement => {
 
                 <div className="md:flex">
                     {/* Das Haus */}
-                    <Link href="/bside/haus" className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500">
-                        <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
-                            <Image
-                                src="/assets/stickFigures/house-white.svg"
-                                alt="Eine Grafik des Hauses"
-                                height={50}
-                                width={50}
-                                className="pl-2 sm:px-8 w-40"
+                    <Link
+                        href="/bside/haus"
+                        aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                    >
+                        <div className="hidden min-[320px]:block w-[100px] md:w-32">
+                            <SvgHouse
+                                className="fill-current w-[100px] md:w-32 p-4 my-auto"
                             />
                         </div>
                         <div className="flex-1 px-2 sm:px-4 my-auto">
@@ -62,14 +66,14 @@ export default (): ReactElement => {
                     </Link>
 
                     {/* Das Kollektiv */}
-                    <div className="bg-black mt-6 py-4 text-white flex w-full md:w-1/2 md:mx-2">
-                        <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
-                            <Image
-                                src="/assets/stickFigures/blumentopf-white.svg"
-                                alt="Ist das ein Blumentopf?"
-                                height={50}
-                                width={50}
-                                className="pl-2 sm:px-8 w-40"
+                    <Link
+                        href="/bside/haus"
+                        aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                    >
+                        <div className="hidden min-[320px]:block w-[100px] md:w-32 my-auto">
+                            <SvgKollektiv
+                                className="fill-current w-[100px] md:w-32 p-4"
                             />
                         </div>
                         <div className="flex-1 px-2 sm:pr-0 sm:px-4 my-auto">
@@ -83,19 +87,19 @@ export default (): ReactElement => {
                                 Wo kannst du mitmachen?
                             </p>
                         </div>
-                    </div>
+                    </Link>
                 </div>
 
                 <div className="md:flex mb-4">
                     {/* History */}
-                    <div className="bg-black mt-6 py-4 text-white flex w-full md:w-1/2 md:mx-2">
-                        <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
-                            <Image
-                                src="/assets/stickFigures/history-white.svg"
-                                alt="Eine alte Person kennt den Weg"
-                                height={50}
-                                width={50}
-                                className="pl-2 sm:px-8 w-40"
+                    <Link
+                        href="/bside/haus"
+                        aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                    >
+                        <div className="hidden min-[320px]:block w-[100px] md:w-32 my-auto">
+                            <SvgHistory
+                                className="fill-current w-[100px] md:w-32 p-4"
                             />
                         </div>
                         <div className="flex-1 px-2 sm:pr-0 sm:px-4 my-auto">
@@ -106,17 +110,17 @@ export default (): ReactElement => {
                                 Erfahre mehr über die Geschichte und Hintergründe der B-Side.
                             </p>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Trägerschaft */}
-                    <div className="bg-black mt-6 py-4 text-white flex w-full md:w-1/2 md:mx-2">
-                        <div className="hidden min-[320px]:block w-[80px] sm:w-40 m-auto">
-                            <Image
-                                src="/assets/stickFigures/traegerschaft-white.svg"
-                                alt="Strichfiguren über einem Bauplan"
-                                height={50}
-                                width={50}
-                                className="pl-2 sm:px-8 w-40"
+                    <Link
+                        href="/bside/haus"
+                        aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                    >
+                        <div className="hidden min-[320px]:block w-[100px] md:w-32 my-auto">
+                            <SvgLegal
+                                className="fill-current w-[100px] md:w-32 p-4"
                             />
                         </div>
                         <div className="flex-1 px-2 sm:pr-0 sm:px-4 my-auto">
@@ -127,7 +131,7 @@ export default (): ReactElement => {
                                 Erfahre mehr über unsere formaljuristische Organisationsstruktur.
                             </p>
                         </div>
-                    </div>
+                    </Link>
                 </div>
 
             </ContentWrapper>
