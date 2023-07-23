@@ -27,6 +27,7 @@ const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, banner = false
                             <Link
                                 href="/"
                                 className="absolute left-0 w-6 mx-8 hover:text-orange-500 cursor-pointer"
+                                aria-label="Zurück zur Startseite"
                             >
                                 <Heart />
                             </Link>

@@ -15,6 +15,11 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
 
+  i18n: {
+    locales: ['de'],
+    defaultLocale: 'de',
+  },
+
   // ToDo: Test.
   staticPageGenerationTimeout: 60 * 3 * 10,
 

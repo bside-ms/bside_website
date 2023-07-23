@@ -68,7 +68,11 @@ const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisati
     if (owner.relationTo === 'organisations') {
         const organisation = owner.value as Organisation;
         return (
-            <Link href={createOrganisationLink(organisation)} className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10">
+            <Link
+                href={createOrganisationLink(organisation)}
+                className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
+                aria-label={`"Erfahre mehr über ${organisation.name}"`}
+            >
                 {organisation.name}
             </Link>
         );
@@ -77,7 +81,11 @@ const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisati
     // It's a circle!
     const circle = owner.value as Circle;
     return (
-        <Link href={createCircleLink(circle)} className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10">
+        <Link
+            href={createCircleLink(circle)}
+            className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
+            aria-label={`"Erfahre mehr über ${circle.name}"`}
+        >
             {circle.name}
         </Link>
     );
@@ -93,7 +101,11 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
 
     if (!hasOwner && hasOrganiser) {
         return (
-            <Link href={`/events/${createEventSlug(event)}`} className="truncate p-1 font-serif text-sm border border-black text-black z-10">
+            <Link
+                href={`/events/${createEventSlug(event)}`}
+                className="truncate p-1 font-serif text-sm border border-black text-black z-10"
+                aria-label={`"Erfahre mehr über die Veranstalter:innen ${event.eventOrganizer!}"`}
+            >
                 {event.eventOrganizer}
             </Link>
         );

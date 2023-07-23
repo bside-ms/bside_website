@@ -104,7 +104,6 @@ export default ({ events }: Props): ReactElement => {
             </ContentWrapper>
 
             <CallToActionBlock
-                id="mitmachen"
                 title="Bock auf Mitmachen?"
                 text="Schreib uns ne Mail!"
                 href="/kontakt"
