@@ -158,8 +158,9 @@ export interface Circle {
     blockType: 'mediaBlock';
   }
       | {
-    alignment: 'contentOnLeft' | 'contentOnRight';
+    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
     backgroundColor: 'white' | 'black';
+    headline?: string;
     media: string | Media;
     richText: {
       [k: string]: unknown;

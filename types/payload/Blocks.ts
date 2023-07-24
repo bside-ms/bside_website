@@ -23,6 +23,7 @@ export interface MediaContentBlockProps {
     richText: SlateChildren;
     alignment: string;
     backgroundColor?: string;
+    headline?: string;
 }
 
 export interface MediaBlockProps {
