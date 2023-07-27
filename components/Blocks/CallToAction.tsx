@@ -11,7 +11,7 @@ const CallToAction = ({ title, href, text }: CallToActionBlockProps): ReactEleme
         <ContentWrapper>
             <div
                 key={`cta-${toKebabCase(title)}`}
-                className="relative border-4 border-black px-6 py-4 text-center"
+                className="relative w-[94%] mx-auto border-4 border-black px-6 py-4 text-center"
             >
                 <div className="absolute w-4 md:w-6 top-1/2 -translate-y-1/2 right-[102%]">
                     <Chevron />
