@@ -18,11 +18,11 @@ const MobileLogo = ({ disableLogo = false }: MobileLogoProps): ReactElement => {
     return (
         <>
             <div
-                className="sm:hidden absolute top-0 left-0 border-[50px] md:border-[60px] border-transparent transition-all duration-200"
+                className="md:hidden absolute top-0 left-0 border-[50px] md:border-[60px] border-transparent transition-all duration-200"
                 style={disableLogo ? undefined : { borderTopColor: 'white', borderLeftColor: 'white' }}
             />
             <div
-                className="sm:hidden w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200 z-20"
+                className="md:hidden w-6 md:w-8 md:cursor-pointer md:hover:text-orange-500 transition-opacity duration-200 z-20"
                 style={disableLogo ? { opacity: 0 } : { opacity: '100%' }}
                 onClick={handleClickOnHeart}
             >
