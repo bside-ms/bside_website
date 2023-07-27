@@ -7,7 +7,6 @@ import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { SvgHistory } from '@/components/svg/History';
 import { SvgHouse } from '@/components/svg/House';
-import { SvgKollektiv } from '@/components/svg/Kollektiv';
 import { SvgLegal } from '@/components/svg/Legal';
 
 export default (): ReactElement => {
@@ -46,14 +45,14 @@ export default (): ReactElement => {
                     <Link
                         href="/bside/haus"
                         aria-label="Erfahre mehr über das Haus und was wir darin machen"
-                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mr-2 text-white hover:text-orange-500"
                     >
-                        <div className="hidden min-[320px]:block w-[100px] md:w-32">
+                        <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32">
                             <SvgHouse
-                                className="fill-current w-[100px] md:w-32 p-4 my-auto"
+                                className="fill-current w-[100px] md:w-28 lg:w-32 p-4 my-auto"
                             />
                         </div>
-                        <div className="flex-1 px-2 sm:px-4 my-auto">
+                        <div className="flex-1 px-2 lg:px-4 my-auto">
                             <p className="font-serif text-lg md:text-xl">
                                 Das Haus
                             </p>
@@ -69,14 +68,14 @@ export default (): ReactElement => {
                     <Link
                         href="/bside/haus"
                         aria-label="Erfahre mehr über das Haus und was wir darin machen"
-                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:ml-2 text-white hover:text-orange-500"
                     >
-                        <div className="hidden min-[320px]:block w-[100px] md:w-32 my-auto">
-                            <SvgKollektiv
-                                className="fill-current w-[100px] md:w-32 p-4"
+                        <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32 my-auto">
+                            <SvgHouse
+                                className="fill-current w-[100px] md:w-28 lg:w-32 p-4"
                             />
                         </div>
-                        <div className="flex-1 px-2 sm:pr-0 sm:px-4 my-auto">
+                        <div className="flex-1 px-2 lg:px-4 my-auto">
                             <p className="font-serif text-lg md:text-xl">
                                 Das Kollektiv<br />
                                 & seine Kreise
@@ -95,14 +94,14 @@ export default (): ReactElement => {
                     <Link
                         href="/bside/haus"
                         aria-label="Erfahre mehr über das Haus und was wir darin machen"
-                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mr-2 text-white hover:text-orange-500"
                     >
-                        <div className="hidden min-[320px]:block w-[100px] md:w-32 my-auto">
+                        <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32 my-auto">
                             <SvgHistory
-                                className="fill-current w-[100px] md:w-32 p-4"
+                                className="fill-current w-[100px] md:w-28 lg:w-32 p-4"
                             />
                         </div>
-                        <div className="flex-1 px-2 sm:pr-0 sm:px-4 my-auto">
+                        <div className="flex-1 px-2 lg:px-4 my-auto">
                             <p className="font-serif text-lg md:text-xl">
                                 B-Side History
                             </p>
@@ -116,14 +115,14 @@ export default (): ReactElement => {
                     <Link
                         href="/bside/haus"
                         aria-label="Erfahre mehr über das Haus und was wir darin machen"
-                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mx-2 text-white hover:text-orange-500"
+                        className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:ml-2 text-white hover:text-orange-500"
                     >
-                        <div className="hidden min-[320px]:block w-[100px] md:w-32 my-auto">
+                        <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32 my-auto">
                             <SvgLegal
-                                className="fill-current w-[100px] md:w-32 p-4"
+                                className="fill-current w-[100px] md:w-28 lg:w-32 p-4"
                             />
                         </div>
-                        <div className="flex-1 px-2 sm:pr-0 sm:px-4 my-auto">
+                        <div className="flex-1 px-2 lg:px-4 my-auto">
                             <p className="font-serif text-lg md:text-xl">
                                 Trägerschaft
                             </p>
