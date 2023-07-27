@@ -17,7 +17,7 @@ const MobileNavigation = (): ReactElement | null => {
 
     return (
         <>
-            <div
+            <nav
                 className="fixed lg:hidden w-[360px] h-[833px] right-0 z-40 transition-all"
                 style={isNavigationOpen ? { right: 0 } : { right: '-833px' }}
             >
@@ -73,7 +73,7 @@ const MobileNavigation = (): ReactElement | null => {
                 >
                     <MobileMenuItems />
                 </div>
-            </div>
+            </nav>
 
             <div
                 className={

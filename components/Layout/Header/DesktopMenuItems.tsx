@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 const DesktopMenuItems = (): ReactElement => {
 
     return (
-        <div className="text-md md:text-lg font-bold font-serif w-[60rem] mx-auto flex">
+        <nav className="text-md md:text-lg font-bold font-serif w-[60rem] mx-auto flex">
 
             <Link
                 key="header__bside"
@@ -37,7 +37,7 @@ const DesktopMenuItems = (): ReactElement => {
                 Quartiersarbeit
                 <span className="text-sm font-medium"><br />B-Side GmbH</span>
             </Link>
-        </div>
+        </nav>
     );
 };
 

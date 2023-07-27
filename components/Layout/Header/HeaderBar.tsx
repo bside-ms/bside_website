@@ -13,34 +13,30 @@ interface Props {
 
 const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, banner = false }: Props): ReactElement => {
     return (
-        <div className={`fixed top-0 left-0 right-0 z-20 ${banner ? 'top-[44px]' : ''}`}>
-            <div className="">
-                <div>
-                    <div className="p-4 sm:p-0 flex justify-between relative">
+        <header className={`fixed top-0 left-0 right-0 z-20 ${banner ? 'top-[44px]' : ''}`}>
+            <div className="p-4 sm:p-0 flex justify-between relative">
 
-                        <MobileLogo disableLogo={disableLeftLogo} />
+                <MobileLogo disableLogo={disableLeftLogo} />
 
-                        <div
-                            className="hidden sm:block w-full bg-white text-center transition-none px-4 py-2"
-                            style={!banner && headerMenu ? undefined : { display: 'none' }}
-                        >
-                            <Link
-                                href="/"
-                                className="absolute left-0 w-6 mx-8 hover:text-orange-500 cursor-pointer"
-                                aria-label="Zurück zur Startseite"
-                            >
-                                <Heart />
-                            </Link>
+                <div
+                    className="hidden sm:block w-full bg-white text-center transition-none px-4 py-2"
+                    style={!banner && headerMenu ? undefined : { display: 'none' }}
+                >
+                    <Link
+                        href="/"
+                        className="absolute left-0 w-6 mx-8 hover:text-orange-500 cursor-pointer"
+                        aria-label="Zurück zur Startseite"
+                    >
+                        <Heart />
+                    </Link>
 
-                            <DesktopMenuItems />
-                        </div>
-
-                        <MobileNavigation />
-
-                    </div>
+                    <DesktopMenuItems />
                 </div>
+
+                <MobileNavigation />
+
             </div>
-        </div>
+        </header>
     );
 };
 
