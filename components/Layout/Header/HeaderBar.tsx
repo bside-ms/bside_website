@@ -19,7 +19,7 @@ const HeaderBar = ({ disableLeftLogo = false, headerMenu = false, banner = false
                 <MobileLogo disableLogo={disableLeftLogo} />
 
                 <div
-                    className="hidden md:block w-full bg-white text-center transition-none px-4 py-2"
+                    className="hidden md:block w-full bg-white text-center transition-none px-4 pt-4 pb-2"
                     style={!banner && headerMenu ? undefined : { display: 'none' }}
                 >
                     <Link
