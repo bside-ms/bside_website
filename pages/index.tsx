@@ -51,7 +51,7 @@ export default ({ events }: Props): ReactElement => {
             />
 
             <Banner
-                bannerId="banner__index"
+                bannerId="index"
                 bannerText="Hinweis | Hinweis | Hinweis | Hinweis | Hinweis"
                 bannerLink=""
                 footerInView={isFooterInView}
