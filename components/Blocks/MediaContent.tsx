@@ -8,7 +8,7 @@ import type { MediaContentBlockProps } from '@/types/payload/Blocks';
 
 const MediaContent = ({ media, richText, alignment }: MediaContentBlockProps): ReactElement => {
     return (
-        <ContentWrapper px={false}>
+        <ContentWrapper>
             {alignment === 'contentOnRight' ? (
                 <div className="grid grid-cols-12 gap-4">
                     <div className="my-auto col-span-12 md:col-span-6">
