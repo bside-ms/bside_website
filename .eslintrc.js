@@ -352,7 +352,6 @@ module.exports = {
         ],
         '@typescript-eslint/no-confusing-void-expression': [ERROR, { ignoreArrowShorthand: true }],
         '@typescript-eslint/no-dupe-class-members': ERROR,
-        '@typescript-eslint/no-duplicate-imports': ERROR,
         '@typescript-eslint/no-explicit-any': ERROR,
         '@typescript-eslint/no-extra-parens': [ERROR, 'functions'],
         '@typescript-eslint/no-floating-promises': OFF, // We only handle promises if necessary
@@ -362,7 +361,7 @@ module.exports = {
         '@typescript-eslint/no-loss-of-precision': ERROR,
         '@typescript-eslint/no-misused-promises': OFF, // We know when and how to use promises
         '@typescript-eslint/no-non-null-assertion': OFF, // There are still too many cases where we do need this
-        '@typescript-eslint/no-parameter-properties': ERROR,
+        '@typescript-eslint/parameter-properties': ERROR,
         '@typescript-eslint/no-shadow': [
             ERROR,
             { hoist: 'all' }
@@ -438,7 +437,7 @@ module.exports = {
          */
         'import/first': ERROR,
         'import/newline-after-import': ERROR,
-        'import/no-duplicates': OFF, // Must be off to prevent type & named imports were merged
+        'import/no-duplicates': ERROR,
         'import/order': OFF,
 
         /**

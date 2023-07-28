@@ -5,6 +5,7 @@ const extractErrorMessage = (error: unknown): string => {
     }
 
     return typeof error === 'object' && error !== null && 'toString' in error
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         ? error.toString()
         : `${JSON.stringify(error)}`;
 };

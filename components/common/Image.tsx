@@ -66,7 +66,7 @@ export const PayloadImage = (props: Props): ReactElement => {
 
     return (
         <NextImage
-            className={`${baseClasses}`}
+            className={baseClasses}
             src={src ?? ''}
             alt={alt ?? ''}
             onClick={onClick}

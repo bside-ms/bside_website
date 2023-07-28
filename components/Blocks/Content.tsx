@@ -84,7 +84,7 @@ export const ContentBlock = (props: ContentProps): ReactElement => {
             </div>
         ) : (
             <ContentWrapper>
-                <div className={`${(props.backgroundColor === 'black' ? 'p-4 bg-black text-white' : '')}`}>
+                <div className={props.backgroundColor === 'black' ? 'p-4 bg-black text-white' : ''}>
                     <Columns columns={props.columns} />
                 </div>
             </ContentWrapper>
