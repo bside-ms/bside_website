@@ -48,7 +48,7 @@ export default ({ events, meetings }: Props): ReactElement => {
                 title="Veranstaltungen"
             />
 
-            <ContentWrapper py={false} px={false} pxsm={true}>
+            <ContentWrapper py={false}>
                 <EventOverview title="" events={events} />
             </ContentWrapper>
 
@@ -59,7 +59,7 @@ export default ({ events, meetings }: Props): ReactElement => {
             </div>
 
             <div className="-translate-y-10 -mb-10 md:-translate-y-20 md:-mb-20">
-                <ContentWrapper px={false} pxsm={true}>
+                <ContentWrapper>
                     <div className="bg-black text-white p-6">
                         <div className="font-bold font-serif text-lg md:text-xl">
                             Selbst Veranstalter*in sein?
@@ -96,7 +96,7 @@ export default ({ events, meetings }: Props): ReactElement => {
                     </p>
                 </ContentWrapper>
 
-                <ContentWrapper px={false} pxsm={true}>
+                <ContentWrapper>
                     <EventOverview
                         title=""
                         events={meetings}

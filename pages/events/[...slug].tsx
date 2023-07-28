@@ -119,7 +119,7 @@ export default ({ event }: Props): ReactElement => {
             <ContentWrapper>
                 <EventDetails event={event} />
 
-                <Link href="/events" className="mt-4 text-blue-800 flex items-center gap-2">
+                <Link href="/events" className="mt-4 underline underline-offset-4 flex items-center gap-2 hover:text-orange-500">
                     <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> Zurück zur Übersicht
                 </Link>
             </ContentWrapper>

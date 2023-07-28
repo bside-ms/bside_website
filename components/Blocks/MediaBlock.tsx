@@ -7,7 +7,7 @@ import type { MediaBlockProps } from '@/types/payload/Blocks';
 export const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): ReactElement => {
 
     return (
-        <ContentWrapper px={false}>
+        <ContentWrapper>
             <div className="relative">
                 <Image
                     src={media.url!}

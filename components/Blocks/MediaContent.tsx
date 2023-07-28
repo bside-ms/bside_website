@@ -43,7 +43,7 @@ const MediaContentOverlay = ({ media, richText, headline }: MediaContentBlockPro
             </div>
 
             <div className="-translate-y-10 -mb-10 md:-translate-y-20 md:-mb-20">
-                <ContentWrapper px={false} pxsm={true}>
+                <ContentWrapper>
                     <div className="bg-black text-white p-6">
                         {!isEmptyString(headline) && (
                             <div className="font-bold font-serif text-lg md:text-xl">

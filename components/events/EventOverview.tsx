@@ -70,7 +70,7 @@ const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisati
         return (
             <Link
                 href={createOrganisationLink(organisation)}
-                className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
+                className="truncate px-1 my-auto leading-6 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
                 aria-label={`"Erfahre mehr über ${organisation.name}"`}
             >
                 {organisation.name}
@@ -83,7 +83,7 @@ const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisati
     return (
         <Link
             href={createCircleLink(circle)}
-            className="truncate p-1 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
+            className="truncate px-1 my-auto leading-6 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
             aria-label={`"Erfahre mehr über ${circle.name}"`}
         >
             {circle.name}
@@ -103,7 +103,7 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
         return (
             <Link
                 href={`/events/${createEventSlug(event)}`}
-                className="truncate p-1 font-serif text-sm border border-black text-black z-10"
+                className="truncate px-1 my-auto leading-6 font-serif text-sm border border-black text-black z-10"
                 aria-label={`"Erfahre mehr über die Veranstalter:innen ${event.eventOrganizer!}"`}
             >
                 {event.eventOrganizer}
@@ -201,23 +201,24 @@ const EventOverview = ({
 
                             {events.map(event => (
                                 <Fragment key={event.id}>
-                                    <Link href={`/events/${createEventSlug(event)}`} className="px-3 md:px-4 pt-1 md:pt-2 flex gap-3">
-                                        <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
-                                        <div className="truncate flex-1">{event.title}</div>
-                                        <div className="truncate">... mehr</div>
-                                    </Link>
-
-                                    <div className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3 relative">
+                                    <div className="px-3 md:px-4 pt-1 md:pt-2 flex gap-3 relative">
                                         <Link href={`/events/${createEventSlug(event)}`} className="absolute top-0 bottom-0 right-0 left-0" />
                                         <div className="w-0 sm:w-14" />
                                         {event.category?.map(cat => (
-                                            <div key={cat} className="truncate p-1 font-serif text-sm bg-black text-white">
+                                            <div key={cat} className="truncate px-1 my-auto leading-6 font-serif text-sm bg-black text-white">
                                                 {getEventCategoryTitle(cat)}
                                             </div>
                                         ))}
 
                                         <EventOrganiser event={event} />
                                     </div>
+
+                                    <Link href={`/events/${createEventSlug(event)}`} className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3">
+                                        <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
+                                        <div className="truncate flex-1">{event.title}</div>
+                                        <div className="truncate">... mehr</div>
+                                    </Link>
+
                                 </Fragment>
                             ))}
                         </div>
