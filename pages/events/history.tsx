@@ -52,7 +52,7 @@ export default ({ events }: Props): ReactElement => {
                 />
             </ContentWrapper>
 
-            <ContentWrapper px={false} pxsm={true}>
+            <ContentWrapper>
                 <EventOverview
                     title="Vergangene Veranstaltungen"
                     events={events}

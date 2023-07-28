@@ -12,7 +12,7 @@ interface Props {
 const Banner = ({ bannerId, bannerText, bannerLink, footerInView }: Props): ReactElement => {
     return (
         <div
-            id={bannerId}
+            id={`banner__${bannerId}`}
             className="fixed bottom-0 left-0 right-0 z-20 lg:h-[44px] bg-black py-2 text-center transition-opacity duration-100"
             style={(footerInView) ? { display: 'none' } : { display: 'block' }}
         >

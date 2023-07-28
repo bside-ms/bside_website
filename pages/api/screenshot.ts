@@ -21,22 +21,20 @@ const takeScreenshot = async (url: string): Promise<Buffer | null> => {
         browser = await getBrowserInstance();
 
         const page = await browser.newPage();
-
         await page.goto(url);
+        await page.waitForNetworkIdle();
 
-        // Dismiss the save event banner
-        if (url.includes('/events/')) {
-            await page.evaluate(() => {
-                const icalLinkElement = document.getElementById('ical-link');
+        // Dismiss all banners.
+        await page.evaluate(() => {
+            const banners = document.querySelectorAll<HTMLElement>('[id^="banner__"]');
 
-                if (icalLinkElement === null) {
-                    return;
-                }
-
-                icalLinkElement.style.display = 'none';
+            banners.forEach(banner => {
+                banner.style.display = 'none';
             });
-        }
 
+        });
+
+        // Create the screenshot.
         const screenshot = await page.screenshot({ type: 'png' });
         await page.close();
 

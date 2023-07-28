@@ -83,10 +83,12 @@ export default ({ page }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
             <MobileNavigation />
+
             <HeaderBar
                 disableLeftLogo={false}
                 headerMenu={true}
             />
+
             <ContentDivider />
 
             <RenderBlocks blocks={page.layout} />
