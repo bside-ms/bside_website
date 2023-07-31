@@ -3,7 +3,7 @@ import type { ReactElement, SyntheticEvent } from 'react';
 import MobileMenuItems from '@/components/Layout/Navigation/MobileMenuItems';
 import { useAppContext } from '@/components/Layout/Next/AppContext';
 
-const MobileNavigation = (): ReactElement | null => {
+const MobileNavigationOverlay = (): ReactElement | null => {
 
     const { isNavigationOpen, toggleNavigation } = useAppContext();
 
@@ -87,4 +87,4 @@ const MobileNavigation = (): ReactElement | null => {
     );
 };
 
-export default MobileNavigation;
+export default MobileNavigationOverlay;

@@ -11,7 +11,6 @@ import Banner from '@/components/Layout/Banner';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
-import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import logger from '@/lib/common/logger';
@@ -100,11 +99,8 @@ export default ({ event }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
 
-            <MobileNavigation />
-            <HeaderBar
-                disableLeftLogo={false}
-                headerMenu={true}
-            />
+            <HeaderBar />
+
             <ContentDivider />
 
             {isNotEmptyString(event.id) && (

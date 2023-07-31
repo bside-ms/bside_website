@@ -12,7 +12,7 @@ const ContentWrapper = ({ px = true, pxsm = false, py = true, children }: Props)
         <div
             className={`flex-grow ${px ? 'px-4 md:px-8' : (pxsm ? 'px-2' : 'px-0')}`}
         >
-            <div className={`w-full lg:w-[50rem] mx-auto ${py ? 'py-4' : 'py-0'}`}>
+            <div className={`w-full lg:w-[64rem] xl:w-[70rem] mx-auto ${py ? 'py-4' : 'py-0'}`}>
                 {children}
             </div>
         </div>

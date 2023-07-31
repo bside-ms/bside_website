@@ -4,7 +4,6 @@ import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
-import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { SvgHistory } from '@/components/svg/History';
 import { SvgHouse } from '@/components/svg/House';
 import { SvgLegal } from '@/components/svg/Legal';
@@ -12,12 +11,7 @@ import { SvgLegal } from '@/components/svg/Legal';
 export default (): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <MobileNavigation />
-
-            <HeaderBar
-                disableLeftLogo={false}
-                headerMenu={true}
-            />
+            <HeaderBar />
 
             <ContentWrapper>
                 <div>

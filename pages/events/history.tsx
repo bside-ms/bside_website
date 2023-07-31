@@ -6,7 +6,6 @@ import EventOverview from '@/components/events/EventOverview';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
-import MobileNavigation from '@/components/Layout/Navigation/MobileNavigation';
 import { getPastEvents } from '@/lib/events';
 import type { Event } from '@/types/payload/payload-types';
 
@@ -26,11 +25,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 export default ({ events }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <MobileNavigation />
-            <HeaderBar
-                disableLeftLogo={false}
-                headerMenu={true}
-            />
+            <HeaderBar />
+
             <ContentDivider />
 
             <ContentWrapper>

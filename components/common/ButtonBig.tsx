@@ -6,7 +6,7 @@ interface Props {
     buttonLink: string;
 }
 
-const Banner = ({ buttonText, buttonLink }: Props): ReactElement => {
+const ButtonBig = ({ buttonText, buttonLink }: Props): ReactElement => {
     return (
         <div className="mt-3 mx-8 text-md md:text-lg md:mx-16 md:px-16">
             <Link
@@ -22,4 +22,4 @@ const Banner = ({ buttonText, buttonLink }: Props): ReactElement => {
     );
 };
 
-export default Banner;
+export default ButtonBig;
