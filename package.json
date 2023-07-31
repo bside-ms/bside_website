@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "6.4.x",
     "@fortawesome/free-solid-svg-icons": "6.4.x",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@juggle/resize-observer": "^3.4.0",
     "@logtail/node": "^0.4.5",
     "@logtail/winston": "^0.4.5",
     "@tailwindcss/line-clamp": "^0.4.4",
