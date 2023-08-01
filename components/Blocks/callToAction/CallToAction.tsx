@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import ContentWrapper from '@/components/Layout/ContentWrapper';
 import Chevron from '@/components/svg/Chevron';
 import { toKebabCase } from '@/lib/common/toKebabCase';
-import type { CallToActionBlockProps } from '@/types/payload/Blocks';
 
 interface Props {
     title: string;
@@ -39,15 +37,6 @@ const CallToAction = ({ title, href, text, withArrows = true }: Props): ReactEle
                 </div>
             )}
         </div>
-    );
-};
-
-export const CallToActionBlock = ({ title, href, text }: CallToActionBlockProps): ReactElement => {
-
-    return (
-        <ContentWrapper>
-            <CallToAction title={title} href={href} text={text} />
-        </ContentWrapper>
     );
 };
 

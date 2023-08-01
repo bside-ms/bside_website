@@ -4,7 +4,7 @@ import ContentWrapper from '@/components/Layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import type { MediaBlockProps } from '@/types/payload/Blocks';
 
-export const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): ReactElement | null => {
+const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): ReactElement | null => {
 
     if (typeof media === 'string') {
         // eslint-disable-next-line no-console
@@ -40,3 +40,5 @@ export const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): Reac
         </ContentWrapper>
     );
 };
+
+export default MediaBlock;

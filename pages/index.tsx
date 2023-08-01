@@ -1,7 +1,7 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
-import CallToAction from '@/components/Blocks/CallToAction';
+import CallToAction from '@/components/Blocks/callToAction/CallToAction';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import EventOverview from '@/components/events/EventOverview';

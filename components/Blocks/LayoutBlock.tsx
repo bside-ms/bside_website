@@ -1,9 +1,9 @@
 import type { ReactElement } from 'react';
-import { CallToActionBlock } from '@/components/Blocks/CallToAction';
-import { ContentBlock } from '@/components/Blocks/Content';
+import CallToActionBlock from '@/components/Blocks/callToAction/CallToActionBlock';
+import ContentBlock from '@/components/Blocks/content/ContentBlock';
 import HeadlineBlock from '@/components/Blocks/headline/HeadlineBlock';
-import { MediaBlock } from '@/components/Blocks/MediaBlock';
-import { MediaContentBlock } from '@/components/Blocks/MediaContent';
+import MediaBlock from '@/components/Blocks/MediaBlock';
+import MediaContentBlock from '@/components/Blocks/mediaContent/MediaContentBlock';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';
 
 interface Props {

@@ -1,4 +1,5 @@
 import type { HeadlineLevel } from '@/components/Blocks/headline/Headline';
+import type { MediaContentAlignment, MediaContentBackgroundColor } from '@/components/Blocks/mediaContent/MediaContentBlock';
 import type { Circle, Media } from '@/types/payload/payload-types';
 
 export type SlateChildren = Array<Record<string, unknown>>;
@@ -22,8 +23,8 @@ export interface ContentProps {
 export interface MediaContentBlockProps {
     media: Media | string;
     richText: SlateChildren;
-    alignment: string;
-    backgroundColor?: string;
+    alignment: MediaContentAlignment;
+    backgroundColor?: MediaContentBackgroundColor;
     headline?: string;
 }
 
