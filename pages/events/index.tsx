@@ -42,7 +42,7 @@ export default ({ events, meetings }: Props): ReactElement => {
                 title="Veranstaltungen"
             />
 
-            <ContentWrapper py={false}>
+            <ContentWrapper>
                 <EventOverview title="" events={events} />
             </ContentWrapper>
 
