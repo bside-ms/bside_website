@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import type { ReactElement } from 'react';
-import { HeadlineBlock } from '@/components/Blocks/Headline';
+import HeadlineBlock from '@/components/Blocks/headline/HeadlineBlock';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import { getUpcomingEvents } from '@/lib/events';
@@ -45,8 +45,6 @@ export default (): ReactElement => {
                     <HeadlineBlock
                         title="B-Side GmbH"
                         level="h1"
-                        anchor=""
-                        teaser=""
                     />
                 </ContentWrapper>
 
