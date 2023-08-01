@@ -21,7 +21,7 @@ const NavLink = ({ link, label, subLabel }: NavLinkData): ReactElement => {
             {isNotEmptyString(subLabel) && (
                 <>
                     <br />
-                    <span className="text-sm font-medium">B-Side Kultur e.V.</span>
+                    <span className="text-sm font-medium">{subLabel}</span>
                 </>
             )}
         </Link>
@@ -38,12 +38,12 @@ const navLinks = new Array<NavLinkData>(
         label: 'Veranstaltungen',
     },
     {
-        link: '/',
+        link: '/kultur',
         label: 'Kultur & Bildung',
         subLabel: 'B-Side Kultur e.V.',
     },
     {
-        link: '/',
+        link: '/gmbh',
         label: 'Quartiersarbeit',
         subLabel: 'B-Side GmbH',
     },
