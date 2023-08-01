@@ -1,7 +1,7 @@
 import type { HeadlineLevel } from '@/components/Blocks/headline/Headline';
 import type { Circle, Media } from '@/types/payload/payload-types';
 
-export type SlateChildren = Array<Record<string, string>>;
+export type SlateChildren = Array<Record<string, unknown>>;
 
 export interface BlockLayoutProps {
     blocks: Circle['layout'];
@@ -10,17 +10,17 @@ export interface BlockLayoutProps {
 export interface ContentColumnProps {
     width: string;
     richText: SlateChildren;
-    id: string;
+    id?: string;
 }
 
 export interface ContentProps {
-    columns: Array<ContentColumnProps>;
+    columns?: Array<ContentColumnProps>;
     backgroundColor?: string;
     backgroundWidth?: string;
 }
 
 export interface MediaContentBlockProps {
-    media: Media;
+    media: Media | string;
     richText: SlateChildren;
     alignment: string;
     backgroundColor?: string;
@@ -28,8 +28,8 @@ export interface MediaContentBlockProps {
 }
 
 export interface MediaBlockProps {
-    media: Media;
-    size: string;
+    media: Media | string;
+    size?: 'normal' | 'wide';
     caption?: string;
 }
 
@@ -41,8 +41,8 @@ export interface CallToActionBlockProps {
 
 export interface HeadlineBlockProps {
     title: string;
-    anchor: string;
-    teaser: string | null;
+    anchor?: string | null;
+    teaser?: string | null;
     level: HeadlineLevel;
     as?: HeadlineLevel | null;
 }

@@ -1,8 +1,7 @@
 
 import type React from 'react';
 import serialize from './serialize';
-
-type SlateChildren = Array<Record<string, unknown>>;
+import type { SlateChildren } from '@/types/payload/Blocks';
 
 const RichText: React.FC<{ className?: string, content: SlateChildren}> = ({ className, content }) => {
     if (content.length <= 0) {

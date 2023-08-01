@@ -4,13 +4,27 @@ import ContentWrapper from '@/components/Layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import type { MediaBlockProps } from '@/types/payload/Blocks';
 
-export const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): ReactElement => {
+export const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): ReactElement | null => {
+
+    if (typeof media === 'string') {
+        // eslint-disable-next-line no-console
+        console.warn('Media of type string currently not supported');
+
+        return null;
+    }
+
+    if (isEmptyString(media.url)) {
+        // eslint-disable-next-line no-console
+        console.warn('URL of media must not be empty');
+
+        return null;
+    }
 
     return (
         <ContentWrapper>
             <div className="relative">
                 <Image
-                    src={media.url!}
+                    src={media.url}
                     alt={media.alt}
                     width={media.width}
                     height={media.height}

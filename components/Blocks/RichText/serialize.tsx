@@ -5,19 +5,23 @@ import type { ReactElement } from 'react';
 import { Text } from 'slate';
 import HeadlineTag from '@/components/Blocks/headline/HeadlineTag';
 import EventImage from '@/components/events/EventImage';
+import type { SlateChildren } from '@/types/payload/Blocks';
 import type { Media as MediaType } from 'types/payload/payload-types';
-
-type SlateChildren = Array<Record<string, unknown>>;
 
 export interface RichTextUploadNodeType {
     value?: MediaType;
     relationTo: string;
 }
 
-const serializeText = (node: Record<string, unknown>, index: number): ReactElement => {
-    // @ts-expect-error eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // eslint-disable-next-line react/no-danger
-    let text = <span key={index} dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replaceAll(/\n/g, '<br/>') }} />;
+const serializeText = (node: Record<string, unknown> & Text, index: number): ReactElement => {
+
+    let text = (
+        <span
+            key={index}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replaceAll(/\n/g, '<br/>') }}
+        />
+    );
 
     if (node.bold === true) {
         text = (

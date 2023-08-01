@@ -5,7 +5,7 @@ import { toKebabCase } from '@/lib/common/toKebabCase';
 
 interface Props {
     level: HeadlineLevel;
-    anchor?: string;
+    anchor?: string | null;
     children: ReactNode;
 }
 

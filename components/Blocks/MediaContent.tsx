@@ -5,8 +5,10 @@ import { PayloadImage } from '@/components/common/Image';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import type { MediaContentBlockProps } from '@/types/payload/Blocks';
+import type { Media } from '@/types/payload/payload-types';
 
-const MediaContent = ({ media, richText, alignment }: MediaContentBlockProps): ReactElement => {
+const MediaContent = ({ media, richText, alignment }: { media: Media } & MediaContentBlockProps): ReactElement | null => {
+
     return (
         <ContentWrapper>
             {alignment === 'contentOnRight' ? (
@@ -32,13 +34,13 @@ const MediaContent = ({ media, richText, alignment }: MediaContentBlockProps): R
     );
 };
 
-const MediaContentOverlay = ({ media, richText, headline }: MediaContentBlockProps): ReactElement => {
+const MediaContentOverlay = ({ media, richText, headline }: { media: Media } & MediaContentBlockProps): ReactElement => {
     return (
         <Fragment>
             <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
                 <div
                     className="bg-cover bg-center w-full h-52 md:h-72"
-                    style={{ backgroundImage: `url(${media.url!})` }}
+                    style={{ backgroundImage: `url(${media.url})` }}
                 />
             </div>
 
@@ -60,27 +62,35 @@ const MediaContentOverlay = ({ media, richText, headline }: MediaContentBlockPro
     );
 };
 
-export const MediaContentBlock = (props: MediaContentBlockProps): ReactElement => {
-    if (props.alignment === 'contentOnBottom') {
+export const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richText }: MediaContentBlockProps): ReactElement | null => {
+
+    if (typeof media === 'string') {
+        // eslint-disable-next-line no-console
+        console.warn('Media of type string currently not supported');
+
+        return null;
+    }
+
+    if (alignment === 'contentOnBottom') {
         return (
             <MediaContentOverlay
-                media={props.media}
-                richText={props.richText}
-                headline={props.headline}
+                media={media}
+                richText={richText}
+                headline={headline}
                 alignment=""
             />
         );
     }
 
-    return (
-        (props.backgroundColor === 'black' ? (
+    if (backgroundColor === 'black') {
+        return (
             <div className="flex-grow">
                 <div className="bg-black text-white">
-                    <MediaContent media={props.media} richText={props.richText} alignment={props.alignment} />
+                    <MediaContent media={media} richText={richText} alignment={alignment} />
                 </div>
             </div>
-        ) : (
-            <MediaContent media={props.media} richText={props.richText} alignment={props.alignment} />
-        ))
-    );
+        );
+    }
+
+    return <MediaContent media={media} richText={richText} alignment={alignment} />;
 };

@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import type { ReactElement } from 'react';
-import { RenderBlocks } from '@/components/Blocks/RenderBlocks';
+import LayoutBlock from '@/components/Blocks/LayoutBlock';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
@@ -10,7 +10,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Circle, Organisation } from '@/types/payload/payload-types';
+import type { Circle } from '@/types/payload/payload-types';
 
 interface Props {
     circle: Circle;
@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
 export default ({ circle }: Props): ReactElement => {
 
-    const organisation = typeof circle.organisation === 'string' ? null : circle.organisation as Organisation;
+    const organisation = typeof circle.organisation === 'string' ? null : circle.organisation;
     const organisationName = organisation?.shortName ?? 'kreise';
     const circleName = toKebabCase(circle.name);
 
@@ -77,7 +77,7 @@ export default ({ circle }: Props): ReactElement => {
                     key="canonical"
                 />
                 <title>
-                    {`${circle.name} ${organisation && `| ${organisation.name}`}`}
+                    {`${circle.name} ${organisation !== null && `| ${organisation.name}`}`}
                 </title>
             </Head>
 
@@ -86,7 +86,12 @@ export default ({ circle }: Props): ReactElement => {
 
                 <ContentDivider />
 
-                <RenderBlocks blocks={circle.layout} />
+                {circle.layout?.map((layoutElement, index) => (
+                    <LayoutBlock
+                        key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
+                        layoutElement={layoutElement}
+                    />
+                ))}
 
                 <Footer />
             </main>
