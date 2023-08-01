@@ -12,7 +12,7 @@ import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Circle } from '@/types/payload/payload-types';
 
 interface Props {
-    page: Circle;
+    circle: Circle;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -26,16 +26,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }));
 
     return {
-        fallback: true,
+        fallback: false,
         paths,
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async (context) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
     const getElapsed = hirestime();
 
-    const rawSlug = context.params?.slug;
+    const rawSlug = params?.slug;
     logger.info('raw: {}', rawSlug);
 
     if (rawSlug === undefined) {
@@ -49,13 +49,13 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         return { notFound: true };
     }
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
+    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
 
-    const page = pagesResponse.docs.find(doc => {
+    const circle = circlesResponse.docs.find(doc => {
         return doc.id === `${slug}`;
     });
 
-    if (page === undefined) {
+    if (circle === undefined) {
         return { notFound: true };
     }
 
@@ -68,12 +68,12 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     return {
         revalidate: 60,
         props: {
-            page,
+            circle,
         },
     };
 };
 
-export default ({ page }: Props): ReactElement => {
+export default ({ circle }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
@@ -81,7 +81,7 @@ export default ({ page }: Props): ReactElement => {
 
             <ContentDivider />
 
-            <RenderBlocks blocks={page.layout} />
+            <RenderBlocks blocks={circle.layout} />
 
             <Footer />
         </main>

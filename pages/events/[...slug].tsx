@@ -20,7 +20,7 @@ import type PaginatedDocs from 'types/payload/PaginatedDocs';
 import type { Event } from 'types/payload/payload-types';
 
 interface Props {
-    event?: Event;
+    event: Event;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -34,16 +34,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }));
 
     return {
-        fallback: true,
+        fallback: false,
         paths,
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async (context) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
     const getElapsed = hirestime();
 
-    const rawSlug = context.params?.slug;
+    const rawSlug = params?.slug;
 
     if (rawSlug === undefined) {
         return { notFound: true };
@@ -84,12 +84,6 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 };
 
 export default ({ event }: Props): ReactElement => {
-
-    if (event === undefined) {
-        return (
-            <main className="min-h-screen flex flex-col justify-between" />
-        );
-    }
 
     const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
         initialInView: true,

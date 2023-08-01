@@ -27,16 +27,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }));
 
     return {
-        fallback: true,
+        fallback: false,
         paths,
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async (context) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
     const getElapsed = hirestime();
 
-    const rawSlug = context.params?.slug;
+    const rawSlug = params?.slug;
 
     if (rawSlug === undefined) {
         return { notFound: true };
