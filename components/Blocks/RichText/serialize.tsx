@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 import { Text } from 'slate';
 import { HeadlineLevels } from '@/components/Blocks/Headline';
 import EventImage from '@/components/events/EventImage';
-import type { Media as MediaType } from 'types/payload/payload-types'; 
+import type { Media as MediaType } from 'types/payload/payload-types';
 
 type SlateChildren = Array<Record<string, unknown>>;
 
