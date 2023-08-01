@@ -25,7 +25,7 @@ const Headline = ({ title, anchor, teaser, level, as = null }: HeadlineBlockProp
 
     const headlineLevel = `${as ?? level}`.replace('h', '');
     const Tag = `h${headlineLevel}`;
-    const id = toKebabCase(anchor);
+    const id = !isEmptyString(anchor) ? toKebabCase(title) : toKebabCase(anchor);
 
     return (
 
