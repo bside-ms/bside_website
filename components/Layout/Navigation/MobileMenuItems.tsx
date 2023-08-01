@@ -28,17 +28,19 @@ const MobileMenuItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/kultur" color="#8100fd">
+            <MobileNavigationLink href="/gmbh" color="#8100fd">
                 <div className="leading-4">
                     Quartiersarbeit
                     <span className="text-sm"><br />B-Side GmbH</span>
                 </div>
             </MobileNavigationLink>
 
+            {/*
             <MobileNavigationLink href="/kultur" color="#f9d11a">
                 Mitmachen
             </MobileNavigationLink>
-
+            */ }
+            
             <MobileNavigationLink href="/kontakt" color="#93e613">
                 Kontakt
             </MobileNavigationLink>

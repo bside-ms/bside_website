@@ -2,10 +2,11 @@ import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import type { ReactElement } from 'react';
+import { HeadlineBlock } from '@/components/Blocks/Headline';
 import ContentDivider from '@/components/Layout/ContentDivider';
+import ContentWrapper from '@/components/Layout/ContentWrapper';
 import { getUpcomingEvents } from '@/lib/events';
 import Footer from 'components/common/Footer';
-import CultureAndEducation from 'components/cultureAndEducation/CultureAndEducation';
 import HeaderBarContainer from 'components/Layout/Header/HeaderBarContainer';
 import type { Event } from 'types/payload/payload-types';
 
@@ -22,9 +23,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     };
 };
 
-export default ({ events }: Props): ReactElement => {
+export default (): ReactElement => {
 
-    const metaTitle = 'Kultur e.V. | B-Side';
+    const metaTitle = 'GmbH | B-Side';
 
     return (
         <Fragment>
@@ -34,16 +35,23 @@ export default ({ events }: Props): ReactElement => {
                 <meta name="apple-mobile-web-app-title" content={metaTitle} />
                 <meta name="twitter:title" content={metaTitle} />
             </Head>
+
             <main className="min-h-screen flex flex-col justify-between">
                 <HeaderBarContainer />
 
                 <ContentDivider />
 
-                <CultureAndEducation events={events} />
+                <ContentWrapper>
+                    <HeadlineBlock
+                        title="B-Side GmbH"
+                        level="h1"
+                        anchor=""
+                        teaser=""
+                    />
+                </ContentWrapper>
 
                 <Footer />
             </main>
-
         </Fragment>
     );
 };

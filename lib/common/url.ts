@@ -18,6 +18,8 @@ export const isValidBsideUrl = (string: string): boolean => {
     }
 };
 
-export const getFullClientUrl = (path: string): string => `${process.env.FRONTEND_URL}${path}`;
+export const getFullClientUrl = (path: string): string => `${process.env.NEXT_PUBLIC_FRONTEND_URL}${path}`;
 
-export const getPayloadUrl = (path: string): string => `${process.env.PAYLOAD_URL}${path}`;
+export const getPublicClientUrl = (): string => process.env.NEXT_PUBLIC_FRONTEND_URL;
+
+export const getPublicPayloadUrl = (path: string): string => `${process.env.NEXT_PUBLIC_PAYLOAD_URL}${path}`;
