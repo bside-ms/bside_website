@@ -1,10 +1,9 @@
 /* eslint-disable react/no-array-index-key */
 import { Fragment } from 'react';
-import clsx from 'clsx';
 import escapeHTML from 'escape-html';
 import type { ReactElement } from 'react';
 import { Text } from 'slate';
-import { HeadlineLevels } from '@/components/Blocks/Headline';
+import HeadlineTag from '@/components/Blocks/headline/HeadlineTag';
 import EventImage from '@/components/events/EventImage';
 import type { Media as MediaType } from 'types/payload/payload-types';
 
@@ -90,55 +89,15 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
 
         switch (nodeType) {
             case 'h1':
-                return (
-                    <h1
-                        key={index}
-                        className={clsx(
-                            HeadlineLevels.h1,
-                            'mt-4 mb-1'
-                        )}
-                    >
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </h1>
-                );
-
             case 'h2':
-                return (
-                    <h2
-                        key={index}
-                        className={clsx(
-                            HeadlineLevels.h2,
-                            'mt-4 mb-1'
-                        )}
-                    >
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </h2>
-                );
-
             case 'h3':
-                return (
-                    <h3
-                        key={index}
-                        className={clsx(
-                            HeadlineLevels.h3,
-                            'mt-4 mb-1'
-                        )}
-                    >
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </h3>
-                );
-
             case 'h4':
                 return (
-                    <h4
-                        key={index}
-                        className={clsx(
-                            HeadlineLevels.h4,
-                            'mt-4 mb-1'
-                        )}
-                    >
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </h4>
+                    <div key={index} className="mt-4 mb-1">
+                        <HeadlineTag level={nodeType}>
+                            {serializeRichTextToHtml(nodeChildren)}
+                        </HeadlineTag>
+                    </div>
                 );
 
             case 'link':

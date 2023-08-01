@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import type { ReactElement } from 'react';
 import { CallToActionBlock } from '@/components/Blocks/CallToAction';
 import { ContentBlock } from '@/components/Blocks/Content';
-import { HeadlineBlock } from '@/components/Blocks/Headline';
+import HeadlineBlock from '@/components/Blocks/headline/HeadlineBlock';
 import { MediaBlock } from '@/components/Blocks/MediaBlock';
 import { MediaContentBlock } from '@/components/Blocks/MediaContent';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';

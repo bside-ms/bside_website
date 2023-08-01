@@ -1,3 +1,4 @@
+import type { HeadlineLevel } from '@/components/Blocks/headline/Headline';
 import type { Circle, Media } from '@/types/payload/payload-types';
 
 export type SlateChildren = Array<Record<string, string>>;
@@ -42,6 +43,6 @@ export interface HeadlineBlockProps {
     title: string;
     anchor: string;
     teaser: string | null;
-    level: string;
-    as?: string | null;
+    level: HeadlineLevel;
+    as?: HeadlineLevel | null;
 }
