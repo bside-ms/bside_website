@@ -38,7 +38,7 @@ const navLinks = new Array<NavLinkData>(
         label: 'Veranstaltungen',
     },
     {
-        link: '/',
+        link: '/kultur',
         label: 'Kultur & Bildung',
         subLabel: 'B-Side Kultur e.V.',
     },
