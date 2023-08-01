@@ -1,15 +1,16 @@
-import hirestime from 'hirestime';
+import { Fragment } from 'react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import type { ReactElement } from 'react';
 import { RenderBlocks } from '@/components/Blocks/RenderBlocks';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
-import logger from '@/lib/common/logger';
+import { toKebabCase } from '@/lib/common/toKebabCase';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Circle } from '@/types/payload/payload-types';
+import type { Circle, Organisation } from '@/types/payload/payload-types';
 
 interface Props {
     circle: Circle;
@@ -19,9 +20,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
 
-    const paths = pages.docs.map(({ id }) => ({
+    const paths = pages.docs.map(({ name }) => ({
         params: {
-            slug: [id],
+            slug: [toKebabCase(name)],
         },
     }));
 
@@ -33,18 +34,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
-    const getElapsed = hirestime();
-
     const rawSlug = params?.slug;
-    logger.info('raw: {}', rawSlug);
-
     if (rawSlug === undefined) {
         return { notFound: true };
     }
 
     const slug = typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
-    logger.info('joined: {}', slug);
-
     if (isEmptyString(slug)) {
         return { notFound: true };
     }
@@ -52,18 +47,12 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
 
     const circle = circlesResponse.docs.find(doc => {
-        return doc.id === `${slug}`;
+        return toKebabCase(doc.name) === `${slug}`;
     });
 
     if (circle === undefined) {
         return { notFound: true };
     }
-
-    logger.info({
-        message: 'timing',
-        path: `/circles/[${slug}]`,
-        time: getElapsed.seconds(),
-    });
 
     return {
         revalidate: 60,
@@ -75,15 +64,32 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
 export default ({ circle }: Props): ReactElement => {
 
+    const organisation = typeof circle.organisation === 'string' ? null : circle.organisation as Organisation;
+    const organisationName = organisation?.shortName ?? 'kreise';
+    const circleName = toKebabCase(circle.name);
+
     return (
-        <main className="min-h-screen flex flex-col justify-between">
-            <HeaderBarContainer />
+        <Fragment>
+            <Head>
+                <link
+                    rel="canonical"
+                    href={`https://b-side.ovh/${organisationName}/${circleName}`}
+                    key="canonical"
+                />
+                <title>
+                    {`${circle.name} ${organisation && `| ${organisation.name}`}`}
+                </title>
+            </Head>
 
-            <ContentDivider />
+            <main className="min-h-screen flex flex-col justify-between">
+                <HeaderBarContainer />
 
-            <RenderBlocks blocks={circle.layout} />
+                <ContentDivider />
 
-            <Footer />
-        </main>
+                <RenderBlocks blocks={circle.layout} />
+
+                <Footer />
+            </main>
+        </Fragment>
     );
 };

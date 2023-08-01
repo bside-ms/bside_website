@@ -27,6 +27,19 @@ const nextConfig = {
   output: 'standalone',
 
   redirects,
+
+  async rewrites() {
+    return [
+      {
+        source: '/kultur/:slug',
+        destination: '/kreise/:slug'
+      },
+      {
+        source: '/gmbh/:slug',
+        destination: '/kreise/:slug'
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
