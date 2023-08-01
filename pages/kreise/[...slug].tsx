@@ -8,6 +8,7 @@ import ContentDivider from '@/components/Layout/ContentDivider';
 import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { toKebabCase } from '@/lib/common/toKebabCase';
+import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Circle, Organisation } from '@/types/payload/payload-types';
@@ -68,17 +69,23 @@ export default ({ circle }: Props): ReactElement => {
     const organisationName = organisation?.shortName ?? 'kreise';
     const circleName = toKebabCase(circle.name);
 
+    const metaTitle = `${circle.name} ${organisation && `| ${organisation.name}`}`;
+
+    // ToDo: Add Meta-Description to CMS.
+
     return (
         <Fragment>
             <Head>
                 <link
                     rel="canonical"
-                    href={`https://b-side.ovh/${organisationName}/${circleName}`}
+                    href={`${getPublicClientUrl()}/${organisationName}/${circleName}`}
                     key="canonical"
                 />
-                <title>
-                    {`${circle.name} ${organisation && `| ${organisation.name}`}`}
-                </title>
+
+                <title>{metaTitle}</title>
+                <meta property="og:title" content={metaTitle} key="title" />
+                <meta name="apple-mobile-web-app-title" content={metaTitle} />
+                <meta name="twitter:title" content={metaTitle} />
             </Head>
 
             <main className="min-h-screen flex flex-col justify-between">
