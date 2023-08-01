@@ -41,4 +41,7 @@ export interface CallToActionBlockProps {
 export interface HeadlineBlockProps {
     title: string;
     anchor: string;
+    teaser: string | null;
+    level: string;
+    as?: string | null;
 }

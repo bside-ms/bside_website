@@ -171,6 +171,8 @@ export interface Circle {
   }
       | {
     title: string;
+    teaser?: string;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
     anchor?: string;
     id?: string;
     blockName?: string;
