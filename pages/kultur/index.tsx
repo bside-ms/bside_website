@@ -4,7 +4,7 @@ import ContentDivider from '@/components/Layout/ContentDivider';
 import { getUpcomingEvents } from '@/lib/events';
 import Footer from 'components/common/Footer';
 import CultureAndEducation from 'components/cultureAndEducation/CultureAndEducation';
-import HeaderBar from 'components/Layout/Header/HeaderBar';
+import HeaderBarContainer from 'components/Layout/Header/HeaderBarContainer';
 import type { Event } from 'types/payload/payload-types';
 
 interface Props {
@@ -24,7 +24,7 @@ export default ({ events }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <HeaderBar />
+            <HeaderBarContainer />
 
             <ContentDivider />
 

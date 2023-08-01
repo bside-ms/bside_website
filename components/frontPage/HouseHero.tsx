@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect } from 'react';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import { useInView } from 'react-intersection-observer';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import hausPng from 'public/assets/haus.png';
 import herzPng from 'public/assets/herz.png';
@@ -33,22 +31,11 @@ const HeroText = (): ReactElement => (
     </div>
 );
 
-interface Props {
-    toggleHeroImageInView?: (isInView: boolean) => void;
-}
-
-const HouseHero = ({ toggleHeroImageInView }: Props): ReactElement => {
-
-    const { ref: inViewImageRef, inView: isHeroImageInView } = useInView({ initialInView: true });
-
-    useEffect(
-        () => toggleHeroImageInView?.(isHeroImageInView),
-        [isHeroImageInView, toggleHeroImageInView]
-    );
+const HouseHero = (): ReactElement => {
 
     return (
         <>
-            <div ref={inViewImageRef} className="mt-0 lg:mt-12">
+            <div className="mt-0 lg:mt-12">
                 <div className="relative overflow-hidden lg:overflow-visible lg:flex lg:justify-center pt-5">
                     <div className="relative lg:flex lg:justify-center">
                         <Link href="/bside/haus" className="cursor-default lg:cursor-pointer">

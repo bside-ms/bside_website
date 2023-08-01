@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react';
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -10,7 +9,7 @@ import HouseHero from '@/components/frontPage/HouseHero';
 import Banner from '@/components/Layout/Banner';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
 import { getUpcomingEvents } from '@/lib/events';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event } from '@/types/payload/payload-types';
@@ -33,24 +32,15 @@ export default ({ events }: Props): ReactElement => {
 
     const { isLg } = useBreakpointContext();
 
-    const [disableLogoInHeader, setDisableLogoInHeader] = useState(false);
-
     const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
         initialInView: true,
         threshold: 1,
     });
 
-    const handleHeroImageInViewToggle = useCallback(
-        (isInView: boolean) => setDisableLogoInHeader(isInView),
-        []
-    );
-
     return (
         <div className="min-h-screen flex flex-col justify-between">
 
-            <HeaderBar
-                hideHeartLogo={disableLogoInHeader}
-            />
+            <HeaderBarContainer />
 
             <Banner
                 bannerId="index"
@@ -62,7 +52,7 @@ export default ({ events }: Props): ReactElement => {
             <ContentDivider />
 
             <main>
-                <HouseHero toggleHeroImageInView={handleHeroImageInViewToggle} />
+                <HouseHero />
 
                 <div
                     className="bg-cover bg-bottom w-full h-52 lg:mt-14"

@@ -5,7 +5,7 @@ import RichText from '@/components/Blocks/RichText';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
@@ -91,7 +91,7 @@ export default ({ page }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <HeaderBar />
+            <HeaderBarContainer />
 
             <ContentDivider />
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
 import { SvgHistory } from '@/components/svg/History';
 import { SvgHouse } from '@/components/svg/House';
 import { SvgLegal } from '@/components/svg/Legal';
@@ -11,7 +11,7 @@ import { SvgLegal } from '@/components/svg/Legal';
 export default (): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <HeaderBar />
+            <HeaderBarContainer />
 
             <ContentWrapper>
                 <div>
