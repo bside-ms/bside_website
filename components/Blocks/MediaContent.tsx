@@ -35,14 +35,14 @@ const MediaContent = ({ media, richText, alignment }: MediaContentBlockProps): R
 const MediaContentOverlay = ({ media, richText, headline }: MediaContentBlockProps): ReactElement => {
     return (
         <Fragment>
-            <div className="w-full lg:w-[60rem] lg:mx-auto">
+            <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
                 <div
                     className="bg-cover bg-center w-full h-52 md:h-72"
                     style={{ backgroundImage: `url(${media.url!})` }}
                 />
             </div>
 
-            <div className="-translate-y-10 -mb-10 md:-translate-y-20 md:-mb-20">
+            <div className="px-4 md:px-0 -translate-y-10 -mb-10 md:-translate-y-20 md:-mb-20">
                 <ContentWrapper>
                     <div className="bg-black text-white p-6">
                         {!isEmptyString(headline) && (

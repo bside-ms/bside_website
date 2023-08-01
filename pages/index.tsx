@@ -54,22 +54,24 @@ export default ({ events }: Props): ReactElement => {
             <main>
                 <HouseHero />
 
-                <div
-                    className="bg-cover bg-bottom w-full h-52 lg:mt-14"
-                    style={{ backgroundImage: `url(${hausfrontJpg.src})` }}
-                />
+                <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
+                    <div
+                        className="bg-cover bg-center w-full h-52 md:h-72 my-8"
+                        style={{ backgroundImage: `url(${hausfrontJpg.src})` }}
+                    />
+                </div>
 
                 <ContentWrapper>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <EventOverview events={events} />
+                    <EventOverview events={events} />
+                </ContentWrapper>
 
-                        <CallToAction
-                            title="Bock auf Mitmachen?"
-                            text="Schreib uns ne Mail!"
-                            href="/kontakt"
-                            withArrows={!isLg}
-                        />
-                    </div>
+                <ContentWrapper>
+                    <CallToAction
+                        title="Bock auf Mitmachen?"
+                        text="Schreib uns ne Mail!"
+                        href="/kontakt"
+                        withArrows={!isLg}
+                    />
                 </ContentWrapper>
             </main>
 

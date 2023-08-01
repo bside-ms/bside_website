@@ -13,7 +13,7 @@ const ContentWrapper = ({ className = '', children }: Props): ReactElement => {
         >
             <div
                 className={clsx(
-                    'w-full lg:w-[64rem] xl:w-[70rem]] mx-auto py-4',
+                    'w-full lg:w-[54rem] xl:w-[70rem] mx-auto py-4',
                     className
                 )}
             >
