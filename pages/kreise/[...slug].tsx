@@ -2,16 +2,16 @@ import { Fragment } from 'react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import type { ReactElement } from 'react';
-import LayoutBlock from '@/components/Blocks/LayoutBlock';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
-import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Circle } from '@/types/payload/payload-types';
+import ReusableBlocks from '@blocks/ReusableBlocks';
 
 interface Props {
     circle: Circle;
@@ -89,12 +89,12 @@ export default ({ circle }: Props): ReactElement => {
             </Head>
 
             <main className="min-h-screen flex flex-col justify-between">
-                <HeaderBarContainer />
+                <HeaderBar />
 
                 <ContentDivider />
 
                 {circle.layout?.map((layoutElement, index) => (
-                    <LayoutBlock
+                    <ReusableBlocks
                         key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
                         layoutElement={layoutElement}
                     />

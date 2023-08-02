@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isEventImageString from '@/lib/events/isEventImageString';
-import type { Media as MediaType } from 'types/payload/payload-types';
+import type { Media as MediaType } from '@/types/payload/payload-types';
 
 interface Props {
     eventTitle: string;

@@ -2,13 +2,13 @@ import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import type { ReactElement } from 'react';
-import HeadlineBlock from '@/components/Blocks/headline/HeadlineBlock';
+import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import { getUpcomingEvents } from '@/lib/events';
-import Footer from 'components/common/Footer';
-import HeaderBarContainer from 'components/Layout/Header/HeaderBarContainer';
-import type { Event } from 'types/payload/payload-types';
+import type { Event } from '@/types/payload/payload-types';
+import { HeadlineBlock } from '@blocks//HeadlineBlock';
 
 interface Props {
     events: Array<Event>;
@@ -37,7 +37,7 @@ export default (): ReactElement => {
             </Head>
 
             <main className="min-h-screen flex flex-col justify-between">
-                <HeaderBarContainer />
+                <HeaderBar />
 
                 <ContentDivider />
 

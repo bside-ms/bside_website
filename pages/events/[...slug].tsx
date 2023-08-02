@@ -10,14 +10,14 @@ import EventDetails from '@/components/events/EventDetails';
 import Banner from '@/components/Layout/Banner';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import logger from '@/lib/common/logger';
 import createEventSlug from '@/lib/events/createEventSlug';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
-import type PaginatedDocs from 'types/payload/PaginatedDocs';
-import type { Event } from 'types/payload/payload-types';
+import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     event: Event;
@@ -92,8 +92,7 @@ export default ({ event }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-
-            <HeaderBarContainer />
+            <HeaderBar />
 
             <ContentDivider />
 

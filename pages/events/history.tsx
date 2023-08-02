@@ -5,7 +5,7 @@ import Footer from '@/components/common/Footer';
 import EventOverview from '@/components/events/EventOverview';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import { getPastEvents } from '@/lib/events';
 import type { Event } from '@/types/payload/payload-types';
 
@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 export default ({ events }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <HeaderBarContainer />
+            <HeaderBar />
 
             <ContentDivider />
 

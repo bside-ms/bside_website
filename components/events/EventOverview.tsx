@@ -9,8 +9,8 @@ import createEventSlug from '@/lib/events/createEventSlug';
 import createOrganisationLink from '@/lib/events/createOrganisationLink';
 import type EventCategory from '@/lib/events/EventCategory';
 import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
+import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
 import formatDate from 'lib/common/helper/formatDate';
-import type { Circle, Event, Organisation } from 'types/payload/payload-types';
 
 interface NoEventProps {
     title?: string;
@@ -128,7 +128,8 @@ const EventOverview = ({
         uniq(
             allEvents.reduce(
                 (availableCategories, eventItem) => {
-                    // It can be null on the server, maybe we need to check the payload types.
+
+                    // ToDo: It can be null on the server, there is an error in the payload types..
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (eventItem.category !== undefined && eventItem.category !== null) {
                         availableCategories.push(...eventItem.category);

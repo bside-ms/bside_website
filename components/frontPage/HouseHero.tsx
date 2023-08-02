@@ -12,7 +12,7 @@ const HeroText = (): ReactElement => (
             Die B-Side in Münster
         </div>
 
-        <div className="mt-1 text-md lg:mt-3 lg:text-sm">
+        <div className="mt-1 text-md lg:mt-3 lg:text-lg">
             Die B-Side ist ein offener Ort der Möglichkeiten
             am <span className="line-through">Münsteraner Hafen</span> Hawerkamp,
             der von vielen Menschen selbstorganisiert entwickelt, gestaltet und
@@ -35,7 +35,7 @@ const HouseHero = (): ReactElement => {
 
     return (
         <>
-            <div className="mt-0 lg:mt-12">
+            <div className="mt-0 lg:mx-auto">
                 <div className="relative overflow-hidden lg:overflow-visible lg:flex lg:justify-center pt-5">
                     <div className="relative lg:flex lg:justify-center">
                         <Link href="/bside/haus" className="cursor-default lg:cursor-pointer">

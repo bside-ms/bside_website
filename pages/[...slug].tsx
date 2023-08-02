@@ -1,16 +1,16 @@
 import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import RichText from '@/components/Blocks/RichText';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
+import { RichText } from '@blocks/RichTextBlock';
 
 interface Props {
     page: Page;
@@ -91,7 +91,7 @@ export default ({ page }: Props): ReactElement => {
 
     return (
         <main className="min-h-screen flex flex-col justify-between">
-            <HeaderBarContainer />
+            <HeaderBar />
 
             <ContentDivider />
 

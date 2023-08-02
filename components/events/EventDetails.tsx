@@ -1,11 +1,11 @@
 import type { ReactElement } from 'react';
-import RichText from '@/components/Blocks/RichText';
 import EventImage from '@/components/events/EventImage';
 import formatDate from '@/lib/common/helper/formatDate';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import isEventImageMedia from '@/lib/events/isEventImageMedia';
 import isEventImageString from '@/lib/events/isEventImageString';
 import type { Event } from '@/types/payload/payload-types';
+import { RichText } from '@blocks/RichTextBlock';
 
 interface Props {
     event: Event;

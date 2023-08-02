@@ -1,7 +1,6 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
-import CallToAction from '@/components/Blocks/callToAction/CallToAction';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import EventOverview from '@/components/events/EventOverview';
@@ -9,10 +8,11 @@ import HouseHero from '@/components/frontPage/HouseHero';
 import Banner from '@/components/Layout/Banner';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBarContainer from '@/components/Layout/Header/HeaderBarContainer';
+import HeaderBar from '@/components/Layout/Header/HeaderBar';
 import { getUpcomingEvents } from '@/lib/events';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event } from '@/types/payload/payload-types';
+import CallToAction from '@blocks/CallToActionBlock/CallToAction';
 
 interface Props {
     events: Array<Event>;
@@ -40,7 +40,7 @@ export default ({ events }: Props): ReactElement => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
 
-            <HeaderBarContainer />
+            <HeaderBar />
 
             <Banner
                 bannerId="index"

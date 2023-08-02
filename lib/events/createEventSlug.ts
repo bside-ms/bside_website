@@ -1,5 +1,5 @@
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
-import type { Event } from 'types/payload/payload-types';
+import type { Event } from '@/types/payload/payload-types';
 
 const createEventSlug = (event: Event): string => {
 
