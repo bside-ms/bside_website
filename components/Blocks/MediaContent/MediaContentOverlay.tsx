@@ -15,7 +15,7 @@ const MediaContentOverlay = ({ media, richText, headline }: Props): ReactElement
 
     return (
         <>
-            <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
+            <div className="w-full p-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
                 <div
                     className="bg-cover bg-center w-full h-52 md:h-72"
                     style={{ backgroundImage: `url(${media.url})` }}
