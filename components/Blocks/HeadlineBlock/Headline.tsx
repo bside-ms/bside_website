@@ -5,14 +5,15 @@ import { HeadlineKicker, HeadlineTag } from '@blocks/HeadlineBlock';
 
 export type HeadlineLevel = 'h1' | 'h2' | 'h3' | 'h4';
 
-const Headline = ({ title, anchor, teaser, level, as = null }: HeadlineBlockProps): ReactElement => {
+const Headline = ({ title, anchor, teaser, level, as = null, teaserLink = '' }: HeadlineBlockProps): ReactElement => {
 
     const renderedLevel = as ?? level;
 
     return (
         <>
+
             {!isEmptyString(teaser) && (
-                <HeadlineKicker level={level}>
+                <HeadlineKicker level={level} link={teaserLink}>
                     {teaser}
                 </HeadlineKicker>
             )}

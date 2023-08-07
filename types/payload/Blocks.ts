@@ -46,4 +46,5 @@ export interface HeadlineBlockProps {
     teaser?: string | null;
     level: HeadlineLevel;
     as?: HeadlineLevel | null;
+    teaserLink?: string | null;
 }
