@@ -115,6 +115,11 @@ export interface Organisation {
   id: string;
   name: string;
   shortName: string;
+  hiddenType?: string;
+  meta?: {
+    title?: string;
+    description?: string;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
@@ -122,6 +127,7 @@ export interface Organisation {
 export interface Circle {
   id: string;
   name: string;
+  hiddenType?: string;
   organisation: string | Organisation;
   color?: string;
   circleImage?: string | Media;
@@ -179,6 +185,10 @@ export interface Circle {
     blockType: 'headlineBlock';
   }
       )[];
+  meta?: {
+    title?: string;
+    description?: string;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
