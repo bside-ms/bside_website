@@ -1,14 +1,22 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { getFullClientUrl } from '@/lib/common/url';
 
-const NextHead = (): ReactElement => {
+interface Props {
+   title?: string;
+   description?: string;
+   url?: string;
+}
 
-    const title = 'B-Side Münster';
-    const description = 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen';
+const NextHead = ({ title, description, url }: Props): ReactElement => {
+
+    title = !isEmptyString(title) ? title : 'B-Side Münster';
+    description = !isEmptyString(description) ? description : 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen';
 
     const { asPath } = useRouter();
+    url = !isEmptyString(url) ? url : getFullClientUrl(asPath);
 
     return (
         <Head>
@@ -29,17 +37,23 @@ const NextHead = (): ReactElement => {
             <link rel="icon" type="image/png" href="/android-chrome-512x512.png" sizes="512x512" />
             <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192" />
 
+            <link
+                rel="canonical"
+                href={url}
+                key="canonical"
+            />
+
             <meta property="og:title" content={title} key="title" />
             <meta property="og:type" content="website" />
             <meta property="og:locale" content="de_DE" />
             <meta property="og:description" content={description} />
             <meta property="og:site_name" content={title} />
-            <meta property="og:url" content="https://b-side.ms" />
+            <meta property="og:url" content={url} />
             <meta property="og:image" content={getFullClientUrl(`/api/screenshot?url=${getFullClientUrl(asPath)}`)} />
 
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:url" content="https://b-side.ms" />
-            <meta name="twitter:title" content="B-Side Münster" />
+            <meta name="twitter:url" content={url} />
+            <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={getFullClientUrl(`/api/screenshot?url=${getFullClientUrl(asPath)}`)} />
 

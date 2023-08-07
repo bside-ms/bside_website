@@ -172,7 +172,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
                         Die Rolle im Haus
                     </div>
 
-                    <div>
+                    <div className="text-lg">
                         Ende 2023 soll die B-Side am Hafen endlich bezugsfertig sein. Der B-Side Kultur e.V. wird einen
                         Großteil der öffentlichen Bereiche des Hauses mit gemeinnützigem Kultur- und Bildungsprogramm
                         füllen. Er bespielt Veranstaltungsraum und Ausstellungsraum und betreibt die Offene Werkstatt.
@@ -229,7 +229,7 @@ const CultureAndEducation = ({ events }: Props): ReactElement => {
                         Unterstützen
                     </div>
 
-                    <div>
+                    <div className="text-lg">
                         Der B-Side Kultur e.V. freut sich über tatkräftige Unterstützung. Komm gerne zum Kultur-Plenum,
                         um dich innerhalb seiner Strukturen zu engagieren. Wenn du zu wenig Zeit hast, dich ehrenamtlich
                         einzubringen, kannst du die Vereinsaktivitäten auch mit einer Fördermitgliedschaft oder Spenden

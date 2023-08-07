@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
+import { kebabCase } from 'lodash';
 import type { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import NextHead from '@/components/Layout/Next/NextHead';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
-import { toKebabCase } from '@/lib/common/toKebabCase';
 import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
@@ -23,7 +23,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const paths = pages.docs.map(({ name }) => ({
         params: {
-            slug: [toKebabCase(name)],
+            slug: [kebabCase(name)],
         },
     }));
 
@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
 
     const circle = circlesResponse.docs.find(doc => {
-        return toKebabCase(doc.name) === `${slug}`;
+        return kebabCase(doc.name) === `${slug}`;
     });
 
     if (circle === undefined) {
@@ -65,28 +65,25 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
 export default ({ circle }: Props): ReactElement => {
 
+    // Fetch basic infos.
     const organisation = typeof circle.organisation === 'string' ? null : circle.organisation;
     const organisationName = organisation?.shortName ?? 'kreise';
-    const circleName = toKebabCase(circle.name);
+    const circleName = kebabCase(circle.name);
 
-    const metaTitle = `${circle.name} ${organisation && `| ${organisation.name}`}`;
-
-    // ToDo: Add Meta-Description to CMS.
+    // Fetch metadata.
+    const metaTitle = circle.meta !== undefined && !isEmptyString(circle.meta.title) ?
+        circle.meta.title : `${circle.name} ${organisation && `| ${organisation.name}`}`;
+    const metaDescription = circle.meta !== undefined && !isEmptyString(circle.meta.description) ?
+        circle.meta.description : `${circle.name} ${organisation && `| ${organisation.name} | B-Side`}`;
+    const canonialUrl = `${getPublicClientUrl()}/${organisationName}/${circleName}`;
 
     return (
         <Fragment>
-            <Head>
-                <link
-                    rel="canonical"
-                    href={`${getPublicClientUrl()}/${organisationName}/${circleName}`}
-                    key="canonical"
-                />
-
-                <title>{metaTitle}</title>
-                <meta property="og:title" content={metaTitle} key="title" />
-                <meta name="apple-mobile-web-app-title" content={metaTitle} />
-                <meta name="twitter:title" content={metaTitle} />
-            </Head>
+            <NextHead
+                title={metaTitle}
+                description={metaDescription}
+                url={canonialUrl}
+            />
 
             <main className="min-h-screen flex flex-col justify-between">
                 <HeaderBar />
