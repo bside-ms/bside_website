@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 const ContentDivider = (): ReactElement => {
 
     return (
-        <div className="mt-[60px]" />
+        <div className="mt-2 md:mt-[60px]" />
     );
 };
 

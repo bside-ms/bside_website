@@ -35,7 +35,7 @@ const HouseHero = (): ReactElement => {
 
     return (
         <>
-            <div className="mt-0 lg:mx-auto">
+            <div className="mt-1 md:mt-0 lg:mx-auto">
                 <div className="relative overflow-hidden lg:overflow-visible lg:flex lg:justify-center pt-5">
                     <div className="relative lg:flex lg:justify-center">
                         <Link href="/bside/haus" className="cursor-default lg:cursor-pointer">
