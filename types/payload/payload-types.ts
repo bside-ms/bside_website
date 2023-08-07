@@ -115,11 +115,64 @@ export interface Organisation {
   id: string;
   name: string;
   shortName: string;
-  hiddenType?: string;
+  layout?: (
+      | {
+    title: string;
+    text: string;
+    href: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'callToAction';
+  }
+      | {
+    backgroundColor: 'white' | 'black';
+    backgroundWidth: 'full' | 'block';
+    columns?: {
+      width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+      richText: {
+        [k: string]: unknown;
+      }[];
+      id?: string;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'content';
+  }
+      | {
+    media: string | Media;
+    size?: 'normal' | 'wide';
+    caption?: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'mediaBlock';
+  }
+      | {
+    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+    backgroundColor: 'white' | 'black';
+    headline?: string;
+    media: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'mediaContent';
+  }
+      | {
+    title: string;
+    teaser?: string;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
+    anchor?: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'headlineBlock';
+  }
+      )[];
   meta?: {
     title?: string;
     description?: string;
   };
+  hiddenType?: string;
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
@@ -212,10 +265,60 @@ export interface User {
 export interface Page {
   id: string;
   title: string;
-  richText: {
-    [k: string]: unknown;
-  }[];
   slug?: string;
+  layout?: (
+      | {
+    title: string;
+    text: string;
+    href: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'callToAction';
+  }
+      | {
+    backgroundColor: 'white' | 'black';
+    backgroundWidth: 'full' | 'block';
+    columns?: {
+      width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+      richText: {
+        [k: string]: unknown;
+      }[];
+      id?: string;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'content';
+  }
+      | {
+    media: string | Media;
+    size?: 'normal' | 'wide';
+    caption?: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'mediaBlock';
+  }
+      | {
+    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+    backgroundColor: 'white' | 'black';
+    headline?: string;
+    media: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'mediaContent';
+  }
+      | {
+    title: string;
+    teaser?: string;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
+    anchor?: string;
+    id?: string;
+    blockName?: string;
+    blockType: 'headlineBlock';
+  }
+      )[];
   parent?: string | Page;
   breadcrumbs?: {
     doc?: string | Page;

@@ -66,6 +66,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     };
 };
 
+// eslint-disable-next-line complexity
 export default ({ circle }: Props): ReactElement => {
 
     // Basic Infos
