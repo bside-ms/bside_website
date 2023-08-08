@@ -22,11 +22,11 @@ const HalfColumnsContent = ({ firstColumn, secondColumn }: Props): ReactElement 
     }
 
     return (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
             <div>
                 <RichText content={firstColumn.richText} />
             </div>
-            <div>
+            <div className="pt-4 md:pt-0">
                 <RichText content={secondColumn.richText} />
             </div>
         </div>

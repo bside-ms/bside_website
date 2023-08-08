@@ -37,14 +37,14 @@ const OneThirdColumnsContent = ({ firstColumn, secondColumn, thirdColumn }: Prop
         }
 
         return (
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 md:gap-4">
                 <div>
                     <RichText content={firstColumn.richText} />
                 </div>
-                <div>
+                <div className="pt-4 md:py-0">
                     <RichText content={secondColumn.richText} />
                 </div>
-                <div>
+                <div className="pt-4 md:py-0">
                     <RichText content={thirdColumn.richText} />
                 </div>
             </div>

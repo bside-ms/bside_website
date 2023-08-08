@@ -22,11 +22,11 @@ const TwoThirdsColumnsContent = ({ firstColumn, secondColumn }: Props): ReactEle
     }
 
     return (
-        <div className="grid grid-cols-6 gap-4">
-            <div className="col-span-4">
+        <div className="grid grid-cols-1 md:grid-cols-6 md:gap-4">
+            <div className="pt-4 md:pt-0 md:col-span-4">
                 <RichText content={firstColumn.richText} />
             </div>
-            <div className="col-span-2">
+            <div className="pt-4 md:pt-0 md:col-span-2">
                 <RichText content={secondColumn.richText} />
             </div>
         </div>
