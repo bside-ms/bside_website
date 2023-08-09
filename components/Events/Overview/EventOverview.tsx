@@ -118,7 +118,7 @@ const EventOverview = ({
                                         <Link href={`/events/${createEventSlug(event)}`} className="absolute top-0 bottom-0 right-0 left-0" />
                                         <div className="w-0 sm:w-14" />
                                         {event.category?.map(cat => (
-                                            <div className="truncate px-1 my-auto leading-6 text-sm italic">
+                                            <div key={`event-title-${event.id}`} className="truncate px-1 my-auto leading-6 text-sm italic">
                                                 {getEventCategoryTitle(cat)}
                                             </div>
                                         ))}
