@@ -2,19 +2,14 @@ import { Fragment, useCallback, useMemo, useState } from 'react';
 import { uniq } from 'lodash';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
+import { EventOrganiser, EventOverviewEmpty } from '@/components/Events/Overview';
+import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { groupEventsByDay } from '@/lib/events';
-import createCircleLink from '@/lib/events/createCircleLink';
 import createEventSlug from '@/lib/events/createEventSlug';
-import createOrganisationLink from '@/lib/events/createOrganisationLink';
 import type EventCategory from '@/lib/events/EventCategory';
 import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
-import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
-import formatDate from 'lib/common/helper/formatDate';
-
-interface NoEventProps {
-    title?: string;
-}
+import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     title?: string;
@@ -35,86 +30,6 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onC
                 {getEventCategoryTitle(type)}
             </div>
         </div>
-    );
-};
-
-const NoNextEvents = ({ title = 'Nächste Veranstaltungen' }: NoEventProps): ReactElement => {
-    return (
-        <div>
-            {!isEmptyString(title) && (
-                <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
-                    {title}
-                </div>
-            )}
-
-            <div className="md:text-lg">
-                <div>
-                    <div className="mb-2">
-                        <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
-                            Nichts gefunden!
-                        </div>
-
-                        <div className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
-                            <div className="w-full">Hier gibt es aktuell keine Termine.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisations' } | { value: string, relationTo: 'circles' } | { value: Organisation, relationTo: 'organisations' } | { value: Circle, relationTo: 'circles' } }): ReactElement => {
-    if (owner.relationTo === 'organisations') {
-        const organisation = owner.value as Organisation;
-        return (
-            <Link
-                href={createOrganisationLink(organisation)}
-                className="truncate px-1 my-auto leading-6 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
-                aria-label={`"Erfahre mehr über ${organisation.name}"`}
-            >
-                {organisation.name}
-            </Link>
-        );
-    }
-
-    // It's a circle!
-    const circle = owner.value as Circle;
-    return (
-        <Link
-            href={createCircleLink(circle)}
-            className="truncate px-1 my-auto leading-6 font-serif text-sm border border-black text-black hover:text-orange-500 z-10"
-            aria-label={`"Erfahre mehr über ${circle.name}"`}
-        >
-            {circle.name}
-        </Link>
-    );
-};
-
-const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
-    const hasOwner = event.eventOwner?.length !== 0;
-    const hasOrganiser = !isEmptyString(event.eventOrganizer);
-
-    if (!hasOwner && !hasOrganiser) {
-        return <div />;
-    }
-
-    if (!hasOwner && hasOrganiser) {
-        return (
-            <Link
-                href={`/events/${createEventSlug(event)}`}
-                className="truncate px-1 my-auto leading-6 font-serif text-sm border border-black text-black z-10"
-                aria-label={`"Erfahre mehr über die Veranstalter:innen ${event.eventOrganizer}"`}
-            >
-                {event.eventOrganizer}
-            </Link>
-        );
-    }
-
-    return (
-        <Fragment>
-            {event.eventOwner?.map(owner => <EventOwner key={event.id} owner={owner} />)}
-        </Fragment>
     );
 };
 
@@ -159,7 +74,7 @@ const EventOverview = ({
     }, [filteredEvents, pastEvents]);
 
     if (filteredEvents.length === 0) {
-        return NoNextEvents({ title });
+        return EventOverviewEmpty({ title });
     }
 
     return (
@@ -200,25 +115,32 @@ const EventOverview = ({
                                 {formatDate(date, 'EE dd. MMMM')}
                             </div>
 
-                            {events.map(event => (
+                            {events.map((event, index) => (
                                 <Fragment key={event.id}>
-                                    <div className="px-3 md:px-4 pt-1 md:pt-2 flex gap-3 relative">
+
+                                    {index !== 0 && (
+                                        <div>
+                                            <hr className="w-full mx-auto border-1 border-black mt-2" />
+                                        </div>
+                                    )}
+
+                                    <Link href={`/events/${createEventSlug(event)}`} className="px-3 md:px-4 pt-1 md:pt-2 flex gap-3">
+                                        <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
+                                        <div className="truncate flex-1 font-bold">{event.title}</div>
+                                        <div className="truncate">... mehr</div>
+                                    </Link>
+
+                                    <div className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3 relative">
                                         <Link href={`/events/${createEventSlug(event)}`} className="absolute top-0 bottom-0 right-0 left-0" />
                                         <div className="w-0 sm:w-14" />
                                         {event.category?.map(cat => (
-                                            <div key={cat} className="truncate px-1 my-auto leading-6 font-serif text-sm bg-black text-white">
+                                            <div key={`event-title-${event.id}-${cat}`} className="truncate px-1 my-auto leading-6 text-sm italic">
                                                 {getEventCategoryTitle(cat)}
                                             </div>
                                         ))}
 
                                         <EventOrganiser event={event} />
                                     </div>
-
-                                    <Link href={`/events/${createEventSlug(event)}`} className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3">
-                                        <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
-                                        <div className="truncate flex-1">{event.title}</div>
-                                        <div className="truncate">... mehr</div>
-                                    </Link>
 
                                 </Fragment>
                             ))}

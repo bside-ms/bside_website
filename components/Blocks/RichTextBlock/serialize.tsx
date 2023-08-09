@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import escapeHTML from 'escape-html';
 import type { ReactElement } from 'react';
 import { Text } from 'slate';
-import EventImage from '@/components/events/EventImage';
+import EventImage from '@/components/Events/Detail/EventImage';
 import type { SlateChildren } from '@/types/payload/Blocks';
 import type { Media as MediaType } from '@/types/payload/payload-types';
 import { HeadlineTag } from '@blocks/HeadlineBlock';

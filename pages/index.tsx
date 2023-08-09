@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
-import EventOverview from '@/components/events/EventOverview';
+import { EventOverview } from '@/components/Events/Overview';
 import HouseHero from '@/components/frontPage/HouseHero';
 import Banner from '@/components/Layout/Banner';
 import ContentDivider from '@/components/Layout/ContentDivider';

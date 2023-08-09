@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
-import EventOverview from '@/components/events/EventOverview';
+import { EventOverview } from '@/components/Events/Overview';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import HeaderBar from '@/components/Layout/Header/HeaderBar';
