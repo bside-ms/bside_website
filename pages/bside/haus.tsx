@@ -4,7 +4,7 @@ import Footer from '@/components/common/Footer';
 import ParallaxScrollImage from '@/components/houseParallax/ParallaxScrollImage';
 import ParallaxScrollInfoBox from '@/components/houseParallax/ParallaxScrollInfoBox';
 import ParallaxScrollTeaser from '@/components/houseParallax/ParallaxScrollTeaser';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import HeaderBar from '@/components/layout/header/HeaderBar';
 import formatNumber from '@/lib/common/helper/formatNumber';
 import useIsMounted from '@/lib/common/hooks/useIsMounted';
 import getInfoBoxPositions from '@/lib/houseParallax/getInfoBoxPositions';

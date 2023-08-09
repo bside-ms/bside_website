@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import ContentWrapper from '@/components/Layout/ContentWrapper';
+import ContentWrapper from '@/components/layout/ContentWrapper';
 import hausPng from 'public/assets/haus.png';
 import herzPng from 'public/assets/herz.png';
 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { ReactElement } from 'react';
-import ContentWrapper from '@/components/Layout/ContentWrapper';
+import ContentWrapper from '@/components/layout/ContentWrapper';
 
 interface Props {
     imageSrc: string;

@@ -3,16 +3,16 @@ import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
-import { EventOverview } from '@/components/Events/Overview';
+import EventOverview from '@/components/events/overview/EventOverview';
 import HouseHero from '@/components/frontPage/HouseHero';
-import Banner from '@/components/Layout/Banner';
-import ContentDivider from '@/components/Layout/ContentDivider';
-import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import Banner from '@/components/layout/Banner';
+import ContentDivider from '@/components/layout/ContentDivider';
+import ContentWrapper from '@/components/layout/ContentWrapper';
+import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getUpcomingEvents } from '@/lib/events';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event } from '@/types/payload/payload-types';
-import CallToAction from '@blocks/CallToActionBlock/CallToAction';
+import CallToAction from '@blocks/callToActionBlock/CallToAction';
 
 interface Props {
     events: Array<Event>;

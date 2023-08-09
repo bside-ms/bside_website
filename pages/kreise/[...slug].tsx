@@ -3,18 +3,18 @@ import { kebabCase } from 'lodash';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
+import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
-import ContentDivider from '@/components/Layout/ContentDivider';
-import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
-import NextHead from '@/components/Layout/Next/NextHead';
+import ContentDivider from '@/components/layout/ContentDivider';
+import ContentWrapper from '@/components/layout/ContentWrapper';
+import HeaderBar from '@/components/layout/header/HeaderBar';
+import NextHead from '@/components/layout/next/NextHead';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Circle, Media } from '@/types/payload/payload-types';
-import { Headline } from '@blocks/HeadlineBlock';
-import ReusableBlocks from '@blocks/ReusableBlocks';
+import Headline from 'components/blocks/headlineBlock/Headline';
 
 interface Props {
     circle: Circle;

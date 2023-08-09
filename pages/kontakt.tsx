@@ -1,9 +1,9 @@
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContactForm from '@/components/contactForm/ContactForm';
-import ContentDivider from '@/components/Layout/ContentDivider';
-import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import ContentDivider from '@/components/layout/ContentDivider';
+import ContentWrapper from '@/components/layout/ContentWrapper';
+import HeaderBar from '@/components/layout/header/HeaderBar';
 
 export default (): ReactElement => {
 

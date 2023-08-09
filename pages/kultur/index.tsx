@@ -4,8 +4,8 @@ import Head from 'next/head';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import CultureAndEducation from '@/components/cultureAndEducation/CultureAndEducation';
-import ContentDivider from '@/components/Layout/ContentDivider';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import ContentDivider from '@/components/layout/ContentDivider';
+import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getUpcomingEvents } from '@/lib/events';
 import type { Event } from '@/types/payload/payload-types';
 

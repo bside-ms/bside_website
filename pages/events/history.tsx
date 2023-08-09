@@ -2,10 +2,10 @@ import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import ButtonBig from '@/components/common/ButtonBig';
 import Footer from '@/components/common/Footer';
-import { EventOverview } from '@/components/Events/Overview';
-import ContentDivider from '@/components/Layout/ContentDivider';
-import ContentWrapper from '@/components/Layout/ContentWrapper';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import EventOverview from '@/components/events/overview/EventOverview';
+import ContentDivider from '@/components/layout/ContentDivider';
+import ContentWrapper from '@/components/layout/ContentWrapper';
+import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getPastEvents } from '@/lib/events';
 import type { Event } from '@/types/payload/payload-types';
 

@@ -1,6 +1,6 @@
 import type { Circle, Media } from '@/types/payload/payload-types';
-import type { HeadlineLevel } from '@blocks/HeadlineBlock';
-import type { MediaContentAlignment, MediaContentBackgroundColor } from '@blocks/MediaContent';
+import type { HeadlineLevel } from '@blocks/headlineBlock/Headline';
+import type { MediaContentAlignment, MediaContentBackgroundColor } from '@blocks/mediaContent/MediaContentBlock';
 
 export type SlateChildren = Array<Record<string, unknown>>;
 

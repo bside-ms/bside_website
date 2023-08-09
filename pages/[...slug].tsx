@@ -1,16 +1,16 @@
 import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
+import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
-import ContentDivider from '@/components/Layout/ContentDivider';
-import HeaderBar from '@/components/Layout/Header/HeaderBar';
+import ContentDivider from '@/components/layout/ContentDivider';
+import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
-import { HeadlineBlock } from '@blocks/HeadlineBlock';
-import ReusableBlocks from '@blocks/ReusableBlocks';
+import HeadlineBlock from 'components/blocks/headlineBlock/HeadlineBlock';
 
 interface Props {
     page: Page;
