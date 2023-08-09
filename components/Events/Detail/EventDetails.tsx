@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import EventImage from '@/components/events/EventImage';
+import EventImage from '@/components/Events/Detail/EventImage';
 import formatDate from '@/lib/common/helper/formatDate';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import isEventImageMedia from '@/lib/events/isEventImageMedia';

@@ -1,0 +1,34 @@
+import Link from 'next/link';
+import type { ReactElement } from 'react';
+import createCircleLink from '@/lib/events/createCircleLink';
+import createOrganisationLink from '@/lib/events/createOrganisationLink';
+import type { Circle, Organisation } from '@/types/payload/payload-types';
+
+const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisations' } | { value: string, relationTo: 'circles' } | { value: Organisation, relationTo: 'organisations' } | { value: Circle, relationTo: 'circles' } }): ReactElement => {
+    if (owner.relationTo === 'organisations') {
+        const organisation = owner.value as Organisation;
+        return (
+            <Link
+                href={createOrganisationLink(organisation)}
+                className="truncate px-1 my-auto leading-6 text-sm border-black border-b italic text-black hover:text-orange-500 z-10"
+                aria-label={`"Erfahre mehr über ${organisation.name}"`}
+            >
+                {organisation.name}
+            </Link>
+        );
+    }
+
+    // It's a circle!
+    const circle = owner.value as Circle;
+    return (
+        <Link
+            href={createCircleLink(circle)}
+            className="truncate px-1 my-auto leading-6 text-sm border-black border-b italic text-black hover:text-orange-500 z-10"
+            aria-label={`"Erfahre mehr über ${circle.name}"`}
+        >
+            {circle.name}
+        </Link>
+    );
+};
+
+export default EventOwner;

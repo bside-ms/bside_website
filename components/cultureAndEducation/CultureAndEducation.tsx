@@ -3,7 +3,7 @@ import { range } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import EventOverview from '@/components/events/EventOverview';
+import { EventOverview } from '@/components/Events/Overview';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
 import formatDate from '@/lib/common/helper/formatDate';
 import type { Event } from '@/types/payload/payload-types';

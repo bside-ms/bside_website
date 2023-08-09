@@ -6,7 +6,7 @@ import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Footer from '@/components/common/Footer';
-import EventDetails from '@/components/events/EventDetails';
+import EventDetails from '@/components/Events/Detail/EventDetails';
 import Banner from '@/components/Layout/Banner';
 import ContentDivider from '@/components/Layout/ContentDivider';
 import ContentWrapper from '@/components/Layout/ContentWrapper';
