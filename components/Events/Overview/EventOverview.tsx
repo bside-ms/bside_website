@@ -2,7 +2,7 @@ import { Fragment, useCallback, useMemo, useState } from 'react';
 import { uniq } from 'lodash';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import { EventOrganiser, EventOverviewEmpty, EventTypeFilter } from '@/components/Events/Overview';
+import { EventOrganiser, EventOverviewEmpty } from '@/components/Events/Overview';
 import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { groupEventsByDay } from '@/lib/events';
@@ -16,6 +16,22 @@ interface Props {
     events: Array<Event>;
     pastEvents?: boolean;
 }
+
+const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onClick: (type: EventCategory) => void, isActive: boolean }): ReactElement => {
+
+    const handleClick = useCallback(() => onClick(type), [onClick, type]);
+
+    return (
+        <div
+            onClick={handleClick}
+            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
+        >
+            <div className={isActive ? 'text-gray-500' : ''}>
+                {getEventCategoryTitle(type)}
+            </div>
+        </div>
+    );
+};
 
 const EventOverview = ({
     title = 'Nächste Veranstaltungen',
@@ -118,7 +134,7 @@ const EventOverview = ({
                                         <Link href={`/events/${createEventSlug(event)}`} className="absolute top-0 bottom-0 right-0 left-0" />
                                         <div className="w-0 sm:w-14" />
                                         {event.category?.map(cat => (
-                                            <div key={`event-title-${event.id}`} className="truncate px-1 my-auto leading-6 text-sm italic">
+                                            <div key={`event-title-${event.id}-${cat}`} className="truncate px-1 my-auto leading-6 text-sm italic">
                                                 {getEventCategoryTitle(cat)}
                                             </div>
                                         ))}
