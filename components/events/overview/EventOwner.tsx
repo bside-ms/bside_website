@@ -10,7 +10,7 @@ const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisati
         return (
             <Link
                 href={createOrganisationLink(organisation)}
-                className="truncate px-1 my-auto leading-6 text-sm border-black border-b italic text-black hover:text-orange-500 z-10"
+                className="truncate px-1 my-auto leading-6 text-sm border-black border-b italic text-black z-10 hover:text-orange-500 hover:border-b-orange-500"
                 aria-label={`"Erfahre mehr über ${organisation.name}"`}
             >
                 {organisation.name}
@@ -23,7 +23,7 @@ const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisati
     return (
         <Link
             href={createCircleLink(circle)}
-            className="truncate px-1 my-auto leading-6 text-sm border-black border-b italic text-black hover:text-orange-500 z-10"
+            className="truncate px-1 my-auto leading-6 text-sm border-black border-b italic text-black z-10 hover:text-orange-500 hover:border-b-orange-500"
             aria-label={`"Erfahre mehr über ${circle.name}"`}
         >
             {circle.name}

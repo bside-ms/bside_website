@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import type { ReactElement } from 'react';
-import ContentWrapper from '@/components/layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 
 interface Props {
@@ -9,16 +8,16 @@ interface Props {
     title: string;
 }
 
-const HeroImageSvg = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
+const HeroImage = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
 
     return (
-        <ContentWrapper>
-            <div className="w-full h-32 xs:h-40 md:h-52 relative lg:mt-4">
+        <>
+            <div className="w-full h-32 xs:h-40 md:h-52 relative">
                 <Image
-                    src={`/assets/stickFigures/${imageSrc}.svg`}
+                    src={`/assets/${imageSrc}`}
                     alt={imageAlt}
                     fill={true}
-                    className="object-contain"
+                    className="object-cover"
                     priority={true}
                 />
             </div>
@@ -28,8 +27,8 @@ const HeroImageSvg = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
                     {title}
                 </h1>
             )}
-        </ContentWrapper>
+        </>
     );
 };
 
-export default HeroImageSvg;
+export default HeroImage;

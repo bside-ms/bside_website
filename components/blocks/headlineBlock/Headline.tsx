@@ -6,7 +6,7 @@ import HeadlineTag from '@blocks/headlineBlock/HeadlineTag';
 
 export type HeadlineLevel = 'h1' | 'h2' | 'h3' | 'h4';
 
-const Headline = ({ title, anchor, teaser, level, as = null, teaserLink = '' }: HeadlineBlockProps): ReactElement => {
+const Headline = ({ title, anchor, teaser, level, as = null, teaserLink = '', textClass = '' }: HeadlineBlockProps): ReactElement => {
 
     const renderedLevel = as ?? level;
 
@@ -19,7 +19,7 @@ const Headline = ({ title, anchor, teaser, level, as = null, teaserLink = '' }: 
                 </HeadlineKicker>
             )}
 
-            <div className="max-w-full md:scroll-mt-[64px]">
+            <div className={`max-w-full md:scroll-mt-[64px] ${textClass}`}>
                 <HeadlineTag level={renderedLevel} anchor={anchor}>
                     {title}
                 </HeadlineTag>

@@ -18,7 +18,7 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
         return (
             <Link
                 href={`/events/${createEventSlug(event)}`}
-                className="truncate px-1 my-auto leading-6 text-sm italic border-black border-b text-black z-10"
+                className="truncate px-1 my-auto leading-6 text-sm italic border-black border-b text-black z-10 hover:border-b-orange-500"
                 aria-label={`"Erfahre mehr über die Veranstalter:innen ${event.eventOrganizer}"`}
             >
                 {event.eventOrganizer}
