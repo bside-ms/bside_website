@@ -33,9 +33,10 @@ ENV FRONTEND_URL=${FRONTEND_URL}
 
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && mkdir -p /app/.next/cache
 
 EXPOSE 3000
 ENV PORT 3000
 
+VOLUME ["/app/.next/cache"]
 CMD ["npm", "run", "start"]
