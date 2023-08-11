@@ -72,7 +72,7 @@ export default ({ events }: Props): ReactElement => {
 
                         <CallToAction
                             title=""
-                            text="&nbsp;Zu den aktuellen Veranstaltungen!!!11!1&nbsp;"
+                            text="&nbsp;Zu den aktuellen Veranstaltungen&nbsp;"
                             href="/events"
                             withArrows={false}
                         />

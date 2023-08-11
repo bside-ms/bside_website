@@ -16,6 +16,7 @@ interface Props {
     title?: string;
     events: Array<Event>;
     pastEvents?: boolean;
+    noFilters?: boolean;
 }
 
 const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onClick: (type: EventCategory) => void, isActive: boolean }): ReactElement => {
@@ -38,6 +39,7 @@ const EventOverview = ({
     title = 'Nächste Veranstaltungen',
     events: allEvents,
     pastEvents = false,
+    noFilters = false,
 }: Props): ReactElement => {
 
     const allAvailableCategories = useMemo((): Array<EventCategory> => (
@@ -89,23 +91,27 @@ const EventOverview = ({
             <div className="md:text-lg">
                 {allAvailableCategories.length > 1 && (
                     <div className="px-4 sm:px-0 mb-3 flex flex-wrap">
-                        <div
-                            onClick={unsetFilteredEventType}
-                            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
-                        >
-                            <div className={filteredEventType === null ? 'text-gray-500' : ''}>
-                                Alle
-                            </div>
-                        </div>
+                        {!noFilters && (
+                            <Fragment>
+                                <div
+                                    onClick={unsetFilteredEventType}
+                                    className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
+                                >
+                                    <div className={filteredEventType === null ? 'text-gray-500' : ''}>
+                                        Alle
+                                    </div>
+                                </div>
 
-                        {allAvailableCategories.map(eventType => (
-                            <EventTypeFilter
-                                key={eventType}
-                                type={eventType}
-                                onClick={setFilteredEventType}
-                                isActive={filteredEventType === eventType}
-                            />
-                        ))}
+                                {allAvailableCategories.map(eventType => (
+                                    <EventTypeFilter
+                                        key={eventType}
+                                        type={eventType}
+                                        onClick={setFilteredEventType}
+                                        isActive={filteredEventType === eventType}
+                                    />
+                                ))}
+                            </Fragment>
+                        )}
                     </div>
                 )}
 

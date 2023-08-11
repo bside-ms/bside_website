@@ -9,10 +9,11 @@ import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
-import { getUpcomingEvents } from '@/lib/events';
+import { getPastEvents } from '@/lib/events';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event } from '@/types/payload/payload-types';
 import CallToAction from '@blocks/callToActionBlock/CallToAction';
+import Headline from '@blocks/headlineBlock/Headline';
 
 interface Props {
     events: Array<Event>;
@@ -23,7 +24,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     return {
         revalidate: 60,
         props: {
-            events: await getUpcomingEvents(),
+            events: await getPastEvents(),
         },
     };
 };
@@ -62,8 +63,83 @@ export default ({ events }: Props): ReactElement => {
                 </div>
 
                 <ContentWrapper>
-                    <EventOverview events={events} />
+
+                    <div className="font-serif text-white bg-black text-2xl text-center p-3 mb-8">
+                        Nächste Veranstaltungen
+                    </div>
+
+                    <div className="lg:hidden">
+                        <p className="mb-4 text-lg">
+                            Hier findest du die nächsten fünf Veranstaltungen.
+                            Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
+                        </p>
+
+                        <CallToAction
+                            title=""
+                            text="Alle Veranstaltungen"
+                            href="/events"
+                            withArrows={false}
+                        />
+
+                        <div className="my-4" />
+                    </div>
+
+                    <div className="lg:flex lg:gap-4">
+                        <div className="lg:basis-2/3">
+                            <EventOverview
+                                events={events}
+                                title=""
+                                noFilters={true}
+                            />
+                        </div>
+
+                        <div className="lg:basis-1/3 lg:align-text-top lg:px-4 overflow-y-auto">
+                            <div className="w-full lg:hidden my-4" />
+
+                            <div className="hidden lg:block">
+                                <p className="my-4 text-lg">
+                                    Hier findest du die nächsten fünf Veranstaltungen.
+                                    Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
+                                </p>
+
+                                <CallToAction
+                                    title=""
+                                    text="Alle Veranstaltungen"
+                                    href="/events"
+                                    withArrows={false}
+                                />
+
+                                <div className="my-8" />
+                            </div>
+
+                            <Headline
+                                title="Archiv"
+                                level="h3"
+                            />
+
+                            <p className="my-4 text-lg">
+                                Hier findest du die fünf nächsten Veranstaltungen.
+                                Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
+                            </p>
+
+                            <CallToAction
+                                title=""
+                                text="Veranstaltungsarchiv"
+                                href="/events/history"
+                                withArrows={false}
+                            />
+
+                            <div className="my-4" />
+                        </div>
+                    </div>
                 </ContentWrapper>
+
+                <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
+                    <div
+                        className="bg-cover bg-center w-full h-52 md:h-72 mb-4"
+                        style={{ backgroundImage: `url(${hausfrontJpg.src})` }}
+                    />
+                </div>
 
                 <ContentWrapper>
                     <CallToAction
