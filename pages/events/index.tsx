@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
-    const allEvents = await getUpcomingEvents();
+    const allEvents = await getUpcomingEvents(25);
 
     return {
         revalidate: 60,
