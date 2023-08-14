@@ -4,12 +4,12 @@ import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
+import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
-import HeadlineBlock from 'components/blocks/headlineBlock/HeadlineBlock';
 
 interface Props {
     page: Page;
@@ -86,22 +86,19 @@ export default ({ page, preview }: Props): ReactElement => {
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
 
-            <Banner
-                bannerId="none"
-                bannerText=""
-                bannerLink=""
-                footerInView={false}
-                isPreview={preview}
-            />
+            {preview && (
+                <Banner
+                    bannerId="preview"
+                    bannerText="Preview"
+                    bannerLink=""
+                    footerInView={false}
+                    isPreview={preview}
+                />
+            )}
 
             <ContentDivider />
 
             <main>
-                <HeadlineBlock
-                    title={page.title}
-                    level="h1"
-                />
-
                 {page.layout?.map((layoutElement, index) => (
                     <ReusableBlocks
                         key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
@@ -110,6 +107,7 @@ export default ({ page, preview }: Props): ReactElement => {
                 ))}
             </main>
 
+            <ContentWrapper />
             <Footer />
         </div>
     );

@@ -87,7 +87,7 @@ export default (): ReactElement => {
                 <div className="md:flex mb-4">
                     {/* History */}
                     <Link
-                        href="/bside/haus"
+                        href="/bside/history"
                         aria-label="Erfahre mehr über das Haus und was wir darin machen"
                         className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mr-2 text-white hover:bg-red-500 hover:text-black"
                     >
@@ -108,7 +108,7 @@ export default (): ReactElement => {
 
                     {/* Trägerschaft */}
                     <Link
-                        href="/bside/haus"
+                        href="/bside/traegerschaft"
                         aria-label="Erfahre mehr über das Haus und was wir darin machen"
                         className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:ml-2 text-white hover:bg-green-500 hover:text-black"
                     >
