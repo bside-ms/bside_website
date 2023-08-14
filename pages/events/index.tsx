@@ -11,7 +11,7 @@ import HeaderBar from '@/components/layout/header/HeaderBar';
 import { filterForMeetings, filterNoMeetings, getUpcomingEvents } from '@/lib/events';
 import eventImage from '@/public/assets/veranstaltung.png';
 import type { Event } from '@/types/payload/payload-types';
-import CallToAction from '@blocks/callToActionBlock/CallToAction';
+import Button from '@blocks/buttonBlock/Button';
 import Headline from '@blocks/headlineBlock/Headline';
 
 interface Props {
@@ -86,11 +86,10 @@ export default ({ events, meetings, preview }: Props): ReactElement => {
                                 Du brauchst aber ganz dringend den Namen der Band?
                             </p>
 
-                            <CallToAction
+                            <Button
                                 title=""
                                 text="Wirf ein Blick ins Archiv"
                                 href="/events/history"
-                                withArrows={false}
                             />
 
                             <div className="my-4" />

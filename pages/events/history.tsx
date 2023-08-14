@@ -10,7 +10,7 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getPastEvents } from '@/lib/events';
 import type { Event } from '@/types/payload/payload-types';
-import CallToAction from '@blocks/callToActionBlock/CallToAction';
+import Button from '@blocks/buttonBlock/Button';
 import Headline from '@blocks/headlineBlock/Headline';
 
 interface Props {
@@ -84,14 +84,13 @@ export default ({ events, preview }: Props): ReactElement => {
                                 klicke einfach auf den folgenden Button.
                             </p>
 
-                            <CallToAction
+                            <Button
                                 title=""
                                 text="&nbsp;Zu den aktuellen Veranstaltungen&nbsp;"
                                 href="/events"
-                                withArrows={false}
                             />
 
-                            <div className="my-8" />
+                            <div className="my-4" />
 
                             <Headline
                                 teaser="Nichts interessantes dabei?"
@@ -109,14 +108,13 @@ export default ({ events, preview }: Props): ReactElement => {
                                 und ansprechendere Veranstaltungen zu finden sind!
                             </p>
 
-                            <CallToAction
+                            <Button
                                 title=""
                                 text="Selbst aktiv werden!"
                                 href="/mitmachen"
-                                withArrows={false}
                             />
 
-                            <div className="my-8" />
+                            <div className="my-4" />
 
                             <div className="max-w-full h-auto relative">
                                 <Image
@@ -127,10 +125,6 @@ export default ({ events, preview }: Props): ReactElement => {
                                     className="object-contain fill"
                                 />
                             </div>
-
-                            <p className="my-4 text-lg">
-                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                            </p>
 
                         </div>
                     </div>

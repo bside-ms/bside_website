@@ -8,7 +8,7 @@ const createEventSlug = (event: Event): string => {
     }
 
     const titleForSlug = encodeURIComponent(
-        event.title.toLocaleLowerCase().replace(/\s/, '-')
+        event.title.toLocaleLowerCase().replaceAll(/\s/g, '-')
     );
 
     return `${titleForSlug}-${event.id}`;

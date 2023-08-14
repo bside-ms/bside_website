@@ -12,6 +12,7 @@ import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getUpcomingEvents } from '@/lib/events';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event } from '@/types/payload/payload-types';
+import Button from '@blocks/buttonBlock/Button';
 import CallToAction from '@blocks/callToActionBlock/CallToAction';
 import Headline from '@blocks/headlineBlock/Headline';
 
@@ -78,11 +79,10 @@ export default ({ events, preview }: Props): ReactElement => {
                             Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
                         </p>
 
-                        <CallToAction
+                        <Button
                             title=""
                             text="Alle Veranstaltungen"
                             href="/events"
-                            withArrows={false}
                         />
 
                         <div className="my-4" />
@@ -106,14 +106,12 @@ export default ({ events, preview }: Props): ReactElement => {
                                     Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
                                 </p>
 
-                                <CallToAction
+                                <Button
                                     title=""
                                     text="Alle Veranstaltungen"
                                     href="/events"
-                                    withArrows={false}
                                 />
 
-                                <div className="my-8" />
                             </div>
 
                             <Headline
@@ -126,14 +124,11 @@ export default ({ events, preview }: Props): ReactElement => {
                                 Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
                             </p>
 
-                            <CallToAction
+                            <Button
                                 title=""
                                 text="Veranstaltungsarchiv"
                                 href="/events/history"
-                                withArrows={false}
                             />
-
-                            <div className="my-4" />
                         </div>
                     </div>
                 </ContentWrapper>

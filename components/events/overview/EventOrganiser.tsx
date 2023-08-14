@@ -17,6 +17,7 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
     if (!hasOwner && hasOrganiser) {
         return (
             <Link
+                key={`event-${event.id}-organiser`}
                 href={`/events/${createEventSlug(event)}`}
                 className="truncate px-1 my-auto leading-6 text-sm italic border-black border-b text-black z-10 hover:border-b-orange-500"
                 aria-label={`"Erfahre mehr über die Veranstalter:innen ${event.eventOrganizer}"`}
@@ -28,8 +29,7 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
 
     return (
         <Fragment>
-            {/* @ts-expect-error ToDo: Create OwnerType */ }
-            {event.eventOwner?.map(owner => <EventOwner key={`event-${event.id}-owner-${owner.value.id}`} owner={owner} />)}
+            {event.eventOwner?.map(owner => <EventOwner key={`event-${event.id}-owner`} owner={owner} />)}
         </Fragment>
     );
 };
