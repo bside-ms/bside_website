@@ -66,13 +66,10 @@ const EventOverview = ({
 
     const unsetFilteredEventType = useCallback(() => setFilteredEventType(null), []);
 
-    const groupByDay = useMemo(() => {
-        const events = groupEventsByDay(filteredEvents);
-        if (pastEvents) {
-            events.reverse();
-        }
-        return events;
-    }, [filteredEvents, pastEvents]);
+    const groupByDay = useMemo(
+        () => groupEventsByDay(filteredEvents, pastEvents),
+        [filteredEvents, pastEvents]
+    );
 
     if (filteredEvents.length === 0) {
         return EventOverviewEmpty({ title });
