@@ -5,6 +5,7 @@ import Image from 'next/image';
 import type { ReactElement } from 'react';
 import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
+import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
@@ -18,6 +19,7 @@ import Headline from 'components/blocks/headlineBlock/Headline';
 
 interface Props {
     circle: Circle;
+    preview: boolean;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -36,7 +38,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
 
     const rawSlug = params?.slug;
     if (rawSlug === undefined) {
@@ -62,12 +64,13 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         revalidate: 60,
         props: {
             circle,
+            preview: preview ?? false,
         },
     };
 };
 
 // eslint-disable-next-line complexity
-export default ({ circle }: Props): ReactElement => {
+export default ({ circle, preview }: Props): ReactElement => {
 
     // Basic Infos
     const organisation = typeof circle.organisation === 'string' ? null : circle.organisation;
@@ -92,43 +95,55 @@ export default ({ circle }: Props): ReactElement => {
                 url={canonialUrl}
             />
 
-            <main className="min-h-screen flex flex-col justify-between">
+            <div className="min-h-screen flex flex-col justify-between">
                 <HeaderBar />
+
+                {preview && (
+                    <Banner
+                        bannerId="preview"
+                        bannerText="Preview"
+                        bannerLink=""
+                        footerInView={false}
+                        isPreview={true}
+                    />
+                )}
 
                 <ContentDivider />
 
-                <div className="w-full lg:w-[54rem] xl:w-[70rem] mx-auto text-center px-2">
-                    <div className="w-full h-40 md:h-52 relative lg:mt-4">
-                        <Image
-                            src={imageUrl}
-                            alt="artists"
-                            fill={true}
-                            className={(circle.circleImage ?? null) !== null ? 'object-cover lg:rounded-xl' : 'object-fill'}
-                            priority={true}
-                        />
-                    </div>
-
-                    <div className="bg-black text-white pb-4 mt-2">
-                        <ContentWrapper className="pt-2 !pb-0 !-mb-2">
-                            <Headline
-                                title={circle.name}
-                                teaser={organisation?.name ?? null}
-                                teaserLink={(organisation?.shortName ?? null) !== null ? `/${organisation!.shortName}` : null}
-                                level="h1"
+                <main>
+                    <div className="w-full lg:w-[54rem] xl:w-[70rem] mx-auto text-center px-2">
+                        <div className="w-full h-40 md:h-52 relative lg:mt-4">
+                            <Image
+                                src={imageUrl}
+                                alt="artists"
+                                fill={true}
+                                className={(circle.circleImage ?? null) !== null ? 'object-cover lg:rounded-xl' : 'object-fill'}
+                                priority={true}
                             />
-                        </ContentWrapper>
-                    </div>
-                </div>
+                        </div>
 
-                {circle.layout?.map((layoutElement, index) => (
-                    <ReusableBlocks
-                        key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
-                        layoutElement={layoutElement}
-                    />
-                ))}
+                        <div className="bg-black text-white pb-4 mt-2">
+                            <ContentWrapper className="pt-2 !pb-0 !-mb-2">
+                                <Headline
+                                    title={circle.name}
+                                    teaser={organisation?.name ?? null}
+                                    teaserLink={(organisation?.shortName ?? null) !== null ? `/${organisation!.shortName}` : null}
+                                    level="h1"
+                                />
+                            </ContentWrapper>
+                        </div>
+                    </div>
+
+                    {circle.layout?.map((layoutElement, index) => (
+                        <ReusableBlocks
+                            key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
+                            layoutElement={layoutElement}
+                        />
+                    ))}
+                </main>
 
                 <Footer />
-            </main>
+            </div>
         </Fragment>
     );
 };

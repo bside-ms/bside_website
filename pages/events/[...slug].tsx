@@ -1,6 +1,5 @@
 import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
@@ -13,7 +12,6 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
-import logger from '@/lib/common/logger';
 import createEventSlug from '@/lib/events/createEventSlug';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
@@ -21,6 +19,7 @@ import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     event: Event;
+    preview: boolean;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -39,9 +38,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-
-    const getElapsed = hirestime();
+export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
 
     const rawSlug = params?.slug;
 
@@ -69,21 +66,16 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         return { notFound: true };
     }
 
-    logger.info({
-        message: 'timing',
-        path: `/events/[${slug}]`,
-        time: getElapsed.seconds(),
-    });
-
     return {
         revalidate: 60,
         props: {
             event,
+            preview: preview ?? false,
         },
     };
 };
 
-export default ({ event }: Props): ReactElement => {
+export default ({ event, preview }: Props): ReactElement => {
 
     const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
         initialInView: true,
@@ -93,7 +85,6 @@ export default ({ event }: Props): ReactElement => {
     return (
         <main className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
-
             <ContentDivider />
 
             {isNotEmptyString(event.id) && (
@@ -101,7 +92,8 @@ export default ({ event }: Props): ReactElement => {
                     bannerId="ical-link"
                     bannerLink={`/api/ics/?eventId=${event.id}`}
                     bannerText="Veranstaltung in meinen Kalender eintragen!"
-                    footerInView={isFooterInView}
+                    footerInView={isFooterInView || preview}
+                    isPreview={preview}
                 />
             )}
 

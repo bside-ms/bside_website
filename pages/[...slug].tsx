@@ -1,12 +1,11 @@
-import hirestime from 'hirestime';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
+import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
-import logger from '@/lib/common/logger';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
@@ -14,6 +13,7 @@ import HeadlineBlock from 'components/blocks/headlineBlock/HeadlineBlock';
 
 interface Props {
     page: Page;
+    preview: boolean;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -32,9 +32,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-
-    const getElapsed = hirestime();
+export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
 
     const rawSlug = params?.slug;
 
@@ -48,7 +46,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         return { notFound: true };
     }
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100', preview);
 
     let page = pagesResponse.docs.find(doc => {
         if (doc.breadcrumbs === undefined) {
@@ -73,41 +71,46 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         return { notFound: true };
     }
 
-    logger.info({
-        message: 'timing',
-        path: `/pages/[${slug}]`,
-        time: getElapsed.seconds(),
-    });
-
     return {
         revalidate: 60,
         props: {
             page,
+            preview: preview ?? false,
         },
     };
 };
 
-export default ({ page }: Props): ReactElement => {
+export default ({ page, preview }: Props): ReactElement => {
 
     return (
-        <main className="min-h-screen flex flex-col justify-between">
+        <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
+
+            <Banner
+                bannerId="none"
+                bannerText=""
+                bannerLink=""
+                footerInView={false}
+                isPreview={preview}
+            />
 
             <ContentDivider />
 
-            <HeadlineBlock
-                title={page.title}
-                level="h1"
-            />
-
-            {page.layout?.map((layoutElement, index) => (
-                <ReusableBlocks
-                    key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
-                    layoutElement={layoutElement}
+            <main>
+                <HeadlineBlock
+                    title={page.title}
+                    level="h1"
                 />
-            ))}
+
+                {page.layout?.map((layoutElement, index) => (
+                    <ReusableBlocks
+                        key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
+                        layoutElement={layoutElement}
+                    />
+                ))}
+            </main>
 
             <Footer />
-        </main>
+        </div>
     );
 };

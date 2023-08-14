@@ -9,7 +9,7 @@ import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
-import { getPastEvents } from '@/lib/events';
+import { getUpcomingEvents } from '@/lib/events';
 import hausfrontJpg from '@/public/assets/hausfront.jpg';
 import type { Event } from '@/types/payload/payload-types';
 import CallToAction from '@blocks/callToActionBlock/CallToAction';
@@ -17,19 +17,20 @@ import Headline from '@blocks/headlineBlock/Headline';
 
 interface Props {
     events: Array<Event>;
+    preview: boolean;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-
+export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
     return {
         revalidate: 60,
         props: {
-            events: await getPastEvents(),
+            events: await getUpcomingEvents(),
+            preview: preview ?? false,
         },
     };
 };
 
-export default ({ events }: Props): ReactElement => {
+export default ({ events, preview }: Props): ReactElement => {
 
     const { isLg } = useBreakpointContext();
 
@@ -43,12 +44,15 @@ export default ({ events }: Props): ReactElement => {
 
             <HeaderBar />
 
-            <Banner
-                bannerId="index"
-                bannerText="Hinweis | Hinweis | Hinweis | Hinweis | Hinweis"
-                bannerLink=""
-                footerInView={isFooterInView}
-            />
+            {preview && (
+                <Banner
+                    bannerId="index"
+                    bannerText="Hinweis | Hinweis | Hinweis"
+                    bannerLink=""
+                    footerInView={isFooterInView || preview}
+                    isPreview={preview}
+                />
+            )}
 
             <ContentDivider />
 
