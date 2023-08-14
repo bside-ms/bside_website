@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import EventOverview from '@/components/events/overview/EventOverview';
-import HouseHero from '@/components/frontPage/HouseHero';
+import FrontPageHero from '@/components/frontPage/FrontPageHero';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -58,7 +58,7 @@ export default ({ events, preview }: Props): ReactElement => {
             <ContentDivider />
 
             <main>
-                <HouseHero />
+                <FrontPageHero />
 
                 <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
                     <div
