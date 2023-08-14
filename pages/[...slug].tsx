@@ -20,7 +20,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
 
-    const paths = pages.docs.map(({ breadcrumbs, id }) => ({
+    const asdf = pages.docs.filter(({ slug }) => {
+        return slug !== 'bside';
+    });
+
+    const paths = asdf.map(({ breadcrumbs, id }) => ({
         params: {
             slug: [breadcrumbs ? (breadcrumbs[breadcrumbs.length - 1]?.url?.substring(1) ?? id) : id],
         },
