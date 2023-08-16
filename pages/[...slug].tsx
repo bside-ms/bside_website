@@ -4,7 +4,6 @@ import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
-import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
@@ -111,7 +110,6 @@ export default ({ page, preview }: Props): ReactElement => {
                 ))}
             </main>
 
-            <ContentWrapper />
             <Footer />
         </div>
     );
