@@ -5,15 +5,18 @@ import type { ReactElement } from 'react';
 import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import createCircleLink from '@/lib/events/createCircleLink';
+import type { SlateChildren } from '@/types/payload/Blocks';
 import type { Circle } from '@/types/payload/payload-types';
 import Headline from '@blocks/headlineBlock/Headline';
+import RichText from '@blocks/richTextBlock/RichText';
 
 interface Props {
     headlineText: string;
     circles: Array<Circle>;
+    richText: SlateChildren;
 }
 
-const CircleOverview = ({ headlineText, circles }: Props): ReactElement => {
+const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElement => {
 
     return (
         <Fragment>
@@ -27,19 +30,10 @@ const CircleOverview = ({ headlineText, circles }: Props): ReactElement => {
             <div className="lg:flex lg:gap-4 lg:flex-row-reverse">
 
                 <div className="lg:basis-1/2 lg:align-text-top lg:px-4 overflow-y-auto">
-                    <p className="lg:text-lg">
-                        Was nicht in den Zuständigkeitsbereich der Mitgliederversammlung (MV) fällt, ist
-                        Zuständigkeit der Arbeitskreise (AK). Die MV bestimmt über die allgemeine Ausrichtung
-                        und Strategie des Vereins. Die AK führen die Regie bei konkreten Projekten und im
-                        Tagesgeschehen des Vereinslebens. Sie treffen sich regelmäßig zu Plena. Die Plena
-                        sind offen, um möglichst viele Menschen möglichst niedrigschwellig an Entscheidungsprozessen
-                        zu beteiligen. Im monatlichen Kultur-Plenum werden alle aktuellen Vereinsaktivitäten koordiniert.
-                        Es dient den Arbeitskreisen als Ort des Austauschs, der Abstimmung und gegenseitigen Kontrolle
-                        und Unterstützung. Das Kultur-Plenum findet jeden 3. Mittwoch im Monat um 18:00 statt
-                        (Am Hawerkamp 29). Wenn du die verschiedenen AK des Kulturvereins kennenlernen möchtest,
-                        ist es eine gute erste Anlaufstelle. Auch, wenn du eigene Projektideen hast, für die
-                        du Mitwirkende suchst. Komm gerne dazu, du bist herzlich Eingeladen!
-                    </p>
+
+                    <RichText
+                        content={richText}
+                    />
 
                     <div className="mt-4 border-2 border-black p-2 text-center font-serif flex flex-wrap gap-x-1 justify-center">
                         <div className="whitespace-nowrap">Nächstes Kulturplenum:</div>
@@ -83,7 +77,6 @@ const CircleOverview = ({ headlineText, circles }: Props): ReactElement => {
             </div>
         </Fragment>
     );
-
 };
 
 export default CircleOverview;

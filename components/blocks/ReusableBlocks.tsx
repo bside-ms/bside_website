@@ -1,5 +1,7 @@
 import type { ReactElement } from 'react';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';
+import type { Circle } from '@/types/payload/payload-types';
+import CircleOverviewBlock from '@blocks/circleOverviewBlock/CircleOverviewBlock';
 import CallToActionBlock from 'components/blocks/callToActionBlock/CallToActionBlock';
 import HeadlineBlock from 'components/blocks/headlineBlock/HeadlineBlock';
 import MediaBlock from 'components/blocks/mediaBlock/MediaBlock';
@@ -8,9 +10,10 @@ import ContentBlock from 'components/blocks/textBlock/ContentBlock';
 
 interface Props {
     layoutElement: NonNullable<BlockLayoutProps['blocks']>[0];
+    circles?: Array<Circle> | null;
 }
 
-const ReusableBlocks = ({ layoutElement }: Props): ReactElement | null => {
+const ReusableBlocks = ({ layoutElement, circles = null }: Props): ReactElement | null => {
 
     switch (layoutElement.blockType) {
         case 'callToAction':
@@ -58,6 +61,16 @@ const ReusableBlocks = ({ layoutElement }: Props): ReactElement | null => {
                     anchor={layoutElement.anchor}
                     teaser={layoutElement.teaser}
                     level={layoutElement.level}
+                />
+            );
+
+        case 'circleOverview':
+            console.warn(layoutElement);
+            return circles === null ? (<div />) : (
+                <CircleOverviewBlock
+                    headlineText={layoutElement.title}
+                    circles={circles}
+                    richText={layoutElement.richText}
                 />
             );
 

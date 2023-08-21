@@ -1,6 +1,6 @@
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Circle } from '@/types/payload/payload-types';
+import type { Circle, Organisation } from '@/types/payload/payload-types';
 
 export const getCirclesOfOrganisation = async (organisationId: string): Promise<Array<Circle>> => {
     const circles = await getPayloadResponse<PaginatedDocs<Circle>>(
@@ -8,4 +8,12 @@ export const getCirclesOfOrganisation = async (organisationId: string): Promise<
     );
 
     return circles.docs;
+};
+
+export const getOrganisation = async (organisationId: string): Promise<Organisation> => {
+    const organisation = await getPayloadResponse<PaginatedDocs<Organisation>>(
+        `/api/organisations/?where[_id][equals]=${organisationId}`
+    );
+
+    return organisation.docs[0]!;
 };

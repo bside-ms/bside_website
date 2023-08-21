@@ -170,6 +170,7 @@ export interface Organisation {
       | {
     title: string;
     circleSide: 'textLeft' | 'textRight';
+    organisationId: string;
     richText: {
       [k: string]: unknown;
     }[];

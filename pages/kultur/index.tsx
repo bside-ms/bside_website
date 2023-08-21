@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import CircleOverview from '@/components/cultureAndEducation/CircleOverview';
 import CultureAndEducation from '@/components/cultureAndEducation/CultureAndEducation';
 import EventOverview from '@/components/events/overview/EventOverview';
 import Banner from '@/components/layout/Banner';
@@ -12,14 +11,14 @@ import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import { getPublicClientUrl } from '@/lib/common/url';
 import { getUpcomingEvents } from '@/lib/events';
-import { getCirclesOfOrganisation } from '@/lib/organisations';
-import type { Circle, Event } from '@/types/payload/payload-types';
-
-const organisationId = '647e60a67054a955522b24ad';
+import { getCirclesOfOrganisation, getOrganisation } from '@/lib/organisations';
+import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
+import ReusableBlocks from '@blocks/ReusableBlocks';
 
 interface Props {
     events: Array<Event>;
     preview: boolean;
+    organisation: Organisation;
     circles: Array<Circle>;
 }
 
@@ -27,17 +26,21 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
     // ToDo: Apply filter to the eventlist.
     const events = await getUpcomingEvents(25);
 
+    const organisationId = '647e60a67054a955522b24ad';
+    const organisation = await getOrganisation(organisationId);
+
     return {
         revalidate: 60,
         props: {
             events,
-            circles: await getCirclesOfOrganisation(organisationId),
             preview: preview ?? false,
+            organisation,
+            circles: await getCirclesOfOrganisation(organisation.id),
         },
     };
 };
 
-export default ({ events, preview, circles }: Props): ReactElement => {
+export default ({ events, preview, organisation, circles }: Props): ReactElement => {
 
     // ToDo: SEO-Infos der Organisation abrufen.
 
@@ -69,12 +72,13 @@ export default ({ events, preview, circles }: Props): ReactElement => {
                     <CultureAndEducation />
                     { /* */ }
 
-                    <ContentWrapper>
-                        <CircleOverview
-                            headlineText="Arbeitskreise des B-Side Kultur e.V."
+                    {organisation.layout?.map((layoutElement, index) => (
+                        <ReusableBlocks
+                            key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
+                            layoutElement={layoutElement}
                             circles={circles}
                         />
-                    </ContentWrapper>
+                    ))}
 
                     <ContentWrapper>
                         <EventOverview
