@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
+import Image from 'next/image';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import CultureAndEducation from '@/components/cultureAndEducation/CultureAndEducation';
 import EventOverview from '@/components/events/overview/EventOverview';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
@@ -42,13 +42,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
 
 export default ({ events, preview, organisation, circles }: Props): ReactElement => {
 
-    // ToDo: SEO-Infos der Organisation abrufen.
-
     return (
         <Fragment>
             <NextHead
-                title="B-Side Kultur e.V."
-                description="Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side."
+                title={organisation.meta?.title ?? 'Kultur e.V.'}
+                description={organisation.meta?.description ?? 'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'}
                 url={`${getPublicClientUrl()}/kultur`}
             />
 
@@ -68,9 +66,21 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                 <ContentDivider />
 
                 <main>
-                    { /* */ }
-                    <CultureAndEducation />
-                    { /* */ }
+                    <ContentWrapper>
+                        <div className="w-full h-32 xs:h-40 md:h-52 relative lg:mt-4">
+                            <Image
+                                src="/assets/stickFigures/artists.svg"
+                                alt="artists"
+                                fill={true}
+                                className="object-contain"
+                                priority={true}
+                            />
+                        </div>
+
+                        <div className="font-serif text-white bg-black mt-4 text-2xl text-center p-3">
+                            Kultur & Bildung
+                        </div>
+                    </ContentWrapper>
 
                     {organisation.layout?.map((layoutElement, index) => (
                         <ReusableBlocks

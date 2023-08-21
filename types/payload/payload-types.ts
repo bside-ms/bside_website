@@ -162,6 +162,7 @@ export interface Organisation {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
     blockName?: string;
@@ -244,6 +245,7 @@ export interface Circle {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
     blockName?: string;
@@ -325,6 +327,7 @@ export interface Page {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
     blockName?: string;

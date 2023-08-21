@@ -61,11 +61,11 @@ const ReusableBlocks = ({ layoutElement, circles = null }: Props): ReactElement 
                     anchor={layoutElement.anchor}
                     teaser={layoutElement.teaser}
                     level={layoutElement.level}
+                    backgroundColor={layoutElement.backgroundColor}
                 />
             );
 
         case 'circleOverview':
-            console.warn(layoutElement);
             return circles === null ? (<div />) : (
                 <CircleOverviewBlock
                     headlineText={layoutElement.title}

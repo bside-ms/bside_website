@@ -12,7 +12,6 @@ const Headline = ({ title, anchor, teaser, level, as = null, teaserLink = '', te
 
     return (
         <>
-
             {!isEmptyString(teaser) && (
                 <HeadlineKicker level={level} link={teaserLink}>
                     {teaser}
