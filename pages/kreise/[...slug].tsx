@@ -111,7 +111,7 @@ export default ({ circle, preview }: Props): ReactElement => {
                 <ContentDivider />
 
                 <main>
-                    <div className="w-full lg:w-[54rem] xl:w-[70rem] mx-auto text-center px-2">
+                    <div className="w-full lg:w-[54rem] xl:w-[70rem] mx-auto text-center">
                         <div className="w-full h-40 md:h-52 relative lg:mt-4">
                             <Image
                                 src={imageUrl}
