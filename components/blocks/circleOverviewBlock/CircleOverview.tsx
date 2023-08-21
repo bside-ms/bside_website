@@ -70,7 +70,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                     </div>
                                     <div
                                         className="absolute top-0 right-0 bottom-0 left-0 opacity-0 group-hover:opacity-100 transition-all duration-100"
-                                        style={{ backgroundColor: colors[index] }}
+                                        style={{ backgroundColor: colors[index % colors.length] }}
                                     />
 
                                     <div className="text-sm z-10 group-hover:text-black transition-all duration-100">
