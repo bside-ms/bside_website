@@ -16,6 +16,14 @@ interface Props {
     richText: SlateChildren;
 }
 
+const colors = [
+    '#ccffcc',
+    '#ccffff',
+    '#ccccff',
+    '#ffcccc',
+    '#ffffcc',
+];
+
 const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElement => {
 
     return (
@@ -42,7 +50,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
 
                 <div className="lg:basis-1/2">
                     <div className="border-2 border-black my-4">
-                        {circles.map((circle: Circle) => (
+                        {circles.map((circle: Circle, index: number) => (
                             <Link
                                 href={createCircleLink(circle)}
                                 key={circle.name}
@@ -50,7 +58,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                 <div
                                     className="group relative flex justify-between items-center px-4 py-1 cursor-pointer border-b border-gray-300"
                                 >
-                                    <div className="z-20 lg:text-lg group-hover:text-white transition-all duration-100">
+                                    <div className="z-20 lg:text-lg group-hover:text-black transition-all duration-100">
                                         <p className="font-bold">
                                             {circle.name}
                                         </p>
@@ -62,10 +70,10 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                     </div>
                                     <div
                                         className="absolute top-0 right-0 bottom-0 left-0 opacity-0 group-hover:opacity-100 transition-all duration-100"
-                                        style={{ backgroundColor: circle.color }}
+                                        style={{ backgroundColor: colors[index] }}
                                     />
 
-                                    <div className="text-sm z-20 group-hover:text-white transition-all duration-100">
+                                    <div className="text-sm z-20 group-hover:text-black transition-all duration-100">
                                         »&nbsp;mehr
                                     </div>
                                 </div>
