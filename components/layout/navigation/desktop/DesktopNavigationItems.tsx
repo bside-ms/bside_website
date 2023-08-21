@@ -20,7 +20,7 @@ export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
         subLabel: 'B-Side Kultur e.V.',
     },
     {
-        link: '/gmbh',
+        link: '/quartier',
         label: 'Quartiersarbeit',
         subLabel: 'B-Side GmbH',
     },

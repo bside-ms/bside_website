@@ -35,7 +35,7 @@ const nextConfig = {
         destination: '/kreise/:slug'
       },
       {
-        source: '/gmbh/:slug',
+        source: '/quartier/:slug',
         destination: '/kreise/:slug'
       },
     ];

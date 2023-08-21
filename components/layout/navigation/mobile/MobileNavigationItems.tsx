@@ -28,7 +28,7 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/gmbh" color="#8100fd">
+            <MobileNavigationLink href="/quartier" color="#8100fd">
                 <div className="leading-4">
                     Quartiersarbeit
                     <span className="text-sm"><br />B-Side GmbH</span>
