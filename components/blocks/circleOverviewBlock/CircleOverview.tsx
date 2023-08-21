@@ -58,7 +58,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                 <div
                                     className="group relative flex justify-between items-center px-4 py-1 cursor-pointer border-b border-gray-300"
                                 >
-                                    <div className="z-20 lg:text-lg group-hover:text-black transition-all duration-100">
+                                    <div className="z-10 lg:text-lg group-hover:text-black transition-all duration-100">
                                         <p className="font-bold">
                                             {circle.name}
                                         </p>
@@ -73,7 +73,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                         style={{ backgroundColor: colors[index] }}
                                     />
 
-                                    <div className="text-sm z-20 group-hover:text-black transition-all duration-100">
+                                    <div className="text-sm z-10 group-hover:text-black transition-all duration-100">
                                         »&nbsp;mehr
                                     </div>
                                 </div>
