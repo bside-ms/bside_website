@@ -3,7 +3,6 @@ import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import EventOverview from '@/components/events/overview/EventOverview';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -87,15 +86,9 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                             key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
                             layoutElement={layoutElement}
                             circles={circles}
-                        />
-                    ))}
-
-                    <ContentWrapper>
-                        <EventOverview
-                            title="Veranstaltungen des Kultur&nbsp;e.V.s"
                             events={events}
                         />
-                    </ContentWrapper>
+                    ))}
                 </main>
 
                 <Footer />

@@ -1,7 +1,8 @@
 import type { ReactElement } from 'react';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';
-import type { Circle } from '@/types/payload/payload-types';
+import type { Circle, Event } from '@/types/payload/payload-types';
 import CircleOverviewBlock from '@blocks/circleOverviewBlock/CircleOverviewBlock';
+import EventOverviewBlock from '@blocks/eventOverviewBlock/EventOverviewBlock';
 import CallToActionBlock from 'components/blocks/callToActionBlock/CallToActionBlock';
 import HeadlineBlock from 'components/blocks/headlineBlock/HeadlineBlock';
 import MediaBlock from 'components/blocks/mediaBlock/MediaBlock';
@@ -11,9 +12,10 @@ import ContentBlock from 'components/blocks/textBlock/ContentBlock';
 interface Props {
     layoutElement: NonNullable<BlockLayoutProps['blocks']>[0];
     circles?: Array<Circle> | null;
+    events?: Array<Event> | null;
 }
 
-const ReusableBlocks = ({ layoutElement, circles = null }: Props): ReactElement | null => {
+const ReusableBlocks = ({ layoutElement, circles = null, events = null }: Props): ReactElement | null => {
 
     switch (layoutElement.blockType) {
         case 'callToAction':
@@ -74,11 +76,16 @@ const ReusableBlocks = ({ layoutElement, circles = null }: Props): ReactElement 
                 />
             );
 
-        default:
-            // @ts-expect-error | This is just in case, it shouldn't happen.
-            // eslint-disable-next-line no-console
-            console.warn(`Received unexpected block type "${layoutElement.blockType}"`);
+        case 'eventOverview':
+            return events === null ? (<div />) : (
+                <EventOverviewBlock
+                    headlineText={layoutElement.title}
+                    events={events}
+                    richText={layoutElement.richText}
+                />
+            );
 
+        default:
             return null;
     }
 };

@@ -30,7 +30,6 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
             <div className="lg:flex lg:gap-4 lg:flex-row-reverse">
 
                 <div className="lg:basis-1/2 lg:align-text-top lg:px-4 overflow-y-auto">
-
                     <RichText
                         content={richText}
                     />

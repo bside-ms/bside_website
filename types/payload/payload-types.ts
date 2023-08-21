@@ -171,13 +171,22 @@ export interface Organisation {
       | {
     title: string;
     circleSide: 'textLeft' | 'textRight';
-    organisationId: string;
     richText: {
       [k: string]: unknown;
     }[];
     id?: string;
     blockName?: string;
     blockType: 'circleOverview';
+  }
+      | {
+    title: string;
+    eventSide: 'textLeft' | 'textRight';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'eventOverview';
   }
       )[];
   meta?: {
