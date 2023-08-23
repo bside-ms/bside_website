@@ -59,7 +59,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                     className="group relative flex justify-between items-center px-4 py-1 cursor-pointer border-b border-gray-300"
                                 >
                                     <div className="z-10 lg:text-lg group-hover:text-black transition-all duration-100">
-                                        <p className="font-bold">
+                                        <p className="font-serif">
                                             {circle.name}
                                         </p>
                                         {!isEmptyString(circle.description) && (
