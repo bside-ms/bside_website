@@ -38,7 +38,7 @@ export default (): ReactElement => {
                 <div className="md:flex">
                     {/* Das Kollektiv */}
                     <Link
-                        href="/kollektiv"
+                        href="/bside/kollektiv"
                         aria-label="Erfahre mehr über das Haus und was wir darin machen"
                         className="bg-black mt-6 py-4 flex w-full md:w-1/2 md:mr-2 text-white hover:bg-cyan-500 hover:text-black"
                     >
