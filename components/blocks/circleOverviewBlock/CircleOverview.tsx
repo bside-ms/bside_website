@@ -1,8 +1,6 @@
 import { Fragment } from 'react';
-import { nextWednesday } from 'date-fns';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import createCircleLink from '@/lib/events/createCircleLink';
 import type { SlateChildren } from '@/types/payload/Blocks';
@@ -41,11 +39,6 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                     <RichText
                         content={richText}
                     />
-
-                    <div className="mt-4 border-2 border-black p-2 text-center font-serif flex flex-wrap gap-x-1 justify-center">
-                        <div className="whitespace-nowrap">Nächstes Kulturplenum:</div>
-                        <div className="whitespace-nowrap">{formatDate(nextWednesday(new Date()), 'dd.MM. HH \'Uhr\'')}</div>
-                    </div>
                 </div>
 
                 <div className="lg:basis-1/2">
