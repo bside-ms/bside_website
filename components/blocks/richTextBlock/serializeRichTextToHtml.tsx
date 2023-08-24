@@ -108,7 +108,7 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
 
             case 'link':
                 // @ts-expect-error Needs to be typed.
-                if (node.fields.appearance === 'button') {
+                if (node.fields?.appearance === 'button') {
                     return (
                         <InlineButton
                             key={index}
