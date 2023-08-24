@@ -9,6 +9,7 @@ import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import { filterForMeetings, filterNoMeetings, getUpcomingEvents } from '@/lib/events';
+import hausImage from '@/public/assets/hausfront.jpg';
 import eventImage from '@/public/assets/veranstaltung.png';
 import type { Event } from '@/types/payload/payload-types';
 import Button from '@blocks/buttonBlock/Button';
@@ -51,7 +52,11 @@ export default ({ events, meetings, preview }: Props): ReactElement => {
 
             <main>
                 <ContentWrapper>
-                    <HeroImage imageSrc="hausfront.jpg" imageAlt="event" title="Veranstaltungen" />
+                    <HeroImage
+                        imageSrc={hausImage}
+                        imageAlt=""
+                        title="Veranstaltungen"
+                    />
                 </ContentWrapper>
 
                 <ContentWrapper>
@@ -100,7 +105,13 @@ export default ({ events, meetings, preview }: Props): ReactElement => {
                 <ContentWrapper>
                     <div className="w-full">
                         <div className="bg-cover bg-center w-full h-52 md:h-72 relative">
-                            <Image src={eventImage.src} alt="Veranstaltungen" fill={true} className="object-cover" />
+                            <Image
+                                src={eventImage}
+                                alt=""
+                                fill={true}
+                                sizes="(max-width: 768px) 740px, 1120px"
+                                className="object-cover"
+                            />
                         </div>
                     </div>
                 </ContentWrapper>

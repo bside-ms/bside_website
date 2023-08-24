@@ -16,12 +16,16 @@ const FrontPageImage = (): ReactElement => (
                             src={herzPng}
                             alt="B-Side-Herz"
                             loading="eager"
+                            width={1200}
+                            height={1091}
                         />
                         <Image
                             className="absolute lg:relative top-[55px] lg:top-0 lg:pt-[55px] left-[20px] w-[600px] lg:w-full lg:left-0 max-w-none"
                             src={hausPng}
                             alt="B-Side am Hafen"
                             loading="eager"
+                            width={1297}
+                            height={682}
                         />
                     </div>
                 </Link>

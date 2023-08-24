@@ -9,6 +9,7 @@ import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getPastEvents } from '@/lib/events';
+import hausImage from '@/public/assets/hausfront.jpg';
 import type { Event } from '@/types/payload/payload-types';
 import Button from '@blocks/buttonBlock/Button';
 import Headline from '@blocks/headlineBlock/Headline';
@@ -49,7 +50,11 @@ export default ({ events, preview }: Props): ReactElement => {
 
             <main>
                 <ContentWrapper>
-                    <HeroImage imageSrc="hausfront.jpg" imageAlt="event" title="Vergangene Veranstaltungen" />
+                    <HeroImage
+                        imageSrc={hausImage}
+                        imageAlt="event"
+                        title="Vergangene Veranstaltungen"
+                    />
 
                     <p className="lg:hidden mt-4 text-lg">
                         {archivText}

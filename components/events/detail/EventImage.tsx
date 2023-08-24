@@ -25,6 +25,7 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
                     className="mx-auto mb-4 md:cursor-pointer"
                     style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
                         (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
+                    priority={true}
                 />
             </Link>
         );
@@ -47,6 +48,7 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
                 className="mx-auto mb-4 md:cursor-pointer"
                 style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
                     (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
+                priority={true}
             />
         </Link>
     );
