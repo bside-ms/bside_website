@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { ScrollImage } from 'lib/houseParallax/getScrollElements';
+import type { ScrollImage } from '@/lib/houseParallax/getScrollElements';
 
 const useEndScroll = (isMounted: boolean, scrollImages: Array<ScrollImage>): number => {
 

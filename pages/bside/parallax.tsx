@@ -5,7 +5,6 @@ import ParallaxScrollImage from '@/components/houseParallax/ParallaxScrollImage'
 import ParallaxScrollInfoBox from '@/components/houseParallax/ParallaxScrollInfoBox';
 import ParallaxScrollTeaser from '@/components/houseParallax/ParallaxScrollTeaser';
 import HeaderBar from '@/components/layout/header/HeaderBar';
-import formatNumber from '@/lib/common/helper/formatNumber';
 import useIsMounted from '@/lib/common/hooks/useIsMounted';
 import getInfoBoxPositions from '@/lib/houseParallax/getInfoBoxPositions';
 import getScrollElements, { isScrollImage, isScrollInfoBox } from '@/lib/houseParallax/getScrollElements';
@@ -41,10 +40,6 @@ export default (): ReactElement | null => {
             <HeaderBar />
 
             <div className="flex overflow-hidden" style={{ height: endScroll }}>
-                <div className="fixed top-16 left-0 text-black">
-                    {formatNumber(scrollY)}
-                </div>
-
                 <div className="fixed top-1/2 left-1/2 h-screen w-screen md:top-16 md:translate-y-0 md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
                     {scrollImages.map(({ image, fade, display }) => (
                         <ParallaxScrollImage

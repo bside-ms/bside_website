@@ -1,4 +1,5 @@
 import type { StaticImageData } from 'next/image';
+import type { ReactElement } from 'react';
 import parallax01Image from 'public/assets/parallax/Parallax_01.png';
 import parallax02Image from 'public/assets/parallax/Parallax_02.png';
 import parallax061Image from 'public/assets/parallax/Parallax_06_1.png';
@@ -30,7 +31,7 @@ import parallax25Image from 'public/assets/parallax/Parallax_25.png';
 
 export interface ScrollInfoBox {
     title?: string;
-    text: string;
+    text: string | ReactElement;
     display: {
         begin: number;
         end: number;
@@ -117,7 +118,7 @@ const getScrollElements = (): Array<ScrollElement> => {
         });
     };
 
-    const addDisplayInfoBox = (title: string | undefined, text: string, duration: number): void => {
+    const addDisplayInfoBox = (title: string | undefined, text: string | ReactElement, duration: number): void => {
 
         const begin = currentBegin === 0 ? 0 : currentBegin;
 
@@ -146,8 +147,8 @@ const getScrollElements = (): Array<ScrollElement> => {
     addFadingScrollImage(parallax07Image, 200);
 
     addDisplayInfoBox(
-        undefined,
-        'Hier seht ihr, wie wir uns den Hill-Speicher zukünftig mit dem Ruderverein Münster teilen werden.',
+        'Hill-Speicher',
+        'Den alten Hill-Speicher am Hafen teilen wir (rot) uns mit dem Ruderverein Münster (blau).',
         500
     );
 
@@ -159,113 +160,117 @@ const getScrollElements = (): Array<ScrollElement> => {
     currentBegin = currentBegin - 50;
 
     addDisplayInfoBox(
-        'Blauer Raum',
-        'Dies ist der blaue Raum, schön nicht?',
+        'Dachterrasse',
+        'Über die Hafentreppe gelangst du auf das Sonnendeck mit ordentlich Platz zum Verweilen.',
         500
     );
     addDisplayingScrollImage(parallax10Image, 500);
 
     addDisplayInfoBox(
-        'Raum in lila',
-        'Und hier vorne haben wir einen lilafarbenen Raum',
+        'Quartierswohnzimmer',
+        'Komm rein ins Herz des soziokulturellen Zentrums! Hier kannst du auf Sofas chillen, was Leckeres essen oder an der Bar rumhängen.',
         500
     );
     addDisplayingScrollImage(parallax11Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Und so geht es dann mit den anderen Räumen weiter!',
+        'Haus- und Allmendeküche',
+        'Die Hausküche sorgt für gutes Essen; die Allmendeküche steht Initiativen rund ums Thema Ernährungswende zur Verfügung.',
         500
     );
     addDisplayingScrollImage(parallax12Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Viele bunte Räume, ...',
+        'Veranstaltungssaal',
+        (
+            <>
+                Hier steppt der Bär! Etwa bei Konzerten und diversen Kultur&shy;veranstaltungen. Bei Kongressen oder Podiums&shy;diskussionen sitzt er dann eher.
+            </>
+        ),
         500
     );
     addDisplayingScrollImage(parallax13Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        '... für viele schöne Dinge.',
+        'Ausstellungsraum',
+        'Im Foyer kannst du regelmäßig wechselnde Ausstellungen bestaunen.',
         500
     );
     addDisplayingScrollImage(parallax14Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Zum Beispiel gemeinsam am Tisch sitzen!',
+        'Gruppenräume',
+        'Du bist in einer Initiative oder einem Verein aktiv? Drei Gruppenräume könnt ihr für eure Plena und Workshops nutzen.',
         500
     );
     addDisplayingScrollImage(parallax15Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Oder am Schreibtisch!',
+        'B-Side Büro',
+        'Wenn du dazu Fragen hast, sprich uns einfach an! ;) ???',
         500
     );
     addDisplayingScrollImage(parallax16Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Peek & Cloppenburg hat auch eine Filiale im Haus.',
+        'fairdruckt eG',
+        'Nachhaltige (Print-)Produkte kannst du im fairdruckt-Laden kaufen. Wenn du lieber selbst was Drucken willst, geht das in deren Siebdruckwerkstatt.',
         500
     );
     addDisplayingScrollImage(parallax17Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Hier wird fleißig gewerkelt.',
+        'Offene Werkstatt',
+        'Einen größeren Maschinenfuhrpark findest du eine Etage tiefer. Hier kannst du unter Anleitung Dinge aus Holz und Metall bauen oder Kaputtes reparieren.',
         500
     );
     addDisplayingScrollImage(parallax18Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Und hier geplant!',
+        'Soziallabor',
+        'Vielleicht willst du aber auch ein Sozialunternehmen gründen, um soziale und ökologische Herausforderungen zu meistern? Im Coworking-Space findest du Gleichgesinnte.',
         500
     );
     addDisplayingScrollImage(parallax19Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Ob sich dies überhaupt jemand durchließt?',
+        'Bewegungsraum',
+        'Wenn dir die Krisen dieser Welt zwischendurch zu nahe gehen, bekommst du bei Yoga, Meditation oder Tanz hoffentlich den Kopf frei.',
         500
     );
     addDisplayingScrollImage(parallax20Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Die Programmierung dieser Parallax-UX macht Spaß!',
+        'Gemeinschaftsatelier',
+        'Oder auf dem Wege der bildenden Kunst? Auch für Künstler:innen gibt es ordentlich Platz, um schöpferisch tätig zu sein.',
         500
     );
     addDisplayingScrollImage(parallax21Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Wundervolle Sonntag-Nachmittag-Beschäftigung!',
+        'Kreativräume',
+        'Es gibt aber auch Ateliers auf die du dich bewerben kannst, wenn du von dort aus kreativ werken und wirken möchtest.',
         500
     );
     addDisplayingScrollImage(parallax22Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Nun kommen wir auch zum Ende der Räume',
+        'Büros',
+        'Die Büros stehen Vereinen, Organisationen und Initiativen zur Verfügung, die gemeinnützig oder gemeinwohlorientiert arbeiten.',
         500
     );
     addDisplayingScrollImage(parallax23Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Danke für eure Aufmerksamkeit!',
+        'Proberäume',
+        'Und wenn du einen Raum brauchst, um mit deiner Band Mucke zu machen, kannst du dich auf einen von vier Proberäumen bewerben.',
         500
     );
     addDisplayingScrollImage(parallax24Image, 500);
 
     addDisplayInfoBox(
-        undefined,
-        'Tschüss!',
+        'Mobi',
+        'Ach, du musst schon wieder los? Nutze gerne unser Mobilitätsangebot. Neben Stadtteilautos steht eine Cargobike-Flotte zur Ausleihe bereit.',
         500
     );
     addDisplayingScrollImage(parallax25Image, 500);
@@ -292,7 +297,15 @@ const getScrollElements = (): Array<ScrollElement> => {
     addFadingScrollImage(parallax064Image, 20);
     addFadingScrollImage(parallax063Image, 20);
     addFadingScrollImage(parallax062Image, 20);
-    addFadingScrollImage(parallax061Image, 400);
+    addFadingScrollImage(parallax061Image, 20);
+
+    addDisplayInfoBox(
+        'Ciao!',
+        'Bis bald am Hafen!',
+        200
+    );
+
+    addFadingScrollImage(parallax01Image, 600);
 
     return [...scrollImages, ...scrollInfoBoxes];
 };

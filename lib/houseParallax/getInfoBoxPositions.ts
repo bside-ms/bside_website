@@ -1,4 +1,4 @@
-import type { ScrollInfoBox } from 'lib/houseParallax/getScrollElements';
+import type { ScrollInfoBox } from '@/lib/houseParallax/getScrollElements';
 
 export const getInfoBoxPosition = ({ begin, end }: ScrollInfoBox['display']): number => Math.round((begin + end) / 2);
 
