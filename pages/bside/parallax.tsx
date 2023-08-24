@@ -53,7 +53,7 @@ export default (): ReactElement | null => {
 
                     {scrollInfoBoxes.map(({ title, text, display }) => (
                         <ParallaxScrollInfoBox
-                            key={`${title ?? ''}${text}`}
+                            key={`${title ?? ''}${typeof text === 'string' && text}`}
                             title={title}
                             text={text}
                             display={display}
