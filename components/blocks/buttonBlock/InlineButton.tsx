@@ -13,7 +13,7 @@ interface Props {
 const Button = ({ title, href, text, target = '_self' }: Props): ReactElement => {
 
     return (
-        <div
+        <span
             key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : ''}
             className="mx-auto py-4 text-center"
         >
@@ -30,7 +30,7 @@ const Button = ({ title, href, text, target = '_self' }: Props): ReactElement =>
             >
                 {text}
             </Link>
-        </div>
+        </span>
     );
 };
 

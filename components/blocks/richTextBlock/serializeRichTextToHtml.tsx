@@ -1,11 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import { Fragment } from 'react';
 import escapeHTML from 'escape-html';
+import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { Text } from 'slate';
 import EventImage from '@/components/events/detail/EventImage';
 import type { SlateChildren } from '@/types/payload/Blocks';
 import type { Media as MediaType } from '@/types/payload/payload-types';
+import InlineButton from '@blocks/buttonBlock/InlineButton';
 import HeadlineTag from 'components/blocks/headlineBlock/HeadlineTag';
 
 export interface RichTextUploadNodeType {
@@ -105,16 +107,30 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
                 );
 
             case 'link':
+                // @ts-expect-error Needs to be typed.
+                if (node.fields.appearance === 'button') {
+                    return (
+                        <InlineButton
+                            key={index}
+                            title=""
+                            text={(nodeChildren[0] !== undefined) ? nodeChildren[0].text as string : ''}
+                            // @ts-expect-error Need to find more type safe solution in future
+                            href={escapeHTML(node.url)}
+                            target={node.newTab === true ? '_blank' : '_self'}
+                        />
+                    );
+                }
+
                 return (
-                    <a
+                    <Link
                         key={index}
                         // @ts-expect-error Need to find more type safe solution in future
                         href={escapeHTML(node.url)}
                         target={node.newTab === true ? '_blank' : '_self'}
-                        className="underline text-blue-800 hover:text-orange-500 sm:text-lg"
+                        className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg"
                     >
                         {serializeRichTextToHtml(nodeChildren)}
-                    </a>
+                    </Link>
                 );
 
             case 'ul':
