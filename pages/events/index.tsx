@@ -2,14 +2,14 @@ import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import HeroImage from '@/components/common/HeroImage';
+import HeroImageSvg from '@/components/common/HeroImageSvg';
 import EventOverview from '@/components/events/overview/EventOverview';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import { filterForMeetings, filterNoMeetings, getUpcomingEvents } from '@/lib/events';
-import hausImage from '@/public/assets/hausfront.jpg';
+import heroImage from '@/public/assets/stickFigures/Veranstaltungen.svg';
 import eventImage from '@/public/assets/veranstaltung.png';
 import type { Event } from '@/types/payload/payload-types';
 import Button from '@blocks/buttonBlock/Button';
@@ -51,13 +51,11 @@ export default ({ events, meetings, preview }: Props): ReactElement => {
             )}
 
             <main>
-                <ContentWrapper>
-                    <HeroImage
-                        imageSrc={hausImage}
-                        imageAlt=""
-                        title="Veranstaltungen"
-                    />
-                </ContentWrapper>
+                <HeroImageSvg
+                    imageSrc={heroImage}
+                    imageAlt=""
+                    title="Veranstaltungen"
+                />
 
                 <ContentWrapper>
                     <div className="lg:flex lg:gap-4">
