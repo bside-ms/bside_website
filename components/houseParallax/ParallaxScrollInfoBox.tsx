@@ -85,34 +85,38 @@ const ParallaxScrollInfoBox = ({ title, text, display, scrollY, infoBoxPositions
 
     return (
         <div
-            style={{ opacity, left: leftPosition }}
-            className="absolute bottom-5 md:top-[calc(100%-65px)] transition-all duration-150 -translate-x-1/2 w-2/3 md:w-[40rem]"
+            style={{
+                opacity,
+                pointerEvents: opacity === 0 ? 'none' : 'all',
+                left: leftPosition,
+            }}
+            className="absolute bottom-0 md:top-[calc(100%-65px)] transition-all duration-150 -translate-x-1/2 w-[90%] md:w-[40rem]"
         >
-            <div className="flex flex-col bg-black text-white p-6">
-                <div className="flex justify-between mb-3">
+            <div className="flex flex-col bg-black bg-opacity-80 text-white p-6">
+                <div className="flex justify-between flex-wrap md:flex-nowrap mb-3">
                     {isNotEmptyString(title) ? (
-                        <div className="font-bold font-serif text-lg md:text-xl">
+                        <div className="font-bold font-serif text-lg md:text-xl md:whitespace-nowrap">
                             {title}
                         </div>
                     ) : (
                         <div>&nbsp;</div>
                     )}
 
-                    <div className="flex gap-1 justify-end items-center text-lg leading-none select-none">
+                    <div className="flex w-full gap-1 md:justify-end items-center text-lg leading-none select-none">
                         <a
-                            className="md:cursor-pointer md:hover:text-orange-500 py-1 px-2"
+                            className="md:cursor-pointer md:hover:text-orange-500 py-1 px-1 md:px-2"
                             onClick={handlePriorClick}
-                            style={isEmptyNumber(priorInfoBoxPosition) ? { opacity: 0, cursor: 'default' } : undefined}
+                            style={isEmptyNumber(priorInfoBoxPosition) ? { opacity: 0.3, cursor: 'default' } : undefined}
                         >
                             <BsChevronLeft />
                         </a>
 
-                        <div>{page} / {pageCount}</div>
+                        <div>{page}&nbsp;/&nbsp;{pageCount}</div>
 
                         <a
-                            className="md:cursor-pointer md:hover:text-orange-500 py-1 px-2"
+                            className="md:cursor-pointer md:hover:text-orange-500 py-1 px-1 md:px-2"
                             onClick={handleNextClick}
-                            style={isEmptyNumber(nextInfoBoxPosition) ? { opacity: 0, cursor: 'default' } : undefined}
+                            style={isEmptyNumber(nextInfoBoxPosition) ? { opacity: 0.3, cursor: 'default' } : undefined}
                         >
                             <BsChevronRight />
                         </a>

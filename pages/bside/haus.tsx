@@ -47,7 +47,7 @@ export default (): ReactElement | null => {
             <HeaderBar />
 
             <div className="flex overflow-hidden" style={{ height: endScroll }}>
-                <div className="fixed top-1/2 left-1/2 h-screen w-screen md:top-16 md:translate-y-0 md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
+                <div className="fixed top-[40%] left-1/2 h-screen w-screen md:top-16 md:translate-y-0 md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
                     {scrollImages.map(({ image, fade, display }) => (
                         <ParallaxScrollImage
                             key={`${image.src}${fade?.inBegin ?? ''}${display?.begin ?? ''}`}
