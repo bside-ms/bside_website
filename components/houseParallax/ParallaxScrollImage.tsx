@@ -42,7 +42,10 @@ const ParallaxScrollImage = ({ image, display, fade, scrollY }: ParallaxScrollIm
     return (
         <Image
             src={image.src}
-            style={{ opacity }}
+            style={{
+                opacity,
+                pointerEvents: opacity === 0 ? 'none' : 'all',
+            }}
             className="object-contain"
             fill={true}
             alt="B-Side"
