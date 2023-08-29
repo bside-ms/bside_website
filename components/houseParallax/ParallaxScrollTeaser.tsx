@@ -36,7 +36,7 @@ const ParallaxScrollTeaser = ({ scrollY, firstInfoBoxPositions }: Props): ReactE
 
     return (
         <div
-            className="absolute bottom-8 md:top-full left-1/2 -translate-x-1/2 transition-opacity duration-500 delay-500"
+            className="absolute bottom-8 md:top-full left-1/2 -translate-x-1/2 transition-opacity duration-500 delay-500 cursor-pointer"
             style={{ opacity: showTeaser ? 1 : 0 }}
             onClick={handleClick}
         >
