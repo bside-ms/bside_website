@@ -5,7 +5,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 
 interface Props {
-    title: string;
+    title: string | undefined;
     text: string;
     href: string;
     withArrows?: boolean;
@@ -14,10 +14,11 @@ interface Props {
 const CallToAction = ({ title, href, text, withArrows = true }: Props): ReactElement => {
 
     const width = withArrows ? 'w-[94%]' : 'w-full';
+    const key = !isEmptyString(title) ? `cta-${toKebabCase(title)}` : `cta-${toKebabCase(text)}`;
 
     return (
         <div
-            key={`cta-${toKebabCase(title)}`}
+            key={key}
             className={`relative ${width} mx-auto border-4 border-black px-6 py-4 text-center`}
         >
             {withArrows && (

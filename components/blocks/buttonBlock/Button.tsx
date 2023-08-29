@@ -4,7 +4,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 
 interface Props {
-    title: string;
+    title: string | undefined;
     text: string;
     href: string;
     target?: '_blank' | '_self';
@@ -14,7 +14,7 @@ const Button = ({ title, href, text, target = '_self' }: Props): ReactElement =>
 
     return (
         <div
-            key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : ''}
+            key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : `cta-${toKebabCase(text)}`}
             className="mx-auto py-4 text-center"
         >
             {(!isEmptyString(title) && (

@@ -35,7 +35,7 @@ export interface MediaBlockProps {
 }
 
 export interface CallToActionBlockProps {
-    title: string;
+    title: string | undefined;
     text: string;
     href: string;
 }
