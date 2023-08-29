@@ -50,7 +50,7 @@ export default ({ events, meetings, preview }: Props): ReactElement => {
                 />
             )}
 
-            <main>
+            <main id="content">
                 <HeroImageSvg
                     imageSrc={heroImage}
                     imageAlt=""

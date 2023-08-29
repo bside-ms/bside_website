@@ -72,7 +72,7 @@ export default (): ReactElement | null => {
                 </div>
             </div>
 
-            <div className="z-10 relative">
+            <main id="content" className="z-10 relative">
                 <ContentWrapper>
                     <div>
                         <div className="w-full h-32 xs:h-40 md:h-52 relative mt-16 mb-8">
@@ -100,7 +100,7 @@ export default (): ReactElement | null => {
                 </ContentWrapper>
 
                 <Footer />
-            </div>
+            </main>
         </>
     );
 };
