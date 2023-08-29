@@ -65,7 +65,7 @@ export default ({ events, preview }: Props): ReactElement => {
 
             <ContentDivider />
 
-            <main>
+            <main id="content">
                 <FrontPageHero />
 
                 <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">

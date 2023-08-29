@@ -48,7 +48,7 @@ export default ({ events, preview }: Props): ReactElement => {
                 />
             )}
 
-            <main>
+            <main id="content">
                 <ContentWrapper>
                     <HeroImage
                         imageSrc={hausImage}

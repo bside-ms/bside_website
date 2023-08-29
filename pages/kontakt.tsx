@@ -13,9 +13,11 @@ export default (): ReactElement => {
 
             <ContentDivider />
 
-            <ContentWrapper>
-                <ContactForm />
-            </ContentWrapper>
+            <main id="content">
+                <ContentWrapper>
+                    <ContactForm />
+                </ContentWrapper>
+            </main>
 
             <Footer />
         </main>

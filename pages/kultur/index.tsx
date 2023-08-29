@@ -64,7 +64,7 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
 
                 <ContentDivider />
 
-                <main>
+                <main id="content">
                     <HeroImageSvg
                         imageSrc={kulturImageSvg}
                         imageAlt=""

@@ -101,7 +101,7 @@ export default ({ page, preview }: Props): ReactElement => {
 
             <ContentDivider />
 
-            <main>
+            <main id="content">
                 {page.layout?.map((layoutElement, index) => (
                     <ReusableBlocks
                         key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}

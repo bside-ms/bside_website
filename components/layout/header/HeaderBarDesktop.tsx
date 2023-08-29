@@ -8,6 +8,15 @@ const HeaderBarDesktop = (): ReactElement => {
 
     return (
         <header className="fixed top-0 left-0 right-0 z-20">
+            <div className="flex flex-row align-bottom max-w-wide w-full relative">
+                <a
+                    href="#content"
+                    className="sr-only focus:not-sr-only focus:absolute top-2 left-0 whitespace-nowrap font-serif text-2xs uppercase leading-none text-black hover:text-orange"
+                >
+                    Zum Inhalt springen
+                </a>
+            </div>
+
             <div className="bg-white p-4 pb-2">
                 <Link
                     href="/"

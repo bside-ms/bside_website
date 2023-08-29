@@ -64,7 +64,7 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
 
                 <ContentDivider />
 
-                <main>
+                <main id="content">
                     <ContentWrapper>
                         <div className="w-full h-32 xs:h-40 md:h-52 relative lg:mt-4">
                             <Image
