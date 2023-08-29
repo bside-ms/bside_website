@@ -117,7 +117,7 @@ export interface Organisation {
   shortName: string;
   layout?: (
       | {
-    title: string;
+    title?: string;
     text: string;
     href: string;
     id?: string;
@@ -162,6 +162,7 @@ export interface Organisation {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
     backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
@@ -209,7 +210,7 @@ export interface Circle {
   fallbackImage: string;
   layout?: (
       | {
-    title: string;
+    title?: string;
     text: string;
     href: string;
     id?: string;
@@ -254,6 +255,7 @@ export interface Circle {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
     backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
@@ -291,7 +293,7 @@ export interface Page {
   slug?: string;
   layout?: (
       | {
-    title: string;
+    title?: string;
     text: string;
     href: string;
     id?: string;
@@ -336,6 +338,7 @@ export interface Page {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
     backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
