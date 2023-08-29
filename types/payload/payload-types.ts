@@ -353,6 +353,10 @@ export interface Page {
     label?: string;
     id?: string;
   }[];
+  meta?: {
+    title?: string;
+    description?: string;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
