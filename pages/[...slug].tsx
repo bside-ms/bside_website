@@ -15,15 +15,19 @@ interface Props {
     preview: boolean;
 }
 
+const reservedSlugs: Array<string> = [
+    'bside',
+];
+
 export const getStaticPaths: GetStaticPaths = async () => {
 
     const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
 
-    const asdf = pages.docs.filter(({ slug }) => {
-        return slug !== 'bside';
+    const filtered = pages.docs.filter(({ slug }) => {
+        return slug !== undefined && !reservedSlugs.includes(slug);
     });
 
-    const paths = asdf.map(({ breadcrumbs, id }) => ({
+    const paths = filtered.map(({ breadcrumbs, id }) => ({
         params: {
             slug: [breadcrumbs ? (breadcrumbs[breadcrumbs.length - 1]?.url?.substring(1) ?? id) : id],
         },
