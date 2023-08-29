@@ -5,7 +5,9 @@ import Footer from '@/components/common/Footer';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
+import NextHead from '@/components/layout/next/NextHead';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
@@ -91,6 +93,11 @@ export default ({ page, preview }: Props): ReactElement => {
 
     return (
         <div className="min-h-screen flex flex-col justify-between">
+            <NextHead
+                title={page.meta?.title ?? `${page.title} | B-Side Münster`}
+                description={page.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
+                url={`${getPublicClientUrl()}/${page.slug}`}
+            />
             <HeaderBar />
 
             {preview && (
