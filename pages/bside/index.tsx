@@ -14,7 +14,7 @@ import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
-import ReusableBlocks from '@blocks/ReusableBlocks';
+import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     page: Page;
@@ -168,12 +168,9 @@ export default ({ page }: Props): ReactElement => {
 
                 <div className="my-4" />
 
-                {page.layout?.map((layoutElement, index) => (
-                    <ReusableBlocks
-                        key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
-                        layoutElement={layoutElement}
-                    />
-                ))}
+                <ReusableBlockLayout
+                    layout={page.layout}
+                />
             </main>
 
             <Footer />

@@ -12,7 +12,7 @@ import { getUpcomingEvents } from '@/lib/events';
 import { getCirclesOfOrganisation, getOrganisation } from '@/lib/organisations';
 import heroImageSvg from '@/public/assets/stickFigures/GmbH.svg';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
-import ReusableBlocks from '@blocks/ReusableBlocks';
+import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     events: Array<Event>;
@@ -71,14 +71,11 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                         title="Quartiersarbeit"
                     />
 
-                    {organisation.layout?.map((layoutElement, index) => (
-                        <ReusableBlocks
-                            key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
-                            layoutElement={layoutElement}
-                            circles={circles}
-                            events={events}
-                        />
-                    ))}
+                    <ReusableBlockLayout
+                        layout={organisation.layout}
+                        circles={circles}
+                        events={events}
+                    />
                 </main>
 
                 <Footer />

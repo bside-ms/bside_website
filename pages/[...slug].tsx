@@ -1,6 +1,5 @@
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
@@ -11,6 +10,7 @@ import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
+import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     page: Page;
@@ -113,12 +113,9 @@ export default ({ page, preview }: Props): ReactElement => {
             <ContentDivider />
 
             <main id="content">
-                {page.layout?.map((layoutElement, index) => (
-                    <ReusableBlocks
-                        key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
-                        layoutElement={layoutElement}
-                    />
-                ))}
+                <ReusableBlockLayout
+                    layout={page.layout}
+                />
             </main>
 
             <Footer />

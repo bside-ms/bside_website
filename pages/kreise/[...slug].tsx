@@ -3,7 +3,6 @@ import { kebabCase } from 'lodash';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
-import ReusableBlocks from '@/components/blocks/ReusableBlocks';
 import Footer from '@/components/common/Footer';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
@@ -15,6 +14,7 @@ import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Circle, Media } from '@/types/payload/payload-types';
+import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 import Headline from 'components/blocks/headlineBlock/Headline';
 
 interface Props {
@@ -134,12 +134,9 @@ export default ({ circle, preview }: Props): ReactElement => {
                         </div>
                     </div>
 
-                    {circle.layout?.map((layoutElement, index) => (
-                        <ReusableBlocks
-                            key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
-                            layoutElement={layoutElement}
-                        />
-                    ))}
+                    <ReusableBlockLayout
+                        layout={circle.layout}
+                    />
                 </main>
 
                 <Footer />

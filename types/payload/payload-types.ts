@@ -189,6 +189,20 @@ export interface Organisation {
     blockName?: string;
     blockType: 'eventOverview';
   }
+      | {
+    headlineTitle: string;
+    headlineTeaser?: string;
+    reversed?: boolean;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'teaser';
+  }
       )[];
   meta?: {
     title?: string;
@@ -250,6 +264,20 @@ export interface Circle {
     id?: string;
     blockName?: string;
     blockType: 'mediaContent';
+  }
+      | {
+    headlineTitle: string;
+    headlineTeaser?: string;
+    reversed?: boolean;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'teaser';
   }
       | {
     title: string;
@@ -344,6 +372,20 @@ export interface Page {
     id?: string;
     blockName?: string;
     blockType: 'headlineBlock';
+  }
+      | {
+    headlineTitle: string;
+    headlineTeaser?: string;
+    reversed?: boolean;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'teaser';
   }
       )[];
   parent?: string | Page;

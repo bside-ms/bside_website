@@ -12,7 +12,7 @@ import { getPublicClientUrl } from '@/lib/common/url';
 import { getUpcomingEvents } from '@/lib/events';
 import { getAllCircles, getOrganisation } from '@/lib/organisations';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
-import ReusableBlocks from '@blocks/ReusableBlocks';
+import ReusableBlocks from '@blocks/reusableLayout/ReusableBlocks';
 
 interface Props {
     events: Array<Event>;

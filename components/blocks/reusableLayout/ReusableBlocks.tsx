@@ -1,21 +1,22 @@
 import type { ReactElement } from 'react';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';
 import type { Circle, Event } from '@/types/payload/payload-types';
+import CallToActionBlock from '@blocks/callToActionBlock/CallToActionBlock';
 import CircleOverviewBlock from '@blocks/circleOverviewBlock/CircleOverviewBlock';
 import EventOverviewBlock from '@blocks/eventOverviewBlock/EventOverviewBlock';
-import CallToActionBlock from 'components/blocks/callToActionBlock/CallToActionBlock';
-import HeadlineBlock from 'components/blocks/headlineBlock/HeadlineBlock';
-import MediaBlock from 'components/blocks/mediaBlock/MediaBlock';
-import MediaContentBlock from 'components/blocks/mediaContent/MediaContentBlock';
-import ContentBlock from 'components/blocks/textBlock/ContentBlock';
+import HeadlineBlock from '@blocks/headlineBlock/HeadlineBlock';
+import MediaBlock from '@blocks/mediaBlock/MediaBlock';
+import MediaContentBlock from '@blocks/mediaContent/MediaContentBlock';
+import TeaserBlock from '@blocks/teaserBlock/TeaserBlock';
+import ContentBlock from '@blocks/textBlock/ContentBlock';
 
-interface Props {
+export interface ReusableBlockProps {
     layoutElement: NonNullable<BlockLayoutProps['blocks']>[0];
     circles?: Array<Circle> | null;
     events?: Array<Event> | null;
 }
 
-const ReusableBlocks = ({ layoutElement, circles = null, events = null }: Props): ReactElement | null => {
+const ReusableBlocks = ({ layoutElement, circles = null, events = null }: ReusableBlockProps): ReactElement | null => {
 
     switch (layoutElement.blockType) {
         case 'callToAction':
@@ -82,6 +83,19 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null }: Props)
                     headlineText={layoutElement.title}
                     events={events}
                     richText={layoutElement.richText}
+                />
+            );
+
+        case 'teaser':
+            return (
+                <TeaserBlock
+                    headlineTitle={layoutElement.headlineTitle}
+                    headlineTeaser={layoutElement.headlineTeaser ?? ''}
+                    text={layoutElement.richText}
+                    image={layoutElement.image}
+                    reversed={layoutElement.reversed ?? false}
+                    linkText={layoutElement.linkText}
+                    linkHref={layoutElement.linkHref}
                 />
             );
 
