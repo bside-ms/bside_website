@@ -1,20 +1,22 @@
+import clsx from 'clsx';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 
 interface Props {
-    title: string;
+    title: string | undefined;
     text: string;
     href: string;
     target?: '_blank' | '_self';
+    inverse?: boolean;
 }
 
-const Button = ({ title, href, text, target = '_self' }: Props): ReactElement => {
+const Button = ({ title, href, text, target = '_self', inverse = false }: Props): ReactElement => {
 
     return (
         <div
-            key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : ''}
+            key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : `cta-${toKebabCase(text)}`}
             className="mx-auto py-4 text-center"
         >
             {(!isEmptyString(title) && (
@@ -26,7 +28,11 @@ const Button = ({ title, href, text, target = '_self' }: Props): ReactElement =>
             <Link
                 href={href}
                 target={target}
-                className="block text-lg py-1 md:py-3 text-white font-bold bg-black md:cursor-pointer md:hover:text-black md:hover:bg-orange-500"
+                className={clsx(
+                    'block text-lg py-1 md:py-3 font-bold md:cursor-pointer',
+                    !inverse ? 'text-white bg-black md:hover:text-black md:hover:bg-orange-500' :
+                        'rounded-2xl text-black bg-white md:hover:text-white md:hover:bg-orange-500',
+                )}
             >
                 {text}
             </Link>

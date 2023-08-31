@@ -20,7 +20,7 @@ const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richTe
             <MediaContentOverlay
                 media={media}
                 richText={richText}
-                headline={headline}
+                headlineText={headline}
             />
         );
     }

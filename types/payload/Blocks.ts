@@ -1,11 +1,11 @@
-import type { Circle, Media, Organisation } from '@/types/payload/payload-types';
+import type { Circle, Media, Organisation, Page } from '@/types/payload/payload-types';
 import type { HeadlineLevel } from '@blocks/headlineBlock/Headline';
 import type { MediaContentAlignment, MediaContentBackgroundColor } from '@blocks/mediaContent/MediaContentBlock';
 
 export type SlateChildren = Array<Record<string, unknown>>;
 
 export interface BlockLayoutProps {
-    blocks: Circle['layout'] | Organisation['layout'];
+    blocks: Circle['layout'] | Organisation['layout'] | Page['layout'];
 }
 
 export interface ContentColumnProps {
@@ -35,7 +35,7 @@ export interface MediaBlockProps {
 }
 
 export interface CallToActionBlockProps {
-    title: string;
+    title: string | undefined;
     text: string;
     href: string;
 }

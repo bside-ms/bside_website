@@ -117,7 +117,7 @@ export interface Organisation {
   shortName: string;
   layout?: (
       | {
-    title: string;
+    title?: string;
     text: string;
     href: string;
     id?: string;
@@ -162,6 +162,7 @@ export interface Organisation {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
     backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
@@ -188,6 +189,20 @@ export interface Organisation {
     blockName?: string;
     blockType: 'eventOverview';
   }
+      | {
+    headlineTitle: string;
+    headlineTeaser?: string;
+    reversed?: boolean;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'teaser';
+  }
       )[];
   meta?: {
     title?: string;
@@ -209,7 +224,7 @@ export interface Circle {
   fallbackImage: string;
   layout?: (
       | {
-    title: string;
+    title?: string;
     text: string;
     href: string;
     id?: string;
@@ -251,9 +266,24 @@ export interface Circle {
     blockType: 'mediaContent';
   }
       | {
+    headlineTitle: string;
+    headlineTeaser?: string;
+    reversed?: boolean;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'teaser';
+  }
+      | {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
     backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
@@ -291,7 +321,7 @@ export interface Page {
   slug?: string;
   layout?: (
       | {
-    title: string;
+    title?: string;
     text: string;
     href: string;
     id?: string;
@@ -336,11 +366,26 @@ export interface Page {
     title: string;
     teaser?: string;
     level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
     backgroundColor: 'white' | 'black';
     anchor?: string;
     id?: string;
     blockName?: string;
     blockType: 'headlineBlock';
+  }
+      | {
+    headlineTitle: string;
+    headlineTeaser?: string;
+    reversed?: boolean;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'teaser';
   }
       )[];
   parent?: string | Page;
@@ -350,6 +395,10 @@ export interface Page {
     label?: string;
     id?: string;
   }[];
+  meta?: {
+    title?: string;
+    description?: string;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
