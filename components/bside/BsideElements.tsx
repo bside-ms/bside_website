@@ -12,7 +12,7 @@ const BsideElements = (): ReactElement => {
             {/* Das Haus */}
             <Link
                 href="/bside/haus"
-                aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                aria-label="Welche Räume und Bereiche gibt es? Was passiert wo? Was bietet dir das Haus?"
                 className="bg-black py-4 flex text-white hover:bg-orange-500 hover:text-black"
             >
                 <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32 my-auto">
@@ -25,9 +25,7 @@ const BsideElements = (): ReactElement => {
                         Das Haus
                     </p>
                     <p className="text-sm sm:text-base">
-                        Welche Räume und Bereiche gibt es?
-                        Was passiert wo?
-                        Was bietet dir das Haus?
+                        Welche Räume und Bereiche gibt es? Was passiert wo? Was bietet dir das Haus?
                     </p>
                 </div>
             </Link>
@@ -35,7 +33,7 @@ const BsideElements = (): ReactElement => {
             {/* Kollektiv */}
             <Link
                 href="/bside/kollektiv"
-                aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                aria-label="Wer ist die B-Side? Wie arbeiten wir miteinander? Wo kannst du mitmachen?"
                 className="bg-black py-4 flex text-white hover:bg-cyan-500 hover:text-black"
             >
                 <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32 my-auto">
@@ -57,7 +55,7 @@ const BsideElements = (): ReactElement => {
             {/* Die Vergangenheit */}
             <Link
                 href="/bside/history"
-                aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                aria-label="Erfahre mehr über die Geschichte und Hintergründe der B-Side."
                 className="bg-black py-4 flex text-white hover:bg-red-500 hover:text-black"
             >
                 <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32 my-auto">
@@ -78,7 +76,7 @@ const BsideElements = (): ReactElement => {
             {/* Trägerschaft */}
             <Link
                 href="/bside/traegerschaft"
-                aria-label="Erfahre mehr über das Haus und was wir darin machen"
+                aria-label="Erfahre mehr über unsere formaljuristische Organisationsstruktur."
                 className="bg-black py-4 flex text-white hover:bg-green-500 hover:text-black"
             >
                 <div className="hidden min-[320px]:block w-[100px] md:w-28 lg:w-32 my-auto">
