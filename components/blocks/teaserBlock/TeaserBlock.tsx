@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -14,16 +15,24 @@ export interface TeaserBlockProps {
     linkText: string;
     image: Media | string;
     reversed: boolean;
+    previousBlock?: string;
+    nextBlock?: string;
 }
 
-const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, reversed, image }: TeaserBlockProps): ReactElement => {
+const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, reversed, image, previousBlock, nextBlock }: TeaserBlockProps): ReactElement => {
 
     const { isLg } = useBreakpointContext();
 
     if (isLg) {
         return (
             <div className="flex-grow">
-                <div className="w-full mx-auto py-4">
+                <div
+                    className={clsx(
+                        'w-full mx-auto',
+                        previousBlock === 'teaser' && '!-mt-8',
+                        nextBlock === 'teaser' && '!-mb-8',
+                    )}
+                >
                     <Teaser
                         headlineTitle={headlineTitle}
                         headlineTeaser={headlineTeaser}

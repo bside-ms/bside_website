@@ -129,6 +129,7 @@ export default ({ circle, preview }: Props): ReactElement => {
                                     teaser={organisation?.name ?? null}
                                     teaserLink={(organisation?.shortName ?? null) !== null ? `/${organisation!.shortName}` : null}
                                     level="h1"
+                                    as="h2"
                                 />
                             </ContentWrapper>
                         </div>

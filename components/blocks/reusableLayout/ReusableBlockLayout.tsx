@@ -18,6 +18,8 @@ export default ({ layout, circles, events }: Props): ReactElement => {
                         layoutElement={layoutElement}
                         circles={circles}
                         events={events}
+                        previousBlock={layout[index - 1]?.blockType ?? 'none'}
+                        nextBlock={layout[index + 1]?.blockType ?? 'none'}
                     />
                 ))
             }

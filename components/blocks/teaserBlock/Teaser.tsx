@@ -12,7 +12,7 @@ const Teaser = ({ headlineTitle, headlineTeaser, text, image, reversed, linkText
         <div className="w-[60rem] grid grid-cols-2 mx-auto">
             {reversed && (
                 <figure
-                    className="flex-1 text-none h-[30rem] w-[30rem] my-auto relative ml-4"
+                    className="flex-1 text-none h-[30rem] w-[30rem] my-auto relative ml-4 "
                 >
                     {typeof image !== 'string' && (
                         <NextImage
@@ -29,8 +29,8 @@ const Teaser = ({ headlineTitle, headlineTeaser, text, image, reversed, linkText
 
             <div
                 className={clsx(
-                    'flex-1 bg-black my-auto z-10',
-                    !reversed ? 'ml-4' : 'mr-4',
+                    'flex-1 w-[30rem] bg-black my-auto z-10',
+                    !reversed && 'ml-2',
                 )}
             >
                 <div className="h-[32rem] text-white p-8 flex">

@@ -14,9 +14,11 @@ export interface ReusableBlockProps {
     layoutElement: NonNullable<BlockLayoutProps['blocks']>[0];
     circles?: Array<Circle> | null;
     events?: Array<Event> | null;
+    previousBlock?: string;
+    nextBlock?: string;
 }
 
-const ReusableBlocks = ({ layoutElement, circles = null, events = null }: ReusableBlockProps): ReactElement | null => {
+const ReusableBlocks = ({ layoutElement, circles = null, events = null, previousBlock, nextBlock }: ReusableBlockProps): ReactElement | null => {
 
     switch (layoutElement.blockType) {
         case 'callToAction':
@@ -96,6 +98,8 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null }: Reusab
                     reversed={layoutElement.reversed ?? false}
                     linkText={layoutElement.linkText}
                     linkHref={layoutElement.linkHref}
+                    previousBlock={previousBlock}
+                    nextBlock={nextBlock}
                 />
             );
 
