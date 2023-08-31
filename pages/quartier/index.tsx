@@ -13,7 +13,6 @@ import { getCirclesOfOrganisation, getOrganisation } from '@/lib/organisations';
 import heroImageSvg from '@/public/assets/stickFigures/GmbH.svg';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
-import SubNavigation from '@blocks/subNavigation/SubNavigation';
 
 interface Props {
     events: Array<Event>;
@@ -71,8 +70,6 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                         imageAlt=""
                         title="Quartiersarbeit"
                     />
-
-                    <SubNavigation pageLayout={organisation.layout} />
 
                     <ReusableBlockLayout
                         layout={organisation.layout}
