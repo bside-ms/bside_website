@@ -16,10 +16,11 @@ const Teaser = ({ headlineTitle, headlineTeaser, text, image, reversed, linkText
                 >
                     {typeof image !== 'string' && (
                         <NextImage
-                            src={image.url!}
+                            src={image.sizes?.event?.url ?? image.url!}
                             alt=""
                             className="object-fill border-b-2 border"
-                            fill={true}
+                            width={1080}
+                            height={1080}
                         />
                     )}
 
@@ -61,10 +62,11 @@ const Teaser = ({ headlineTitle, headlineTeaser, text, image, reversed, linkText
                 >
                     {typeof image !== 'string' && (
                         <NextImage
-                            src={image.url!}
+                            src={image.sizes?.event?.url ?? image.url!}
                             alt=""
                             className="object-fill border-b-2 border"
-                            fill={true}
+                            width={1080}
+                            height={1080}
                         />
                     )}
 
