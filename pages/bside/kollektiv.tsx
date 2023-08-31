@@ -13,6 +13,7 @@ import { getUpcomingEvents } from '@/lib/events';
 import { getAllCircles, getOrganisation } from '@/lib/organisations';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
 import ReusableBlocks from '@blocks/reusableLayout/ReusableBlocks';
+import SubNavigation from '@blocks/subNavigation/SubNavigation';
 
 interface Props {
     events: Array<Event>;
@@ -80,6 +81,8 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                             B-Side Kollektiv
                         </div>
                     </ContentWrapper>
+
+                    <SubNavigation pageLayout={organisation.layout} />
 
                     {organisation.layout?.map((layoutElement, index) => (
                         <ReusableBlocks
