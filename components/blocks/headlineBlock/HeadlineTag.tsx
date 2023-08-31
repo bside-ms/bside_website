@@ -1,6 +1,5 @@
 import type { ReactElement, ReactNode } from 'react';
-import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
-import { toKebabCase } from '@/lib/common/toKebabCase';
+import getHeadlineId from '@/lib/block/getHeadlineId';
 import type { HeadlineLevel } from '@blocks/headlineBlock/Headline';
 
 interface Props {
@@ -11,11 +10,7 @@ interface Props {
 
 const HeadlineTag = ({ children, level, anchor }: Props): ReactElement => {
 
-    const id = isNotEmptyString(anchor)
-        ? toKebabCase(anchor)
-        : typeof children === 'string'
-            ? toKebabCase(children)
-            : undefined;
+    const id = getHeadlineId(anchor, children);
 
     switch (level) {
         case 'h1':
