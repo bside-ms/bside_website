@@ -8,7 +8,7 @@ import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import { getPublicClientUrl } from '@/lib/common/url';
-import { getUpcomingEvents } from '@/lib/events';
+import { getUpcomingEventsByOwner } from '@/lib/events';
 import { getCirclesOfOrganisation, getOrganisation } from '@/lib/organisations';
 import heroImageSvg from '@/public/assets/stickFigures/GmbH.svg';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
@@ -22,10 +22,8 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
-    // ToDo: Apply filter to the eventlist.
-    const events = await getUpcomingEvents(25);
-
     const organisationId = '647e60bd7054a955522b24cb';
+    const events = await getUpcomingEventsByOwner(organisationId, 25);
     const organisation = await getOrganisation(organisationId);
 
     return {

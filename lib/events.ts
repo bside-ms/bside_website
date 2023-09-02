@@ -18,6 +18,19 @@ export const getUpcomingEvents = async (limit?: number): Promise<Array<Event>> =
     )).docs;
 };
 
+export const getUpcomingEventsByOwner = async (owner: string, limit?: number): Promise<Array<Event>> => {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0);
+
+    const limitStr = isEmptyNumber(limit) ? `&limit=${limit}` : '';
+
+    return (await getPayloadResponse<PaginatedDocs<Event>>(
+        `/api/events/?where[eventDate][greater_than]=${formatDate(yesterday, 'yyyy-MM-dd')}&where[eventOwner.value][equals]=${owner}&sort=eventDate${limitStr}`
+    )).docs;
+};
+
 export const getPastEvents = async (limit?: number): Promise<Array<Event>> => {
     const today = new Date();
     const tomorrow = new Date(today);
