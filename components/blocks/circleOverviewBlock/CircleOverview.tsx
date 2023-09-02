@@ -26,7 +26,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
 
     return (
         <Fragment>
-            <div className="my-4">
+            <div className="my-4" id="kreise">
                 <Headline
                     title={headlineText}
                     level="h2"

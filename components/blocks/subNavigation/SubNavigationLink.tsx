@@ -38,9 +38,9 @@ const SubNavigationLink = ({ anchor, title, teaser }: Props): ReactElement | nul
     }, [anchor, isMd, teaser, title]);
 
     return (
-        <div onClick={handleClick} className="md:cursor-pointer md:hover:text-orange-500 underline">
+        <li onClick={handleClick} className="inline px-2 md:cursor-pointer md:hover:text-orange-500 underline underline-offset-2">
             {title}
-        </div>
+        </li>
     );
 };
 

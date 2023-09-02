@@ -13,7 +13,7 @@ import { getCirclesOfOrganisation, getOrganisation } from '@/lib/organisations';
 import kulturImageSvg from '@/public/assets/stickFigures/Kultur.svg';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
-import SubNavigation from '@blocks/subNavigation/SubNavigation';
+import SubNavigationLink from '@blocks/subNavigation/SubNavigationLink';
 
 interface Props {
     events: Array<Event>;
@@ -70,9 +70,16 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                         imageSrc={kulturImageSvg}
                         imageAlt=""
                         title="Kultur & Bildung"
-                    />
-
-                    <SubNavigation pageLayout={organisation.layout} />
+                    >
+                        <SubNavigationLink
+                            title="Unsere Arbeitskreise"
+                            anchor="kreise"
+                        />
+                        <SubNavigationLink
+                            title="Unsere Veranstaltungen"
+                            anchor="veranstaltungen"
+                        />
+                    </HeroImageSvg>
 
                     <ReusableBlockLayout
                         layout={organisation.layout}
