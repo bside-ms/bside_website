@@ -58,7 +58,7 @@ export interface Event {
   category?: ('concert' | 'movie' | 'theater' | 'plenum' | 'workshop')[];
   displayOnHome?: boolean;
   displayOnOverview?: boolean;
-  displayOnOrgansation?: boolean;
+  displayOnOrganisation?: boolean;
   displayOnCircle?: boolean;
   slug?: string;
   updatedAt: string;

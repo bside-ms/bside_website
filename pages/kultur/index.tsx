@@ -24,8 +24,9 @@ interface Props {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
     const organisationId = '647e60a67054a955522b24ad';
-    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation');
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation') ?? [];
     const organisation = await getOrganisation(organisationId);
 
     return {
