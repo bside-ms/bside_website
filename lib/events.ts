@@ -5,30 +5,49 @@ import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Event } from '@/types/payload/payload-types';
 
-export const getUpcomingEvents = async (limit?: number): Promise<Array<Event>> => {
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-    yesterday.setHours(0, 0, 0, 0);
+type EventFilter = 'Home' | 'Overview' | 'Organisation' | 'Circle' | undefined;
 
-    const limitStr = isEmptyNumber(limit) ? `&limit=${limit}` : '';
+interface EventProps {
+    where?: string;
+    limit?: number;
+    filter?: EventFilter;
+    sort?: string;
+}
+
+const executeEvents = async (event: EventProps): Promise<Array<Event>> => {
+    const limitStr = isEmptyNumber(event.limit) ? `&limit=${event.limit}` : '';
+
+    console.warn(`/api/events/?${event.where}&sort=${event.sort}${limitStr}`);
 
     return (await getPayloadResponse<PaginatedDocs<Event>>(
-        `/api/events/?where[eventDate][greater_than]=${formatDate(yesterday, 'yyyy-MM-dd')}&sort=eventDate${limitStr}`
+        `/api/events/?${event.where}&sort=${event.sort}${limitStr}`
     )).docs;
 };
 
-export const getUpcomingEventsByOwner = async (owner: string, limit?: number): Promise<Array<Event>> => {
+const executeUpcomingEvents = async (event: EventProps): Promise<Array<Event>> => {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
     yesterday.setHours(0, 0, 0, 0);
 
-    const limitStr = isEmptyNumber(limit) ? `&limit=${limit}` : '';
+    const filter: string = event.filter !== undefined ? `&where[displayOn${event.filter}][equals]=true` : '';
+    const where: string = `where[eventDate][greater_than]=${formatDate(yesterday, 'yyyy-MM-dd')}${event.where ?? ''}${filter}`;
+    const sort: string = event.sort ?? 'eventDate';
 
-    return (await getPayloadResponse<PaginatedDocs<Event>>(
-        `/api/events/?where[eventDate][greater_than]=${formatDate(yesterday, 'yyyy-MM-dd')}&where[eventOwner.value][equals]=${owner}&sort=eventDate${limitStr}`
-    )).docs;
+    return executeEvents({
+        where,
+        sort,
+        limit: event.limit,
+    });
+};
+
+export const getUpcomingEvents = async (limit?: number, filter?: EventFilter): Promise<Array<Event>> => {
+    return executeUpcomingEvents({ limit, filter });
+};
+
+export const getUpcomingEventsByOwner = async (owner: string, limit?: number, filter?: EventFilter): Promise<Array<Event>> => {
+    const where: string = `&where[eventOwner.value][equals]=${owner}`;
+    return executeUpcomingEvents({ limit, filter, where });
 };
 
 export const getPastEvents = async (limit?: number): Promise<Array<Event>> => {
@@ -37,11 +56,10 @@ export const getPastEvents = async (limit?: number): Promise<Array<Event>> => {
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow.setHours(0, 0, 0, 0);
 
-    const limitStr = isEmptyNumber(limit) ? `&limit=${limit}` : '';
+    const where: string = `where[eventDate][less_than]=${formatDate(tomorrow, 'yyyy-MM-dd')}`;
+    const sort: string = '-eventDate';
 
-    return (await getPayloadResponse<PaginatedDocs<Event>>(
-        `/api/events/?where[eventDate][less_than]=${formatDate(tomorrow, 'yyyy-MM-dd')}&sort=-eventDate${limitStr}`
-    )).docs;
+    return executeEvents({ limit, where, sort, filter: 'Overview' });
 };
 
 export const filterForMeetings = (events: Array<Event>): Array<Event> => {

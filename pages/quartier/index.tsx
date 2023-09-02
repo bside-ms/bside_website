@@ -23,7 +23,7 @@ interface Props {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
     const organisationId = '647e60bd7054a955522b24cb';
-    const events = await getUpcomingEventsByOwner(organisationId, 25);
+    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation');
     const organisation = await getOrganisation(organisationId);
 
     return {

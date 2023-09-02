@@ -24,7 +24,7 @@ interface Props {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
     const organisationId = '647e60a67054a955522b24ad';
-    const events = await getUpcomingEventsByOwner(organisationId, 25);
+    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation');
 
     const organisation = await getOrganisation(organisationId);
 

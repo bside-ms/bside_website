@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
-    const allEvents = await getUpcomingEvents(25);
+    const allEvents = await getUpcomingEvents(25, 'Overview');
 
     return {
         revalidate: 60,
