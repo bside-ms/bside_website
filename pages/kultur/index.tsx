@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
+import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
 import Banner from '@/components/layout/Banner';
@@ -13,6 +14,7 @@ import { getCirclesOfOrganisation, getOrganisation } from '@/lib/organisations';
 import kulturImageSvg from '@/public/assets/stickFigures/Kultur.svg';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
+import SubNavigation from '@blocks/subNavigation/SubNavigation';
 import SubNavigationLink from '@blocks/subNavigation/SubNavigationLink';
 
 interface Props {
@@ -42,6 +44,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
 
 export default ({ events, preview, organisation, circles }: Props): ReactElement => {
 
+    const { isMd } = useBreakpointContext();
+
     return (
         <Fragment>
             <NextHead
@@ -70,16 +74,25 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                         imageSrc={kulturImageSvg}
                         imageAlt=""
                         title="Kultur & Bildung"
-                    >
+                    />
+
+                    <SubNavigation>
                         <SubNavigationLink
-                            title="Unsere Arbeitskreise"
+                            title={isMd ? 'Unsere Arbeitskreise' : 'Arbeitskreise'}
                             anchor="kreise"
                         />
                         <SubNavigationLink
-                            title="Unsere Veranstaltungen"
+                            title={isMd ? 'Unsere Veranstaltungen' : 'Veranstaltungen'}
                             anchor="veranstaltungen"
                         />
-                    </HeroImageSvg>
+                        {isMd && (
+                            <SubNavigationLink
+                                title="Unterstützen"
+                                teaser="asdf"
+                                anchor="unterstützen"
+                            />
+                        )}
+                    </SubNavigation>
 
                     <ReusableBlockLayout
                         layout={organisation.layout}

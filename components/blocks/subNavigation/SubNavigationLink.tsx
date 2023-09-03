@@ -11,7 +11,7 @@ interface Props {
     title: string;
 }
 
-const SubNavigationLink = ({ anchor, title, teaser }: Props): ReactElement | null => {
+const SubNavigationLink = ({ anchor, title, teaser }: Props): ReactElement => {
 
     const { isMd } = useBreakpointContext();
 
@@ -37,8 +37,13 @@ const SubNavigationLink = ({ anchor, title, teaser }: Props): ReactElement | nul
 
     }, [anchor, isMd, teaser, title]);
 
+    const width = isMd ? 'basis-1/3' : 'basis-1/2';
+
     return (
-        <li onClick={handleClick} className="inline px-2 md:cursor-pointer md:hover:text-orange-500 underline underline-offset-2">
+        <li
+            onClick={handleClick}
+            className={`${width} text-center px-2 cursor-pointer md:hover:text-orange-500 underline underline-offset-4`}
+        >
             {title}
         </li>
     );

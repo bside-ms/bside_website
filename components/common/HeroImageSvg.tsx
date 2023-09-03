@@ -1,17 +1,16 @@
-import clsx from 'clsx';
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import type { PropsWithChildren, ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 
-interface Props extends PropsWithChildren {
+interface Props {
     imageSrc: string | StaticImport;
     imageAlt: string;
     title: string;
 }
 
-const HeroImageSvg = ({ imageSrc, imageAlt, title, children }: Props): ReactElement => {
+const HeroImageSvg = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
 
     return (
         <ContentWrapper>
@@ -26,22 +25,11 @@ const HeroImageSvg = ({ imageSrc, imageAlt, title, children }: Props): ReactElem
             </div>
 
             {!isEmptyString(title) && (
-                <>
-                    <h1
-                        className={clsx(
-                            'font-serif text-white bg-black mt-4 text-2xl text-center px-3 pt-3',
-                            children === undefined && 'pb-3',
-                        )}
-                    >
-                        {title}
-                    </h1>
-                    { children !== undefined && (
-                        <ul className="text-white bg-black text-right px-4 pb-2">
-                            { children }
-                        </ul>
-                    ) }
-
-                </>
+                <h1
+                    className="font-serif text-white bg-black mt-4 text-2xl text-center p-3"
+                >
+                    {title}
+                </h1>
             )}
         </ContentWrapper>
     );

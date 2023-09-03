@@ -44,7 +44,7 @@ const BsideElements = (): ReactElement => {
                 <div className="flex-1 px-2 lg:px-4 my-auto">
                     <p className="font-serif text-lg md:text-xl">
                         Das Kollektiv<br />
-                        & seine Kreise
+                        & seine Arbeitskreise
                     </p>
                     <p className="text-sm sm:text-base">
                         Wer ist die B-Side? Wie arbeiten wir miteinander? Wo kannst du mitmachen?
