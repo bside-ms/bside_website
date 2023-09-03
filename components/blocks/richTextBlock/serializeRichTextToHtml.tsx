@@ -135,7 +135,14 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
 
             case 'ul':
                 return (
-                    <ul key={index}>
+                    <ul className="md:text-lg list-disc ml-4" key={index}>
+                        {serializeRichTextToHtml(nodeChildren)}
+                    </ul>
+                );
+
+            case 'ol':
+                return (
+                    <ul className="md:text-lg list-decimal ml-5" key={index}>
                         {serializeRichTextToHtml(nodeChildren)}
                     </ul>
                 );

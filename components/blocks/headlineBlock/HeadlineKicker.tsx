@@ -47,7 +47,7 @@ const HeadlineKicker = ({ children, level, link = '' }: Props): ReactElement => 
         case 'h3':
         case 'h4':
             return (
-                <small className="block font-normal leading-none tracking-normal text-sm md:text-base italic">
+                <small className="block font-normal leading-none tracking-normal text-base md:text-base italic">
                     {linkContent}
                 </small>
             );

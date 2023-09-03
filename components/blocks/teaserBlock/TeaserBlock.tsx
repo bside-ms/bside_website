@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
-import ContentWrapper from '@/components/layout/ContentWrapper';
 import type { SlateChildren } from '@/types/payload/Blocks';
 import type { Media } from '@/types/payload/payload-types';
 import MediaContentOverlay from '@blocks/mediaContent/MediaContentOverlay';
@@ -21,9 +20,9 @@ export interface TeaserBlockProps {
 
 const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, reversed, image, previousBlock, nextBlock }: TeaserBlockProps): ReactElement => {
 
-    const { isLg } = useBreakpointContext();
+    const { isMd } = useBreakpointContext();
 
-    if (isLg) {
+    if (isMd) {
         return (
             <div className="flex-grow">
                 <div
@@ -48,16 +47,14 @@ const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, 
     }
 
     return (
-        <ContentWrapper>
-            <MediaContentOverlay
-                media={image as Media}
-                richText={text}
-                headlineText={headlineTitle}
-                headlineTeaser={headlineTeaser}
-                buttonText={linkText}
-                buttonHref={linkHref}
-            />
-        </ContentWrapper>
+        <MediaContentOverlay
+            media={image as Media}
+            richText={text}
+            headlineText={headlineTitle}
+            headlineTeaser={headlineTeaser}
+            buttonText={linkText}
+            buttonHref={linkHref}
+        />
     );
 };
 

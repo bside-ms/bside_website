@@ -27,7 +27,7 @@ const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, bu
                 />
             </div>
 
-            <div className="px-4 md:px-0 -translate-y-20 -mb-10 md:-translate-y-20 md:-mb-20">
+            <div className="px-4 md:px-0 -translate-y-20 -mb-24 md:-translate-y-20 md:-mb-20">
                 <ContentWrapper>
                     <div className="bg-black text-white p-6">
                         {!isEmptyString(headlineText) && (
