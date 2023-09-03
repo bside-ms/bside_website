@@ -56,6 +56,7 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
                     alignment={layoutElement.alignment}
                     headline={layoutElement.headline}
                     backgroundColor={layoutElement.backgroundColor}
+                    previousBlock={previousBlock}
                 />
             );
 

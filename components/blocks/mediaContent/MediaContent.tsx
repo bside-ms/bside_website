@@ -24,10 +24,10 @@ const MediaContent = ({ media, richText, alignment }: Props): ReactElement => {
     return (
         <ContentWrapper>
             <div className="grid grid-cols-12 gap-4">
-                <div className="my-auto col-span-12 md:col-span-6">
+                <div className="my-auto col-span-12 md:col-span-6 mx-auto md:mx-0">
                     {elements[0]}
                 </div>
-                <div className="my-auto col-span-12 md:col-span-6">
+                <div className="my-auto col-span-12 md:col-span-6 mx-auto md:mx-0">
                     {elements[1]}
                 </div>
             </div>

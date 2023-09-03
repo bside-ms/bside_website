@@ -6,7 +6,7 @@ import MediaContentOverlay from '@blocks/mediaContent/MediaContentOverlay';
 export type MediaContentAlignment = 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
 export type MediaContentBackgroundColor = 'black' | 'white';
 
-const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richText }: MediaContentBlockProps): ReactElement | null => {
+const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richText, previousBlock }: MediaContentBlockProps): ReactElement | null => {
 
     if (typeof media === 'string') {
         // eslint-disable-next-line no-console
@@ -21,6 +21,7 @@ const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richTe
                 media={media}
                 richText={richText}
                 headlineText={headline}
+                previousBlock={previousBlock}
             />
         );
     }
@@ -29,7 +30,11 @@ const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richTe
         return (
             <div className="flex-grow">
                 <div className="bg-black text-white">
-                    <MediaContent media={media} richText={richText} alignment={alignment} />
+                    <MediaContent
+                        media={media}
+                        richText={richText}
+                        alignment={alignment}
+                    />
                 </div>
             </div>
         );

@@ -26,6 +26,7 @@ export interface MediaContentBlockProps {
     alignment: MediaContentAlignment;
     backgroundColor?: MediaContentBackgroundColor;
     headline?: string;
+    previousBlock?: string;
 }
 
 export interface MediaBlockProps {

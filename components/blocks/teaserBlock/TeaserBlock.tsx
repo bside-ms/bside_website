@@ -27,7 +27,7 @@ const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, 
             <div className="flex-grow">
                 <div
                     className={clsx(
-                        'w-full mx-auto',
+                        'w-full my-8 mx-auto',
                         previousBlock === 'teaser' && '!-mt-8',
                         nextBlock === 'teaser' && '!-mb-8',
                     )}

@@ -14,9 +14,12 @@ interface Props {
     headlineText?: string;
     buttonText?: string;
     buttonHref?: string;
+    previousBlock?: string;
 }
 
-const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref }: Props): ReactElement => {
+const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref, previousBlock }: Props): ReactElement => {
+
+    const bottomMargin = previousBlock === 'mediaContent' ? '-mb-24' : '-mb-10';
 
     return (
         <>
@@ -27,7 +30,7 @@ const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, bu
                 />
             </div>
 
-            <div className="px-4 md:px-0 -translate-y-20 -mb-24 md:-translate-y-20 md:-mb-20">
+            <div className={`px-4 md:px-0 -translate-y-20 ${bottomMargin} md:-translate-y-20 md:-mb-20`}>
                 <ContentWrapper>
                     <div className="bg-black text-white p-6">
                         {!isEmptyString(headlineText) && (
