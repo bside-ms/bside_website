@@ -15,6 +15,7 @@ const HeadlineBlock = (props: HeadlineBlockProps): ReactElement => {
                             anchor={props.anchor}
                             teaser={props.teaser}
                             level={props.level}
+                            as={props.as}
                         />
                     </ContentWrapper>
                 </div>
@@ -29,6 +30,7 @@ const HeadlineBlock = (props: HeadlineBlockProps): ReactElement => {
                 anchor={props.anchor}
                 teaser={props.teaser}
                 level={props.level}
+                as={props.as}
             />
         </ContentWrapper>
     );

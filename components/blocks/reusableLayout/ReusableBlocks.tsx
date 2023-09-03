@@ -67,6 +67,7 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
                     teaser={layoutElement.teaser}
                     level={layoutElement.level}
                     backgroundColor={layoutElement.backgroundColor}
+                    as={layoutElement.as}
                 />
             );
 
