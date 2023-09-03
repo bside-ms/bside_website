@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
+import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
@@ -14,6 +15,7 @@ import { getAllCircles, getOrganisation } from '@/lib/organisations';
 import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
 import ReusableBlocks from '@blocks/reusableLayout/ReusableBlocks';
 import SubNavigation from '@blocks/subNavigation/SubNavigation';
+import SubNavigationLink from '@blocks/subNavigation/SubNavigationLink';
 
 interface Props {
     events: Array<Event>;
@@ -41,6 +43,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
 };
 
 export default ({ events, preview, organisation, circles }: Props): ReactElement => {
+
+    const { isMd } = useBreakpointContext();
 
     return (
         <Fragment>
@@ -82,7 +86,24 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                         </div>
                     </ContentWrapper>
 
-                    <SubNavigation pageLayout={organisation.layout} />
+                    <SubNavigation>
+                        <SubNavigationLink
+                            title={isMd ? 'Alle Arbeitskreise' : 'Arbeitskreise'}
+                            anchor="kreise"
+                        />
+                        <SubNavigationLink
+                            title={isMd ? 'Was ist Soziokratie?' : 'Soziokratie'}
+                            anchor="soziokratie"
+                            teaser={true}
+                        />
+                        {isMd && (
+                            <SubNavigationLink
+                                title="Mitmachen"
+                                anchor="mitmachen"
+                                teaser={true}
+                            />
+                        )}
+                    </SubNavigation>
 
                     {organisation.layout?.map((layoutElement, index) => (
                         <ReusableBlocks

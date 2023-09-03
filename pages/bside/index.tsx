@@ -11,7 +11,6 @@ import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Page } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
-import SubNavigation from '@blocks/subNavigation/SubNavigation';
 
 interface Props {
     page: Page;
@@ -73,8 +72,6 @@ export default ({ page }: Props): ReactElement => {
                 </ContentWrapper>
 
                 <div className="my-4" />
-
-                <SubNavigation pageLayout={page.layout} />
 
                 <ReusableBlockLayout
                     layout={page.layout}

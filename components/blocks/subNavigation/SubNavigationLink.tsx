@@ -7,11 +7,11 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 
 interface Props {
     anchor: string | undefined | null;
-    teaser?: string | undefined;
+    teaser?: boolean;
     title: string;
 }
 
-const SubNavigationLink = ({ anchor, title, teaser }: Props): ReactElement => {
+const SubNavigationLink = ({ anchor, title, teaser = false }: Props): ReactElement => {
 
     const { isMd } = useBreakpointContext();
 
@@ -25,7 +25,7 @@ const SubNavigationLink = ({ anchor, title, teaser }: Props): ReactElement => {
 
         const navigationHeight = isMd ? 70 : 100;
 
-        const paddingForHeadlineKicker = isEmptyString(teaser) ? 0 : isMd ? 30 : 20;
+        const paddingForHeadlineKicker = !teaser ? 0 : isMd ? 30 : 20;
 
         scroller.scrollTo(
             headlineId,

@@ -88,8 +88,8 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
                         {isMd && (
                             <SubNavigationLink
                                 title="Unterstützen"
-                                teaser="asdf"
                                 anchor="unterstützen"
+                                teaser={true}
                             />
                         )}
                     </SubNavigation>
