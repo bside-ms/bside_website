@@ -33,6 +33,9 @@ ARG FRONTEND_URL
 ENV FRONTEND_URL=${FRONTEND_URL}
 ENV NEXT_PUBLIC_FRONTEND_URL=${FRONTEND_URL}
 
+ARG TURNSTILE_SITE_KEY
+ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
+
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 RUN npm run build && mkdir -p /app/.next/cache

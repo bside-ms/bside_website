@@ -61,3 +61,4 @@ jobs:
             GIT_SHA=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
             PAYLOAD_URL=${{ vars.PAYLOAD_URL }}
             FRONTEND_URL=${{ vars.FRONTEND_URL }}
+            TURNSTILE_SITE_KEY=${{ vars.TURNSTILE_SITE_KEY }}
