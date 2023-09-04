@@ -51,6 +51,7 @@
     "@types/escape-html": "1.0.x",
     "@types/lodash": "4.14.x",
     "@types/node": "20.4.x",
+    "@types/nodemailer": "^6.4.9",
     "@types/qs": "6.9.x",
     "@types/react": "18.2.x",
     "@types/react-dom": "18.2.x",
