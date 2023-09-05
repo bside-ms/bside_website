@@ -1,7 +1,6 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import FrontPageHero from '@/components/frontPage/FrontPageHero';
 import Banner from '@/components/layout/Banner';
@@ -40,8 +39,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
 };
 
 export default ({ page, events, preview }: Props): ReactElement => {
-
-    const { isLg } = useBreakpointContext();
 
     const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
         initialInView: true,
