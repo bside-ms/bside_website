@@ -30,7 +30,7 @@ const MobileNavigationLink = ({ children, href, color }: Props): ReactElement =>
 
     return (
         <span
-            className={`text-[30px] leading-[1.1] text-white font-serif cursor-default md:cursor-pointer whitespace-nowrap ${isActivePage ? 'italic' : ''}`}
+            className={`text-xl leading-[1.1] text-white font-serif cursor-default md:cursor-pointer whitespace-nowrap ${isActivePage ? 'italic' : ''}`}
             style={!isActivePage && !isEmptyString(color) ? undefined : { color }}
             onClick={handleClick}
         >

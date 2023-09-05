@@ -8,7 +8,6 @@ const MobileNavigationItems = (): ReactElement => {
     return (
         <div className="flex flex-col items-end gap-6 text-right">
 
-            {/* ToDo: Disable this, if already on home. */}
             <MobileNavigationLink href="/" color="#ffffff">
                 Start
             </MobileNavigationLink>
