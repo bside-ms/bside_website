@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { Fragment } from 'react';
+import { Obfuscate } from '@south-paw/react-obfuscate-ts';
 import escapeHTML from 'escape-html';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
@@ -83,6 +84,44 @@ const serializeMedia = (node: Record<string, unknown>, index: number): ReactElem
     );
 };
 
+const serializeLink = (nodeChildren: SlateChildren, node: Record<string, unknown>, index: number): ReactElement => {
+    // @ts-expect-error Needs to be typed.
+    if (node.fields?.appearance === 'button') {
+        return (
+            <InlineButton
+                key={index}
+                title=""
+                text={(nodeChildren[0] !== undefined) ? nodeChildren[0].text as string : ''}
+                // @ts-expect-error Need to find more type safe solution in future
+                href={escapeHTML(node.url)}
+                target={node.newTab === true ? '_blank' : '_self'}
+            />
+        );
+    }
+
+    if ((node.url as string).startsWith('mailto:')) {
+        let mail = (node.url as string).substring(7);
+        mail = mail.startsWith('//') ? mail.substring(2) : mail;
+        mail = mail.replace('.spam', '.ms');
+
+        return (
+            <Obfuscate email={mail} className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg" />
+        );
+    }
+    return (
+        <Link
+            key={index}
+            // @ts-expect-error Need to find more type safe solution in future
+            href={escapeHTML(node.url)}
+            target={node.newTab === true ? '_blank' : '_self'}
+            className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg"
+        >
+            {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
+            {serializeRichTextToHtml(nodeChildren)}
+        </Link>
+    );
+};
+
 const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | null> => {
 
     return children.map((node, index): ReactElement | null => {
@@ -107,31 +146,7 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
                 );
 
             case 'link':
-                // @ts-expect-error Needs to be typed.
-                if (node.fields?.appearance === 'button') {
-                    return (
-                        <InlineButton
-                            key={index}
-                            title=""
-                            text={(nodeChildren[0] !== undefined) ? nodeChildren[0].text as string : ''}
-                            // @ts-expect-error Need to find more type safe solution in future
-                            href={escapeHTML(node.url)}
-                            target={node.newTab === true ? '_blank' : '_self'}
-                        />
-                    );
-                }
-
-                return (
-                    <Link
-                        key={index}
-                        // @ts-expect-error Need to find more type safe solution in future
-                        href={escapeHTML(node.url)}
-                        target={node.newTab === true ? '_blank' : '_self'}
-                        className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg"
-                    >
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </Link>
-                );
+                return serializeLink(nodeChildren, node, index);
 
             case 'ul':
                 return (

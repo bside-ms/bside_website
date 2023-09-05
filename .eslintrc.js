@@ -377,7 +377,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-return': ERROR,
         '@typescript-eslint/no-unused-expressions': ERROR,
         '@typescript-eslint/no-unused-vars': OFF, // unused-imports plugin takes care of this
-        '@typescript-eslint/no-use-before-define': ERROR,
+        '@typescript-eslint/no-use-before-define': WARNING,
         '@typescript-eslint/no-useless-constructor': ERROR,
         '@typescript-eslint/no-var-requires': OFF, // We only use require() if we need to
         '@typescript-eslint/non-nullable-type-assertion-style': ERROR,

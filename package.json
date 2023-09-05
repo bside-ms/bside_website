@@ -20,6 +20,7 @@
     "@juggle/resize-observer": "^3.4.0",
     "@logtail/node": "^0.4.5",
     "@logtail/winston": "^0.4.5",
+    "@south-paw/react-obfuscate-ts": "^2.0.0",
     "@tailwindcss/line-clamp": "^0.4.4",
     "clsx": "^2.0.0",
     "date-fns": "2.30.x",
