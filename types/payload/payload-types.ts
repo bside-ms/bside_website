@@ -117,12 +117,15 @@ export interface Organisation {
   shortName: string;
   layout?: (
       | {
-    title?: string;
-    text: string;
-    href: string;
+    title: string;
+    teaser?: string;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
+    anchor?: string;
     id?: string;
     blockName?: string;
-    blockType: 'callToAction';
+    blockType: 'headlineBlock';
   }
       | {
     backgroundColor: 'white' | 'black';
@@ -159,35 +162,12 @@ export interface Organisation {
     blockType: 'mediaContent';
   }
       | {
-    title: string;
-    teaser?: string;
-    level: 'h1' | 'h2' | 'h3' | 'h4';
-    as: 'h1' | 'h2' | 'h3' | 'h4';
-    backgroundColor: 'white' | 'black';
-    anchor?: string;
+    title?: string;
+    text: string;
+    href: string;
     id?: string;
     blockName?: string;
-    blockType: 'headlineBlock';
-  }
-      | {
-    title: string;
-    circleSide: 'textLeft' | 'textRight';
-    richText: {
-      [k: string]: unknown;
-    }[];
-    id?: string;
-    blockName?: string;
-    blockType: 'circleOverview';
-  }
-      | {
-    title: string;
-    eventSide: 'textLeft' | 'textRight';
-    richText: {
-      [k: string]: unknown;
-    }[];
-    id?: string;
-    blockName?: string;
-    blockType: 'eventOverview';
+    blockType: 'callToAction';
   }
       | {
     headlineTitle: string;
@@ -202,6 +182,26 @@ export interface Organisation {
     id?: string;
     blockName?: string;
     blockType: 'teaser';
+  }
+      | {
+    title: string;
+    eventSide: 'textLeft' | 'textRight';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'eventOverview';
+  }
+      | {
+    title: string;
+    circleSide: 'textLeft' | 'textRight';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'circleOverview';
   }
       )[];
   meta?: {
@@ -224,12 +224,15 @@ export interface Circle {
   fallbackImage: string;
   layout?: (
       | {
-    title?: string;
-    text: string;
-    href: string;
+    title: string;
+    teaser?: string;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
+    anchor?: string;
     id?: string;
     blockName?: string;
-    blockType: 'callToAction';
+    blockType: 'headlineBlock';
   }
       | {
     backgroundColor: 'white' | 'black';
@@ -280,15 +283,22 @@ export interface Circle {
     blockType: 'teaser';
   }
       | {
-    title: string;
-    teaser?: string;
-    level: 'h1' | 'h2' | 'h3' | 'h4';
-    as: 'h1' | 'h2' | 'h3' | 'h4';
-    backgroundColor: 'white' | 'black';
-    anchor?: string;
+    title?: string;
+    text: string;
+    href: string;
     id?: string;
     blockName?: string;
-    blockType: 'headlineBlock';
+    blockType: 'callToAction';
+  }
+      | {
+    title: string;
+    eventSide: 'textLeft' | 'textRight';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'eventOverview';
   }
       )[];
   meta?: {
@@ -321,12 +331,15 @@ export interface Page {
   slug?: string;
   layout?: (
       | {
-    title?: string;
-    text: string;
-    href: string;
+    title: string;
+    teaser?: string;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
+    anchor?: string;
     id?: string;
     blockName?: string;
-    blockType: 'callToAction';
+    blockType: 'headlineBlock';
   }
       | {
     backgroundColor: 'white' | 'black';
@@ -363,15 +376,12 @@ export interface Page {
     blockType: 'mediaContent';
   }
       | {
-    title: string;
-    teaser?: string;
-    level: 'h1' | 'h2' | 'h3' | 'h4';
-    as: 'h1' | 'h2' | 'h3' | 'h4';
-    backgroundColor: 'white' | 'black';
-    anchor?: string;
+    title?: string;
+    text: string;
+    href: string;
     id?: string;
     blockName?: string;
-    blockType: 'headlineBlock';
+    blockType: 'callToAction';
   }
       | {
     headlineTitle: string;

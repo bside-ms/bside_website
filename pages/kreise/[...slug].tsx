@@ -11,15 +11,17 @@ import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { getPublicClientUrl } from '@/lib/common/url';
+import { getUpcomingEventsByOwner } from '@/lib/events';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Circle, Media } from '@/types/payload/payload-types';
+import type { Circle, Event, Media } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 import Headline from 'components/blocks/headlineBlock/Headline';
 
 interface Props {
     circle: Circle;
     preview: boolean;
+    events: Array<Event>;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -65,12 +67,13 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         props: {
             circle,
             preview: preview ?? false,
+            events: await getUpcomingEventsByOwner(circle.id, 5, 'Circle'),
         },
     };
 };
 
 // eslint-disable-next-line complexity
-export default ({ circle, preview }: Props): ReactElement => {
+export default ({ circle, preview, events }: Props): ReactElement => {
 
     // Basic Infos
     const organisation = typeof circle.organisation === 'string' ? null : circle.organisation;
@@ -137,6 +140,7 @@ export default ({ circle, preview }: Props): ReactElement => {
 
                     <ReusableBlockLayout
                         layout={circle.layout}
+                        events={events}
                     />
                 </main>
 
