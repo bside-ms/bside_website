@@ -3,35 +3,43 @@ import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
-import EventOverview from '@/components/events/overview/EventOverview';
 import FrontPageHero from '@/components/frontPage/FrontPageHero';
 import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
-import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
+import NextHead from '@/components/layout/next/NextHead';
 import { getUpcomingEvents } from '@/lib/events';
-import hausfrontJpg from '@/public/assets/hausfront.jpg';
-import type { Event } from '@/types/payload/payload-types';
-import Button from '@blocks/buttonBlock/Button';
-import CallToAction from '@blocks/callToActionBlock/CallToAction';
-import Headline from '@blocks/headlineBlock/Headline';
+import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import type { Event, Page } from '@/types/payload/payload-types';
+import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     events: Array<Event>;
     preview: boolean;
+    page: Page;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
+
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?where[slug][equals]=home');
+    const page = pagesResponse.docs[0];
+
+    if (page === undefined) {
+        return { notFound: true };
+    }
+
     return {
         revalidate: 60,
         props: {
+            page,
             events: await getUpcomingEvents(5, 'Home'),
             preview: preview ?? false,
         },
     };
 };
 
-export default ({ events, preview }: Props): ReactElement => {
+export default ({ page, events, preview }: Props): ReactElement => {
 
     const { isLg } = useBreakpointContext();
 
@@ -43,6 +51,7 @@ export default ({ events, preview }: Props): ReactElement => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
 
+            <NextHead />
             <HeaderBar />
 
             {preview && (
@@ -68,94 +77,13 @@ export default ({ events, preview }: Props): ReactElement => {
             <main id="content">
                 <FrontPageHero />
 
-                <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
-                    <div
-                        className="bg-cover bg-center w-full h-52 md:h-72 my-8"
-                        style={{ backgroundImage: `url(${hausfrontJpg.src})` }}
-                    />
-                </div>
+                <div className="py-2" />
 
-                <ContentWrapper>
+                <ReusableBlockLayout
+                    layout={page.layout}
+                    events={events}
+                />
 
-                    <div className="font-serif text-white bg-black text-2xl text-center p-3 mb-8">
-                        Nächste Veranstaltungen
-                    </div>
-
-                    <div className="lg:hidden">
-                        <p className="mb-4 text-lg">
-                            Hier findest du die nächsten fünf Veranstaltungen.
-                            Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
-                        </p>
-
-                        <Button
-                            title=""
-                            text="Alle Veranstaltungen"
-                            href="/events"
-                        />
-
-                        <div className="my-4" />
-                    </div>
-
-                    <div className="lg:flex lg:gap-4">
-                        <div className="lg:basis-2/3">
-                            <EventOverview
-                                events={events}
-                                title=""
-                                noFilters={true}
-                            />
-                        </div>
-
-                        <div className="lg:basis-1/3 lg:align-text-top lg:px-4 overflow-y-auto">
-                            <div className="w-full lg:hidden my-4" />
-
-                            <div className="hidden lg:block">
-                                <p className="my-4 text-lg">
-                                    Hier findest du die nächsten fünf Veranstaltungen.
-                                    Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
-                                </p>
-
-                                <Button
-                                    title=""
-                                    text="Alle Veranstaltungen"
-                                    href="/events"
-                                />
-
-                            </div>
-
-                            <Headline
-                                title="Archiv"
-                                level="h3"
-                            />
-
-                            <p className="my-4 text-lg">
-                                Hier findest du die fünf nächsten Veranstaltungen.
-                                Alle weiteren Veranstaltungen findest du in unserer Veranstaltungsübersicht.
-                            </p>
-
-                            <Button
-                                title=""
-                                text="Veranstaltungsarchiv"
-                                href="/events/history"
-                            />
-                        </div>
-                    </div>
-                </ContentWrapper>
-
-                <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
-                    <div
-                        className="bg-cover bg-center w-full h-52 md:h-72 mb-4"
-                        style={{ backgroundImage: `url(${hausfrontJpg.src})` }}
-                    />
-                </div>
-
-                <ContentWrapper>
-                    <CallToAction
-                        title="Bock auf Mitmachen?"
-                        text="Schreib uns ne Mail!"
-                        href="/kontakt"
-                        withArrows={!isLg}
-                    />
-                </ContentWrapper>
             </main>
 
             <Footer>

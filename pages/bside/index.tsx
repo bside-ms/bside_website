@@ -19,7 +19,6 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async () => {
 
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?where[slug][equals]=bside');
-
     const page = pagesResponse.docs[0];
 
     if (page === undefined) {

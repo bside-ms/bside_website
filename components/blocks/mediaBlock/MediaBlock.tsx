@@ -20,6 +20,19 @@ const MediaBlock = ({ media, caption = '', size }: MediaBlockProps): ReactElemen
         return null;
     }
 
+    if (size === 'wide' && media.sizes?.wide?.url !== undefined) {
+        return (
+            <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
+                <div
+                    className="bg-cover bg-center w-full h-52 md:h-72 my-8"
+                    style={{ backgroundImage: `url(${media.sizes.wide.url})` }}
+                />
+            </div>
+        );
+    }
+
+    // ToDo: Implement the square version of the image.
+
     return (
         <ContentWrapper>
             <div className="relative">

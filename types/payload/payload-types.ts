@@ -93,15 +93,7 @@ export interface Media {
       filesize?: number;
       filename?: string;
     };
-    portrait?: {
-      url?: string;
-      width?: number;
-      height?: number;
-      mimeType?: string;
-      filesize?: number;
-      filename?: string;
-    };
-    hero?: {
+    wide?: {
       url?: string;
       width?: number;
       height?: number;
@@ -143,7 +135,7 @@ export interface Organisation {
   }
       | {
     media: string | Media;
-    size?: 'normal' | 'wide';
+    size?: 'normal' | 'wide' | 'event';
     caption?: string;
     id?: string;
     blockName?: string;
@@ -250,7 +242,7 @@ export interface Circle {
   }
       | {
     media: string | Media;
-    size?: 'normal' | 'wide';
+    size?: 'normal' | 'wide' | 'event';
     caption?: string;
     id?: string;
     blockName?: string;
@@ -357,7 +349,7 @@ export interface Page {
   }
       | {
     media: string | Media;
-    size?: 'normal' | 'wide';
+    size?: 'normal' | 'wide' | 'event';
     caption?: string;
     id?: string;
     blockName?: string;
@@ -396,6 +388,16 @@ export interface Page {
     id?: string;
     blockName?: string;
     blockType: 'teaser';
+  }
+      | {
+    title: string;
+    eventSide: 'textLeft' | 'textRight';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'eventOverview';
   }
       )[];
   parent?: string | Page;

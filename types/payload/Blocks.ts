@@ -31,7 +31,7 @@ export interface MediaContentBlockProps {
 
 export interface MediaBlockProps {
     media: Media | string;
-    size?: 'normal' | 'wide';
+    size?: 'normal' | 'wide' | 'event';
     caption?: string;
 }
 
