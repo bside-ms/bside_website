@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createTransport } from 'nodemailer';
 import type { FormValues } from '@/components/contactForm/ContactForm';
@@ -68,6 +69,21 @@ export default async (
     } catch {
         res.status(500).json({ message: 'Internal server error. Failed to send the Mail.' });
         return;
+    }
+
+    if (body.sendCopyToSender === true) {
+
+        const mailDataClone = cloneDeep(mailData);
+        mailDataClone.to = body.mailAddress;
+        mailDataClone.replyTo = '';
+        mailDataClone.text = `Folgende Nachricht wurde an ${process.env.MAIL_RECIPIENT} gesendet: ${mailDataClone.text}`;
+        mailDataClone.html = `<p>${mailDataClone.text.replace(/\r\n|\r|\n/g, '<br/>')}</p>`;
+
+        try {
+            await transporter.sendMail(mailDataClone);
+        } catch {
+            // In the unlikely case that only this mail fails, we won't show an error.
+        }
     }
 
     res.status(200).json({ message: 'Success' });

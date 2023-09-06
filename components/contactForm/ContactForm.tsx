@@ -9,6 +9,7 @@ export interface FormValues {
     fullName: string;
     mailAddress: string;
     message: string;
+    sendCopyToSender: boolean;
     cfTurnstileResponse: string;
 }
 
@@ -59,17 +60,18 @@ const ContactForm = (): ReactElement => {
                             </div>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit(handleFormSubmit)} noValidate={true}>
+                        <form onSubmit={handleSubmit(handleFormSubmit)} noValidate={true} className="flex flex-col gap-5">
                             <div className="font-serif text-white text-2xl text-center">
                                 Melde dich bei uns!
                             </div>
 
-                            <div className="pt-5">
-                                <label className="block font-serif text-white pb-1">
+                            <div>
+                                <label className="block font-serif text-white pb-1" htmlFor="fullName">
                                     Dein Name <span className="text-orange-500">*</span>
                                 </label>
                                 <input
                                     className="w-full p-1 disabled:bg-gray-200"
+                                    id="fullName"
                                     {...register(
                                         'fullName',
                                         {
@@ -90,12 +92,13 @@ const ContactForm = (): ReactElement => {
                                 )}
                             </div>
 
-                            <div className="pt-5">
-                                <label className="block font-serif text-white pb-1">
+                            <div>
+                                <label className="block font-serif text-white pb-1" htmlFor="mailAddress">
                                     Dein E-Mail-Adresse <span className="text-orange-500">*</span>
                                 </label>
                                 <input
                                     className="w-full p-1 disabled:bg-gray-200"
+                                    id="mailAddress"
                                     {...register(
                                         'mailAddress',
                                         {
@@ -120,8 +123,8 @@ const ContactForm = (): ReactElement => {
                                 )}
                             </div>
 
-                            <div className="pt-5">
-                                <label className="block font-serif text-white pb-1">
+                            <div>
+                                <label className="block font-serif text-white pb-1" htmlFor="message">
                                     Deine Nachricht an uns <span className="text-orange-500">*</span>
                                 </label>
                                 <textarea
@@ -129,6 +132,7 @@ const ContactForm = (): ReactElement => {
                                     required={true}
                                     disabled={isSubmitting}
                                     rows={5}
+                                    id="message"
                                     {...register(
                                         'message',
                                         {
@@ -146,7 +150,21 @@ const ContactForm = (): ReactElement => {
                                 )}
                             </div>
 
-                            <div className="flex pt-5 justify-between">
+                            <div className="flex gap-3">
+                                <div className="pt-1">
+                                    <input
+                                        type="checkbox"
+                                        id="sendCopyToSender"
+                                        className="block w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer"
+                                        {...register('sendCopyToSender')}
+                                    />
+                                </div>
+                                <label className="block font-serif text-white cursor-pointer" htmlFor="sendCopyToSender">
+                                    Ich möchte, dass eine Kopie der Nachricht an meine E-Mail-Adresse gesendet wird
+                                </label>
+                            </div>
+
+                            <div className="flex justify-between">
                                 <div
                                     className="cf-turnstile checkbox"
                                     data-language="de"
@@ -177,7 +195,7 @@ const ContactForm = (): ReactElement => {
                             </div>
 
                             {errors.root && (
-                                <div className="text-orange-400 font-bold text-right pt-3">
+                                <div className="text-orange-400 font-bold text-right">
                                     {errors.root.message}
                                 </div>
                             )}
