@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createTransport } from 'nodemailer';
+import type { FormValues } from '@/components/contactForm/ContactForm';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 
 export default async (
@@ -12,12 +13,7 @@ export default async (
         return;
     }
 
-    const body = req.body as {
-        fullName?: string;
-        mailAddress?: string;
-        message?: string;
-        cfTurnstileResponse?: string;
-    };
+    const body = req.body as Partial<FormValues>;
 
     if (isEmptyString(body.fullName) || isEmptyString(body.mailAddress) || isEmptyString(body.message) || isEmptyString(body.cfTurnstileResponse)) {
         res.status(400).json({ message: 'Bad request. Malformed body.' });
@@ -49,8 +45,8 @@ export default async (
     }
 
     const transporter = createTransport({
-        port: process.env.MAIL_PORT as unknown as number,
         host: process.env.MAIL_HOST,
+        port: Number(process.env.MAIL_PORT),
         auth: {
             user: process.env.MAIL_USER,
             pass: process.env.MAIL_PASS,

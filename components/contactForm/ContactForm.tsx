@@ -5,7 +5,7 @@ import type { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from '@/components/common/Spinner';
 
-interface FormValues {
+export interface FormValues {
     fullName: string;
     mailAddress: string;
     message: string;
@@ -14,14 +14,12 @@ interface FormValues {
 
 const ContactForm = (): ReactElement => {
 
-    const { register, handleSubmit, formState: { errors, isSubmitting, isSubmitSuccessful }, getValues } = useForm<FormValues>();
+    const { register, handleSubmit, formState: { errors, isSubmitting, isSubmitSuccessful }, setError } = useForm<FormValues>();
 
     const formContainerRef = useRef<HTMLDivElement>(null);
     const [formMinHeight, setFormMinHeight] = useState<number>(0);
 
-    const handleFormSubmit = useCallback(async (): Promise<void> => {
-
-        const data: FormValues = getValues();
+    const handleFormSubmit = useCallback(async (formValues: FormValues): Promise<void> => {
 
         const response = await fetch('/api/contact/submit', {
             method: 'POST',
@@ -29,14 +27,19 @@ const ContactForm = (): ReactElement => {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(formValues),
         });
 
         if (response.status === 200) {
             setFormMinHeight(formContainerRef.current?.getBoundingClientRect().height ?? 0);
+        } else {
+            setError(
+                'root',
+                { message: 'Bei der Übertragung deiner Nachricht ist leider ein Fehler aufgetreten. Bitte versuche es nochmal!' }
+            );
         }
 
-    }, [getValues]);
+    }, [setError]);
 
     useEffect(() => setFormMinHeight(0), [isSubmitSuccessful]);
 
@@ -152,24 +155,32 @@ const ContactForm = (): ReactElement => {
                                     {...register('cfTurnstileResponse')}
                                 />
 
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
-                                >
-                                    <span className="relative">
-                                        Senden
+                                <div className="flex flex-col justify-end">
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
+                                    >
+                                        <span className="relative">
+                                            Senden
 
-                                        {isSubmitting && (
-                                            <span
-                                                className="absolute top-1/2 right-[calc(100%+8px)] -translate-y-1/2 w-5"
-                                            >
-                                                <Spinner />
-                                            </span>
-                                        )}
-                                    </span>
-                                </button>
+                                            {isSubmitting && (
+                                                <span
+                                                    className="absolute top-1/2 right-[calc(100%+8px)] -translate-y-1/2 w-5"
+                                                >
+                                                    <Spinner />
+                                                </span>
+                                            )}
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
+
+                            {errors.root && (
+                                <div className="text-orange-400 font-bold text-right pt-3">
+                                    {errors.root.message}
+                                </div>
+                            )}
                         </form>
                     )}
                 </div>
