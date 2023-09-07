@@ -38,6 +38,10 @@ const nextConfig = {
         source: '/quartier/:slug',
         destination: '/kreise/:slug'
       },
+      {
+        source: '/kollektiv/:slug',
+        destination: '/kreise/:slug'
+      },
     ];
   },
 };
