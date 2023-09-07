@@ -4,6 +4,7 @@ import { createTransport } from 'nodemailer';
 import type { FormValues } from '@/components/contactForm/ContactForm';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 
+// eslint-disable-next-line complexity
 export default async (
     req: NextApiRequest,
     res: NextApiResponse
