@@ -8,7 +8,10 @@ const RichText: React.FC<{ className?: string, content: SlateChildren}> = ({ cla
     }
 
     return (
-        <div className={className}>
+        <div
+            key={content.length}
+            className={className}
+        >
             {serializeRichTextToHtml(content as SlateChildren)}
         </div>
     );

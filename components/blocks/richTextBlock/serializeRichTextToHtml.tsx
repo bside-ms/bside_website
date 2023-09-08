@@ -2,10 +2,10 @@
 import { Fragment } from 'react';
 import { Obfuscate } from '@south-paw/react-obfuscate-ts';
 import escapeHTML from 'escape-html';
+import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { Text } from 'slate';
-import EventImage from '@/components/events/detail/EventImage';
 import type { SlateChildren } from '@/types/payload/Blocks';
 import type { Media as MediaType } from '@/types/payload/payload-types';
 import InlineButton from '@blocks/buttonBlock/InlineButton';
@@ -71,15 +71,27 @@ const serializeText = (node: Record<string, unknown> & Text, index: number): Rea
     );
 };
 
-const serializeMedia = (node: Record<string, unknown>, index: number): ReactElement | null => {
+const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
+    // @ts-expect-error Find typesave method.
+    const justify = node.fields?.alignment ?? 'center';
+    const media = node.value as MediaType;
+
+    // ToDo: Add this to the CMS.
+    let width = media.sizes?.event?.width ?? media.width!;
+    width = width / 3.3;
+    let height = media.sizes?.event?.height ?? media.height!;
+    height = height / 3.3;
 
     return (
-        <EventImage
-            key={index}
-            eventImage={node.value as MediaType}
-            // @ts-expect-error Need to find more type safe solution in future
-            justify={node.fields?.alignment}
-            eventTitle={node.alt as string}
+        <Image
+            key={`rt-image-${media.id}`}
+            src={media.url!}
+            alt={media.alt === '-' ? '' : media.alt}
+            width={width}
+            height={height}
+            className="mx-auto"
+            style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
+                (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
         />
     );
 };
@@ -170,7 +182,7 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
                 );
 
             case 'upload':
-                return serializeMedia(node, index);
+                return serializeMedia(node);
 
             default:
                 return (
