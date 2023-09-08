@@ -1,4 +1,4 @@
-const validateRealUser = async (cfTurnstileResponse: string, forwardedForHeader: string) => {
+const validateRealUser = async (cfTurnstileResponse: string, forwardedForHeader: string): boolean => {
 
     const form = new URLSearchParams();
     form.append('secret', process.env.TURNSTILE_SECRET_KEY);
