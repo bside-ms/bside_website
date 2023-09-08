@@ -3,8 +3,15 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { createTransport } from 'nodemailer';
 import type { FormValues } from '@/components/contactForm/ContactForm';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import ContactReason from '@/lib/contact/ContactReason';
+import validateRealUser from '@/lib/contact/validateRealUser';
 
-// eslint-disable-next-line complexity
+const contactMailRecipients: Record<ContactReason, string> = {
+    [ContactReason.General]: 'info@b-side.ms',
+    [ContactReason.Kultur]: 'kultur@b-side.ms',
+    [ContactReason.Festival]: 'festival@b-side.ms',
+};
+
 export default async (
     req: NextApiRequest,
     res: NextApiResponse
@@ -22,29 +29,23 @@ export default async (
         return;
     }
 
-    const form = new URLSearchParams();
-    form.append('secret', process.env.TURNSTILE_SECRET_KEY);
-    form.append('response', body.cfTurnstileResponse);
-    form.append('remoteip', req.headers['x-forwarded-for'] as string);
-
-    const result = await fetch(
-        'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-        { method: 'POST', body: form }
+    const successfullyValidatedRealUser = await validateRealUser(
+        body.cfTurnstileResponse,
+        req.headers['x-forwarded-for'] as string
     );
 
-    const json = await result.json() as {
-        success?: boolean;
-    };
-    if (json.success !== undefined && !json.success) {
+    if (!successfullyValidatedRealUser) {
         res.status(401).json({ message: 'Unauthorized. Turnstile validation failed.' });
         return;
     }
 
-    if (isEmptyString(process.env.MAIL_USER) || isEmptyString(process.env.MAIL_PASS) || isEmptyString(process.env.MAIL_RECIPIENT)
+    if (isEmptyString(process.env.MAIL_USER) || isEmptyString(process.env.MAIL_PASS)
         || isEmptyString(process.env.MAIL_HOST) || isEmptyString(process.env.MAIL_PORT)) {
         res.status(503).json({ message: 'Service unavailable. Mail credentials not set.' });
         return;
     }
+
+    const recipient = isEmptyString(body.contactReason) ? contactMailRecipients.general : contactMailRecipients[body.contactReason];
 
     const transporter = createTransport({
         host: process.env.MAIL_HOST,
@@ -58,7 +59,7 @@ export default async (
 
     const mailData = {
         from: process.env.MAIL_USER,
-        to: process.env.MAIL_RECIPIENT,
+        to: recipient,
         replyTo: body.mailAddress,
         subject: `[b-side.ms - Kontaktformular] Neue Nachricht von ${body.fullName}`,
         text: `${body.message} | Sent from: ${body.mailAddress}`,
@@ -77,7 +78,7 @@ export default async (
         const mailDataClone = cloneDeep(mailData);
         mailDataClone.to = body.mailAddress;
         mailDataClone.replyTo = '';
-        mailDataClone.text = `Folgende Nachricht wurde an ${process.env.MAIL_RECIPIENT} gesendet: ${mailDataClone.text}`;
+        mailDataClone.text = `Folgende Nachricht wurde an ${recipient} gesendet: ${mailDataClone.text}`;
         mailDataClone.html = `<p>${mailDataClone.text.replace(/\r\n|\r|\n/g, '<br/>')}</p>`;
 
         try {

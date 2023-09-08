@@ -4,8 +4,16 @@ import Script from 'next/script';
 import type { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from '@/components/common/Spinner';
+import ContactReason from '@/lib/contact/ContactReason';
+
+const contactReasonLabels: Record<ContactReason, string> = {
+    [ContactReason.General]: 'Allgemeine Anfrage',
+    [ContactReason.Kultur]: 'Kulturverein',
+    [ContactReason.Festival]: 'Festival',
+};
 
 export interface FormValues {
+    contactReason: ContactReason;
     fullName: string;
     mailAddress: string;
     message: string;
@@ -66,6 +74,34 @@ const ContactForm = (): ReactElement => {
                             </div>
 
                             <div>
+                                <label className="block font-serif text-white pb-1" htmlFor="contactReason">
+                                    Grund deiner Anfrage <span className="text-orange-500">*</span>
+                                </label>
+                                <select
+                                    className="p-1 w-full max-w-lg pr-4 bg-white outline-0"
+                                    id="contactReason"
+                                    {...register(
+                                        'contactReason',
+                                        {
+                                            required: {
+                                                value: true,
+                                                message: 'Bitte gib einen Grund für deine Anfrage an',
+                                            },
+                                        }
+                                    )}
+                                >
+                                    {Object.values(ContactReason).map(reason => (
+                                        <option
+                                            key={reason}
+                                            value={reason}
+                                        >
+                                            {contactReasonLabels[reason]}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
                                 <label className="block font-serif text-white pb-1" htmlFor="fullName">
                                     Dein Name <span className="text-orange-500">*</span>
                                 </label>
@@ -94,7 +130,7 @@ const ContactForm = (): ReactElement => {
 
                             <div>
                                 <label className="block font-serif text-white pb-1" htmlFor="mailAddress">
-                                    Dein E-Mail-Adresse <span className="text-orange-500">*</span>
+                                    Deine E-Mail-Adresse <span className="text-orange-500">*</span>
                                 </label>
                                 <input
                                     className="w-full p-1 disabled:bg-gray-200"
@@ -177,10 +213,46 @@ const ContactForm = (): ReactElement => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
+                                        className="w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200 transition-colors duration-500"
                                     >
                                         <span className="relative">
-                                            Senden
+                                            Senden (500ms)
+
+                                            {isSubmitting && (
+                                                <span
+                                                    className="absolute top-1/2 right-[calc(100%+8px)] -translate-y-1/2 w-5"
+                                                >
+                                                    <Spinner />
+                                                </span>
+                                            )}
+                                        </span>
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-52 mt-1 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200 transition-colors duration-200"
+                                    >
+                                        <span className="relative">
+                                            Senden (200ms)
+
+                                            {isSubmitting && (
+                                                <span
+                                                    className="absolute top-1/2 right-[calc(100%+8px)] -translate-y-1/2 w-5"
+                                                >
+                                                    <Spinner />
+                                                </span>
+                                            )}
+                                        </span>
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-52 mt-1 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
+                                    >
+                                        <span className="relative">
+                                            Senden (ohne)
 
                                             {isSubmitting && (
                                                 <span
