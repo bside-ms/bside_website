@@ -213,46 +213,10 @@ const ContactForm = (): ReactElement => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200 transition-colors duration-500"
+                                        className="w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
                                     >
                                         <span className="relative">
-                                            Senden (500ms)
-
-                                            {isSubmitting && (
-                                                <span
-                                                    className="absolute top-1/2 right-[calc(100%+8px)] -translate-y-1/2 w-5"
-                                                >
-                                                    <Spinner />
-                                                </span>
-                                            )}
-                                        </span>
-                                    </button>
-
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className="w-52 mt-1 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200 transition-colors duration-200"
-                                    >
-                                        <span className="relative">
-                                            Senden (200ms)
-
-                                            {isSubmitting && (
-                                                <span
-                                                    className="absolute top-1/2 right-[calc(100%+8px)] -translate-y-1/2 w-5"
-                                                >
-                                                    <Spinner />
-                                                </span>
-                                            )}
-                                        </span>
-                                    </button>
-
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className="w-52 mt-1 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
-                                    >
-                                        <span className="relative">
-                                            Senden (ohne)
+                                            Senden
 
                                             {isSubmitting && (
                                                 <span
