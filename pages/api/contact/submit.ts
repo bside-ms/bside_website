@@ -6,12 +6,6 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import ContactReason from '@/lib/contact/ContactReason';
 import validateRealUser from '@/lib/contact/validateRealUser';
 
-const contactMailRecipients: Record<ContactReason, string> = {
-    [ContactReason.General]: 'info@b-side.ms',
-    [ContactReason.Kultur]: 'kultur@b-side.ms',
-    [ContactReason.Festival]: 'festival@b-side.ms',
-};
-
 export default async (
     req: NextApiRequest,
     res: NextApiResponse
@@ -45,7 +39,7 @@ export default async (
         return;
     }
 
-    const recipient = isEmptyString(body.contactReason) ? contactMailRecipients.general : contactMailRecipients[body.contactReason];
+    const recipient = isEmptyString(body.contactReason) ? ContactReason.General : body.contactReason;
 
     const transporter = createTransport({
         host: process.env.MAIL_HOST,
@@ -59,7 +53,7 @@ export default async (
 
     const mailData = {
         from: process.env.MAIL_USER,
-        to: recipient,
+        to: `${recipient}@b-side.ms`,
         replyTo: body.mailAddress,
         subject: `[b-side.ms - Kontaktformular] Neue Nachricht von ${body.fullName}`,
         text: `${body.message} | Sent from: ${body.mailAddress}`,

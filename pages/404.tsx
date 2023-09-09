@@ -1,3 +1,5 @@
+import type { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import BsideElements from '@/components/bside/BsideElements';
 import Footer from '@/components/common/Footer';
@@ -8,58 +10,82 @@ import NextHead from '@/components/layout/next/NextHead';
 import Headline from '@blocks/headlineBlock/Headline';
 import RichText from '@blocks/richTextBlock/RichText';
 
-export default (): ReactElement => (
-    <div className="min-h-screen flex flex-col justify-between">
-        <NextHead />
-        <HeaderBar />
+export const getStaticProps: GetStaticProps = () => {
+    return { props: {} };
+};
 
-        <ContentDivider />
+export default (): ReactElement => {
 
-        <main id="content">
-            <div className="py-1" />
+    try {
+        const router = useRouter();
+        if (!router.asPath.startsWith('/_next') && !process.env.NEXT_PUBLIC_FRONTEND_URL.startsWith('http://localhost')) {
+            fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/contact/notify`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: JSON.stringify(router.route),
+                }),
+            });
+        }
 
-            <ContentWrapper>
-                <Headline
-                    title="Diese Seite wurde nicht gefeunden nicht gefunden."
-                    teaser="404"
-                    level="h1"
-                    as="h2"
-                />
+    } catch { /* empty */ }
 
-                <div className="py-4" />
+    return (
+        <div className="min-h-screen flex flex-col justify-between">
+            <NextHead />
+            <HeaderBar />
 
-                <RichText
-                    content={[{
-                        type: 'paragraph',
-                        children: [
-                            { text: 'Falls du der Meinung bist, dass dies ein Fehler ist, dann ' },
-                            {
-                                type: 'link',
-                                linkType: 'custom',
-                                url: '/kontakt',
-                                children: [{ text: 'schreibe uns eine Nachricht' }],
-                            },
-                            { text: '.' },
-                        ],
-                    }]}
-                />
+            <ContentDivider />
 
-                <div className="py-4" />
+            <main id="content">
+                <div className="py-1" />
 
-                <Headline
-                    title="Bist du vielleicht an einer dieser Informationen interessiert?"
-                    teaser=""
-                    level="h2"
-                    as="h3"
-                />
+                <ContentWrapper>
+                    <Headline
+                        title="Diese Seite wurde nicht gefeunden nicht gefunden."
+                        teaser="404"
+                        level="h1"
+                        as="h2"
+                    />
 
-                <div className="py-4" />
+                    <div className="py-4" />
 
-                <BsideElements />
+                    <RichText
+                        content={[{
+                            type: 'paragraph',
+                            children: [
+                                { text: 'Falls du der Meinung bist, dass dies ein Fehler ist, dann ' },
+                                {
+                                    type: 'link',
+                                    linkType: 'custom',
+                                    url: '/kontakt',
+                                    children: [{ text: 'schreibe uns eine Nachricht' }],
+                                },
+                                { text: '.' },
+                            ],
+                        }]}
+                    />
 
-            </ContentWrapper>
-        </main>
+                    <div className="py-4" />
 
-        <Footer />
-    </div>
-);
+                    <Headline
+                        title="Bist du vielleicht an einer dieser Informationen interessiert?"
+                        teaser=""
+                        level="h2"
+                        as="h3"
+                    />
+
+                    <div className="py-4" />
+
+                    <BsideElements />
+
+                </ContentWrapper>
+            </main>
+
+            <Footer />
+        </div>
+    );
+};

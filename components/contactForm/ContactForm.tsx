@@ -10,6 +10,7 @@ const contactReasonLabels: Record<ContactReason, string> = {
     [ContactReason.General]: 'Allgemeine Anfrage',
     [ContactReason.Kultur]: 'Kulturverein',
     [ContactReason.Festival]: 'Festival',
+    [ContactReason.IT]: 'IT',
 };
 
 export interface FormValues {
