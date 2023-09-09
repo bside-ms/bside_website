@@ -26,6 +26,10 @@ const nextConfig = {
   // Needed to build the project as a standalone app inside the Docker image.
   output: 'standalone',
 
+  experimental: {
+    scrollRestoration: true,
+  },
+
   redirects,
 
   async rewrites() {
