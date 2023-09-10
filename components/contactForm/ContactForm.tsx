@@ -5,12 +5,13 @@ import type { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import Spinner from '@/components/common/Spinner';
 import ContactReason from '@/lib/contact/ContactReason';
+import createPayloadEntry from '@/lib/payload/createPayloadEntry';
 
 const contactReasonLabels: Record<ContactReason, string> = {
     [ContactReason.General]: 'Allgemeine Anfrage',
     [ContactReason.Kultur]: 'Kulturverein',
     [ContactReason.Festival]: 'Festival',
-    [ContactReason.IT]: 'IT',
+    [ContactReason.IT]: 'Webseite-Feedback',
 };
 
 export interface FormValues {
@@ -31,7 +32,7 @@ const ContactForm = (): ReactElement => {
 
     const handleFormSubmit = useCallback(async (formValues: FormValues): Promise<void> => {
 
-        const response = await fetch('/api/contact/submit', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/contact/submit`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -39,6 +40,14 @@ const ContactForm = (): ReactElement => {
             },
             body: JSON.stringify(formValues),
         });
+
+        createPayloadEntry('/api/contact-forms', {
+            fullName: formValues.fullName,
+            mailAddress: formValues.mailAddress,
+            message: formValues.message,
+            sendCopyToSender: formValues.sendCopyToSender ? 'ja' : 'nein',
+            recipient: formValues.contactReason,
+        }).then();
 
         if (response.status === 200) {
             setFormMinHeight(formContainerRef.current?.getBoundingClientRect().height ?? 0);

@@ -7,7 +7,7 @@ const createPayloadEntry = async (path: string, body: unknown): Promise<void> =>
     });
 
     await fetch(
-        `${process.env.PAYLOAD_URL}${path}`,
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}${path}`,
         {
             method: 'POST',
             headers,

@@ -14,6 +14,8 @@ export interface Config {
     media: Media;
     users: User;
     pages: Page;
+    'contact-forms': ContactForm;
+    'not-found-pages': NotFoundPage;
     'api-users': ApiUser;
     redirects: Redirect;
   };
@@ -415,6 +417,24 @@ export interface Page {
   createdAt: string;
   _status?: 'draft' | 'published';
 }
+export interface ContactForm {
+  id: string;
+  fullName: string;
+  mailAddress: string;
+  message: string;
+  sendCopyToSender?: string;
+  recipient: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface NotFoundPage {
+  id: string;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
 export interface ApiUser {
   id: string;
   updatedAt: string;
@@ -422,14 +442,6 @@ export interface ApiUser {
   enableAPIKey?: boolean;
   apiKey?: string;
   apiKeyIndex?: string;
-  email: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  salt?: string;
-  hash?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
 }
 export interface Redirect {
   id: string;
