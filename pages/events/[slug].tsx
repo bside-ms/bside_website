@@ -28,7 +28,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const paths = pages.docs.map(event => ({
         params: {
-            slug: [createEventSlug(event)],
+            slug: createEventSlug(event),
         },
     }));
 

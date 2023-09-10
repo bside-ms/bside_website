@@ -30,9 +30,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
         return slug !== undefined && !reservedSlugs.includes(slug);
     });
 
-    const paths = filtered.map(({ breadcrumbs, id }) => ({
+    const paths = filtered.map(({ breadcrumbs }) => ({
         params: {
-            slug: [breadcrumbs ? (breadcrumbs[breadcrumbs.length - 1]?.url?.substring(1) ?? id) : id],
+            slug: breadcrumbs![breadcrumbs!.length - 1]?.url?.substring(1).split('/'),
         },
     }));
 

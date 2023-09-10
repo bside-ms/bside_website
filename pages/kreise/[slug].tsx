@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const paths = pages.docs.map(({ name }) => ({
         params: {
-            slug: [kebabCase(name)],
+            slug: kebabCase(name),
         },
     }));
 

@@ -1,3 +1,4 @@
+import { kebabCase } from 'lodash';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import type { Event } from '@/types/payload/payload-types';
 
@@ -7,11 +8,7 @@ const createEventSlug = (event: Event): string => {
         return event.slug;
     }
 
-    const titleForSlug = encodeURIComponent(
-        event.title.toLocaleLowerCase().replaceAll(/\s/g, '-')
-    );
-
-    return `${titleForSlug}-${event.id}`;
+    return `${kebabCase(event.title)}-${event.id.slice(-4)}`;
 };
 
 export default createEventSlug;
