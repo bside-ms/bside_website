@@ -12,7 +12,10 @@ import Headline from '@blocks/headlineBlock/Headline';
 import RichText from '@blocks/richTextBlock/RichText';
 
 export const getStaticProps: GetStaticProps = () => {
-    return { props: {} };
+    return {
+        revalidate: 300,
+        props: {},
+    };
 };
 
 export default (): ReactElement => {
