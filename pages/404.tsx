@@ -7,6 +7,7 @@ import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
+import createPayloadEntry from '@/lib/payload/createPayloadEntry';
 import Headline from '@blocks/headlineBlock/Headline';
 import RichText from '@blocks/richTextBlock/RichText';
 
@@ -19,16 +20,9 @@ export default (): ReactElement => {
     try {
         const router = useRouter();
         if (!router.asPath.startsWith('/_next') && !process.env.NEXT_PUBLIC_FRONTEND_URL.startsWith('http://localhost')) {
-            fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/contact/notify`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: JSON.stringify(router.route),
-                }),
-            });
+            createPayloadEntry('/api/not-found-pages', {
+                slug: router.asPath,
+            }).then();
         }
 
     } catch { /* empty */ }
