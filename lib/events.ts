@@ -22,6 +22,14 @@ const executeEvents = async (event: EventProps): Promise<Array<Event>> => {
     )).docs;
 };
 
+export const getEventIndex = async (): Promise<Array<Event>> => {
+    return executeEvents({
+        where: 'depth=0',
+        sort: '+id',
+        limit: 9999,
+    });
+};
+
 const executeUpcomingEvents = async (event: EventProps): Promise<Array<Event>> => {
     const today = new Date();
     const yesterday = new Date(today);

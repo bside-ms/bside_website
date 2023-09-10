@@ -47,3 +47,6 @@ yarn-error.log*
 **/public/precache.*.js
 **/public/sw.js
 **/public/workbox-*.js
+
+# sitemap
+**/public/*sitemap*.xml
