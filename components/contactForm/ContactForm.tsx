@@ -10,6 +10,7 @@ import createPayloadEntry from '@/lib/payload/createPayloadEntry';
 const contactReasonLabels: Record<ContactReason, string> = {
     [ContactReason.General]: 'Allgemeine Anfrage',
     [ContactReason.Kultur]: 'Kulturverein',
+    [ContactReason.GmbH]: 'GmbH',
     [ContactReason.Festival]: 'Festival',
     [ContactReason.IT]: 'Webseite-Feedback',
 };
