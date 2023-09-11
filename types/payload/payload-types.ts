@@ -138,6 +138,7 @@ export interface Organisation {
       | {
     media: string | Media;
     size?: 'normal' | 'wide' | 'event';
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
     caption?: string;
     id?: string;
     blockName?: string;
@@ -148,6 +149,7 @@ export interface Organisation {
     backgroundColor: 'white' | 'black';
     headline?: string;
     media: string | Media;
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
     richText: {
       [k: string]: unknown;
     }[];
@@ -245,6 +247,7 @@ export interface Circle {
       | {
     media: string | Media;
     size?: 'normal' | 'wide' | 'event';
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
     caption?: string;
     id?: string;
     blockName?: string;
@@ -255,6 +258,7 @@ export interface Circle {
     backgroundColor: 'white' | 'black';
     headline?: string;
     media: string | Media;
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
     richText: {
       [k: string]: unknown;
     }[];
@@ -352,6 +356,7 @@ export interface Page {
       | {
     media: string | Media;
     size?: 'normal' | 'wide' | 'event';
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
     caption?: string;
     id?: string;
     blockName?: string;
@@ -362,6 +367,7 @@ export interface Page {
     backgroundColor: 'white' | 'black';
     headline?: string;
     media: string | Media;
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
     richText: {
       [k: string]: unknown;
     }[];

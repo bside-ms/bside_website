@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import type { StaticImageData } from 'next/image';
 import NextImage from 'next/image';
 import type { ReactElement } from 'react';
@@ -19,6 +20,7 @@ export interface Props {
     onLoad?: () => void;
     width?: number;
     height?: number;
+    effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
 export const PayloadImage = (props: Props): ReactElement => {
@@ -34,6 +36,7 @@ export const PayloadImage = (props: Props): ReactElement => {
         alt: altFromProps,
         width: widthFromProps,
         height: heightFromProps,
+        effects: effects,
     } = props;
 
     const [isLoading, setIsLoading] = React.useState(true);
@@ -66,7 +69,13 @@ export const PayloadImage = (props: Props): ReactElement => {
 
     return (
         <NextImage
-            className={baseClasses}
+            className={clsx(
+                baseClasses,
+                effects.includes('blur') && 'blur-[1.5px]',
+                effects.includes('grayscale') && 'grayscale',
+                effects.includes('desaturated') && 'saturate-50',
+                effects.includes('darker') && 'brightness-50',
+            )}
             src={src ?? ''}
             alt={alt ?? ''}
             onClick={onClick}

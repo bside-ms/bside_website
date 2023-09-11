@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import type { ReactElement } from 'react';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
@@ -15,9 +16,10 @@ interface Props {
     buttonText?: string;
     buttonHref?: string;
     previousBlock?: string;
+    effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
-const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref, previousBlock }: Props): ReactElement => {
+const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref, previousBlock, effects }: Props): ReactElement => {
 
     const bottomMargin = previousBlock === 'mediaContent' ? '-mb-24' : '-mb-10';
 
@@ -25,7 +27,13 @@ const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, bu
         <>
             <div className="w-full p-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
                 <div
-                    className="bg-cover bg-center w-full h-52 md:h-72"
+                    className={clsx(
+                        'bg-cover bg-center w-full h-52 md:h-72',
+                        effects.includes('blur') && 'blur-[2px]',
+                        effects.includes('grayscale') && 'grayscale',
+                        effects.includes('desaturated') && 'saturate-50',
+                        effects.includes('darker') && 'brightness-50',
+                    )}
                     style={{ backgroundImage: `url(${media.url})` }}
                 />
             </div>

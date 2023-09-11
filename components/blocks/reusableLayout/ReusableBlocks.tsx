@@ -45,6 +45,7 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
                     media={layoutElement.media}
                     size={layoutElement.size}
                     caption={layoutElement.caption}
+                    effects={layoutElement.effects}
                 />
             );
 
@@ -57,6 +58,7 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
                     headline={layoutElement.headline}
                     backgroundColor={layoutElement.backgroundColor}
                     previousBlock={previousBlock}
+                    effects={layoutElement.effects}
                 />
             );
 

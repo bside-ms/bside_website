@@ -6,7 +6,7 @@ import MediaContentOverlay from '@blocks/mediaContent/MediaContentOverlay';
 export type MediaContentAlignment = 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
 export type MediaContentBackgroundColor = 'black' | 'white';
 
-const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richText, previousBlock }: MediaContentBlockProps): ReactElement | null => {
+const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richText, previousBlock, effects }: MediaContentBlockProps): ReactElement | null => {
 
     if (typeof media === 'string') {
         // eslint-disable-next-line no-console
@@ -22,6 +22,7 @@ const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richTe
                 richText={richText}
                 headlineText={headline}
                 previousBlock={previousBlock}
+                effects={effects ?? []}
             />
         );
     }
@@ -34,13 +35,21 @@ const MediaContentBlock = ({ alignment, backgroundColor, headline, media, richTe
                         media={media}
                         richText={richText}
                         alignment={alignment}
+                        effects={effects ?? []}
                     />
                 </div>
             </div>
         );
     }
 
-    return <MediaContent media={media} richText={richText} alignment={alignment} />;
+    return (
+        <MediaContent
+            media={media}
+            richText={richText}
+            alignment={alignment}
+            effects={effects ?? []}
+        />
+    );
 };
 
 export default MediaContentBlock;

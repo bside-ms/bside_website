@@ -10,11 +10,12 @@ interface Props {
     media: Media;
     richText: SlateChildren;
     alignment: MediaContentAlignment;
+    effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
-const MediaContent = ({ media, richText, alignment }: Props): ReactElement => {
+const MediaContent = ({ media, richText, alignment, effects }: Props): ReactElement => {
 
-    const payloadImageElement = <PayloadImage resource={media} />;
+    const payloadImageElement = <PayloadImage resource={media} effects={effects} />;
     const richTextElement = <RichText content={richText} />;
 
     const elements = alignment === 'contentOnRight'

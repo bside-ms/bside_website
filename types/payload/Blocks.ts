@@ -27,12 +27,14 @@ export interface MediaContentBlockProps {
     backgroundColor?: MediaContentBackgroundColor;
     headline?: string;
     previousBlock?: string;
+    effects?: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
 export interface MediaBlockProps {
     media: Media | string;
     size?: 'normal' | 'wide' | 'event';
     caption?: string;
+    effects?: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
 export interface CallToActionBlockProps {

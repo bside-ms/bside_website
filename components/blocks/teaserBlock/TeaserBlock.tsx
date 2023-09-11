@@ -54,6 +54,7 @@ const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, 
             headlineTeaser={headlineTeaser}
             buttonText={linkText}
             buttonHref={linkHref}
+            effects={[]}
         />
     );
 };
