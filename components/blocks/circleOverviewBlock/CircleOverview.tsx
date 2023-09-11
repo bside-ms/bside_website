@@ -15,11 +15,16 @@ interface Props {
 }
 
 const colors = [
-    '#ccffcc',
-    '#ccffff',
-    '#ccccff',
-    '#ffcccc',
-    '#ffffcc',
+    '#f70012',
+    '#f87915',
+    '#ee0094',
+    '#7d0080',
+    '#255ec5',
+    '#36b2d3',
+    '#27af0a',
+    '#94e614',
+    '#fad11a',
+    '#573012',
 ];
 
 const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElement => {
