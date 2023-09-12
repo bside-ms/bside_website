@@ -1,11 +1,59 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import type { ReactElement, ReactNode } from 'react';
+import { SiGithub, SiInstagram } from 'react-icons/si';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 
 interface FooterProps {
     children?: ReactNode;
 }
+
+const FooterLink = ({ linkUrl, linkText }: {linkUrl: string, linkText: string}): ReactElement => (
+    <div className="my-2">
+        <Link
+            href={linkUrl}
+            aria-label="Die B-Side auf GitHub"
+            target="_blank"
+            className="italic hover:text-orange-500"
+        >
+            <span className="underline underline-offset-4">
+                {linkText}
+            </span>
+        </Link>
+    </div>
+);
+
+const GithubLink = (): ReactElement => (
+    <div className="my-2">
+        <Link
+            href="https://github.com/bside-ms/"
+            aria-label="Die B-Side auf GitHub"
+            target="_blank"
+            className="italic hover:text-orange-500"
+        >
+            <SiGithub className="inline" />
+            <span className="underline underline-offset-4 ml-1">
+                Github
+            </span>
+        </Link>
+    </div>
+);
+
+const Instagram = (): ReactElement => (
+    <div className="my-2">
+        <Link
+            href="https://instagram.com/bsidemuenster/"
+            aria-label="Die B-Side bei Instagram"
+            target="_blank"
+            className="italic hover:text-orange-500"
+        >
+            <SiInstagram className="inline" />
+            <span className="underline underline-offset-4 ml-1">
+                Instagram
+            </span>
+        </Link>
+    </div>
+);
 
 const Footer = ({ children }: FooterProps): ReactElement => {
     return (
@@ -40,11 +88,29 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                     </div>
                 </div>
 
+                {/* Only used for inViewRefs. */}
                 {children}
 
-                <div className="px-2 my-4 flex justify-center text-center font-serif text-sm">
-                    Platzhalter für Footer-Text
-                </div>
+                <ContentWrapper className="!pb-2">
+                    <div className="grid grid-cols-3 text-center text-sm">
+                        <div className="">
+                            <p className="font-serif font-bold mb-2">B-Side GmbH</p>
+                            <FooterLink linkUrl="/quarier" linkText="Über uns" />
+                            <FooterLink linkUrl="/impressum" linkText="Impressum" />
+                        </div>
+                        <div>
+                            <p className="font-serif font-bold mb-2">Zentrale Teile des Zentrums</p>
+                            <FooterLink linkUrl="/kultur" linkText="B-Side Kultur e.V." />
+                            <FooterLink linkUrl="/bside/kollektiv" linkText="B-Side Kollektiv" />
+                        </div>
+                        <div>
+                            <p className="font-serif font-bold mb-2">Andere Platformen</p>
+                            <Instagram />
+                            <GithubLink />
+                        </div>
+                    </div>
+                </ContentWrapper>
+
             </footer>
         </Fragment>
     );
