@@ -20,9 +20,9 @@ export interface TeaserBlockProps {
 
 const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, reversed, image, previousBlock, nextBlock }: TeaserBlockProps): ReactElement => {
 
-    const { isMd } = useBreakpointContext();
+    const { isLg } = useBreakpointContext();
 
-    if (isMd) {
+    if (isLg) {
         return (
             <div className="flex-grow">
                 <div

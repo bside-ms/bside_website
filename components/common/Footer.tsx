@@ -92,18 +92,18 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                 {children}
 
                 <ContentWrapper className="!pb-2">
-                    <div className="grid grid-cols-3 text-center text-sm">
-                        <div className="">
+                    <div className="grid md:grid-cols-3 text-center text-sm">
+                        <div className="mb-2 md:my-0">
                             <p className="font-serif font-bold mb-2">B-Side GmbH</p>
                             <FooterLink linkUrl="/quarier" linkText="Über uns" />
                             <FooterLink linkUrl="/impressum" linkText="Impressum" />
                         </div>
-                        <div>
+                        <div className="mb-2 md:my-0">
                             <p className="font-serif font-bold mb-2">Zentrale Teile des Zentrums</p>
                             <FooterLink linkUrl="/kultur" linkText="B-Side Kultur e.V." />
                             <FooterLink linkUrl="/bside/kollektiv" linkText="B-Side Kollektiv" />
                         </div>
-                        <div>
+                        <div className="">
                             <p className="font-serif font-bold mb-2">Andere Platformen</p>
                             <Instagram />
                             <GithubLink />
