@@ -27,20 +27,20 @@ const Banner = ({ bannerId, bannerText, bannerLink, footerInView, isPreview = fa
             )}
             <div
                 id={`banner__${bannerId}`}
-                className={`fixed bottom-0 left-0 right-0 ${isPreviewBanner ? 'z-30' : 'z-20'} lg:h-[44px] ${isPreviewBanner ? 'bg-blue-900' : 'bg-black'} py-2 text-center transition-opacity duration-100`}
+                className={`fixed bottom-0 left-0 right-0 ${isPreviewBanner ? 'z-30' : 'z-20'}  ${isPreviewBanner ? 'bg-blue-900' : 'bg-black'} py-2 text-center transition-opacity duration-100`}
                 style={(footerInView) ? { display: 'none' } : { display: 'block' }}
             >
                 {!isEmptyString(bannerLink) ? (
                     <Link
                         href={bannerLink}
-                        className="text-white font-serif text-sm lg:text-lg hover:bg-orange-600"
+                        className="text-white font-serif text-lg md:text-xl lg:text-2xl hover:bg-orange-600 my-2"
                         target={isPreviewBanner ? '_blank' : '_self'}
                     >
                         {bannerText}
                     </Link>
                 ) : (
                     <div
-                        className="text-white font-serif text-sm lg:text-lg"
+                        className="text-white font-serif text-lg md:text-xl py-2"
                     >
                         {bannerText}
                     </div>
