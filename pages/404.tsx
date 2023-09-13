@@ -42,7 +42,7 @@ export default (): ReactElement => {
 
                 <ContentWrapper>
                     <Headline
-                        title="Diese Seite wurde nicht gefeunden nicht gefunden."
+                        title="Diese Seite wurde nicht gefunden nicht gefunden."
                         teaser="404"
                         level="h1"
                         as="h2"

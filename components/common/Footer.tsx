@@ -95,7 +95,7 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                     <div className="grid md:grid-cols-3 text-center text-sm">
                         <div className="mb-2 md:my-0">
                             <p className="font-serif font-bold mb-2">B-Side GmbH</p>
-                            <FooterLink linkUrl="/quarier" linkText="Über uns" />
+                            <FooterLink linkUrl="/quartier" linkText="Über uns" />
                             <FooterLink linkUrl="/impressum" linkText="Impressum" />
                         </div>
                         <div className="mb-2 md:my-0">
