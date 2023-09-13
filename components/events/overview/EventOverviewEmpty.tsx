@@ -21,7 +21,7 @@ const EventOverviewEmpty = ({ title = 'Nächste Veranstaltungen' }: NoEventProps
                             Nichts gefunden!
                         </div>
 
-                        <div className="px-3 md:px-4 py-1 md:py-2 flex gap-3">
+                        <div className="py-1 md:py-2 flex gap-3">
                             <div className="w-full">Hier gibt es aktuell keine Termine.</div>
                         </div>
                     </div>

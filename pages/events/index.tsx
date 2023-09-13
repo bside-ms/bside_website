@@ -71,7 +71,7 @@ export default ({ events, meetings, preview }: Props): ReactElement => {
                                 level="h3"
                             />
 
-                            <p className="my-4 text-lg">
+                            <p className="my-4 md:text-lg">
                                 Egal ob Konzert, Ausstellung, Workshop, Flohmarkt, Lesung, Theater oder andere verrückte,
                                 nicht-kommerzielle Dinge: melde dich per E-Mail an den Kulturverein oder komm zum nächsten
                                 Kulturplenum. Wir versuchen, die Veranstaltung mit dir möglich zu machen!
@@ -84,7 +84,7 @@ export default ({ events, meetings, preview }: Props): ReactElement => {
                                 level="h3"
                             />
 
-                            <p className="my-4 text-lg">
+                            <p className="my-4 md:text-lg">
                                 Du weißt nicht mehr, welche Veranstaltung du vor letzten Monat besucht hast?
                                 Du brauchst aber ganz dringend den Namen der Band?
                             </p>

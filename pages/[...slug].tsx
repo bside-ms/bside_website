@@ -111,7 +111,7 @@ export default ({ page, preview }: Props): ReactElement => {
                 />
             )}
 
-            <ContentDivider />
+            <ContentDivider mt={true} />
 
             <main id="content">
                 <ReusableBlockLayout

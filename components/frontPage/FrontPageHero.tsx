@@ -9,7 +9,7 @@ const FrontPageHero = (): ReactElement => (
             <FrontPageImage />
         </ContentWrapper>
 
-        <div className="lg:hidden px-0 mb-2">
+        <div className="lg:hidden px-0 lg:mb-2">
             <ContentWrapper>
                 <FrontPageText />
             </ContentWrapper>

@@ -117,7 +117,7 @@ const serializeLink = (nodeChildren: SlateChildren, node: Record<string, unknown
         mail = mail.replace('.spam', '.ms');
 
         return (
-            <Obfuscate email={mail} className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg" />
+            <Obfuscate email={mail} key={`mail-${mail}`} className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg" />
         );
     }
     return (

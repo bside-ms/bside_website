@@ -9,7 +9,7 @@ const HeadlineBlock = (props: HeadlineBlockProps): ReactElement => {
         return (
             <div className="flex-grow">
                 <div className="bg-black text-white">
-                    <ContentWrapper>
+                    <ContentWrapper className="pt-4 !pb-0 !-mb-2">
                         <Headline
                             title={props.title}
                             anchor={props.anchor}

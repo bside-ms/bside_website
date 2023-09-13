@@ -52,4 +52,6 @@ export interface HeadlineBlockProps {
     teaserLink?: string | null;
     textClass?: string | null;
     backgroundColor?: MediaContentBackgroundColor;
+    previousBlock?: string;
+    nextBlock?: string;
 }

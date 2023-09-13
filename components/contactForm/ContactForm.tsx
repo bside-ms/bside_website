@@ -211,7 +211,7 @@ const ContactForm = (): ReactElement => {
                                 </label>
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="md:flex md:justify-between">
                                 <div
                                     className="cf-turnstile checkbox"
                                     data-language="de"
@@ -224,7 +224,7 @@ const ContactForm = (): ReactElement => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
+                                        className="mt-4 md:mt:0 w-full md:w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
                                     >
                                         <span className="relative">
                                             Senden

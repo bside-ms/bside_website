@@ -1,9 +1,11 @@
 import type { ReactElement } from 'react';
 
-const ContentDivider = (): ReactElement => {
+const ContentDivider = ({ mt = false }: {mt?: boolean}): ReactElement => {
+
+    const margin = mt ? 'mt-[60px]' : 'mt-2';
 
     return (
-        <div className="mt-2 md:mt-[60px]" />
+        <div className={`${margin} md:mt-[60px]`} />
     );
 };
 

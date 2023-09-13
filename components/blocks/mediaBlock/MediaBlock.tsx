@@ -10,7 +10,7 @@ const WideMediaBlock = (url: string, effects: Array<'blur' | 'grayscale' | 'desa
         <div className="w-full px-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
             <div
                 className={clsx(
-                    'bg-fill bg-center w-full h-52 md:h-72 my-8',
+                    'bg-fill bg-center w-full h-52 md:h-72 my-4',
                     effects.includes('blur') && 'blur-[2px]',
                     effects.includes('grayscale') && 'grayscale',
                     effects.includes('desaturated') && 'saturate-50',

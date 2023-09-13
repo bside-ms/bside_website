@@ -16,8 +16,8 @@ const EventOverviewBlock = ({ events, headlineText, richText }: Props): ReactEle
 
     return (
         <>
-            <ContentWrapper>
-                <div className="my-4" id="veranstaltungen">
+            <ContentWrapper className="!py-0 !pb-0 !-mb-2">
+                <div className="mt-4" id="veranstaltungen">
                     <Headline
                         title={headlineText}
                         level="h2"
@@ -28,7 +28,7 @@ const EventOverviewBlock = ({ events, headlineText, richText }: Props): ReactEle
             <ContentWrapper>
                 <div className="lg:flex lg:gap-4 lg:flex-row-reverse">
 
-                    <div className="lg:basis-1/3 lg:align-text-top lg:px-4 overflow-y-auto">
+                    <div className="lg:basis-1/3 lg:align-text-top lg:px-4 overflow-y-auto pb-8 lg:pb-0">
                         <RichText content={richText} />
                     </div>
 
