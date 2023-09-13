@@ -15,11 +15,10 @@ interface Props {
     headlineText?: string;
     buttonText?: string;
     buttonHref?: string;
-    previousBlock?: string;
     effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
-const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref, previousBlock, effects }: Props): ReactElement => {
+const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref, effects }: Props): ReactElement => {
 
     return (
         <>
