@@ -3,7 +3,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
     siteUrl: process.env.NEXT_PUBLIC_FRONTEND_URL,
-    generateRobotsTxt: false,
+    generateRobotsTxt: process.env.NEXT_PUBLIC_FRONTEND_URL === 'https://b-side.ms',
     generateIndexSitemap: false,
     exclude: [
         '*',

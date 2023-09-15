@@ -24,7 +24,7 @@ interface Props {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
+    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=0');
 
     const paths = pages.docs.map(event => ({
         params: {
@@ -52,14 +52,10 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         return { notFound: true };
     }
 
-    const idInSlugMatch = /-([a-z0-9]+)$/.exec(slug);
-
-    const idInSlug = idInSlugMatch === null ? null : idInSlugMatch[1] ?? null;
-
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=100');
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=0');
 
     const event = pagesResponse.docs.find(eventItem => (
-        eventItem.slug === slug || eventItem.id === idInSlug
+        createEventSlug(eventItem as Event) === slug
     ));
 
     if (event === undefined) {
