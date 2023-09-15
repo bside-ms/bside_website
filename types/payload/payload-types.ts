@@ -311,6 +311,7 @@ export interface User {
   firstName: string;
   lastName: string;
   roles: ('public' | 'editor' | 'admin')[];
+  circles?: string[] | Circle[];
   updatedAt: string;
   createdAt: string;
   email: string;
