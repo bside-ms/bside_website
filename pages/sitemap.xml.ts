@@ -1,4 +1,3 @@
-// eslint-disable-next-line simple-import-sort/imports
 import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getServerSideSitemapLegacy } from 'next-sitemap';
 import { getEventIndex } from '@/lib/events';
