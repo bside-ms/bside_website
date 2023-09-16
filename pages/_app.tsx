@@ -22,7 +22,7 @@ const App = ({ Component, pageProps }: AppProps): ReactElement => {
         return () => {
             router.events.off('routeChangeComplete', trackRouteChange);
         };
-    }, []);
+    }, [router.events]);
 
     return (
         <AppContextProvider>
