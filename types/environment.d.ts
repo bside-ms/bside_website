@@ -17,5 +17,8 @@ declare namespace NodeJS {
         MAIL_PORT: string;
         MAIL_USER: string;
         MAIL_PASS: string;
+
+        MATOMO_SITE_ID: number;
+        MATOMO_ENDPOINT: string;
     }
 }

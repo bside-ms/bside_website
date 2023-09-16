@@ -19,9 +19,7 @@ export interface Config {
     'api-users': ApiUser;
     redirects: Redirect;
   };
-  globals: {
-    footer: Footer;
-  };
+  globals: {};
 }
 export interface Event {
   id: string;
@@ -462,25 +460,4 @@ export interface Redirect {
   };
   updatedAt: string;
   createdAt: string;
-}
-export interface Footer {
-  id: string;
-  columns?: {
-    navItems?: {
-      link: {
-        type?: 'reference' | 'custom';
-        newTab?: boolean;
-        reference: {
-          value: string | Page;
-          relationTo: 'pages';
-        };
-        url: string;
-        label: string;
-      };
-      id?: string;
-    }[];
-    id?: string;
-  }[];
-  updatedAt?: string;
-  createdAt?: string;
 }
