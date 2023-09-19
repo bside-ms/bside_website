@@ -20,7 +20,6 @@ const nextConfig = {
     defaultLocale: 'de',
   },
 
-  // ToDo: Test.
   staticPageGenerationTimeout: 60 * 3 * 10,
 
   // Needed to build the project as a standalone app inside the Docker image.

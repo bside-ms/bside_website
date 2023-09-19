@@ -1,8 +1,9 @@
+// eslint-disable-next-line simple-import-sort/imports
 import '@/styles/globals.css';
 
 import { useEffect } from 'react';
+import init from '@socialgouv/matomo-next';
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { BreakpointContextProvider } from '@/components/common/BreakpointContext';
 import { AppContextProvider } from '@/components/layout/next/AppContext';
@@ -10,19 +11,18 @@ import NextHead from '@/components/layout/next/NextHead';
 
 const App = ({ Component, pageProps }: AppProps): ReactElement => {
 
-    const router = useRouter();
-
     useEffect(() => {
-        const trackRouteChange = (url: string): void => {
-            fetch(`/api/track?url=${url}`);
-        };
-
-        router.events.on('routeChangeComplete', trackRouteChange);
-
-        return () => {
-            router.events.off('routeChangeComplete', trackRouteChange);
-        };
-    }, [router.events]);
+        init({
+            url: process.env.NEXT_PUBLIC_MATOMO_ENDPOINT,
+            siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID,
+            disableCookies: true,
+            phpTrackerFile: 'lernen.php',
+            jsTrackerFile: 'lernen.js',
+            onRouteChangeStart: async (path: string) => {
+                await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/ping?url=${path}`).then();
+            },
+        });
+    }, []);
 
     return (
         <AppContextProvider>

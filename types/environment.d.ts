@@ -18,7 +18,7 @@ declare namespace NodeJS {
         MAIL_USER: string;
         MAIL_PASS: string;
 
-        MATOMO_SITE_ID: number;
-        MATOMO_ENDPOINT: string;
+        NEXT_PUBLIC_MATOMO_SITE_ID: string;
+        NEXT_PUBLIC_MATOMO_ENDPOINT: string;
     }
 }
