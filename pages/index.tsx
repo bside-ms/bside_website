@@ -61,14 +61,6 @@ export default ({ page, events, preview }: Props): ReactElement => {
                 />
             )}
 
-            <Banner
-                bannerId="index"
-                bannerText=">> B-Side Festival 2023 <<"
-                bannerLink="https://festival.b-side.ms"
-                footerInView={isFooterInView || preview}
-                isPreview={preview}
-            />
-
             <ContentDivider />
 
             <main id="content">
