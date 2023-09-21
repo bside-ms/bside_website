@@ -9,7 +9,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Page } from '@/types/payload/payload-types';
+import type { Page, Redirect } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
@@ -24,8 +24,7 @@ const reservedSlugs: Array<string> = [
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100');
-
+    const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=0');
     const filtered = pages.docs.filter(({ slug }) => {
         return slug !== undefined && !reservedSlugs.includes(slug);
     });
@@ -42,22 +41,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
-
-    const rawSlug = params?.slug;
-
-    if (rawSlug === undefined) {
-        return { notFound: true };
+const getSlug = (slug: string | Array<string> | undefined): string => {
+    if (slug === undefined) {
+        return '';
     }
 
-    const slug = typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
+    return typeof slug === 'string' ? slug : slug.join('/');
+};
 
-    if (isEmptyString(slug)) {
-        return { notFound: true };
-    }
-
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=100', preview);
-
+const fetchPage = async (slug: string): Promise<Page | undefined> => {
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=0');
     let page = pagesResponse.docs.find(doc => {
         if (doc.breadcrumbs === undefined) {
             return;
@@ -77,7 +70,38 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         });
     }
 
+    return page;
+};
+
+const fetchRedirect = async (slug: string): Promise<Redirect | undefined> => {
+    const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>('/api/redirects/?limit=0');
+    const redirect = redirectResponse.docs.find(doc => {
+        return doc.from === `/${slug}`;
+    });
+
+    return redirect;
+};
+
+export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
+
+    const slug = getSlug(params?.slug);
+    if (isEmptyString(slug)) {
+        return { notFound: true };
+    }
+
+    const page = await fetchPage(slug);
+
     if (page === undefined) {
+        const redirect = await fetchRedirect(slug);
+        if (redirect !== undefined) {
+            return {
+                redirect: {
+                    destination: redirect.to.url,
+                    permanent: false,
+                },
+            };
+        }
+
         return { notFound: true };
     }
 
