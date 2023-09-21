@@ -26,7 +26,7 @@ interface Props {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
+    const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=0');
 
     const paths = pages.docs.map(({ name }) => ({
         params: {
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         return { notFound: true };
     }
 
-    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=100');
+    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=0');
 
     const circle = circlesResponse.docs.find(doc => {
         return kebabCase(doc.name) === `${slug}`;
