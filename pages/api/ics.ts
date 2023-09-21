@@ -45,6 +45,13 @@ BEGIN:VEVENT\r\n`;
     if (isNotEmptyString(event.eventEnd)) {
         start = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventStart, 'HHmmss')}`;
         end = `${formatDate(event.eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}`;
+
+        // Check whether the event ends on the same day.
+        if (formatDate(event.eventStart, 'HHmmss') > formatDate(event.eventEnd, 'HHmmss')) {
+            const eventDate = new Date(event.eventDate);
+            eventDate.setDate(eventDate.getDate() + 1);
+            end = `${formatDate(eventDate, 'yyyyMMdd')}T${formatDate(event.eventEnd, 'HHmmss')}`;
+        }
     }
 
     ics = ics.concat(`DTSTART;TZID=Europe/Berlin:${start}\r\n`);
