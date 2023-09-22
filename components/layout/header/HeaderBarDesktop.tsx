@@ -26,7 +26,7 @@ const HeaderBarDesktop = (): ReactElement => {
                     <Heart />
                 </Link>
 
-                <nav className="text-md lg:text-lg font-bold font-serif text-center md:w-[40rem] lg:w-[55rem] xl:w-[60rem] mx-auto flex justify-around">
+                <nav className="text-md lg:text-lg font-bold font-serif text-center md:w-[45rem] lg:w-[55rem] xl:w-[60rem] mx-auto flex justify-around">
                     {DesktopNavigationItems.map(navLink => (
                         <DesktopNavigationLink
                             key={navLink.label}

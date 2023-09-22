@@ -24,4 +24,8 @@ export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
         label: 'Quartiersarbeit',
         subLabel: 'B-Side GmbH',
     },
+    {
+        link: '/bside/raumvergabe',
+        label: 'Raumvergabe',
+    },
 );

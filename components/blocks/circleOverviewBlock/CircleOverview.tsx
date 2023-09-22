@@ -14,7 +14,7 @@ interface Props {
     richText: SlateChildren;
 }
 
-const colors = [
+export const colors = [
     '#f70012',
     '#f87915',
     '#ee0094',
