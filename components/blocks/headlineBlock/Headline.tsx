@@ -18,7 +18,7 @@ const Headline = ({ title, anchor, teaser, level, as = null, teaserLink = '', te
                 </HeadlineKicker>
             )}
 
-            <div className={`max-w-full md:scroll-mt-[64px] ${textClass}`}>
+            <div className={`max-w-full ${textClass}`}>
                 <HeadlineTag level={renderedLevel} anchor={anchor}>
                     {title}
                 </HeadlineTag>

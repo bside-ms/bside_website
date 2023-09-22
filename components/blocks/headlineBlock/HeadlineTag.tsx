@@ -15,28 +15,28 @@ const HeadlineTag = ({ children, level, anchor }: Props): ReactElement => {
     switch (level) {
         case 'h1':
             return (
-                <h1 id={id} className="font-serif leading-none text-3xl md:text-4xl break-words sm:break-normal">
+                <h1 id={id} className="font-serif leading-none text-3xl md:text-4xl break-words sm:break-normal md:scroll-mt-[96px]">
                     {children}
                 </h1>
             );
 
         case 'h2':
             return (
-                <h2 id={id} className="font-serif leading-tight text-2xl md:text-3xl break-words sm:break-normal">
+                <h2 id={id} className="font-serif leading-tight text-2xl md:text-3xl break-words sm:break-normal md:scroll-mt-[96px]">
                     {children}
                 </h2>
             );
 
         case 'h3':
             return (
-                <h3 id={id} className="font-serif leading-tight text-xl md:text-2xl break-words sm:break-normal">
+                <h3 id={id} className="font-serif leading-tight text-xl md:text-2xl break-words sm:break-normal md:scroll-mt-[96px]">
                     {children}
                 </h3>
             );
 
         case 'h4':
             return (
-                <h4 id={id} className="font-serif leading-tight text-xl md:text-xl font-bold">
+                <h4 id={id} className="font-serif leading-tight text-xl md:text-xl font-bold md:scroll-mt-[96px]">
                     {children}
                 </h4>
             );
