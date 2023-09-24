@@ -46,6 +46,8 @@
     "react-scroll-parallax": "3.4.x",
     "sharp": "^0.32.4",
     "slate": "^0.94.1",
+    "swiper": "^10.3.0",
+    "swiper-react": "^1.0.0",
     "swr": "2.2.x",
     "typescript": "5.1.x",
     "winston": "3.10.x"
