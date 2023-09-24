@@ -405,6 +405,17 @@ export interface Page {
     blockName?: string;
     blockType: 'eventOverview';
   }
+      | {
+    sliderType: 'imageSlider';
+    imageSlides: {
+      image: string | Media;
+      description?: string;
+      id?: string;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'slider';
+  }
       )[];
   parent?: string | Page;
   breadcrumbs?: {
