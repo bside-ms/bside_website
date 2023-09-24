@@ -7,6 +7,7 @@ import EventOverviewBlock from '@blocks/eventOverviewBlock/EventOverviewBlock';
 import HeadlineBlock from '@blocks/headlineBlock/HeadlineBlock';
 import MediaBlock from '@blocks/mediaBlock/MediaBlock';
 import MediaContentBlock from '@blocks/mediaContent/MediaContentBlock';
+import SliderBlock from '@blocks/sliderBlock/SliderBlock';
 import TeaserBlock from '@blocks/teaserBlock/TeaserBlock';
 import ContentBlock from '@blocks/textBlock/ContentBlock';
 
@@ -105,6 +106,14 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
                     linkHref={layoutElement.linkHref}
                     previousBlock={previousBlock}
                     nextBlock={nextBlock}
+                />
+            );
+
+        case 'slider':
+            return (
+                <SliderBlock
+                    imageSlides={layoutElement.imageSlides}
+
                 />
             );
 
