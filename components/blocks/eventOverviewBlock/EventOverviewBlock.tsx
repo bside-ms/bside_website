@@ -32,7 +32,7 @@ const EventOverviewBlock = ({ events, headlineText, richText }: Props): ReactEle
                         <RichText content={richText} />
                     </div>
 
-                    <div className="lg:basis-2/3">
+                    <div className="lg:basis-2/3 overflow-y">
                         <EventOverview
                             title=""
                             events={events}

@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         props: {
             circle,
             preview: preview ?? false,
-            events: await getUpcomingEventsByOwner(circle.id, 5, 'Circle'),
+            events: await getUpcomingEventsByOwner(circle.id, 0, 'Circle'),
         },
     };
 };

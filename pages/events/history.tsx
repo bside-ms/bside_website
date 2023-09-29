@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
     return {
         revalidate: 60,
         props: {
-            events: await getPastEvents(25),
+            events: await getPastEvents(0),
             preview: preview ?? false,
         },
     };

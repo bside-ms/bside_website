@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
+import _ from 'lodash';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
+import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import EventOrganiser from '@/components/events/overview/EventOrganiser';
 import formatDate from '@/lib/common/helper/formatDate';
 import createEventSlug from '@/lib/events/createEventSlug';
@@ -13,6 +15,8 @@ interface Props {
 }
 
 const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
+    const { isXl } = useBreakpointContext();
+
     return (
         <Fragment key={event.id}>
 
@@ -29,7 +33,7 @@ const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
                 aria-label={`Erfahre mehr über die Veranstaltung "${event.title}".`}
             >
                 <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
-                <div key={`event-${event.id}-title`} className="truncate flex-1 font-bold">{event.title}</div>
+                <div key={`event-${event.id}-title`} className="truncate overflow-hidden flex-1 font-bold">{_.truncate(event.title, { length: isXl ? 55 : 40 })}</div>
                 <div className="truncate">... mehr</div>
             </Link>
 
