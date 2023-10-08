@@ -18,13 +18,13 @@ export default async (
 
     const body = req.body as Partial<FormValues>;
 
-    if (isEmptyString(body.fullName) || isEmptyString(body.mailAddress) || isEmptyString(body.message) || isEmptyString(body.cfTurnstileResponse)) {
+    if (isEmptyString(body.fullName) || isEmptyString(body.mailAddress) || isEmptyString(body.message) || isEmptyString(body['cf-turnstile-response'])) {
         res.status(400).json({ message: 'Bad request. Malformed body.' });
         return;
     }
 
     const successfullyValidatedRealUser = await validateRealUser(
-        body.cfTurnstileResponse,
+        body['cf-turnstile-response'],
         req.headers['x-forwarded-for'] as string
     );
 

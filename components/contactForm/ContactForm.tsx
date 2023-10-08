@@ -21,17 +21,25 @@ export interface FormValues {
     mailAddress: string;
     message: string;
     sendCopyToSender: boolean;
-    cfTurnstileResponse: string;
+    'cf-turnstile-response': string;
 }
 
 const ContactForm = (): ReactElement => {
 
-    const { register, handleSubmit, formState: { errors, isSubmitting, isSubmitSuccessful }, setError } = useForm<FormValues>();
+    const { register, handleSubmit, getValues, formState: { errors, isSubmitting, isSubmitSuccessful }, setError } = useForm<FormValues>();
 
     const formContainerRef = useRef<HTMLDivElement>(null);
     const [formMinHeight, setFormMinHeight] = useState<number>(0);
 
-    const handleFormSubmit = useCallback(async (formValues: FormValues): Promise<void> => {
+    const handleFormSubmit = useCallback(async (): Promise<void> => {
+
+        // This is a hacky workaround to get the form values from the form.
+        // Otherwise. the cf-turnstile-response will be undefined after the first submit.
+        // Only resubmitting the form without changing anything would update the value.
+        const formValues = getValues();
+
+        // eslint-disable-next-line no-console
+        console.warn(formValues);
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/contact/submit`, {
             method: 'POST',
@@ -42,23 +50,27 @@ const ContactForm = (): ReactElement => {
             body: JSON.stringify(formValues),
         });
 
-        createPayloadEntry('/api/contact-forms', {
-            fullName: formValues.fullName,
-            mailAddress: formValues.mailAddress,
-            message: formValues.message,
-            sendCopyToSender: formValues.sendCopyToSender ? 'ja' : 'nein',
-            recipient: formValues.contactReason,
-        }).then();
-
         if (response.status === 200) {
+
             setFormMinHeight(formContainerRef.current?.getBoundingClientRect().height ?? 0);
+
+            createPayloadEntry('/api/contact-forms', {
+                fullName: formValues.fullName,
+                mailAddress: formValues.mailAddress,
+                message: formValues.message,
+                sendCopyToSender: formValues.sendCopyToSender ? 'ja' : 'nein',
+                recipient: formValues.contactReason,
+            }).then();
+
         } else {
+
             setError(
                 'root',
                 { message: 'Bei der Übertragung deiner Nachricht ist leider ein Fehler aufgetreten. Bitte versuche es nochmal!' }
             );
         }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setError]);
 
     useEffect(() => setFormMinHeight(0), [isSubmitSuccessful]);
@@ -216,8 +228,16 @@ const ContactForm = (): ReactElement => {
                                     className="cf-turnstile checkbox"
                                     data-language="de"
                                     data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
-                                    data-response-field-name="cfTurnstileResponse"
-                                    {...register('cfTurnstileResponse')}
+                                    {...register(
+                                        'cf-turnstile-response',
+                                        {
+                                            required: true,
+                                            onChange: (event: Event) => {
+                                                // eslint-disable-next-line no-console
+                                                console.warn('changed', event);
+                                            },
+                                        }
+                                    )}
                                 />
 
                                 <div className="flex flex-col justify-end">
