@@ -61,8 +61,8 @@ BEGIN:VEVENT\r\n`;
     ics = ics.concat(`SUMMARY:${event.title}\r\n`);
     ics = ics.concat(`LOCATION:${event.eventLocation}\r\n`);
 
-    ics = ics.concat(`URL:https://b-side.ovh/events/${event.id}\r\n`);
-    ics = ics.concat(`DESCRIPTION:https://b-side.ovh/events/${event.id}\r\n`);
+    ics = ics.concat(`URL:https://b-side.ms/events/${event.id}\r\n`);
+    ics = ics.concat(`DESCRIPTION:https://b-side.ms/events/${event.id}\r\n`);
     ics = ics.concat(`UID:${update}-${start}-${end}\r\n`);
 
     ics = ics.concat('END:VEVENT\r\n');
