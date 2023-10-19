@@ -21,6 +21,7 @@
     "@juggle/resize-observer": "^3.4.0",
     "@logtail/node": "^0.4.12",
     "@logtail/winston": "^0.4.12",
+    "@payloadcms/live-preview-react": "^0.1.4",
     "@socialgouv/matomo-next": "^1.8.0",
     "@south-paw/react-obfuscate-ts": "^2.0.0",
     "@tailwindcss/line-clamp": "^0.4.4",
