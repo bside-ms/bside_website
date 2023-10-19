@@ -4,7 +4,6 @@ import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
 import EventOverview from '@/components/events/overview/EventOverview';
-import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
@@ -18,10 +17,9 @@ import Headline from '@blocks/headlineBlock/Headline';
 interface Props {
     events: Array<Event>;
     meetings: Array<Event>;
-    preview: boolean;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
     const allEvents = await getUpcomingEvents(0, 'Overview');
 
     return {
@@ -29,26 +27,15 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
         props: {
             events: filterNoMeetings(allEvents),
             meetings: filterForMeetings(allEvents),
-            preview: preview ?? false,
         },
     };
 };
 
-export default ({ events, meetings, preview }: Props): ReactElement => {
+export default ({ events, meetings }: Props): ReactElement => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
             <ContentDivider />
-
-            {preview && (
-                <Banner
-                    bannerId="preview"
-                    bannerText="preview"
-                    bannerLink=""
-                    footerInView={false}
-                    isPreview={true}
-                />
-            )}
 
             <main id="content">
                 <HeroImageSvg

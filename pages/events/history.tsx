@@ -4,7 +4,6 @@ import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeroImage from '@/components/common/HeroImage';
 import EventOverview from '@/components/events/overview/EventOverview';
-import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
@@ -16,20 +15,18 @@ import Headline from '@blocks/headlineBlock/Headline';
 
 interface Props {
     events: Array<Event>;
-    preview: boolean;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
     return {
         revalidate: 60,
         props: {
             events: await getPastEvents(0),
-            preview: preview ?? false,
         },
     };
 };
 
-export default ({ events, preview }: Props): ReactElement => {
+export default ({ events }: Props): ReactElement => {
     const archivText = 'Auf dieser Seite findest du ein paar der Veranstaltungen, die in der letzten Zeit bei uns stattgefunden haben.';
 
     return (
@@ -37,16 +34,6 @@ export default ({ events, preview }: Props): ReactElement => {
             <HeaderBar />
 
             <ContentDivider />
-
-            {preview && (
-                <Banner
-                    bannerId="preview"
-                    bannerText="preview"
-                    bannerLink=""
-                    footerInView={false}
-                    isPreview={true}
-                />
-            )}
 
             <main id="content">
                 <ContentWrapper>
