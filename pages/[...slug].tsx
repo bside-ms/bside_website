@@ -1,7 +1,7 @@
+import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
@@ -14,7 +14,6 @@ import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     page: Page;
-    preview: boolean;
 }
 
 const reservedSlugs: Array<string> = [
@@ -114,32 +113,28 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
     };
 };
 
-export default ({ page, preview }: Props): ReactElement => {
+export default ({ page }: Props): ReactElement => {
+
+    const { data } = useLivePreview({
+        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
+        depth: 1,
+        initialData: page,
+    });
 
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <NextHead
-                title={page.meta?.title ?? `${page.title} | B-Side Münster`}
-                description={page.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
-                url={`${getPublicClientUrl()}/${page.slug}`}
+                title={data.meta?.title ?? `${data.title} | B-Side Münster`}
+                description={data.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
+                url={`${getPublicClientUrl()}/${data.slug}`}
             />
             <HeaderBar />
-
-            {preview && (
-                <Banner
-                    bannerId="preview"
-                    bannerText="Preview"
-                    bannerLink=""
-                    footerInView={false}
-                    isPreview={preview}
-                />
-            )}
 
             <ContentDivider mt={true} />
 
             <main id="content">
                 <ReusableBlockLayout
-                    layout={page.layout}
+                    layout={data.layout}
                 />
             </main>
 

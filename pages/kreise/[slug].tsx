@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { useLivePreview } from '@payloadcms/live-preview-react';
 import { kebabCase } from 'lodash';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
@@ -19,7 +20,7 @@ import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 import Headline from 'components/blocks/headlineBlock/Headline';
 
 interface Props {
-    circle: Circle;
+    initialCircle: Circle;
     preview: boolean;
     events: Array<Event>;
 }
@@ -65,7 +66,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
     return {
         revalidate: 60,
         props: {
-            circle,
+            initialCircle: circle,
             preview: preview ?? false,
             events: await getUpcomingEventsByOwner(circle.id, 0, 'Circle'),
         },
@@ -73,7 +74,13 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
 };
 
 // eslint-disable-next-line complexity
-export default ({ circle, preview, events }: Props): ReactElement => {
+export default ({ initialCircle, preview, events }: Props): ReactElement => {
+
+    const { data: circle } = useLivePreview<Circle>({
+        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
+        depth: 1,
+        initialData: initialCircle,
+    });
 
     // Basic Infos
     const organisation = typeof circle.organisation === 'string' ? null : circle.organisation;

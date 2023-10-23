@@ -1,5 +1,6 @@
 import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
@@ -18,8 +19,7 @@ import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
-    event: Event;
-    preview: boolean;
+    initialEvent: Event;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -38,7 +38,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
     const rawSlug = params?.slug;
 
@@ -65,17 +65,22 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
     return {
         revalidate: 60,
         props: {
-            event,
-            preview: preview ?? false,
+            initialEvent: event as Event,
         },
     };
 };
 
-export default ({ event, preview }: Props): ReactElement => {
+export default ({ initialEvent }: Props): ReactElement => {
 
     const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
         initialInView: true,
         threshold: 1,
+    });
+
+    const { data: event } = useLivePreview<Event>({
+        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
+        depth: 1,
+        initialData: initialEvent,
     });
 
     return (
@@ -89,8 +94,7 @@ export default ({ event, preview }: Props): ReactElement => {
                         bannerId="ical-link"
                         bannerLink={`/api/ics/?eventId=${event.id}`}
                         bannerText="Veranstaltung in meinen Kalender eintragen!"
-                        footerInView={isFooterInView || preview}
-                        isPreview={preview}
+                        footerInView={isFooterInView}
                     />
                 )}
 
