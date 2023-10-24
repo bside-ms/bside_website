@@ -12,7 +12,7 @@ export const getCirclesOfOrganisation = async (organisationId: string): Promise<
 
 export const getAllCircles = async (): Promise<Array<Circle>> => {
     const circles = await getPayloadResponse<PaginatedDocs<Circle>>(
-        '/api/circles/?sort=name&depth=1&limit=0'
+        '/api/circles/?sort=name&depth=1'
     );
 
     return circles.docs;
@@ -20,7 +20,7 @@ export const getAllCircles = async (): Promise<Array<Circle>> => {
 
 export const getCircleIndex = async (): Promise<Array<Circle>> => {
     const circles = await getPayloadResponse<PaginatedDocs<Circle>>(
-        '/api/circles/?depth=1&limit=0'
+        '/api/circles/?depth=1'
     );
 
     return circles.docs;
