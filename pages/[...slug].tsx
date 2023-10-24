@@ -19,12 +19,11 @@ interface Props {
 const reservedSlugs: Array<string> = [
     'bside',
     'home',
-    'events',
 ];
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/');
+    const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=9999');
     const filtered = pages.docs.filter(({ slug }) => {
         return slug !== undefined && !reservedSlugs.includes(slug);
     });
@@ -50,7 +49,7 @@ const getSlug = (slug: string | Array<string> | undefined): string => {
 };
 
 const fetchPage = async (slug: string): Promise<Page | undefined> => {
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/');
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=9999');
     let page = pagesResponse.docs.find(doc => {
         if (doc.breadcrumbs === undefined) {
             return;
@@ -74,7 +73,7 @@ const fetchPage = async (slug: string): Promise<Page | undefined> => {
 };
 
 const fetchRedirect = async (slug: string): Promise<Redirect | undefined> => {
-    const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>('/api/redirects/');
+    const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>('/api/redirects/?limit=9999');
     const redirect = redirectResponse.docs.find(doc => {
         return doc.from === `/${slug}`;
     });

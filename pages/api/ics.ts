@@ -80,7 +80,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
             throw new Error('Event not found.');
         }
 
-        const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/');
+        const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=9999');
 
         const page = pagesResponse.docs.find(event => {
             return event.id === `${eventId}`;
