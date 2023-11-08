@@ -32,20 +32,24 @@ const nextConfig = {
   redirects,
 
   async rewrites() {
-    return [
-      {
-        source: '/kultur/:slug',
-        destination: '/kreise/:slug'
-      },
-      {
-        source: '/quartier/:slug',
-        destination: '/kreise/:slug'
-      },
-      {
-        source: '/kollektiv/:slug',
-        destination: '/kreise/:slug'
-      },
-    ];
+    return {
+        beforeFiles: [
+            {
+                source: '/kollektiv/:slug',
+                destination: '/kreise/:slug'
+            },
+            {
+                source: '/kultur/:slug((?!impressum).*)',
+                destination: '/kreise/:slug'
+            },
+            {
+                source: '/quartier/:slug',
+                destination: '/kreise/:slug'
+            },
+        ],
+        afterFiles: [],
+        fallback: [],
+    };
   },
 };
 

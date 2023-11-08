@@ -19,6 +19,7 @@ interface Props {
 const reservedSlugs: Array<string> = [
     'bside',
     'home',
+    'kultur',
 ];
 
 export const getStaticPaths: GetStaticPaths = async () => {
