@@ -36,10 +36,7 @@ const MobileNavigationItemsEnglish = (): ReactElement => {
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/bside/raumvergabe" color={colors[5 % colors.length]!}>
-                <div className="leading-4">
-                    Room Allocation
-                    <span className="text-sm"><br />Langfristige Nutzung</span>
-                </div>
+                Room Allocation
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
@@ -57,6 +54,15 @@ const MobileNavigationItemsEnglish = (): ReactElement => {
                     width={40}
                     height={40}
                 />
+            </Link>
+
+            <Link
+                href=""
+                className="text-white text-sm hover:text-orange-500 cursor-pointer"
+                aria-label="Deutschsprachige Version anzeigen"
+                locale="de"
+            >
+                Zur deutschsprachigen Version
             </Link>
         </div>
     );

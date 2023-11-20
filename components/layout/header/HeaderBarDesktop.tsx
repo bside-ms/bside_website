@@ -29,6 +29,15 @@ const HeaderBarDesktop = (): ReactElement => {
                     <Heart />
                 </Link>
 
+                <Link
+                    href=""
+                    className="absolute right-8 w-6 hover:text-orange-500 cursor-pointer"
+                    aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
+                    locale={locale !== 'en' ? 'en' : 'de'}
+                >
+                    {locale !== 'en' ? 'EN' : 'DE'}
+                </Link>
+
                 <nav className="text-md lg:text-lg font-bold font-serif text-center md:w-[45rem] lg:w-[55rem] xl:w-[60rem] mx-auto flex justify-around">
                     {DesktopNavigationItems.map(navLink => (
                         <DesktopNavigationLink

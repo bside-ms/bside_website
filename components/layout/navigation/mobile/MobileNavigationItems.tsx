@@ -58,6 +58,15 @@ const MobileNavigationItems = (): ReactElement => {
                     height={40}
                 />
             </Link>
+
+            <Link
+                href=""
+                className="text-white text-sm hover:text-orange-500 cursor-pointer"
+                aria-label="Show the english version"
+                locale="en"
+            >
+                Show the english version
+            </Link>
         </div>
     );
 };
