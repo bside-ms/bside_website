@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import BsideElements from '@/components/bside/BsideElements';
 import Footer from '@/components/common/Footer';
@@ -16,7 +17,7 @@ interface Props {
     page: Page;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?where[slug][equals]=bside');
     const page = pagesResponse.docs[0];
@@ -29,17 +30,20 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         revalidate: 60,
         props: {
             page,
+            locale,
         },
     };
 };
 
 export default ({ page }: Props): ReactElement => {
+    const { locale } = useRouter();
+
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <NextHead
                 title={page.meta?.title ?? `${page.title} | B-Side Münster`}
                 description={page.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
-                url={`${getPublicClientUrl()}/${page.slug}`}
+                url={`${getPublicClientUrl(locale)}/${page.slug}`}
             />
             <HeaderBar />
 

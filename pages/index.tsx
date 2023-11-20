@@ -1,9 +1,7 @@
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
-import { useInView } from 'react-intersection-observer';
 import Footer from '@/components/common/Footer';
 import FrontPageHero from '@/components/frontPage/FrontPageHero';
-import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
@@ -15,13 +13,12 @@ import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     events: Array<Event>;
-    preview: boolean;
     page: Page;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?where[slug][equals]=home');
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=home&locale=${locale}`);
     const page = pagesResponse.docs[0];
 
     if (page === undefined) {
@@ -33,33 +30,18 @@ export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
         props: {
             page,
             events: await getUpcomingEvents(5, 'Home'),
-            preview: preview ?? false,
+            locale,
         },
     };
 };
 
-export default ({ page, events, preview }: Props): ReactElement => {
-
-    const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
-        initialInView: true,
-        threshold: 1,
-    });
+export default ({ page, events }: Props): ReactElement => {
 
     return (
         <div className="min-h-screen flex flex-col justify-between">
 
             <NextHead />
             <HeaderBar />
-
-            {preview && (
-                <Banner
-                    bannerId="index"
-                    bannerText="Hinweis | Hinweis | Hinweis"
-                    bannerLink=""
-                    footerInView={isFooterInView || preview}
-                    isPreview={preview}
-                />
-            )}
 
             <ContentDivider />
 
@@ -75,9 +57,7 @@ export default ({ page, events, preview }: Props): ReactElement => {
 
             </main>
 
-            <Footer>
-                <div ref={inViewFooterRef} />
-            </Footer>
+            <Footer />
         </div>
     );
 };

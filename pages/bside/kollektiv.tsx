@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
         props: {
             events,
             organisation,
-            circles: await getAllCircles(),
+            circles: await getAllCircles(locale!),
         },
     };
 };

@@ -77,9 +77,10 @@ const generateStaticIndexes = (now: Date): Array<SiteIndexFields> => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const now = new Date();
+    const { locale } = ctx;
 
     const events = await getEventIndex();
-    const circles = await getCircleIndex();
+    const circles = await getCircleIndex(locale!);
 
     const fields = generateStaticIndexes(now);
 
