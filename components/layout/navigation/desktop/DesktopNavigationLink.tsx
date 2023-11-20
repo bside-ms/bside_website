@@ -1,9 +1,14 @@
 import Link from 'next/link';
 import type { ReactElement } from 'react';
-import type { DesktopNavigationItemProps } from '@/components/layout/navigation/desktop/DesktopNavigationItems';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 
-const DesktopNavigationLink = ({ link, label, subLabel }: DesktopNavigationItemProps): ReactElement => {
+export interface DesktopNavigationItemLocaleProps {
+    link: string;
+    label: string;
+    subLabel?: string;
+}
+
+const DesktopNavigationLink = ({ link, label, subLabel }: DesktopNavigationItemLocaleProps): ReactElement => {
     return (
         <Link
             href={link}
