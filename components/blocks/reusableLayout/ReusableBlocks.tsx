@@ -19,20 +19,21 @@ export interface ReusableBlockProps {
     nextBlock?: string;
 }
 
+// eslint-disable-next-line complexity
 const ReusableBlocks = ({ layoutElement, circles = null, events = null, previousBlock, nextBlock }: ReusableBlockProps): ReactElement | null => {
 
     switch (layoutElement.blockType) {
         case 'callToAction':
             return (
                 <CallToActionBlock
-                    title={layoutElement.title}
+                    title={layoutElement.title!}
                     text={layoutElement.text}
                     href={layoutElement.href}
                 />
             );
 
         case 'content':
-            return (
+            return layoutElement.columns === undefined || layoutElement.columns === null ? null : (
                 <ContentBlock
                     columns={layoutElement.columns}
                     backgroundColor={layoutElement.backgroundColor}
@@ -44,9 +45,9 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
             return (
                 <MediaBlock
                     media={layoutElement.media}
-                    size={layoutElement.size}
-                    caption={layoutElement.caption}
-                    effects={layoutElement.effects}
+                    size={layoutElement.size!}
+                    caption={layoutElement.caption!}
+                    effects={layoutElement.effects!}
                 />
             );
 
@@ -56,9 +57,9 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
                     media={layoutElement.media}
                     richText={layoutElement.richText}
                     alignment={layoutElement.alignment}
-                    headline={layoutElement.headline}
+                    headline={layoutElement.headline!}
                     backgroundColor={layoutElement.backgroundColor}
-                    effects={layoutElement.effects}
+                    effects={layoutElement.effects!}
                 />
             );
 
@@ -110,7 +111,7 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
             );
 
         case 'slider':
-            return (
+            return layoutElement.imageSlides === undefined || layoutElement.imageSlides === null ? null : (
                 <SliderBlock
                     imageSlides={layoutElement.imageSlides}
 

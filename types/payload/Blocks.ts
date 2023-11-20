@@ -11,7 +11,7 @@ export interface BlockLayoutProps {
 export interface ContentColumnProps {
     width: string;
     richText: SlateChildren;
-    id?: string;
+    id?: string | null | undefined;
 }
 
 export interface ContentProps {

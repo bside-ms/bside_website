@@ -1,5 +1,6 @@
 import { useLivePreview } from '@payloadcms/live-preview-react';
-import type { GetStaticPaths, GetStaticProps } from 'next';
+import type { GetStaticPaths } from 'next';
+import type { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentDivider from '@/components/layout/ContentDivider';
@@ -26,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=9999');
     const filtered = pages.docs.filter(({ slug }) => {
-        return slug !== undefined && !reservedSlugs.includes(slug);
+        return slug !== undefined && slug !== null && !reservedSlugs.includes(slug);
     });
 
     const paths = filtered.map(({ breadcrumbs }) => ({
@@ -52,7 +53,7 @@ const getSlug = (slug: string | Array<string> | undefined): string => {
 const fetchPage = async (slug: string): Promise<Page | undefined> => {
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=9999');
     let page = pagesResponse.docs.find(doc => {
-        if (doc.breadcrumbs === undefined) {
+        if (doc.breadcrumbs === undefined || doc.breadcrumbs === null) {
             return;
         }
 
@@ -75,16 +76,17 @@ const fetchPage = async (slug: string): Promise<Page | undefined> => {
 
 const fetchRedirect = async (slug: string): Promise<Redirect | undefined> => {
     const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>('/api/redirects/?limit=9999');
-    const redirect = redirectResponse.docs.find(doc => {
+
+    return redirectResponse.docs.find(doc => {
         return doc.from === `/${slug}`;
     });
-
-    return redirect;
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
+export const getStaticProps: ({ params }: { params: NextParsedUrlQuery }) => Promise<{ notFound: boolean } | {
+    redirect: { permanent: boolean, destination: string | null | undefined };
+} | { revalidate: number, props: { page: Page } }> = async ({ params }) => {
 
-    const slug = getSlug(params?.slug);
+    const slug = getSlug(params.slug);
     if (isEmptyString(slug)) {
         return { notFound: true };
     }
@@ -96,7 +98,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         if (redirect !== undefined) {
             return {
                 redirect: {
-                    destination: redirect.to.url,
+                    destination: redirect.to!.url,
                     permanent: false,
                 },
             };
@@ -109,7 +111,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         revalidate: 60,
         props: {
             page,
-            preview: preview ?? false,
         },
     };
 };

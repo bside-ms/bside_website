@@ -48,10 +48,10 @@ export const PayloadImage = (props: Props): ReactElement => {
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!src && resource) {
-        width = resource.width;
-        height = resource.height;
+        width = resource.width!;
+        height = resource.height!;
         alt = resource.alt;
-        src = resource.url;
+        src = resource.url!;
     }
 
     // NOTE: this is used by the browser to determine which image to download at different screen sizes

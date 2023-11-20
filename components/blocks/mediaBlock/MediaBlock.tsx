@@ -33,7 +33,7 @@ const MediaBlock = ({ media, caption = '', size, effects }: MediaBlockProps): Re
     }
 
     if (size === 'wide' && media.sizes?.wide?.url !== undefined) {
-        return WideMediaBlock(media.sizes.wide.url, effects ?? []);
+        return WideMediaBlock(media.sizes.wide.url!, effects ?? []);
     }
 
     // ToDo: Implement the square version of the image.
@@ -44,8 +44,8 @@ const MediaBlock = ({ media, caption = '', size, effects }: MediaBlockProps): Re
                 <Image
                     src={media.url}
                     alt={media.alt}
-                    width={media.width}
-                    height={media.height}
+                    width={media.width!}
+                    height={media.height!}
                     className={clsx(
                         'mx-auto',
                         ((effects?.includes('blur')) ?? false) && 'blur-[2px]',

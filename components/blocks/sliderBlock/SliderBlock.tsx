@@ -1,4 +1,4 @@
-// eslint-disable-next-line simple-import-sort/imports
+
 import Image from 'next/image';
 import type { ReactElement } from 'react';
 import { Keyboard, Mousewheel, Navigation, Pagination, Zoom } from 'swiper/modules';
@@ -11,8 +11,8 @@ import type { Media } from '@/types/payload/payload-types';
 interface Props {
     imageSlides: Array<{
         image: string | Media;
-        description?: string;
-        id?: string;
+        description?: string | null;
+        id?: string | null;
     }>;
 }
 

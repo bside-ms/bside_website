@@ -4,7 +4,7 @@ import createCircleLink from '@/lib/events/createCircleLink';
 import createOrganisationLink from '@/lib/events/createOrganisationLink';
 import type { Circle, Organisation } from '@/types/payload/payload-types';
 
-const EventOwner = ({ owner }: { owner: { value: string, relationTo: 'organisations' } | { value: string, relationTo: 'circles' } | { value: Organisation, relationTo: 'organisations' } | { value: Circle, relationTo: 'circles' } }): ReactElement => {
+const EventOwner = ({ owner }: { owner: { value: string | Organisation, relationTo: 'organisations' } | { value: string | Circle, relationTo: 'circles' } }): ReactElement => {
     if (owner.relationTo === 'organisations') {
         const organisation = owner.value as Organisation;
         return (
