@@ -19,7 +19,7 @@ interface Props {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?where[slug][equals]=bside');
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=bside&locale=${locale}`);
     const page = pagesResponse.docs[0];
 
     if (page === undefined) {
