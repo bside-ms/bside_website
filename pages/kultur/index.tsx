@@ -1,10 +1,10 @@
 import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
-import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
@@ -19,33 +19,32 @@ import SubNavigationLink from '@blocks/subNavigation/SubNavigationLink';
 
 interface Props {
     events: Array<Event>;
-    preview: boolean;
     organisation: Organisation;
     circles: Array<Circle>;
 }
 
 export const OrganisationId = '647e60a67054a955522b24ad';
 
-export const getStaticProps: GetStaticProps<Props> = async ({ preview }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     const organisationId = OrganisationId;
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation') ?? [];
-    const organisation = await getOrganisation(organisationId);
+    const organisation = await getOrganisation(organisationId, locale!);
 
     return {
         revalidate: 60,
         props: {
             events,
-            preview: preview ?? false,
             organisation,
             circles: await getCirclesOfOrganisation(organisation.id),
         },
     };
 };
 
-export default ({ events, preview, organisation, circles }: Props): ReactElement => {
+export default ({ events, organisation, circles }: Props): ReactElement => {
 
+    const { locale } = useRouter();
     const { isMd } = useBreakpointContext();
 
     return (
@@ -53,21 +52,11 @@ export default ({ events, preview, organisation, circles }: Props): ReactElement
             <NextHead
                 title={organisation.meta?.title ?? 'Kultur e.V.'}
                 description={organisation.meta?.description ?? 'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'}
-                url={`${getPublicClientUrl()}/kultur`}
+                url={`${getPublicClientUrl(locale)}/kultur`}
             />
 
             <div className="min-h-screen flex flex-col justify-between">
                 <HeaderBar />
-
-                {preview && (
-                    <Banner
-                        bannerId="preview"
-                        bannerText="Preview"
-                        bannerLink=""
-                        footerInView={false}
-                        isPreview={true}
-                    />
-                )}
 
                 <ContentDivider />
 

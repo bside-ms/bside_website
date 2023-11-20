@@ -16,8 +16,9 @@ const nextConfig = {
   },
 
   i18n: {
-    locales: ['de'],
-    defaultLocale: 'de',
+      locales: ['de', 'en'],
+      defaultLocale: 'de',
+      localeDetection: false,
   },
 
   staticPageGenerationTimeout: 60 * 3 * 10,

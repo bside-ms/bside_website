@@ -26,9 +26,9 @@ export const getCircleIndex = async (): Promise<Array<Circle>> => {
     return circles.docs;
 };
 
-export const getOrganisation = async (organisationId: string): Promise<Organisation> => {
+export const getOrganisation = async (organisationId: string, locale: string): Promise<Organisation> => {
     const organisation = await getPayloadResponse<PaginatedDocs<Organisation>>(
-        `/api/organisations/?where[_id][equals]=${organisationId}`
+        `/api/organisations/?where[_id][equals]=${organisationId}&locale=${locale}`
     );
 
     return organisation.docs[0]!;

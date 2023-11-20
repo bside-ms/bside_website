@@ -45,8 +45,6 @@ const EventOverview = ({
             allEvents.reduce(
                 (availableCategories, eventItem) => {
 
-                    // ToDo: It can be null on the server, there is an error in the payload types..
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (eventItem.category !== undefined && eventItem.category !== null) {
                         availableCategories.push(...eventItem.category);
                     }

@@ -20,6 +20,12 @@ export const isValidBsideUrl = (string: string): boolean => {
 
 export const getFullClientUrl = (path: string): string => `${process.env.NEXT_PUBLIC_FRONTEND_URL}${path}`;
 
-export const getPublicClientUrl = (): string => process.env.NEXT_PUBLIC_FRONTEND_URL;
+export const getPublicClientUrl = (locale?: string): string => {
+    if (locale === 'de') {
+        return process.env.NEXT_PUBLIC_FRONTEND_URL;
+    }
+
+    return `${process.env.NEXT_PUBLIC_FRONTEND_URL}/en`;
+};
 
 export const getPublicPayloadUrl = (path: string): string => `${process.env.NEXT_PUBLIC_PAYLOAD_URL}${path}`;

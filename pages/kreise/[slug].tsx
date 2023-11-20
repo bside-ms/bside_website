@@ -3,9 +3,9 @@ import { useLivePreview } from '@payloadcms/live-preview-react';
 import { kebabCase } from 'lodash';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import Banner from '@/components/layout/Banner';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
@@ -21,19 +21,19 @@ import Headline from 'components/blocks/headlineBlock/Headline';
 
 interface Props {
     initialCircle: Circle;
-    preview: boolean;
     events: Array<Event>;
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
     const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=9999');
 
-    const paths = pages.docs.map(({ name }) => ({
+    const paths = pages.docs.map(({ name }) => locales!.map((locale) => ({
         params: {
             slug: kebabCase(name),
         },
-    }));
+        locale,
+    }))).flat();
 
     return {
         fallback: 'blocking',
@@ -41,7 +41,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params, preview }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
 
     const rawSlug = params?.slug;
     if (rawSlug === undefined) {
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         return { notFound: true };
     }
 
-    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=9999');
+    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>(`/api/circles/?limit=9999&locale=${locale!}`);
 
     const circle = circlesResponse.docs.find(doc => {
         return kebabCase(doc.name) === `${slug}`;
@@ -67,14 +67,16 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, preview })
         revalidate: 60,
         props: {
             initialCircle: circle,
-            preview: preview ?? false,
             events: await getUpcomingEventsByOwner(circle.id, 0, 'Circle'),
+            locale,
         },
     };
 };
 
 // eslint-disable-next-line complexity
-export default ({ initialCircle, preview, events }: Props): ReactElement => {
+export default ({ initialCircle, events }: Props): ReactElement => {
+
+    const { locale } = useRouter();
 
     const { data: circle } = useLivePreview<Circle>({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
@@ -92,7 +94,7 @@ export default ({ initialCircle, preview, events }: Props): ReactElement => {
         circle.meta.title : `${circle.name} ${organisation && `| ${organisation.name}`}`;
     const metaDescription = circle.meta !== undefined && !isEmptyString(circle.meta.description) ?
         circle.meta.description : `${circle.name} ${organisation && `| ${organisation.name} | B-Side`}`;
-    const canonialUrl = `${getPublicClientUrl()}/${organisationName}/${circleName}`;
+    const canonialUrl = `${getPublicClientUrl(locale)}/${organisationName}/${circleName}`;
 
     // Circle
     const imageUrl: string = (circle.circleImage ?? null) !== null ? (circle.circleImage as Media).url! : `/assets/stickFigures/${circle.fallbackImage}.svg`;
@@ -107,16 +109,6 @@ export default ({ initialCircle, preview, events }: Props): ReactElement => {
 
             <div className="min-h-screen flex flex-col justify-between">
                 <HeaderBar />
-
-                {preview && (
-                    <Banner
-                        bannerId="preview"
-                        bannerText="Preview"
-                        bannerLink=""
-                        footerInView={false}
-                        isPreview={true}
-                    />
-                )}
 
                 <ContentDivider />
 
