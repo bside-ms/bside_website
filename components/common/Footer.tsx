@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { ReactElement, ReactNode } from 'react';
 import { SiGithub, SiInstagram } from 'react-icons/si';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -56,6 +57,8 @@ const Instagram = (): ReactElement => (
 );
 
 const Footer = ({ children }: FooterProps): ReactElement => {
+    const { locale } = useRouter();
+
     return (
         <Fragment>
             <ContentWrapper />
@@ -64,26 +67,26 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                     <div className="py-auto text-center text-white font-bold font-serif">
                         <Link
                             href="/impressum"
-                            aria-label="Alle rechtlichen Angaben sind hier zu finden"
+                            aria-label={locale !== 'en' ? 'Alle rechtlichen Angaben sind hier zu finden' : 'All legal information can be found here'}
                             className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
                         >
-                            Impressum
+                            {locale !== 'en' ? 'Impressum' : 'Imprint'}
                         </Link>
                         <span className="px-2">|</span>
                         <Link
                             href="/datenschutz"
-                            aria-label="Erfahre mehr darüber, wie wir mit deinen Daten umgehen"
+                            aria-label={locale !== 'en' ? 'Erfahre mehr darüber, wie wir mit deinen Daten umgehen' : 'Learn more about how we handle your data'}
                             className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
                         >
-                            Datenschutz
+                            {locale !== 'en' ? 'Datenschutz' : 'Privacy Policy'}
                         </Link>
                         <span className="px-2">|</span>
                         <Link
                             href="/kontakt"
-                            aria-label="Trete mit uns in den Kontakt"
+                            aria-label={locale !== 'en' ? 'Trete mit uns in den Kontakt' : 'Get in touch with us'}
                             className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
                         >
-                            Kontakt
+                            {locale !== 'en' ? 'Kontakt' : 'Contact Us'}
                         </Link>
                     </div>
                 </div>
@@ -95,16 +98,16 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                     <div className="grid md:grid-cols-3 text-center text-sm">
                         <div className="mb-2 md:my-0">
                             <p className="font-serif font-bold mb-2">B-Side GmbH</p>
-                            <FooterLink linkUrl="/quartier" linkText="Über uns" />
-                            <FooterLink linkUrl="/impressum" linkText="Impressum" />
+                            <FooterLink linkUrl="/quartier" linkText={locale !== 'en' ? 'Über uns' : 'About us'} />
+                            <FooterLink linkUrl="/impressum" linkText={locale !== 'en' ? 'Impressum' : 'Imprint'} />
                         </div>
                         <div className="mb-2 md:my-0">
-                            <p className="font-serif font-bold mb-2">Zentrale Teile des Zentrums</p>
+                            <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Zentrale Teile des Zentrums' : 'Other Central Parts'}</p>
                             <FooterLink linkUrl="/kultur" linkText="B-Side Kultur e.V." />
-                            <FooterLink linkUrl="/bside/kollektiv" linkText="B-Side Kollektiv" />
+                            <FooterLink linkUrl="/bside/kollektiv" linkText={locale !== 'en' ? 'B-Side Kollektiv' : 'B-Side Collective'} />
                         </div>
                         <div className="">
-                            <p className="font-serif font-bold mb-2">Andere Platformen</p>
+                            <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Andere Platformen' : 'Other Platforms'}</p>
                             <Instagram />
                             <GithubLink />
                         </div>
