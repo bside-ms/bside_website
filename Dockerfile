@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install gnupg wget -y && \
   apt-get install google-chrome-stable -y --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
 
-
 ## Install Dependencies
 FROM base AS dependencies
 WORKDIR /app
@@ -52,4 +51,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 VOLUME ["/app/.next/cache"]
-CMD ["node", "dist/server.js"]
+CMD ["npm", "run", "start"]
