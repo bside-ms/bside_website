@@ -1,4 +1,4 @@
-FROM node:18.8.2-slim as base
+FROM node:18.18.2-slim as base
 
 # We don't need the standalone Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install gnupg wget -y && \
   apt-get update && \
   apt-get install google-chrome-stable -y --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
+
 
 ## Install Dependencies
 FROM base AS dependencies
@@ -51,4 +52,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 VOLUME ["/app/.next/cache"]
-CMD ["npm", "run", "start"]
+CMD ["node", "dist/server.js"]
