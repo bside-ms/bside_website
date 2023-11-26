@@ -33,7 +33,7 @@ const MobileNavigationItemsEnglish = (): ReactElement => {
 
             <MobileNavigationLink href="/quartier" color={colors[4 % colors.length]!}>
                 <div className="leading-4">
-                    Quartier Work
+                    Neighbourhood Wwork
                     <span className="text-sm"><br />B-Side GmbH</span>
                 </div>
             </MobileNavigationLink>

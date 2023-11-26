@@ -38,6 +38,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
             events,
             organisation,
             circles: await getCirclesOfOrganisation(organisation.id, locale!),
+            locale,
         },
     };
 };
@@ -64,21 +65,21 @@ export default ({ events, organisation, circles }: Props): ReactElement => {
                     <HeroImageSvg
                         imageSrc={kulturImageSvg}
                         imageAlt=""
-                        title="Kultur & Bildung"
+                        title={locale === 'de' ? 'Kultur & Bildung' : 'Culture & Education'}
                     />
 
                     <SubNavigation>
                         <SubNavigationLink
-                            title={isMd ? 'Unsere Arbeitskreise' : 'Arbeitskreise'}
+                            title={locale === 'de' ? 'Arbeitskreise' : 'Working Groups'}
                             anchor="kreise"
                         />
                         <SubNavigationLink
-                            title={isMd ? 'Unsere Veranstaltungen' : 'Veranstaltungen'}
+                            title={locale === 'de' ? 'Veranstaltungen' : 'Events'}
                             anchor="veranstaltungen"
                         />
                         {isMd && (
                             <SubNavigationLink
-                                title="Unterstützen"
+                                title={locale === 'de' ? 'Unterstützen' : 'Support Us'}
                                 anchor="unterstützen"
                                 teaser={true}
                             />

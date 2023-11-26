@@ -33,6 +33,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
             events,
             organisation,
             circles: await getCirclesOfOrganisation(organisation.id, locale!),
+            locale,
         },
     };
 };
@@ -51,14 +52,13 @@ export default ({ events, organisation, circles }: Props): ReactElement => {
 
             <div className="min-h-screen flex flex-col justify-between">
                 <HeaderBar />
-
                 <ContentDivider />
 
                 <main id="content">
                     <HeroImageSvg
                         imageSrc={heroImageSvg}
                         imageAlt=""
-                        title="Quartiersarbeit"
+                        title={locale === 'de' ? 'Quartiersarbeit' : 'Neighbourhood Work'}
                     />
 
                     <ReusableBlockLayout

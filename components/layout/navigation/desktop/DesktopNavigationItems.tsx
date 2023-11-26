@@ -26,7 +26,7 @@ export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
     {
         link: '/quartier',
         labelDe: 'Quartiersarbeit',
-        labelEn: 'Quartier Work',
+        labelEn: 'Neighbourhood Work',
         subLabel: 'B-Side GmbH',
     },
     {
