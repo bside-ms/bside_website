@@ -7,7 +7,7 @@ import Heart from '@/components/svg/Heart';
 
 const HeaderBarDesktop = (): ReactElement => {
 
-    const { locale } = useRouter();
+    const { locale, asPath } = useRouter();
 
     return (
         <header className="fixed top-0 left-0 right-0 z-20">
@@ -30,8 +30,8 @@ const HeaderBarDesktop = (): ReactElement => {
                 </Link>
 
                 <Link
-                    href=""
-                    className="absolute right-8 w-6 hover:text-orange-500 cursor-pointer"
+                    href={`${asPath}`}
+                    className="absolute right-8 w-6 hover:text-orange-500 cursor-pointer justify-around flex text-center"
                     aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
                     locale={locale !== 'en' ? 'en' : 'de'}
                 >

@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import MobileNavigationLink from '@/components/layout/navigation/mobile/MobileNavigationLink';
 import { colors } from '@blocks/circleOverviewBlock/CircleOverview';
 
 const MobileNavigationItemsEnglish = (): ReactElement => {
+
+    const { asPath } = useRouter();
 
     return (
         <div className="flex flex-col items-end gap-6 text-right">
@@ -57,7 +60,7 @@ const MobileNavigationItemsEnglish = (): ReactElement => {
             </Link>
 
             <Link
-                href=""
+                href={`${asPath}`}
                 className="text-white text-sm hover:text-orange-500 cursor-pointer"
                 aria-label="Deutschsprachige Version anzeigen"
                 locale="de"
