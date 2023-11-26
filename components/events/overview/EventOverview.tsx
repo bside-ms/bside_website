@@ -1,5 +1,6 @@
 import { Fragment, useCallback, useMemo, useState } from 'react';
 import { uniq } from 'lodash';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import EventOverviewEmpty from '@/components/events/overview/EventOverviewEmpty';
 import EventOverviewEntry from '@/components/events/overview/EventOverviewEntry';
@@ -20,6 +21,7 @@ interface Props {
 const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onClick: (type: EventCategory) => void, isActive: boolean }): ReactElement => {
 
     const handleClick = useCallback(() => onClick(type), [onClick, type]);
+    const { locale } = useRouter();
 
     return (
         <div
@@ -27,18 +29,20 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onC
             className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
         >
             <div className={isActive ? 'text-gray-500' : ''}>
-                {getEventCategoryTitle(type)}
+                {getEventCategoryTitle(type, locale)}
             </div>
         </div>
     );
 };
 
 const EventOverview = ({
-    title = 'Nächste Veranstaltungen',
+    title = '',
     events: allEvents,
     pastEvents = false,
     noFilters = false,
 }: Props): ReactElement => {
+
+    const { locale } = useRouter();
 
     const allAvailableCategories = useMemo((): Array<EventCategory> => (
         uniq(
@@ -91,7 +95,7 @@ const EventOverview = ({
                                     className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
                                 >
                                     <div className={filteredEventType === null ? 'text-gray-500' : ''}>
-                                        Alle
+                                        {locale === 'de' ? 'Alle' : 'All'}
                                     </div>
                                 </div>
 
@@ -112,7 +116,7 @@ const EventOverview = ({
                     {groupByDay.map(([date, events]) => (
                         <div key={date.toString()} className="mb-2">
                             <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
-                                {formatDate(date, 'EE dd. MMMM')}
+                                {formatDate(date, 'EE dd. MMMM', locale)}
                             </div>
 
                             {events.map((event, index) => (

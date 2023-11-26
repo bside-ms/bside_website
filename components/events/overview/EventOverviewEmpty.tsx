@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 
@@ -5,7 +6,9 @@ interface NoEventProps {
     title?: string;
 }
 
-const EventOverviewEmpty = ({ title = 'Nächste Veranstaltungen' }: NoEventProps): ReactElement => {
+const EventOverviewEmpty = ({ title }: NoEventProps): ReactElement => {
+    const { locale } = useRouter();
+
     return (
         <div>
             {!isEmptyString(title) && (
@@ -18,11 +21,13 @@ const EventOverviewEmpty = ({ title = 'Nächste Veranstaltungen' }: NoEventProps
                 <div>
                     <div className="mb-2">
                         <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
-                            Nichts gefunden!
+                            {locale === 'de' ? 'Nichts gefunden!' : 'Nothing found!'}
                         </div>
 
                         <div className="py-1 md:py-2 flex gap-3">
-                            <div className="w-full">Hier gibt es aktuell keine Termine.</div>
+                            <div className="w-full">
+                                {locale === 'de' ? 'Hier gibt es aktuell keine Termine.' : 'There are currently no events.'}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
@@ -7,7 +8,7 @@ import EventOverview from '@/components/events/overview/EventOverview';
 import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
-import { filterForMeetings, filterNoMeetings, getUpcomingEvents } from '@/lib/events';
+import { getUpcomingEvents } from '@/lib/events';
 import heroImage from '@/public/assets/stickFigures/Veranstaltungen.svg';
 import eventImage from '@/public/assets/veranstaltung.png';
 import type { Event } from '@/types/payload/payload-types';
@@ -16,22 +17,23 @@ import Headline from '@blocks/headlineBlock/Headline';
 
 interface Props {
     events: Array<Event>;
-    meetings: Array<Event>;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     const allEvents = await getUpcomingEvents(0, 'Overview');
 
     return {
         revalidate: 60,
         props: {
-            events: filterNoMeetings(allEvents),
-            meetings: filterForMeetings(allEvents),
+            events: allEvents,
+            locale,
         },
     };
 };
 
-export default ({ events, meetings }: Props): ReactElement => {
+export default ({ events }: Props): ReactElement => {
+    const { locale } = useRouter();
+
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
@@ -41,7 +43,7 @@ export default ({ events, meetings }: Props): ReactElement => {
                 <HeroImageSvg
                     imageSrc={heroImage}
                     imageAlt=""
-                    title="Veranstaltungen"
+                    title={locale === 'de' ? 'Veranstaltungen' : 'Events'}
                 />
 
                 <ContentWrapper>
@@ -54,31 +56,19 @@ export default ({ events, meetings }: Props): ReactElement => {
                             <hr className="w-full lg:hidden my-4 mx-auto border-1 border-black" />
 
                             <Headline
-                                title="Du möchtest Veranstalter*in sein?"
+                                title={locale === 'de' ? 'Veranstaltungsarchiv' : 'Event Archive'}
                                 level="h3"
                             />
 
                             <p className="my-4 md:text-lg">
-                                Egal ob Konzert, Ausstellung, Workshop, Flohmarkt, Lesung, Theater oder andere verrückte,
-                                nicht-kommerzielle Dinge: melde dich per E-Mail an den Kulturverein oder komm zum nächsten
-                                Kulturplenum. Wir versuchen, die Veranstaltung mit dir möglich zu machen!
-                            </p>
-
-                            <div className="my-8" />
-
-                            <Headline
-                                title="Veranstaltungsarchiv"
-                                level="h3"
-                            />
-
-                            <p className="my-4 md:text-lg">
-                                Du weißt nicht mehr, welche Veranstaltung du vor letzten Monat besucht hast?
-                                Du brauchst aber ganz dringend den Namen der Band?
+                                {locale === 'de'
+                                    ? 'Du weißt nicht mehr, welche Veranstaltung du vor letzten Monat besucht hast? Du brauchst aber ganz dringend den Namen der Band?'
+                                    : 'You don\'t remember which event you visited last month? But you urgently need the name of the band?'}
                             </p>
 
                             <Button
                                 title=""
-                                text="Wirf ein Blick ins Archiv"
+                                text={locale === 'de' ? 'Wirf ein Blick ins Archiv' : 'Take a look at the archive'}
                                 href="/events/history"
                             />
 
@@ -99,34 +89,6 @@ export default ({ events, meetings }: Props): ReactElement => {
                             />
                         </div>
                     </div>
-                </ContentWrapper>
-
-                <ContentWrapper>
-                    <div className="font-serif text-white bg-black text-2xl text-center p-3">
-                        Komm zum Plenum und mach mit!
-                    </div>
-
-                    <p className="mt-3 md:text-lg">
-                        Folgend findest du unsere nächsten öffentlichen Plena. Ein Plenum ist unsere interne
-                        Veranstaltungsform, bei der alle Mitglieder eines Arbeitskreises zusammenkommen,
-                        um gemeinsame Entscheidungen zu treffen, Fragen zu klären und Probleme zu lösen.
-                    </p>
-                    <p className="mt-3 md:text-lg">
-                        Unsere öffentlichen Plena bieten nicht nur die Möglichkeit, aktiv an
-                        unserem Kollektiv teilzuhaben und einzubringen, sondern sind auch eine
-                        gute Gelegenheit, uns kennenzulernen.
-                    </p>
-                    <p className="mt-3 md:text-lg">
-                        Wir freuen uns darauf, euch bei unseren Plena zu treffen!
-                    </p>
-                </ContentWrapper>
-
-                <ContentWrapper>
-                    <EventOverview
-                        title=""
-                        events={meetings}
-                        // disableFilter={true}
-                    />
                 </ContentWrapper>
             </main>
 
