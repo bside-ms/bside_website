@@ -8,17 +8,28 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import createPayloadEntry from '@/lib/payload/createPayloadEntry';
+import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import type { AboutBside } from '@/types/payload/payload-types';
 import Headline from '@blocks/headlineBlock/Headline';
 import RichText from '@blocks/richTextBlock/RichText';
 
-export const getStaticProps: GetStaticProps = () => {
+interface Props {
+    about: AboutBside;
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+    const aboutResponse = await getPayloadResponse<AboutBside>(`/api/globals/about-bside/?locale=${locale}`);
+
     return {
         revalidate: 300,
-        props: {},
+        props: {
+            about: aboutResponse,
+            locale,
+        },
     };
 };
 
-export default (): ReactElement => {
+export default ({ about }: Props): ReactElement => {
 
     try {
         const router = useRouter();
@@ -77,7 +88,7 @@ export default (): ReactElement => {
 
                     <div className="py-4" />
 
-                    <BsideElements />
+                    <BsideElements about={about} />
 
                 </ContentWrapper>
             </main>

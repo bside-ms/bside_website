@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
-import BsideElements from '@/components/bside/BsideElements';
 import Footer from '@/components/common/Footer';
 import ParallaxScrollImage from '@/components/houseParallax/ParallaxScrollImage';
 import ParallaxScrollInfoBox from '@/components/houseParallax/ParallaxScrollInfoBox';
@@ -92,10 +91,6 @@ export default (): ReactElement | null => {
                         <div className="md:text-lg text-center">
                             Erfahre hier alles was du wissen willst.
                         </div>
-                    </div>
-
-                    <div className="mt-6">
-                        <BsideElements />
                     </div>
                 </ContentWrapper>
 

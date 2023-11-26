@@ -23,6 +23,7 @@ export interface Config {
   };
   globals: {
     'start-page': StartPage;
+    'about-bside': AboutBside;
   };
 }
 export interface Event {
@@ -562,6 +563,37 @@ export interface StartPage {
   title: string;
   textBody: string;
   buttonText: string;
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+export interface AboutBside {
+  id: string;
+  title: string;
+  textBody: string;
+  firstSection: {
+    title: string;
+    description: string;
+  };
+  secondSection: {
+    title: string;
+    description: string;
+  };
+  thirdSection: {
+    title: string;
+    description: string;
+  };
+  fourthSection: {
+    title: string;
+    description: string;
+  };
   createdBy?: {
     relationTo: 'users';
     value: string | User;

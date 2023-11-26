@@ -1,3 +1,4 @@
+import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -10,17 +11,20 @@ import NextHead from '@/components/layout/next/NextHead';
 import { getPublicClientUrl } from '@/lib/common/url';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Page } from '@/types/payload/payload-types';
+import type { AboutBside, Page } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     page: Page;
+    about: AboutBside;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=bside&locale=${locale}`);
     const page = pagesResponse.docs[0];
+
+    const aboutResponse = await getPayloadResponse<AboutBside>(`/api/globals/about-bside/?locale=${locale}`);
 
     if (page === undefined) {
         return { notFound: true };
@@ -30,20 +34,34 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
         revalidate: 60,
         props: {
             page,
+            about: aboutResponse,
             locale,
         },
     };
 };
 
-export default ({ page }: Props): ReactElement => {
+export default ({ page, about }: Props): ReactElement => {
+
     const { locale } = useRouter();
+
+    const { data: pageData } = useLivePreview<Page>({
+        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
+        depth: 1,
+        initialData: page,
+    });
+
+    const { data: aboutData } = useLivePreview<AboutBside>({
+        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
+        depth: 1,
+        initialData: about,
+    });
 
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <NextHead
-                title={page.meta?.title ?? `${page.title} | B-Side Münster`}
-                description={page.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
-                url={`${getPublicClientUrl(locale)}/${page.slug}`}
+                title={pageData.meta?.title ?? `${pageData.title} | B-Side Münster`}
+                description={pageData.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
+                url={`${getPublicClientUrl(locale)}/${pageData.slug}`}
             />
             <HeaderBar />
 
@@ -61,23 +79,22 @@ export default ({ page }: Props): ReactElement => {
                         </div>
 
                         <div className="font-serif text-lg md:text-xl text-center">
-                            Die B-Side ist ein Haus,<br />
-                            ein Kollektiv, eine Idee.
+                            { aboutData.title }
                         </div>
                         <div className="md:text-lg text-center">
-                            Erfahre hier alles was du wissen willst.
+                            { aboutData.textBody }
                         </div>
                     </div>
 
                     <div className="mt-6">
-                        <BsideElements />
+                        <BsideElements about={aboutData} />
                     </div>
                 </ContentWrapper>
 
                 <div className="my-4" />
 
                 <ReusableBlockLayout
-                    layout={page.layout}
+                    layout={pageData.layout}
                 />
             </main>
 
