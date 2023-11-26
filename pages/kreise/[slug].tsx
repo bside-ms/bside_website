@@ -117,7 +117,7 @@ export default ({ initialCircle, events }: Props): ReactElement => {
                         <div className="w-full h-40 md:h-52 relative lg:mt-4">
                             <Image
                                 src={imageUrl}
-                                alt="artists"
+                                alt=""
                                 fill={true}
                                 className={(circle.circleImage ?? null) !== null ? 'object-cover lg:rounded-xl' : 'object-fill'}
                                 priority={true}
