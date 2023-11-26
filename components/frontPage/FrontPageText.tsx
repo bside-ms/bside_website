@@ -1,16 +1,15 @@
 import Link from 'next/link';
 import type { ReactElement } from 'react';
+import type { HomePageProps } from '@/types/globals';
 
-const FrontPageText = (): ReactElement => (
+const FrontPageText = ({ title, textBody, buttonText }: HomePageProps): ReactElement => (
     <div>
         <div className="font-bold font-serif text-center text-2xl lg:text-xl">
-            Die B-Side in Münster
+            {title}
         </div>
 
         <div className="mt-1 text-md lg:mt-3 md:text-lg">
-            Die B-Side ist ein offener Ort der Möglichkeiten am Münsteraner Hafen,
-            der von vielen Menschen selbstorganisiert entwickelt, gestaltet und verwaltet wird.
-            Auch du kannst hier kreativ und aktiv werden oder einfach eine gute Zeit haben!
+            {textBody}
         </div>
 
         <div className="mt-3">
@@ -18,7 +17,7 @@ const FrontPageText = (): ReactElement => (
                 href="/bside"
                 className="block text-lg text-center font-serif py-1 lg:py-2 mt-1 text-white bg-black lg:cursor-pointer lg:hover:text-black lg:hover:bg-orange-500"
             >
-                Erfahre mehr
+                {buttonText}
             </Link>
         </div>
     </div>
