@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import EventImage from '@/components/events/detail/EventImage';
 import formatDate from '@/lib/common/helper/formatDate';
@@ -13,6 +14,8 @@ interface Props {
 
 const EventDetails = ({ event }: Props): ReactElement => {
 
+    const { locale } = useRouter();
+
     return (
         <div className="mb-2 md:mb-3">
             {(isEventImageMedia(event.eventImage) || isEventImageString(event.eventImage)) && (
@@ -24,7 +27,7 @@ const EventDetails = ({ event }: Props): ReactElement => {
 
             <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                 <span className="sm:text-lg">
-                    {formatDate(event.eventDate, 'EE dd. MMM')}
+                    {formatDate(event.eventDate, 'EE dd. MMM', locale)}
                 </span>
 
                 <span className="sm:text-lg">
@@ -59,7 +62,7 @@ const EventDetails = ({ event }: Props): ReactElement => {
             {isNotEmptyString(event.eventOrganizer) && (
                 <>
                     <div className="mt-2 sm:text-lg md:mt-4 font-bold">
-                        Veranstaltet von:
+                        {locale === 'de' ? 'Veranstaltet von:' : 'Organized by:'}
                     </div>
 
                     <div className="sm:text-lg">

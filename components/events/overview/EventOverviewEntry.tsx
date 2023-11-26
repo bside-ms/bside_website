@@ -32,11 +32,11 @@ const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
                 key={`event-${event.id}-link`}
                 href={`/events/${createEventSlug(event)}`}
                 className="px-3 md:px-4 pt-1 md:pt-2 flex gap-3 hover:text-orange-500"
-                aria-label={`Erfahre mehr über die Veranstaltung "${event.title}".`}
+                aria-label={locale === 'de' ? `Erfahre mehr über die Veranstaltung "${event.title}".` : `Learn more about the event "${event.title}".`}
             >
                 <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm', locale)}</div>
                 <div key={`event-${event.id}-title`} className="truncate overflow-hidden flex-1 font-bold">{_.truncate(event.title, { length: isXl ? 55 : 40 })}</div>
-                <div className="truncate">... mehr</div>
+                <div className="truncate">... {locale === 'de' ? 'mehr' : 'more'}</div>
             </Link>
 
             <div className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3 relative">

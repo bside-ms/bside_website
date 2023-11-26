@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import createCircleLink from '@/lib/events/createCircleLink';
@@ -28,6 +29,7 @@ export const colors = [
 ];
 
 const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElement => {
+    const { locale } = useRouter();
 
     return (
         <Fragment>
@@ -72,7 +74,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                     />
 
                                     <div className="text-sm z-10 group-hover:text-black transition-all duration-100">
-                                        »&nbsp;mehr
+                                        »&nbsp;{locale === 'de' ? 'mehr' : 'more'}
                                     </div>
                                 </div>
                             </Link>
