@@ -1,126 +1,64 @@
+import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticProps } from 'next';
-import Image from 'next/image';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import HeroImage from '@/components/common/HeroImage';
-import EventOverview from '@/components/events/overview/EventOverview';
 import ContentDivider from '@/components/layout/ContentDivider';
-import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getPastEvents } from '@/lib/events';
-import hausImage from '@/public/assets/hausfront.jpg';
-import type { Event } from '@/types/payload/payload-types';
-import Button from '@blocks/buttonBlock/Button';
-import Headline from '@blocks/headlineBlock/Headline';
+import getPayloadResponse from '@/lib/payload/getPayloadResponse';
+import type { Event, EventArchive, Media } from '@/types/payload/payload-types';
+import HeadlineBlock from '@blocks/headlineBlock/HeadlineBlock';
+import MediaBlock from '@blocks/mediaBlock/MediaBlock';
+import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     events: Array<Event>;
+    page: EventArchive;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
+    const events = await getPastEvents(9999);
+    const page = await getPayloadResponse<EventArchive>(`/api/globals/event-archive/?locale=${locale}`);
+
     return {
         revalidate: 60,
         props: {
-            events: await getPastEvents(9999),
+            events,
+            page,
+            locale,
         },
     };
 };
 
-export default ({ events }: Props): ReactElement => {
+export default ({ events, page }: Props): ReactElement => {
     const archivText = 'Auf dieser Seite findest du ein paar der Veranstaltungen, die in der letzten Zeit bei uns stattgefunden haben.';
+
+    const { data: pageData } = useLivePreview({
+        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
+        depth: 1,
+        initialData: page,
+    });
 
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
-
             <ContentDivider />
 
             <main id="content">
-                <ContentWrapper>
-                    <HeroImage
-                        imageSrc={hausImage}
-                        imageAlt="event"
-                        title="Vergangene Veranstaltungen"
-                    />
+                <MediaBlock
+                    size="wide"
+                    media={pageData.headerImage as Media}
+                />
+                <HeadlineBlock
+                    title={pageData.title}
+                    level="h1"
+                />
+                <div className="my-6" />
 
-                    <p className="lg:hidden mt-4 text-lg">
-                        {archivText}
-                    </p>
-                </ContentWrapper>
-
-                <ContentWrapper>
-                    <div className="lg:flex lg:gap-4">
-                        <div className="lg:basis-2/3">
-                            <EventOverview
-                                title=""
-                                events={events}
-                                pastEvents={true}
-                            />
-                        </div>
-
-                        <div className="lg:basis-1/3 lg:align-text-top lg:px-4 overflow-y-auto">
-
-                            <hr className="w-full lg:hidden my-4 mx-auto border-1 border-black" />
-
-                            <Headline
-                                title="Archiv"
-                                level="h3"
-                            />
-
-                            <p className="hidden lg:block my-4 text-lg">
-                                {archivText}
-                            </p>
-
-                            <p className="my-4 text-lg">
-                                Falls die auf der Suche nach aktuellen und kommenden Veranstaltungen bist,
-                                klicke einfach auf den folgenden Button.
-                            </p>
-
-                            <Button
-                                title=""
-                                text="&nbsp;Zu den aktuellen Veranstaltungen&nbsp;"
-                                href="/events"
-                            />
-
-                            <div className="my-4" />
-
-                            <Headline
-                                teaser="Nichts interessantes dabei?"
-                                title="Mitgestalten"
-                                level="h3"
-                            />
-
-                            <p className="my-4 text-lg">
-                                Die B-Side lebt davon, dass Menschen sich einbringen und unser
-                                Programm aktiv mitbestimmen und gestalten.
-                            </p>
-
-                            <p className="my-4 text-lg">
-                                Du kannst dafür sorgen, dass hier zukünftig interessantere
-                                und ansprechendere Veranstaltungen zu finden sind!
-                            </p>
-
-                            <Button
-                                title=""
-                                text="Selbst aktiv werden!"
-                                href="/mitmachen"
-                            />
-
-                            <div className="my-4" />
-
-                            <div className="max-w-full h-auto relative">
-                                <Image
-                                    src="/assets/hausfront.jpg"
-                                    alt="asdf"
-                                    width={1920}
-                                    height={1080}
-                                    className="object-contain fill"
-                                />
-                            </div>
-
-                        </div>
-                    </div>
-                </ContentWrapper>
+                <ReusableBlockLayout
+                    layout={pageData.layout}
+                    events={events}
+                />
             </main>
 
             <Footer />
