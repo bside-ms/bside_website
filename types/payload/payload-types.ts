@@ -24,6 +24,8 @@ export interface Config {
   globals: {
     'start-page': StartPage;
     'about-bside': AboutBside;
+    'event-page': EventPage;
+    'event-archive': EventArchive;
   };
 }
 export interface Event {
@@ -594,6 +596,231 @@ export interface AboutBside {
     title: string;
     description: string;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+export interface EventPage {
+  id: string;
+  title: string;
+  layout?:
+      | (
+      | {
+    title: string;
+    teaser?: string | null;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
+    anchor?: string | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'headlineBlock';
+  }
+      | {
+    backgroundColor: 'white' | 'black';
+    backgroundWidth: 'full' | 'block';
+    columns?:
+        | {
+      width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+      richText: {
+        [k: string]: unknown;
+      }[];
+      id?: string | null;
+    }[]
+        | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'content';
+  }
+      | {
+    media: string | Media;
+    size?: ('normal' | 'wide' | 'event') | null;
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+    caption?: string | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'mediaBlock';
+  }
+      | {
+    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+    backgroundColor: 'white' | 'black';
+    headline?: string | null;
+    media: string | Media;
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'mediaContent';
+  }
+      | {
+    title?: string | null;
+    text: string;
+    href: string;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'callToAction';
+  }
+      | {
+    headlineTitle: string;
+    headlineTeaser?: string | null;
+    reversed?: boolean | null;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'teaser';
+  }
+      | {
+    title: string;
+    eventSide: 'textLeft' | 'textRight';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'eventOverview';
+  }
+      | {
+    sliderType: 'imageSlider';
+    imageSlides?:
+        | {
+      image: string | Media;
+      description?: string | null;
+      id?: string | null;
+    }[]
+        | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'slider';
+  }
+      )[]
+      | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+export interface EventArchive {
+  id: string;
+  title: string;
+  headerImage?: string | Media | null;
+  layout?:
+      | (
+      | {
+    title: string;
+    teaser?: string | null;
+    level: 'h1' | 'h2' | 'h3' | 'h4';
+    as: 'h1' | 'h2' | 'h3' | 'h4';
+    backgroundColor: 'white' | 'black';
+    anchor?: string | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'headlineBlock';
+  }
+      | {
+    backgroundColor: 'white' | 'black';
+    backgroundWidth: 'full' | 'block';
+    columns?:
+        | {
+      width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+      richText: {
+        [k: string]: unknown;
+      }[];
+      id?: string | null;
+    }[]
+        | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'content';
+  }
+      | {
+    media: string | Media;
+    size?: ('normal' | 'wide' | 'event') | null;
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+    caption?: string | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'mediaBlock';
+  }
+      | {
+    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+    backgroundColor: 'white' | 'black';
+    headline?: string | null;
+    media: string | Media;
+    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'mediaContent';
+  }
+      | {
+    title?: string | null;
+    text: string;
+    href: string;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'callToAction';
+  }
+      | {
+    headlineTitle: string;
+    headlineTeaser?: string | null;
+    reversed?: boolean | null;
+    linkText: string;
+    linkHref: string;
+    image: string | Media;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'teaser';
+  }
+      | {
+    title: string;
+    eventSide: 'textLeft' | 'textRight';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'eventOverview';
+  }
+      | {
+    sliderType: 'imageSlider';
+    imageSlides?:
+        | {
+      image: string | Media;
+      description?: string | null;
+      id?: string | null;
+    }[]
+        | null;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'slider';
+  }
+      )[]
+      | null;
   createdBy?: {
     relationTo: 'users';
     value: string | User;
