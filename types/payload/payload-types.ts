@@ -123,7 +123,7 @@ export interface User {
   email: string;
   firstName: string;
   lastName?: string | null;
-  roles: ('public' | 'editor' | 'admin')[];
+  roles: ('public' | 'editor' | 'organisator' | 'admin')[];
   circles?: (string | Circle)[] | null;
   sub?: string | null;
   updatedAt: string;
