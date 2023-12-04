@@ -31,8 +31,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ events, page }: Props): ReactElement => {
-    const archivText = 'Auf dieser Seite findest du ein paar der Veranstaltungen, die in der letzten Zeit bei uns stattgefunden haben.';
-
     const { data: pageData } = useLivePreview({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
         depth: 1,
