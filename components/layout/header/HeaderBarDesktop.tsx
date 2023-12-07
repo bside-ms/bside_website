@@ -30,7 +30,7 @@ const HeaderBarDesktop = (): ReactElement => {
                 </Link>
 
                 <Link
-                    href={`${asPath}`}
+                    href={asPath !== '/' ? `${asPath}` : locale === 'de' ? '/en' : '/'}
                     className="absolute right-8 w-6 hover:text-orange-500 cursor-pointer justify-around flex text-center"
                     aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
                     locale={locale !== 'en' ? 'en' : 'de'}

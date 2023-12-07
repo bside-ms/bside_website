@@ -1,4 +1,3 @@
-import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
@@ -42,18 +41,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 
 export default ({ page, events, homePage }: Props): ReactElement => {
 
-    const { data: homePageData } = useLivePreview<StartPage>({
-        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
-        depth: 1,
-        initialData: homePage,
-    });
-
-    const { data: pageData } = useLivePreview<Page>({
-        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
-        depth: 1,
-        initialData: page,
-    });
-
     return (
         <div className="min-h-screen flex flex-col justify-between">
 
@@ -63,12 +50,12 @@ export default ({ page, events, homePage }: Props): ReactElement => {
             <ContentDivider />
 
             <main id="content">
-                <FrontPageHero title={homePageData.title} textBody={homePageData.textBody} buttonText={homePageData.buttonText} />
+                <FrontPageHero title={homePage.title} textBody={homePage.textBody} buttonText={homePage.buttonText} />
 
                 <div className="py-2" />
 
                 <ReusableBlockLayout
-                    layout={pageData.layout}
+                    layout={page.layout}
                     events={events}
                 />
 

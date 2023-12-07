@@ -25,12 +25,12 @@ const App = ({ Component, pageProps }: AppProps): ReactElement => {
                 phpTrackerFile: 'lernen.php',
                 jsTrackerFile: 'lernen.js',
                 onRouteChangeStart: async (path: string) => {
-                    await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/ping?url=${path}`).then();
+                    await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/notify?s=${path}`).then();
                 },
             });
         }
 
-        fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/ping?url=${asPath}`).then();
+        fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/notify?s=${asPath}`).then();
 
         return () => {
             initialized.current = true;
