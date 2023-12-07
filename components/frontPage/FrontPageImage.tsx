@@ -4,8 +4,9 @@ import type { ReactElement } from 'react';
 import FrontPageText from '@/components/frontPage/FrontPageText';
 import hausPng from '@/public/assets/haus.png';
 import herzPng from '@/public/assets/herz.png';
+import type { HomePageProps } from '@/types/globals';
 
-const FrontPageImage = (): ReactElement => (
+const FrontPageImage = ({ title, textBody, buttonText }: HomePageProps): ReactElement => (
     <div className="mt-1 md:mt-0 lg:mx-auto lg:h-[560px] xl:h-[525px] 2xl:h-[580px]">
         <div className="relative overflow-hidden lg:overflow-visible lg:flex lg:justify-center pt-5">
             <div className="relative lg:flex lg:justify-start lg:mr-auto">
@@ -33,7 +34,7 @@ const FrontPageImage = (): ReactElement => (
             <div>
 
                 <div className="hidden lg:block absolute lg:top-[325px] xl:top-[350px] 2xl:top-[375px] right-0 bottom-0 lg:w-[400px] xl:w-[550px] 2xl:w-[500px]">
-                    <FrontPageText />
+                    <FrontPageText title={title} textBody={textBody} buttonText={buttonText} />
                 </div>
 
             </div>

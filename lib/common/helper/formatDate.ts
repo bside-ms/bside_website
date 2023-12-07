@@ -1,11 +1,11 @@
 import { format, parseISO } from 'date-fns';
-import { de } from 'date-fns/locale';
+import { de, enGB } from 'date-fns/locale';
 
-const formatDate = (date: Date | string | number, formatSchema: string): string => (
+const formatDate = (date: Date | string | number, formatSchema: string, locale = 'de'): string => (
     format(
         typeof date === 'string' || typeof date === 'number' ? new Date(parseISO(date.toString())) : date,
         formatSchema,
-        { locale: de }
+        { locale: locale === 'de' ? de : enGB }
     )
 );
 

@@ -15,7 +15,12 @@ interface EventProps {
 }
 
 const executeEvents = async (event: EventProps): Promise<Array<Event>> => {
-    const limitStr = isEmptyNumber(event.limit) ? `&limit=${event.limit}` : '';
+    const limitStr = !isEmptyNumber(event.limit) ? `&limit=${event.limit}` : '';
+
+    // eslint-disable-next-line no-console
+    console.warn(
+        `/api/events/?${event.where}&sort=${event.sort}${limitStr}`
+    );
 
     return (await getPayloadResponse<PaginatedDocs<Event>>(
         `/api/events/?${event.where}&sort=${event.sort}${limitStr}`
@@ -56,7 +61,7 @@ export const getUpcomingEventsByOwner = async (owner: string, limit?: number, fi
     return executeUpcomingEvents({ limit, filter, where });
 };
 
-export const getPastEvents = async (limit?: number): Promise<Array<Event>> => {
+export const getPastEvents = async (limit: number): Promise<Array<Event>> => {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -65,7 +70,7 @@ export const getPastEvents = async (limit?: number): Promise<Array<Event>> => {
     const where: string = `where[eventDate][less_than]=${formatDate(tomorrow, 'yyyy-MM-dd')}`;
     const sort: string = '-eventDate';
 
-    return executeEvents({ limit, where, sort, filter: 'Overview' });
+    return executeEvents({ where, sort, filter: 'Overview', limit });
 };
 
 export const filterForMeetings = (events: Array<Event>): Array<Event> => {

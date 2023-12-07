@@ -4,8 +4,8 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     res.setHeader('Cache-Control', 'no-cache');
 
-    const { url } = req.query;
-    const query = url as string;
+    const { s } = req.query;
+    const query = s as string;
 
     if (isEmptyString(process.env.NEXT_PUBLIC_MATOMO_SITE_ID) || isEmptyString(process.env.NEXT_PUBLIC_MATOMO_ENDPOINT)) {
         res.status(200).send({ message: 'OK' });

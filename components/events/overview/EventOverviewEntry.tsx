@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import _ from 'lodash';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import EventOrganiser from '@/components/events/overview/EventOrganiser';
@@ -16,6 +17,7 @@ interface Props {
 
 const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
     const { isXl } = useBreakpointContext();
+    const { locale } = useRouter();
 
     return (
         <Fragment key={event.id}>
@@ -30,23 +32,23 @@ const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
                 key={`event-${event.id}-link`}
                 href={`/events/${createEventSlug(event)}`}
                 className="px-3 md:px-4 pt-1 md:pt-2 flex gap-3 hover:text-orange-500"
-                aria-label={`Erfahre mehr über die Veranstaltung "${event.title}".`}
+                aria-label={locale === 'de' ? `Erfahre mehr über die Veranstaltung "${event.title}".` : `Learn more about the event "${event.title}".`}
             >
-                <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm')}</div>
+                <div className="w-14">{formatDate(new Date(event.eventStart), 'HH:mm', locale)}</div>
                 <div key={`event-${event.id}-title`} className="truncate overflow-hidden flex-1 font-bold">{_.truncate(event.title, { length: isXl ? 55 : 40 })}</div>
-                <div className="truncate">... mehr</div>
+                <div className="truncate">... {locale === 'de' ? 'mehr' : 'more'}</div>
             </Link>
 
             <div className="px-3 md:px-4 pb-1 md:pb-2 flex gap-3 relative">
                 <Link
                     href={`/events/${createEventSlug(event)}`}
                     className="absolute top-0 bottom-0 right-0 left-0 hover:text-orange-500"
-                    aria-label={`Erfahre mehr über die Veranstaltung "${event.title}".`}
+                    aria-label={locale === 'de' ? `Erfahre mehr über die Veranstaltung "${event.title}".` : `Learn more about the event "${event.title}".`}
                 />
                 <div className="w-0 sm:w-14" />
                 {event.category?.map(cat => (
                     <div key={`event-title-${event.id}-${cat}`} className="truncate px-1 my-auto leading-6 text-sm italic">
-                        {getEventCategoryTitle(cat)}
+                        {getEventCategoryTitle(cat, locale)}
                     </div>
                 ))}
 

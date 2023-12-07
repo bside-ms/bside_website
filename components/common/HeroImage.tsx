@@ -17,7 +17,7 @@ const HeroImage = ({ imageSrc, imageAlt, title, width, height }: Props): ReactEl
         <>
             <div className="w-full h-32 xs:h-40 md:h-52 relative">
                 <Image
-                    src={typeof imageSrc !== 'string' ? imageSrc : `/assets/${imageSrc}`}
+                    src={typeof imageSrc !== 'string' ? imageSrc : !imageSrc.startsWith('https://') ? `/assets/${imageSrc}` : imageSrc}
                     alt={imageAlt}
                     fill={typeof imageSrc !== 'string'}
                     sizes="(max-width: 768px) 740px, 1120px"

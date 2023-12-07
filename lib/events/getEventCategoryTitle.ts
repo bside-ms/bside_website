@@ -1,19 +1,19 @@
 import type EventCategory from '@/lib/events/EventCategory';
 
-const getEventCategoryTitle = (category: EventCategory): string => {
+const getEventCategoryTitle = (category: EventCategory, locale: string | undefined): string => {
 
     switch (category) {
         case 'concert':
-            return 'Konzert';
+            return locale === 'de' ? 'Konzert' : 'Concert';
 
         case 'movie':
-            return 'Film';
+            return locale === 'de' ? 'Film' : 'Movie';
 
         case 'theater':
-            return 'Theater';
+            return locale === 'de' ? 'Theater' : 'Theatre';
 
         case 'plenum':
-            return 'Plenum';
+            return locale === 'de' ? 'Plenum' : 'Meeting';
 
         case 'workshop':
             return 'Workshop';

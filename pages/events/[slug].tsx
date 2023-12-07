@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Footer from '@/components/common/Footer';
@@ -38,7 +39,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
 
     const rawSlug = params?.slug;
 
@@ -66,6 +67,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
         revalidate: 60,
         props: {
             initialEvent: event as Event,
+            locale,
         },
     };
 };
@@ -83,6 +85,8 @@ export default ({ initialEvent }: Props): ReactElement => {
         initialData: initialEvent,
     });
 
+    const { locale } = useRouter();
+
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
@@ -93,7 +97,7 @@ export default ({ initialEvent }: Props): ReactElement => {
                     <Banner
                         bannerId="ical-link"
                         bannerLink={`/api/ics/?eventId=${event.id}`}
-                        bannerText="Veranstaltung in meinen Kalender eintragen!"
+                        bannerText={locale === 'de' ? 'Veranstaltung in meinen Kalender eintragen!' : 'Add event to my calendar!'}
                         footerInView={isFooterInView}
                     />
                 )}
@@ -102,7 +106,7 @@ export default ({ initialEvent }: Props): ReactElement => {
                     <EventDetails event={event} />
 
                     <Link href="/events" className="mt-4 underline underline-offset-4 flex items-center gap-2 hover:text-orange-500">
-                        <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> Zurück zur Übersicht
+                        <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
                     </Link>
                 </ContentWrapper>
             </main>

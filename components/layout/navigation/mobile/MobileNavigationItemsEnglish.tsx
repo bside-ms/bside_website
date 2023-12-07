@@ -5,7 +5,7 @@ import type { ReactElement } from 'react';
 import MobileNavigationLink from '@/components/layout/navigation/mobile/MobileNavigationLink';
 import { colors } from '@blocks/circleOverviewBlock/CircleOverview';
 
-const MobileNavigationItems = (): ReactElement => {
+const MobileNavigationItemsEnglish = (): ReactElement => {
 
     const { asPath } = useRouter();
 
@@ -13,40 +13,37 @@ const MobileNavigationItems = (): ReactElement => {
         <div className="flex flex-col items-end gap-6 text-right">
 
             <MobileNavigationLink href="/" color={colors[0 % colors.length]!}>
-                Start
+                Home
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/events" color={colors[1 % colors.length]!}>
-                Veranstaltungen
+                Events
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/bside" color={colors[2 % colors.length]!}>
-                Die B-Side
+                About B-Side
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/kultur" color={colors[3 % colors.length]!}>
                 <div className="leading-4">
-                    Kultur & Bildung
+                    Culture & Education
                     <span className="text-sm"><br />B-Side Kultur e.V.</span>
                 </div>
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/quartier" color={colors[4 % colors.length]!}>
                 <div className="leading-4">
-                    Quartiersarbeit
+                    Neighbourhood Wwork
                     <span className="text-sm"><br />B-Side GmbH</span>
                 </div>
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/bside/raumvergabe" color={colors[5 % colors.length]!}>
-                <div className="leading-4">
-                    Raumvergabe
-                    <span className="text-sm"><br />Langfristige Nutzung</span>
-                </div>
+                Room Allocation
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
-                Kontakt
+                Contact
             </MobileNavigationLink>
 
             <Link
@@ -65,13 +62,13 @@ const MobileNavigationItems = (): ReactElement => {
             <Link
                 href={`${asPath}`}
                 className="text-white text-sm hover:text-orange-500 cursor-pointer"
-                aria-label="Show the english version"
-                locale="en"
+                aria-label="Deutschsprachige Version anzeigen"
+                locale="de"
             >
-                Show the english version
+                Zur deutschsprachigen Version
             </Link>
         </div>
     );
 };
 
-export default MobileNavigationItems;
+export default MobileNavigationItemsEnglish;

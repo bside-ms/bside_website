@@ -1,31 +1,37 @@
 
 export interface DesktopNavigationItemProps {
     link: string;
-    label: string;
+    labelDe: string;
+    labelEn: string;
     subLabel?: string;
 }
 
 export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
     {
         link: '/bside',
-        label: 'Die B-Side',
+        labelDe: 'Die B-Side',
+        labelEn: 'About B-Side',
     },
     {
         link: '/events',
-        label: 'Veranstaltungen',
+        labelDe: 'Veranstaltungen',
+        labelEn: 'Events',
     },
     {
         link: '/kultur',
-        label: 'Kultur & Bildung',
+        labelDe: 'Kultur & Bildung',
+        labelEn: 'Culture & Education',
         subLabel: 'B-Side Kultur e.V.',
     },
     {
         link: '/quartier',
-        label: 'Quartiersarbeit',
+        labelDe: 'Quartiersarbeit',
+        labelEn: 'Neighbourhood Work',
         subLabel: 'B-Side GmbH',
     },
     {
         link: '/bside/raumvergabe',
-        label: 'Raumvergabe',
+        labelDe: 'Raumvergabe',
+        labelEn: 'Room Allocation',
     },
 );
