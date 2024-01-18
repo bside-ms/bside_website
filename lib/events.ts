@@ -17,11 +17,6 @@ interface EventProps {
 const executeEvents = async (event: EventProps): Promise<Array<Event>> => {
     const limitStr = !isEmptyNumber(event.limit) ? `&limit=${event.limit}` : '';
 
-    // eslint-disable-next-line no-console
-    console.warn(
-        `/api/events/?${event.where}&sort=${event.sort}${limitStr}`
-    );
-
     return (await getPayloadResponse<PaginatedDocs<Event>>(
         `/api/events/?${event.where}&sort=${event.sort}${limitStr}`
     )).docs;
