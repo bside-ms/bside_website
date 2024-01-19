@@ -12,17 +12,37 @@ import TeaserBlock from '@blocks/teaserBlock/TeaserBlock';
 import ContentBlock from '@blocks/textBlock/ContentBlock';
 
 export interface ReusableBlockProps {
-    layoutElement: NonNullable<BlockLayoutProps['blocks']>[0];
     circles?: Array<Circle> | null;
     events?: Array<Event> | null;
-    previousBlock?: string;
+    layoutElement: NonNullable<BlockLayoutProps['blocks']>[0];
     nextBlock?: string;
+    previousBlock?: string;
 }
 
-// eslint-disable-next-line complexity
+const ReusableTeaserBlock = ({ layoutElement, previousBlock, nextBlock }: Omit<ReusableBlockProps, 'circles' | 'events'>): ReactElement | null => {
+    if (layoutElement.blockType !== 'teaser') {
+        return null;
+    }
+
+    return (
+        <TeaserBlock
+            headlineTitle={layoutElement.headlineTitle}
+            headlineTeaser={layoutElement.headlineTeaser ?? ''}
+            text={layoutElement.richText}
+            image={layoutElement.image}
+            reversed={layoutElement.reversed ?? false}
+            linkText={layoutElement.linkText}
+            linkHref={layoutElement.linkHref}
+            previousBlock={previousBlock}
+            nextBlock={nextBlock}
+        />
+    );
+};
+
 const ReusableBlocks = ({ layoutElement, circles = null, events = null, previousBlock, nextBlock }: ReusableBlockProps): ReactElement | null => {
 
     switch (layoutElement.blockType) {
+
         case 'callToAction':
             return (
                 <CallToActionBlock
@@ -33,9 +53,9 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
             );
 
         case 'content':
-            return layoutElement.columns === undefined || layoutElement.columns === null ? null : (
+            return (
                 <ContentBlock
-                    columns={layoutElement.columns}
+                    columns={layoutElement.columns ?? []}
                     backgroundColor={layoutElement.backgroundColor}
                     backgroundWidth={layoutElement.backgroundWidth}
                 />
@@ -78,45 +98,28 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
             );
 
         case 'circleOverview':
-            return circles === null ? (<div />) : (
+            return (
                 <CircleOverviewBlock
                     headlineText={layoutElement.title}
-                    circles={circles}
+                    circles={circles ?? []}
                     richText={layoutElement.richText}
                 />
             );
 
         case 'eventOverview':
-            return events === null ? (<div />) : (
+            return (
                 <EventOverviewBlock
                     headlineText={layoutElement.title}
-                    events={events}
+                    events={events ?? []}
                     richText={layoutElement.richText}
                 />
             );
 
         case 'teaser':
-            return (
-                <TeaserBlock
-                    headlineTitle={layoutElement.headlineTitle}
-                    headlineTeaser={layoutElement.headlineTeaser ?? ''}
-                    text={layoutElement.richText}
-                    image={layoutElement.image}
-                    reversed={layoutElement.reversed ?? false}
-                    linkText={layoutElement.linkText}
-                    linkHref={layoutElement.linkHref}
-                    previousBlock={previousBlock}
-                    nextBlock={nextBlock}
-                />
-            );
+            return <ReusableTeaserBlock layoutElement={layoutElement} previousBlock={previousBlock} nextBlock={nextBlock} />;
 
         case 'slider':
-            return layoutElement.imageSlides === undefined || layoutElement.imageSlides === null ? null : (
-                <SliderBlock
-                    imageSlides={layoutElement.imageSlides}
-
-                />
-            );
+            return <SliderBlock imageSlides={layoutElement.imageSlides ?? []} />;
 
         default:
             return null;

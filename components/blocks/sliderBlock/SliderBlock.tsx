@@ -8,7 +8,7 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import type { Media } from '@/types/payload/payload-types';
 
-interface Props {
+interface SliderBlockProps {
     imageSlides: Array<{
         image: string | Media;
         description?: string | null;
@@ -16,8 +16,7 @@ interface Props {
     }>;
 }
 
-const SliderBlock = ({ imageSlides }: Props): ReactElement => {
-
+const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
     if (imageSlides.length <= 0) {
         return (<div />);
     }

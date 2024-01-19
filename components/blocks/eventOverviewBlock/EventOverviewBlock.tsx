@@ -6,13 +6,13 @@ import type { Event } from '@/types/payload/payload-types';
 import Headline from '@blocks/headlineBlock/Headline';
 import RichText from '@blocks/richTextBlock/RichText';
 
-interface Props {
+interface EventOverviewBlockProps {
     headlineText: string;
     events: Array<Event>;
     richText: SlateChildren;
 }
 
-const EventOverviewBlock = ({ events, headlineText, richText }: Props): ReactElement => {
+const EventOverviewBlock = ({ events, headlineText, richText }: EventOverviewBlockProps): ReactElement => {
 
     return (
         <>
