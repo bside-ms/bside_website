@@ -38,13 +38,6 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/bside/raumvergabe" color={colors[5 % colors.length]!}>
-                <div className="leading-4">
-                    Raumvergabe
-                    <span className="text-sm"><br />Langfristige Nutzung</span>
-                </div>
-            </MobileNavigationLink>
-
             <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
                 Kontakt
             </MobileNavigationLink>

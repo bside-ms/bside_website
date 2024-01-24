@@ -29,9 +29,4 @@ export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
         labelEn: 'Neighbourhood Work',
         subLabel: 'B-Side GmbH',
     },
-    {
-        link: '/bside/raumvergabe',
-        labelDe: 'Raumvergabe',
-        labelEn: 'Room Allocation',
-    },
 );
