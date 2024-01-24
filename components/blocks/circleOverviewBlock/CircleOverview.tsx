@@ -16,16 +16,11 @@ interface Props {
 }
 
 export const colors = [
-    '#f70012',
-    '#f87915',
-    '#ee0094',
-    // '#7d0080', doesn't work with black text.
-    // '#255ec5', doesn't work with black text.
-    '#36b2d3',
-    '#27af0a',
-    '#94e614',
-    '#fad11a',
-    // '#573012', doesn't work with black text.
+    '#ccffcc',
+    '#ccffff',
+    '#ccccff',
+    '#ffcccc',
+    '#ffffcc',
 ];
 
 const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElement => {
