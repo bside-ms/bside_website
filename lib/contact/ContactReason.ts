@@ -1,5 +1,5 @@
 enum ContactReason {
-    General = 'general',
+    General = 'info',
     Kultur = 'kultur',
     GmbH = 'gmbh',
     Festival = 'festival',
