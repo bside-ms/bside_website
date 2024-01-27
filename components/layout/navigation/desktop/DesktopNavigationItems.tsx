@@ -29,4 +29,9 @@ export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
         labelEn: 'Neighbourhood Work',
         subLabel: 'B-Side GmbH',
     },
+    {
+        link: '/aktuelles',
+        labelDe: 'Aktuelles',
+        labelEn: 'News',
+    },
 );

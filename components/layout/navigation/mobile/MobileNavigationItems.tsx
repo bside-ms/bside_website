@@ -38,6 +38,10 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
+            <MobileNavigationLink href="/aktuelles" color={colors[5 % colors.length]!}>
+                Aktuelles
+            </MobileNavigationLink>
+
             <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
                 Kontakt
             </MobileNavigationLink>

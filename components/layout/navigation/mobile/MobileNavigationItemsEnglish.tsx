@@ -38,8 +38,8 @@ const MobileNavigationItemsEnglish = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/bside/raumvergabe" color={colors[5 % colors.length]!}>
-                Room Allocation
+            <MobileNavigationLink href="/aktuelles" color={colors[5 % colors.length]!}>
+                News
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
