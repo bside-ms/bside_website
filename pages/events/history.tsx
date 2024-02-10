@@ -37,16 +37,20 @@ export default ({ events, page }: Props): ReactElement => {
         initialData: page,
     });
 
+    const media = pageData.headerImage as Media | undefined;
+
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
             <ContentDivider />
 
             <main id="content">
-                <MediaBlock
-                    size="wide"
-                    media={pageData.headerImage as Media}
-                />
+                {media !== undefined && media.url !== undefined && (
+                    <MediaBlock
+                        size="wide"
+                        media={pageData.headerImage as Media}
+                    />
+                )}
                 <HeadlineBlock
                     title={pageData.title}
                     level="h1"
