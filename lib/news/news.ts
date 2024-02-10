@@ -1,4 +1,16 @@
+import createCircleLink from '@/lib/events/createCircleLink';
+import createOrganisationLink from '@/lib/events/createOrganisationLink';
 import type { Circle, Organisation } from '@/types/payload/payload-types';
+
+enum NewsCategoriesDe {
+    news = 'Aktuelles',
+    announcements = 'Ankündigungen',
+}
+
+enum NewsCategoriesEn {
+    news = 'News',
+    announcements = 'Announcements',
+}
 
 export const getCircleOrOrganisationName = (data: Array<{ value: string | Organisation, relationTo: 'organisations' } | { value: string | Circle, relationTo: 'circles'}> | null | undefined): string => {
 
@@ -11,26 +23,16 @@ export const getCircleOrOrganisationName = (data: Array<{ value: string | Organi
     data.map((owner) => {
         if (owner.relationTo === 'organisations') {
             const organisation: Organisation = owner.value as Organisation;
-            str.push(organisation.name);
+            str.push(`<Link class=""  href="${createOrganisationLink(organisation)}" >${organisation.name}</Link>`);
             return;
         }
 
         const circle: Circle = owner.value as Circle;
-        str.push(circle.name);
+        str.push(`<Link href="${createCircleLink(circle)}">${circle.name}</Link>`);
     });
 
     return str.join(' - ');
 };
-
-enum NewsCategoriesDe {
-    news = 'Aktuelles',
-    announcements = 'Ankündigungen',
-}
-
-enum NewsCategoriesEn {
-    news = 'News',
-    announcements = 'Announcements',
-}
 
 export const getNewsCategory = (category: string, locale: string): string => {
     if (locale === 'de') {

@@ -38,7 +38,7 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/aktuelles" color={colors[5 % colors.length]!}>
+            <MobileNavigationLink href="/news" color={colors[5 % colors.length]!}>
                 Aktuelles
             </MobileNavigationLink>
 

@@ -374,6 +374,7 @@ export interface News {
       | null;
   newsCategory: 'news' | 'announcements';
   newsImage?: string | Media | null;
+  excerpt: string;
   layout?:
       | (
       | {

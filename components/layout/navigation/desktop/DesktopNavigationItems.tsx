@@ -30,7 +30,7 @@ export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
         subLabel: 'B-Side GmbH',
     },
     {
-        link: '/aktuelles',
+        link: '/news',
         labelDe: 'Aktuelles',
         labelEn: 'News',
     },

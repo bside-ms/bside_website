@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
@@ -46,7 +47,7 @@ export default ({ news }: Props): ReactElement => {
             <NextHead
                 title="B-Side - Aktuelles"
                 description="Was passiert gerade in der B-Side?"
-                url={`${getPublicClientUrl(locale)}/aktuelles`}
+                url={`${getPublicClientUrl(locale)}/news`}
             />
 
             <HeaderBar />
@@ -61,7 +62,9 @@ export default ({ news }: Props): ReactElement => {
 
                 <ContentWrapper>
                     <p className="pt-4 sm:text-xl">
-                        ToDo: Filter einfügen.
+                        {
+                            // ToDo: Filter einfügen.
+                        }
                     </p>
                 </ContentWrapper>
 
@@ -74,7 +77,7 @@ export default ({ news }: Props): ReactElement => {
                             return (
                                 <div key={item.id}>
 
-                                    <div className="flex gap-4 h-[300px]">
+                                    <div className="flex gap-4 h-[300px] overflow-hidden">
                                         <div className="flex-none">
                                             <Image
                                                 src={media.url!}
@@ -91,14 +94,12 @@ export default ({ news }: Props): ReactElement => {
                                                 level="h1"
                                                 teaser={`<strong><i>${getNewsCategory(item.newsCategory, locale!)}</i></strong> - ${formatDate(item.newsDate, 'dd.MM.yyyy')} - ${getCircleOrOrganisationName(item.newsAuthor)}`}
                                             />
-                                            <p className="pt-4 sm:text-lg">
-                                                {
-                                                    // ToDo: Create extract.
-                                                }
-                                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                                                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                                            <p className="py-1 sm:text-lg h-[150px] overflow-hidden">
+                                                {item.excerpt}
                                             </p>
+                                            <Link href={`/news/${item.id}`} className="sm:text-lg underline underline-offset-4 flex items-center gap-2 hover:text-orange-500">
+                                                Weiterlesen...
+                                            </Link>
                                         </div>
                                     </div>
 

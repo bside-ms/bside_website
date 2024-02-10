@@ -1,11 +1,11 @@
-import type { Circle, Media, Organisation, Page } from '@/types/payload/payload-types';
+import type { Circle, Media, News, Organisation, Page } from '@/types/payload/payload-types';
 import type { HeadlineLevel } from '@blocks/headlineBlock/Headline';
 import type { MediaContentAlignment, MediaContentBackgroundColor } from '@blocks/mediaContent/MediaContentBlock';
 
 export type SlateChildren = Array<Record<string, unknown>>;
 
 export interface BlockLayoutProps {
-    blocks: Circle['layout'] | Organisation['layout'] | Page['layout'];
+    blocks: Circle['layout'] | Organisation['layout'] | Page['layout'] | News['layout'];
 }
 
 export interface ContentColumnProps {
