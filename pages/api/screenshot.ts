@@ -6,7 +6,7 @@ import { isValidBsideUrl } from '@/lib/common/url';
 
 const getBrowserInstance = async (): Promise<puppeteer.Browser> => puppeteer.launch({
     args: ['--no-sandbox'],
-    headless: 'new',
+    headless: true,
     defaultViewport: {
         width: 1200,
         height: 600,
