@@ -18,12 +18,12 @@ const EventDetails = ({ event }: Props): ReactElement => {
 
     return (
         <div className="mb-2 md:mb-3">
-            {(isEventImageMedia(event.eventImage) || isEventImageString(event.eventImage)) && (
+            {(isEventImageMedia(event.eventImage) || isEventImageString(event.eventImage)) ? (
                 <EventImage
                     eventTitle={event.title}
                     eventImage={event.eventImage}
                 />
-            )}
+            ) : <div className="h-16 lg:h-6">{/* Image placeholder */}</div>}
 
             <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                 <span className="sm:text-lg">

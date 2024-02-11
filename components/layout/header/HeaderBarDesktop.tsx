@@ -21,24 +21,16 @@ const HeaderBarDesktop = (): ReactElement => {
             </div>
 
             <div className="bg-white p-4 pb-2">
-                <Link
-                    href="/"
-                    className="absolute left-8 w-6 hover:text-orange-500 cursor-pointer"
-                    aria-label="Zurück zur Startseite"
-                >
-                    <Heart />
-                </Link>
 
-                <Link
-                    href={asPath !== '/' ? `${asPath}` : locale === 'de' ? '/en' : '/'}
-                    className="absolute right-8 w-6 hover:text-orange-500 cursor-pointer justify-around flex text-center"
-                    aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
-                    locale={locale !== 'en' ? 'en' : 'de'}
-                >
-                    {locale !== 'en' ? 'EN' : 'DE'}
-                </Link>
+                <nav className="text-md lg:text-lg font-bold font-serif text-center lg:w-[54rem] xl:w-[70rem] mx-auto flex justify-between">
+                    <Link
+                        href="/"
+                        className="w-6 hover:text-orange-500 cursor-pointer"
+                        aria-label="Zurück zur Startseite"
+                    >
+                        <Heart />
+                    </Link>
 
-                <nav className="text-md lg:text-lg font-bold font-serif text-center md:w-[45rem] lg:w-[55rem] xl:w-[60rem] mx-auto flex justify-around">
                     {DesktopNavigationItems.map(navLink => (
                         <DesktopNavigationLink
                             key={locale !== 'en' ? navLink.labelDe : navLink.labelEn}
@@ -48,6 +40,15 @@ const HeaderBarDesktop = (): ReactElement => {
                         />
                     ))}
                 </nav>
+
+                <Link
+                    href={asPath !== '/' ? `${asPath}` : locale === 'de' ? '/en' : '/'}
+                    className="absolute top-4 right-8 w-6 hover:text-orange-500 cursor-pointer justify-around flex text-center"
+                    aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
+                    locale={locale !== 'en' ? 'en' : 'de'}
+                >
+                    {locale !== 'en' ? 'EN' : 'DE'}
+                </Link>
             </div>
         </header>
     );
