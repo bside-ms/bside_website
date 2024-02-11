@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Script from 'next/script';
 import type { ReactElement } from 'react';

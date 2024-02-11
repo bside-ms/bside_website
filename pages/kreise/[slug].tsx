@@ -73,7 +73,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
     };
 };
 
-// eslint-disable-next-line complexity
 export default ({ initialCircle, events }: Props): ReactElement => {
 
     const { locale } = useRouter();

@@ -4,13 +4,12 @@ interface SvgProps {
     className: string;
 }
 
-export const SvgKollektiv = (props: SvgProps): ReactElement => (
+export const SvgKollektiv = ({ className }: SvgProps): ReactElement => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 792.99998 643.00003"
         version="1.1"
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...props}
+        className={className}
     >
         <g
             id="g120"

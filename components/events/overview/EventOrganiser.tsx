@@ -31,8 +31,12 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
 
     return (
         <Fragment>
-            {/* eslint-disable-next-line react/no-array-index-key */}
-            {event.eventOwner?.map((owner, index) => <EventOwner key={`event-${event.id}-owner-${index}`} owner={owner} />)}
+            {event.eventOwner?.map((owner) => (
+                <EventOwner
+                    key={`event-${event.id}-owner-${typeof owner.value === 'string' ? owner.value : owner.value.name}`}
+                    owner={owner}
+                />
+            ))}
         </Fragment>
     );
 };

@@ -10,7 +10,6 @@ export const SvgHistory = (props: SvgProps): ReactElement => (
         viewBox="0 0 1000 1000"
         version="1.1"
         id="svg854"
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
     >
         <g

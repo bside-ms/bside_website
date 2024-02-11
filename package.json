@@ -25,6 +25,7 @@
     "@socialgouv/matomo-next": "^1.8.0",
     "@south-paw/react-obfuscate-ts": "^2.0.0",
     "@tailwindcss/line-clamp": "^0.4.4",
+    "classnames": "^2.3.2",
     "clsx": "^2.1.0",
     "date-fns": "3.2.x",
     "escape-html": "1.0.x",

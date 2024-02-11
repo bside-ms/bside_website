@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import * as puppeteer from 'puppeteer';
-import extractErrorMessage from '@/lib/common/helper/extractErrorMessage';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import { isValidBsideUrl } from '@/lib/common/url';
 
@@ -71,9 +70,7 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
         }
     } catch (error) {
 
-        const errorMessage = extractErrorMessage(error);
-
-        response.status(500).send(errorMessage);
+        response.status(500).send({ error });
     }
 
     response.status(500);

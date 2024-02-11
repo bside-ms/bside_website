@@ -28,8 +28,7 @@ export const OrganisationId = '647e60a67054a955522b24ad';
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     const organisationId = OrganisationId;
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation') ?? [];
+    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation');
     const organisation = await getOrganisation(organisationId, locale!);
 
     return {
