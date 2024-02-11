@@ -1,14 +1,10 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactElement } from 'react';
 import { SiGithub, SiInstagram } from 'react-icons/si';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 
-interface FooterProps {
-    children?: ReactNode;
-}
-
-const FooterLink = ({ linkUrl, linkText }: {linkUrl: string, linkText: string}): ReactElement => (
+const FooterLink = ({ linkUrl, linkText }: { linkUrl: string, linkText: string }): ReactElement => (
     <div className="my-2">
         <Link
             href={linkUrl}
@@ -55,7 +51,7 @@ const Instagram = (): ReactElement => (
     </div>
 );
 
-const Footer = ({ children }: FooterProps): ReactElement => {
+const Footer = (): ReactElement => {
     const { locale } = useRouter();
 
     return (
@@ -88,9 +84,6 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                 </div>
             </div>
 
-            {/* Only used for inViewRefs. */}
-            {children}
-
             <ContentWrapper className="!pb-2">
                 <div className="grid md:grid-cols-3 text-center text-sm">
                     <div className="mb-2 md:my-0">
@@ -104,7 +97,7 @@ const Footer = ({ children }: FooterProps): ReactElement => {
                         <FooterLink linkUrl="/bside/kollektiv" linkText={locale !== 'en' ? 'B-Side Kollektiv' : 'B-Side Collective'} />
                     </div>
                     <div className="">
-                        <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Andere Platformen' : 'Other Platforms'}</p>
+                        <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Andere Plattformen' : 'Other platforms'}</p>
                         <Instagram />
                         <GithubLink />
                     </div>

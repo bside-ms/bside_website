@@ -40,6 +40,7 @@ const HeaderBanner = (): ReactElement => {
                 'text-sm',
                 'md:text-base',
                 'lg:text-lg',
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 !isBannerVisible && 'hidden'
             )}
             style={{ backgroundColor: bannerColor, color: bannerTextColor }}

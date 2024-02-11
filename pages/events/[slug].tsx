@@ -5,7 +5,6 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
-import { useInView } from 'react-intersection-observer';
 import Footer from '@/components/common/Footer';
 import EventDetails from '@/components/events/detail/EventDetails';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -71,11 +70,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 
 export default ({ initialEvent }: Props): ReactElement => {
 
-    const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
-        initialInView: true,
-        threshold: 1,
-    });
-
     const { data: event } = useLivePreview<Event>({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
         depth: 1,
@@ -107,9 +101,7 @@ export default ({ initialEvent }: Props): ReactElement => {
                 </div>
             </main>
 
-            <Footer>
-                <div ref={inViewFooterRef} />
-            </Footer>
+            <Footer />
         </div>
     );
 };
