@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
-import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
@@ -55,8 +54,6 @@ export default ({ events, organisation, circles }: Props): ReactElement => {
 
             <div className="min-h-screen flex flex-col justify-between">
                 <HeaderBar />
-
-                <ContentDivider />
 
                 <main id="content">
                     <ContentWrapper>

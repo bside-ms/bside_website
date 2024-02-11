@@ -8,7 +8,6 @@ import type { ReactElement } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Footer from '@/components/common/Footer';
 import EventDetails from '@/components/events/detail/EventDetails';
-import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
@@ -88,7 +87,6 @@ export default ({ initialEvent }: Props): ReactElement => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
-            <ContentDivider />
 
             <main id="content" className="relative">
                 <ContentWrapper>

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
+import HeaderBanner from '@/components/layout/header/HeaderBanner';
 import { DesktopNavigationItems } from '@/components/layout/navigation/desktop/DesktopNavigationItems';
 import DesktopNavigationLink from '@/components/layout/navigation/desktop/DesktopNavigationLink';
 import Heart from '@/components/svg/Heart';
@@ -10,18 +11,17 @@ const HeaderBarDesktop = (): ReactElement => {
     const { locale, asPath } = useRouter();
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-20">
-            <div className="flex flex-row align-bottom max-w-wide w-full relative">
-                <a
-                    href="#content"
-                    className="sr-only focus:not-sr-only focus:absolute top-2 left-0 whitespace-nowrap font-serif text-2xs uppercase leading-none text-black hover:text-orange"
-                >
-                    Zum Inhalt springen
-                </a>
-            </div>
+        <header className="sticky top-0 left-0 right-0 z-20">
+            <a
+                href="#content"
+                className="sr-only focus:not-sr-only focus:absolute top-2 left-0 whitespace-nowrap font-serif text-2xs uppercase leading-none text-black hover:text-orange"
+            >
+                Zum Inhalt springen
+            </a>
 
-            <div className="bg-white p-4 pb-2">
+            <HeaderBanner />
 
+            <div className="bg-white p-4 pb-2 relative">
                 <nav className="text-md lg:text-lg font-bold font-serif text-center lg:w-[54rem] xl:w-[70rem] mx-auto flex justify-between">
                     <Link
                         href="/"

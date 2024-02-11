@@ -2,7 +2,6 @@ import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import FrontPageHero from '@/components/frontPage/FrontPageHero';
-import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import { getUpcomingEvents } from '@/lib/events';
@@ -45,9 +44,8 @@ export default ({ page, events, homePage }: Props): ReactElement => {
         <div className="min-h-screen flex flex-col justify-between">
 
             <NextHead />
-            <HeaderBar />
 
-            <ContentDivider />
+            <HeaderBar />
 
             <main id="content">
                 <FrontPageHero title={homePage.title} textBody={homePage.textBody} buttonText={homePage.buttonText} />

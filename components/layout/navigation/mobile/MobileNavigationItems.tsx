@@ -7,39 +7,38 @@ import { colors } from '@blocks/circleOverviewBlock/CircleOverview';
 
 const MobileNavigationItems = (): ReactElement => {
 
-    const { asPath } = useRouter();
+    const { asPath, locale } = useRouter();
 
     return (
         <div className="flex flex-col items-end gap-6 text-right">
-
             <MobileNavigationLink href="/" color={colors[0 % colors.length]!}>
-                Start
+                {locale === 'en' ? 'Home' : 'Start'}
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/events" color={colors[1 % colors.length]!}>
-                Veranstaltungen
+                {locale === 'en' ? 'Events' : 'Veranstaltungen'}
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/bside" color={colors[2 % colors.length]!}>
-                Die B-Side
+                {locale === 'en' ? 'About B-Side' : 'Die B-Side'}
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/kultur" color={colors[3 % colors.length]!}>
                 <div className="leading-4">
-                    Kultur & Bildung
+                    {locale === 'en' ? 'Culture & education' : 'Kultur & Bildung'}
                     <span className="text-sm"><br />B-Side Kultur e.V.</span>
                 </div>
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/quartier" color={colors[4 % colors.length]!}>
                 <div className="leading-4">
-                    Quartiersarbeit
+                    {locale === 'en' ? 'Neighbourhood work' : 'Quartiersarbeit'}
                     <span className="text-sm"><br />B-Side GmbH</span>
                 </div>
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
-                Kontakt
+                {locale === 'en' ? 'Contact' : 'Kontakt'}
             </MobileNavigationLink>
 
             <Link
@@ -56,12 +55,12 @@ const MobileNavigationItems = (): ReactElement => {
             </Link>
 
             <Link
-                href={`${asPath}`}
+                href={asPath !== '/' ? asPath : locale === 'de' ? '/en' : '/'}
                 className="text-white text-sm hover:text-orange-500 cursor-pointer"
-                aria-label="Show the english version"
-                locale="en"
+                aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
+                locale={locale !== 'en' ? 'en' : 'de'}
             >
-                Show the english version
+                {locale !== 'en' ? 'Show the english version' : 'Zur deutschsprachigen Version'}
             </Link>
         </div>
     );

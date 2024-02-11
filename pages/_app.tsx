@@ -43,7 +43,9 @@ const App = ({ Component, pageProps }: AppProps): ReactElement => {
         <AppContextProvider>
             <BreakpointContextProvider>
                 <NextHead />
-                <Component {...pageProps} />
+                <div className="relative">
+                    <Component {...pageProps} />
+                </div>
             </BreakpointContextProvider>
         </AppContextProvider>
     );
