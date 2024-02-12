@@ -5,15 +5,11 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
-import { useInView } from 'react-intersection-observer';
 import Footer from '@/components/common/Footer';
 import EventDetails from '@/components/events/detail/EventDetails';
-import Banner from '@/components/layout/Banner';
-import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
-import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import createEventSlug from '@/lib/events/createEventSlug';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
@@ -74,11 +70,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 
 export default ({ initialEvent }: Props): ReactElement => {
 
-    const { ref: inViewFooterRef, inView: isFooterInView } = useInView({
-        initialInView: true,
-        threshold: 1,
-    });
-
     const { data: event } = useLivePreview<Event>({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
         depth: 1,
@@ -90,18 +81,8 @@ export default ({ initialEvent }: Props): ReactElement => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
-            <ContentDivider />
 
-            <main id="content">
-                {isNotEmptyString(event.id) && (
-                    <Banner
-                        bannerId="ical-link"
-                        bannerLink={`/api/ics/?eventId=${event.id}`}
-                        bannerText={locale === 'de' ? 'Veranstaltung in meinen Kalender eintragen!' : 'Add event to my calendar!'}
-                        footerInView={isFooterInView}
-                    />
-                )}
-
+            <main id="content" className="relative">
                 <ContentWrapper>
                     <EventDetails event={event} />
 
@@ -109,11 +90,18 @@ export default ({ initialEvent }: Props): ReactElement => {
                         <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
                     </Link>
                 </ContentWrapper>
+
+                <div className="sticky bottom-0 text-white font-serif text-lg md:text-xl lg:text-2xl">
+                    <Link
+                        className="block py-2 text-center bg-black hover:bg-orange-600"
+                        href={`/api/ics/?eventId=${event.id}`}
+                    >
+                        {locale === 'de' ? 'Veranstaltung in meinen Kalender eintragen!' : 'Add event to my calendar!'}
+                    </Link>
+                </div>
             </main>
 
-            <Footer>
-                <div ref={inViewFooterRef} />
-            </Footer>
+            <Footer />
         </div>
     );
 };

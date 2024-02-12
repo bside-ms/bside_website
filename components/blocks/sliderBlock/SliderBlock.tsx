@@ -22,7 +22,7 @@ const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
     }
 
     return (
-        <ContentWrapper className="">
+        <ContentWrapper>
             <Swiper
                 modules={[Navigation, Pagination, Keyboard, Mousewheel, Zoom]}
                 navigation

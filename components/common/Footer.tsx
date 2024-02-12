@@ -1,15 +1,10 @@
-import { Fragment } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactElement } from 'react';
 import { SiGithub, SiInstagram } from 'react-icons/si';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 
-interface FooterProps {
-    children?: ReactNode;
-}
-
-const FooterLink = ({ linkUrl, linkText }: {linkUrl: string, linkText: string}): ReactElement => (
+const FooterLink = ({ linkUrl, linkText }: { linkUrl: string, linkText: string }): ReactElement => (
     <div className="my-2">
         <Link
             href={linkUrl}
@@ -56,66 +51,60 @@ const Instagram = (): ReactElement => (
     </div>
 );
 
-const Footer = ({ children }: FooterProps): ReactElement => {
+const Footer = (): ReactElement => {
     const { locale } = useRouter();
 
     return (
-        <Fragment>
-            <ContentWrapper />
-            <footer className="mb-auto" key="footer">
-                <div className="bg-black mt-5 py-2">
-                    <div className="py-auto text-center text-white font-bold font-serif">
-                        <Link
-                            href="/impressum"
-                            aria-label={locale !== 'en' ? 'Alle rechtlichen Angaben sind hier zu finden' : 'All legal information can be found here'}
-                            className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
-                        >
-                            {locale !== 'en' ? 'Impressum' : 'Imprint'}
-                        </Link>
-                        <span className="px-2">|</span>
-                        <Link
-                            href="/datenschutz"
-                            aria-label={locale !== 'en' ? 'Erfahre mehr darüber, wie wir mit deinen Daten umgehen' : 'Learn more about how we handle your data'}
-                            className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
-                        >
-                            {locale !== 'en' ? 'Datenschutz' : 'Privacy Policy'}
-                        </Link>
-                        <span className="px-2">|</span>
-                        <Link
-                            href="/kontakt"
-                            aria-label={locale !== 'en' ? 'Trete mit uns in den Kontakt' : 'Get in touch with us'}
-                            className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
-                        >
-                            {locale !== 'en' ? 'Kontakt' : 'Contact Us'}
-                        </Link>
+        <footer className="mb-auto" key="footer">
+            <div className="bg-black mt-5 py-2">
+                <div className="py-auto text-center text-white font-bold font-serif">
+                    <Link
+                        href="/impressum"
+                        aria-label={locale !== 'en' ? 'Alle rechtlichen Angaben sind hier zu finden' : 'All legal information can be found here'}
+                        className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
+                    >
+                        {locale !== 'en' ? 'Impressum' : 'Imprint'}
+                    </Link>
+                    <span className="px-2">|</span>
+                    <Link
+                        href="/datenschutz"
+                        aria-label={locale !== 'en' ? 'Erfahre mehr darüber, wie wir mit deinen Daten umgehen' : 'Learn more about how we handle your data'}
+                        className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
+                    >
+                        {locale !== 'en' ? 'Datenschutz' : 'Privacy Policy'}
+                    </Link>
+                    <span className="px-2">|</span>
+                    <Link
+                        href="/kontakt"
+                        aria-label={locale !== 'en' ? 'Trete mit uns in den Kontakt' : 'Get in touch with us'}
+                        className="text-md md:text-lg font-bold font-serif hover:text-orange-500"
+                    >
+                        {locale !== 'en' ? 'Kontakt' : 'Contact Us'}
+                    </Link>
+                </div>
+            </div>
+
+            <ContentWrapper className="!pb-2">
+                <div className="grid md:grid-cols-3 text-center text-sm">
+                    <div className="mb-2 md:my-0">
+                        <p className="font-serif font-bold mb-2">B-Side GmbH</p>
+                        <FooterLink linkUrl="/quartier" linkText={locale !== 'en' ? 'Über uns' : 'About us'} />
+                        <FooterLink linkUrl="/impressum" linkText={locale !== 'en' ? 'Impressum' : 'Imprint'} />
+                    </div>
+                    <div className="mb-2 md:my-0">
+                        <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Zentrale Teile des Zentrums' : 'Other Central Parts'}</p>
+                        <FooterLink linkUrl="/kultur" linkText="B-Side Kultur e.V." />
+                        <FooterLink linkUrl="/bside/kollektiv" linkText={locale !== 'en' ? 'B-Side Kollektiv' : 'B-Side Collective'} />
+                    </div>
+                    <div className="">
+                        <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Andere Plattformen' : 'Other platforms'}</p>
+                        <Instagram />
+                        <GithubLink />
                     </div>
                 </div>
+            </ContentWrapper>
 
-                {/* Only used for inViewRefs. */}
-                {children}
-
-                <ContentWrapper className="!pb-2">
-                    <div className="grid md:grid-cols-3 text-center text-sm">
-                        <div className="mb-2 md:my-0">
-                            <p className="font-serif font-bold mb-2">B-Side GmbH</p>
-                            <FooterLink linkUrl="/quartier" linkText={locale !== 'en' ? 'Über uns' : 'About us'} />
-                            <FooterLink linkUrl="/impressum" linkText={locale !== 'en' ? 'Impressum' : 'Imprint'} />
-                        </div>
-                        <div className="mb-2 md:my-0">
-                            <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Zentrale Teile des Zentrums' : 'Other Central Parts'}</p>
-                            <FooterLink linkUrl="/kultur" linkText="B-Side Kultur e.V." />
-                            <FooterLink linkUrl="/bside/kollektiv" linkText={locale !== 'en' ? 'B-Side Kollektiv' : 'B-Side Collective'} />
-                        </div>
-                        <div className="">
-                            <p className="font-serif font-bold mb-2">{locale !== 'en' ? 'Andere Platformen' : 'Other Platforms'}</p>
-                            <Instagram />
-                            <GithubLink />
-                        </div>
-                    </div>
-                </ContentWrapper>
-
-            </footer>
-        </Fragment>
+        </footer>
     );
 };
 

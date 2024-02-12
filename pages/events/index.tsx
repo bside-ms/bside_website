@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
-import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getUpcomingEvents } from '@/lib/events';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
@@ -43,7 +42,6 @@ export default ({ events, page }: Props): ReactElement => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
-            <ContentDivider />
 
             <main id="content">
                 <HeroImageSvg

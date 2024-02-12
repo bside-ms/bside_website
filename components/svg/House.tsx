@@ -4,14 +4,13 @@ interface SvgProps {
     className: string;
 }
 
-export const SvgHouse = (props: SvgProps): ReactElement => (
+export const SvgHouse = ({ className }: SvgProps): ReactElement => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 210 210"
         version="1.1"
         id="svg854"
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...props}
+        className={className}
     >
         <defs
             id="defs851"

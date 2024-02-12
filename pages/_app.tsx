@@ -43,8 +43,9 @@ const App = ({ Component, pageProps }: AppProps): ReactElement => {
         <AppContextProvider>
             <BreakpointContextProvider>
                 <NextHead />
-                {/* eslint-disable-next-line react/jsx-props-no-spreading*/}
-                <Component {...pageProps} />
+                <div className="relative">
+                    <Component {...pageProps} />
+                </div>
             </BreakpointContextProvider>
         </AppContextProvider>
     );

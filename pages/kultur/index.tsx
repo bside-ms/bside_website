@@ -5,7 +5,6 @@ import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
-import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import { getPublicClientUrl } from '@/lib/common/url';
@@ -28,8 +27,7 @@ export const OrganisationId = '647e60a67054a955522b24ad';
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     const organisationId = OrganisationId;
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation') ?? [];
+    const events = await getUpcomingEventsByOwner(organisationId, 25, 'Organisation');
     const organisation = await getOrganisation(organisationId, locale!);
 
     return {
@@ -58,8 +56,6 @@ export default ({ events, organisation, circles }: Props): ReactElement => {
 
             <div className="min-h-screen flex flex-col justify-between">
                 <HeaderBar />
-
-                <ContentDivider />
 
                 <main id="content">
                     <HeroImageSvg

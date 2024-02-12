@@ -4,7 +4,6 @@ import type { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
@@ -137,7 +136,7 @@ export default ({ page }: Props): ReactElement => {
             />
             <HeaderBar />
 
-            <ContentDivider mt={true} />
+            <div className="mt-[60px]" />
 
             <main id="content">
                 <ReusableBlockLayout

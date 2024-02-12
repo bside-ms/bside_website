@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
@@ -75,8 +74,6 @@ export default ({ news: data }: Props): ReactElement => {
                 url={`${getPublicClientUrl(locale)}/news/${data.slug}`}
             />
             <HeaderBar />
-
-            <ContentDivider mt={true} />
 
             <main id="content">
                 <ContentWrapper>

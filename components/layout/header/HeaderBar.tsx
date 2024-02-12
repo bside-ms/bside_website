@@ -5,9 +5,9 @@ import HeaderBarMobile from '@/components/layout/header/HeaderBarMobile';
 
 const HeaderBar = (): ReactElement => {
 
-    const { isMd } = useBreakpointContext();
+    const { isLg } = useBreakpointContext();
 
-    if (isMd) {
+    if (isLg) {
         return <HeaderBarDesktop />;
     }
 

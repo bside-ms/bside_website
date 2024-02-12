@@ -13,7 +13,7 @@ interface Props {
 const CircleOverviewBlock = ({ headlineText, circles, richText }: Props): ReactElement => {
 
     return (
-        <ContentWrapper className="">
+        <ContentWrapper>
             <CircleOverview
                 headlineText={headlineText}
                 circles={circles}

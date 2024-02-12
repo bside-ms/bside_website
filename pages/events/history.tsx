@@ -2,7 +2,6 @@ import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticProps } from 'next';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import ContentDivider from '@/components/layout/ContentDivider';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import { getPastEvents } from '@/lib/events';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
@@ -42,7 +41,6 @@ export default ({ events, page }: Props): ReactElement => {
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <HeaderBar />
-            <ContentDivider />
 
             <main id="content">
                 {media !== undefined && media.url !== undefined && (

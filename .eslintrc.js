@@ -88,10 +88,6 @@ module.exports = {
         'arrow-parens': [OFF, 'as-needed'],
         'arrow-spacing': ERROR,
         'comma-dangle': OFF, // Is handled by TS plugin
-        'complexity': [
-            ERROR,
-            { max: 15 }
-        ],
         'curly': ERROR,
         'default-param-last': OFF, // Is handled by TS plugin
         'dot-notation': OFF, // Is handled by TS plugin
@@ -110,7 +106,6 @@ module.exports = {
         'jsx-quotes': [ERROR, 'prefer-double'],
         'key-spacing': ERROR,
         'max-classes-per-file': [ERROR, 10],
-        'max-lines': [ERROR, 666],
         'new-parens': ERROR,
         'no-bitwise': ERROR,
         'no-caller': ERROR,
@@ -190,7 +185,6 @@ module.exports = {
         'react/jsx-no-target-blank': OFF,
         'react/jsx-no-useless-fragment': [ERROR, { 'allowExpressions': true }],
         'react/jsx-props-no-multi-spaces': ERROR,
-        'react/jsx-props-no-spreading': ERROR,
         'react/jsx-tag-spacing': [
             ERROR,
             {

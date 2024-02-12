@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
-import ContentDivider from '@/components/layout/ContentDivider';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
@@ -51,7 +50,6 @@ export default ({ news }: Props): ReactElement => {
             />
 
             <HeaderBar />
-            <ContentDivider />
 
             <main id="content">
 

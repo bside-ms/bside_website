@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import type { ReactElement, SyntheticEvent } from 'react';
 import MobileNavigationItems from '@/components/layout/navigation/mobile/MobileNavigationItems';
-import MobileNavigationItemsEnglish from '@/components/layout/navigation/mobile/MobileNavigationItemsEnglish';
 import { useAppContext } from '@/components/layout/next/AppContext';
 
 const MobileNavigationOverlay = (): ReactElement | null => {
@@ -16,8 +14,6 @@ const MobileNavigationOverlay = (): ReactElement | null => {
             toggleNavigation();
         }
     }, [toggleNavigation]);
-
-    const { locale } = useRouter();
 
     return (
         <>
@@ -75,7 +71,7 @@ const MobileNavigationOverlay = (): ReactElement | null => {
                         z-40
                     `}
                 >
-                    { locale === 'en' ? <MobileNavigationItemsEnglish /> : <MobileNavigationItems /> }
+                    <MobileNavigationItems />
                 </div>
             </nav>
 
