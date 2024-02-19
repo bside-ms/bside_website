@@ -116,7 +116,7 @@ const EventOverview = ({
                     {groupByDay.map(([date, events]) => (
                         <div key={date.toString()} className="mb-2">
                             <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
-                                {formatDate(date, 'EE dd. MMMM', locale)}
+                                {formatDate(date, 'EE dd. MMMM yy', locale)}
                             </div>
 
                             {events.map((event, index) => (

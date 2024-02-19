@@ -91,9 +91,9 @@ export default ({ initialEvent }: Props): ReactElement => {
                     </Link>
                 </ContentWrapper>
 
-                <div className="sticky bottom-0 text-white font-serif text-lg md:text-xl lg:text-2xl">
+                <div className="sticky bottom-0 text-white font-serif text-base md:text-xl lg:text-2xl">
                     <Link
-                        className="block py-2 text-center bg-black hover:bg-orange-600"
+                        className="block p-2 text-center bg-black hover:bg-orange-600"
                         href={`/api/ics/?eventId=${event.id}`}
                     >
                         {locale === 'de' ? 'Veranstaltung in meinen Kalender eintragen!' : 'Add event to my calendar!'}

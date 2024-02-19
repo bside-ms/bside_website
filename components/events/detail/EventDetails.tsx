@@ -27,7 +27,7 @@ const EventDetails = ({ event }: Props): ReactElement => {
 
             <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                 <span className="sm:text-lg">
-                    {formatDate(event.eventDate, 'EE dd. MMM', locale)}
+                    {formatDate(event.eventDate, 'EE dd. MMM yy', locale)}
                 </span>
 
                 <span className="sm:text-lg">
@@ -51,10 +51,10 @@ const EventDetails = ({ event }: Props): ReactElement => {
                 {event.eventLocation}
             </div>
 
-            <div className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif">
-                <span className="text-lg sm:text-2xl font-bold">
-                    {event.title}
-                </span>
+            <div
+                className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif text-lg sm:text-2xl font-bold"
+            >
+                {event.title}
             </div>
 
             <RichText className="mt-2 sm:text-lg md:mt-4" content={event.richText} />
