@@ -1,3 +1,5 @@
+import { isPast } from 'date-fns';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import EventImage from '@/components/events/detail/EventImage';
@@ -30,11 +32,16 @@ const EventDetails = ({ event }: Props): ReactElement => {
                     {formatDate(event.eventDate, 'EE dd. MMM yy', locale)}
                 </span>
 
-                <span className="sm:text-lg">
-                    {formatDate(event.eventStart, 'HH:mm' + ' ')}
+                {isPast(event.eventStart) && (
+                    <span className="sm:text-lg">
+                        {formatDate(event.eventStart, 'HH:mm')}{' '}
+                        {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')}`}
+                    </span>
+                )}
+            </div>
 
-                    {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')} `}
-                </span>
+            <div className="px-3 sm:px-4 py-1 bg-orange-300 text-xs mb-1 font-serif">
+                Die Veranstaltung liegt in der Vergangenheit. <Link href="/events">Klicke hier, um zu unseren aktuellen Veranstaltungen zu gelangen!</Link>
             </div>
 
             {isNotEmptyString(event.eventExtra) && (
