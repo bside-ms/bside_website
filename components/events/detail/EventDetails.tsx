@@ -27,21 +27,24 @@ const EventDetails = ({ event }: Props): ReactElement => {
                 />
             ) : <div className="h-6">{/* Image placeholder */}</div>}
 
+            {isPast(event.eventDate) && (
+                <div className="px-3 sm:px-4 py-1 bg-orange-400 mb-2 font-serif sm:text-lg text-center">
+                    <Link href="/events">
+                        Die Veranstaltung liegt in der Vergangenheit!<br />
+                        Klicke hier, um zu unseren aktuellen Veranstaltungen zu gelangen!
+                    </Link>
+                </div>
+            )}
+
             <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
                 <span className="sm:text-lg">
                     {formatDate(event.eventDate, 'EE dd. MMM yy', locale)}
                 </span>
 
-                {isPast(event.eventStart) && (
-                    <span className="sm:text-lg">
-                        {formatDate(event.eventStart, 'HH:mm')}{' '}
-                        {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')}`}
-                    </span>
-                )}
-            </div>
-
-            <div className="px-3 sm:px-4 py-1 bg-orange-300 text-xs mb-1 font-serif">
-                Die Veranstaltung liegt in der Vergangenheit. <Link href="/events">Klicke hier, um zu unseren aktuellen Veranstaltungen zu gelangen!</Link>
+                <span className="sm:text-lg">
+                    {formatDate(event.eventStart, 'HH:mm')}{' '}
+                    {isNotEmptyString(event.eventEnd) && `- ${formatDate(event.eventEnd, 'HH:mm')}`}
+                </span>
             </div>
 
             {isNotEmptyString(event.eventExtra) && (
