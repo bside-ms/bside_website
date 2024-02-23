@@ -8,6 +8,13 @@ interface Props {
     children: ReactNode;
 }
 
+export const headlineClass = {
+    h1: 'font-serif leading-none text-3xl md:text-4xl break-words sm:break-normal md:scroll-mt-[96px]',
+    h2: 'font-serif leading-tight text-2xl md:text-3xl break-words sm:break-normal md:scroll-mt-[96px]',
+    h3: 'font-serif leading-tight text-xl md:text-2xl break-words sm:break-normal md:scroll-mt-[96px]',
+    h4: 'font-serif leading-tight text-xl md:text-xl font-bold md:scroll-mt-[96px]',
+};
+
 const HeadlineTag = ({ children, level, anchor }: Props): ReactElement => {
 
     const id = getHeadlineId(anchor, children);

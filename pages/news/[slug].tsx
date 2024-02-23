@@ -1,5 +1,8 @@
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
@@ -12,7 +15,7 @@ import { getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Media, News } from '@/types/payload/payload-types';
-import Headline from '@blocks/headlineBlock/Headline';
+import { headlineClass } from '@blocks/headlineBlock/HeadlineTag';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
@@ -77,18 +80,25 @@ export default ({ news: data }: Props): ReactElement => {
 
             <main id="content">
                 <ContentWrapper>
-                    <Headline
-                        title={data.title}
-                        level="h1"
-                        teaser={`<strong><i>${getNewsCategory(data.newsCategory, locale!)}</i></strong> - ${formatDate(data.newsDate, 'dd.MM.yyyy')} - ${getCircleOrOrganisationName(data.newsAuthor)}`}
-                    />
+
+                    <>
+                        <small className="block font-normal leading-none tracking-normal italic text-base md:text-base mb-1">
+                            <strong><i>{getNewsCategory(data.newsCategory, locale!)}</i></strong> - {formatDate(data.newsDate, 'dd.MM.yyyy')} - {getCircleOrOrganisationName(data.newsAuthor)}
+                        </small>
+
+                        <div className="max-w-full">
+                            <div className={headlineClass.h4}>
+                                {data.title}
+                            </div>
+                        </div>
+                    </>
                     <div className="float-right p-4">
                         <Image
                             src={media.url!}
                             alt=""
                             width={400}
                             height={400}
-                            className="p-4"
+                            className="py-4 lg:p-4"
                         />
                     </div>
                 </ContentWrapper>
@@ -96,6 +106,12 @@ export default ({ news: data }: Props): ReactElement => {
                 <ReusableBlockLayout
                     layout={data.layout}
                 />
+
+                <ContentWrapper>
+                    <Link href="/news" className="mt-4 underline underline-offset-4 flex items-center gap-2 hover:text-orange-500">
+                        <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
+                    </Link>
+                </ContentWrapper>
             </main>
 
             <Footer />

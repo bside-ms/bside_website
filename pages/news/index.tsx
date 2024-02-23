@@ -1,8 +1,8 @@
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
+import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
@@ -13,8 +13,8 @@ import { getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Media, News } from '@/types/payload/payload-types';
-import Headline from '@blocks/headlineBlock/Headline';
 import HeadlineBlock from '@blocks/headlineBlock/HeadlineBlock';
+import { headlineClass } from '@blocks/headlineBlock/HeadlineTag';
 
 interface Props {
     news: Array<News>;
@@ -40,7 +40,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 
 export default ({ news }: Props): ReactElement => {
     const { locale } = useRouter();
-    
+    const { isMd, isLg } = useBreakpointContext();
+
     return (
         <div className="min-h-screen flex flex-col justify-between">
             <NextHead
@@ -75,31 +76,50 @@ export default ({ news }: Props): ReactElement => {
                             return (
                                 <div key={item.id}>
 
-                                    <div className="flex gap-4 h-[300px] overflow-hidden">
-                                        <div className="flex-none">
+                                    <a className="lg:flex lg:gap-4" href={`/news/${item.id}`}>
+
+                                        <div className="lg:grow py-4 md:p-4">
+                                            <small className="block font-normal leading-none tracking-normal italic text-base md:text-base mb-1">
+                                                <strong><i>{getNewsCategory(item.newsCategory, locale!)}</i></strong> - {formatDate(item.newsDate, 'dd.MM.yyyy')} - {getCircleOrOrganisationName(item.newsAuthor)}
+                                            </small>
+
+                                            <div className="max-w-full">
+                                                <div className={headlineClass.h3}>
+                                                    {item.title}
+                                                </div>
+                                            </div>
+
+                                            <div className="lg:hidden md:float-left md:pr-8">
+                                                <Image
+                                                    src={media.url!}
+                                                    alt=""
+                                                    width={300}
+                                                    height={300}
+                                                    className="mx-auto py-4 md:py-4"
+                                                />
+                                            </div>
+
+                                            <p className="py-1 sm:text-lg">
+                                                {item.excerpt}
+                                            </p>
+
+                                            <p
+                                                className="sm:text-lg underline underline-offset-4 flex items-center gap-2 hover:text-orange-500"
+                                            >
+                                                Weiterlesen...
+                                            </p>
+                                        </div>
+
+                                        <div className="hidden lg:block lg:flex-none drop-shadow-lg">
                                             <Image
                                                 src={media.url!}
                                                 alt=""
-                                                width={300}
-                                                height={300}
-                                                className="p-4"
+                                                width={isMd && !isLg ? 450 : 300}
+                                                height={isMd && !isLg ? 450 : 300}
+                                                className="mx-auto md:p-4"
                                             />
                                         </div>
-
-                                        <div className="grow p-4">
-                                            <Headline
-                                                title={item.title}
-                                                level="h1"
-                                                teaser={`<strong><i>${getNewsCategory(item.newsCategory, locale!)}</i></strong> - ${formatDate(item.newsDate, 'dd.MM.yyyy')} - ${getCircleOrOrganisationName(item.newsAuthor)}`}
-                                            />
-                                            <p className="py-1 sm:text-lg h-[150px] overflow-hidden">
-                                                {item.excerpt}
-                                            </p>
-                                            <Link href={`/news/${item.id}`} className="sm:text-lg underline underline-offset-4 flex items-center gap-2 hover:text-orange-500">
-                                                Weiterlesen...
-                                            </Link>
-                                        </div>
-                                    </div>
+                                    </a>
 
                                     {
                                         // Display a horizontal line after each news item, except for the last one.

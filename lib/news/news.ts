@@ -1,5 +1,3 @@
-import createCircleLink from '@/lib/events/createCircleLink';
-import createOrganisationLink from '@/lib/events/createOrganisationLink';
 import type { Circle, Organisation } from '@/types/payload/payload-types';
 
 enum NewsCategoriesDe {
@@ -23,12 +21,12 @@ export const getCircleOrOrganisationName = (data: Array<{ value: string | Organi
     data.map((owner) => {
         if (owner.relationTo === 'organisations') {
             const organisation: Organisation = owner.value as Organisation;
-            str.push(`<Link class=""  href="${createOrganisationLink(organisation)}" >${organisation.name}</Link>`);
+            str.push(`${organisation.name}`);
             return;
         }
 
         const circle: Circle = owner.value as Circle;
-        str.push(`<Link href="${createCircleLink(circle)}">${circle.name}</Link>`);
+        str.push(`${circle.name}`);
     });
 
     return str.join(' - ');
