@@ -14,6 +14,17 @@ interface EventProps {
     sort?: string;
 }
 
+export const fetchEventByIdentifier = async (slug: string, locale: string): Promise<Event | undefined> => {
+    // Check if it matches the new slug format.
+    if (!(/^[a-zA-Z0-9]{4}-/.test(slug) && slug.length >= 5)) {
+        return undefined;
+    }
+
+    const identifier = slug.slice(5);
+    const response = await getPayloadResponse<PaginatedDocs<Event>>(`/api/events/?where[identifier][equals]=${identifier}&locale=${locale}`);
+    return response.docs[0] ?? undefined;
+};
+
 const executeEvents = async (event: EventProps): Promise<Array<Event>> => {
     const limitStr = !isEmptyNumber(event.limit) ? `&limit=${event.limit}` : '';
 

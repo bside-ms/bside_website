@@ -10,7 +10,8 @@ import EventDetails from '@/components/events/detail/EventDetails';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
-import createEventSlug from '@/lib/events/createEventSlug';
+import { fetchEventByIdentifier } from '@/lib/events';
+import createEventSlug, { createEventSlugOld } from '@/lib/events/createEventSlug';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Event } from '@/types/payload/payload-types';
@@ -18,6 +19,14 @@ import type { Event } from '@/types/payload/payload-types';
 interface Props {
     initialEvent: Event;
 }
+
+const processSlug = (rawSlug: string | Array<string> | undefined): string => {
+    if (rawSlug === undefined) {
+        return '';
+    }
+
+    return typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
@@ -36,25 +45,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
-
-    const rawSlug = params?.slug;
-
-    if (rawSlug === undefined) {
+    const slug = processSlug(params?.slug);
+    if (isEmptyString(slug) || locale === undefined) {
         return { notFound: true };
     }
 
-    const slug = typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
+    let event: Event | undefined = await fetchEventByIdentifier(slug, locale);
 
-    if (isEmptyString(slug)) {
-        return { notFound: true };
+    // Check if it is an old style link.
+    if (event === undefined) {
+        const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=9999');
+        event = pagesResponse.docs.find(eventItem => (
+            createEventSlug(eventItem as Event) === slug || createEventSlugOld(eventItem as Event) === slug
+        ));
     }
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=9999');
-
-    const event = pagesResponse.docs.find(eventItem => (
-        createEventSlug(eventItem as Event) === slug
-    ));
-
+    // Event does not exist.
     if (event === undefined) {
         return { notFound: true };
     }

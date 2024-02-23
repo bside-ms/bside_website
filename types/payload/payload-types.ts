@@ -29,6 +29,10 @@ export interface Config {
     'event-archive': EventArchive;
   };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
 export interface Event {
   id: string;
   title: string;
@@ -60,6 +64,7 @@ export interface Event {
   displayOnOrganisation?: boolean | null;
   displayOnCircle?: boolean | null;
   slug?: string | null;
+  identifier?: string | null;
   createdBy?: {
     relationTo: 'users';
     value: string | User;
@@ -72,6 +77,10 @@ export interface Event {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
 export interface Media {
   id: string;
   alt: string;
@@ -119,6 +128,10 @@ export interface Media {
     };
   };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
 export interface User {
   id: string;
   email: string;
@@ -130,6 +143,10 @@ export interface User {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "circles".
+ */
 export interface Circle {
   id: string;
   name: string;
@@ -239,6 +256,10 @@ export interface Circle {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "organisations".
+ */
 export interface Organisation {
   id: string;
   name: string;
@@ -355,6 +376,10 @@ export interface Organisation {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
 export interface News {
   id: string;
   title: string;
@@ -473,6 +498,7 @@ export interface News {
   }
       )[]
       | null;
+  identifier?: string | null;
   createdBy?: {
     relationTo: 'users';
     value: string | User;
@@ -485,6 +511,10 @@ export interface News {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
 export interface Page {
   id: string;
   title: string;
@@ -612,6 +642,10 @@ export interface Page {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-forms".
+ */
 export interface ContactForm {
   id: string;
   fullName: string;
@@ -623,6 +657,10 @@ export interface ContactForm {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "not-found-pages".
+ */
 export interface NotFoundPage {
   id: string;
   slug: string;
@@ -630,6 +668,10 @@ export interface NotFoundPage {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "api-users".
+ */
 export interface ApiUser {
   id: string;
   updatedAt: string;
@@ -638,6 +680,10 @@ export interface ApiUser {
   apiKey?: string | null;
   apiKeyIndex?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
 export interface Redirect {
   id: string;
   from: string;
@@ -660,6 +706,10 @@ export interface Redirect {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
 export interface PayloadPreference {
   id: string;
   user:
@@ -684,6 +734,10 @@ export interface PayloadPreference {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
 export interface PayloadMigration {
   id: string;
   name?: string | null;
@@ -691,6 +745,10 @@ export interface PayloadMigration {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "start-page".
+ */
 export interface StartPage {
   id: string;
   title: string;
@@ -707,6 +765,10 @@ export interface StartPage {
   updatedAt?: string | null;
   createdAt?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-bside".
+ */
 export interface AboutBside {
   id: string;
   title: string;
@@ -738,6 +800,10 @@ export interface AboutBside {
   updatedAt?: string | null;
   createdAt?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-page".
+ */
 export interface EventPage {
   id: string;
   title: string;
@@ -850,6 +916,10 @@ export interface EventPage {
   updatedAt?: string | null;
   createdAt?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-archive".
+ */
 export interface EventArchive {
   id: string;
   title: string;
