@@ -90,7 +90,7 @@ const Footer = (): ReactElement => {
                     </div>
                 </div>
 
-                <ContentWrapper className="!pb-2">
+                <ContentWrapper className="mt-4 lg:mt-0">
                     <div className="grid md:grid-cols-3 text-center text-sm">
                         <div className="mb-2 md:my-0">
                             <p className="font-serif font-bold mb-2">B-Side GmbH</p>
