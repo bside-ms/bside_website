@@ -20,7 +20,7 @@ export const fetchEventByIdentifier = async (slug: string, locale: string): Prom
         return undefined;
     }
 
-    const identifier = slug.slice(5);
+    const identifier = slug.slice(0, 4);
     const response = await getPayloadResponse<PaginatedDocs<Event>>(`/api/events/?where[identifier][equals]=${identifier}&locale=${locale}`);
     return response.docs[0] ?? undefined;
 };

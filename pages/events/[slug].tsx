@@ -10,6 +10,7 @@ import EventDetails from '@/components/events/detail/EventDetails';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import { processSlug } from '@/lib/common/url';
 import { fetchEventByIdentifier } from '@/lib/events';
 import createEventSlug, { createEventSlugOld } from '@/lib/events/createEventSlug';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
@@ -19,14 +20,6 @@ import type { Event } from '@/types/payload/payload-types';
 interface Props {
     initialEvent: Event;
 }
-
-const processSlug = (rawSlug: string | Array<string> | undefined): string => {
-    if (rawSlug === undefined) {
-        return '';
-    }
-
-    return typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
-};
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
@@ -92,7 +85,7 @@ export default ({ initialEvent }: Props): ReactElement => {
                 <ContentWrapper>
                     <EventDetails event={event} />
 
-                    <Link href="/events" className="mt-4 underline underline-offset-4 flex items-center gap-2 hover:text-orange-500">
+                    <Link href="/events" className="mt-4 underline underline-offset-4 flex items-center gap-2 hover:text-orange-500 md:text-lg">
                         <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
                     </Link>
                 </ContentWrapper>
