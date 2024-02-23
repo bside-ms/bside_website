@@ -62,3 +62,8 @@ export const createNewsSlug = (news: News): string => {
 
     return `${news.id.slice(-4)}-${kebabCase(news.title)}`;
 };
+
+export const getNewsIndex = async (): Promise<Array<News>> => {
+    const news = await getPayloadResponse<PaginatedDocs<News>>('/api/news/?depth=0&limit=9999');
+    return news.docs;
+};

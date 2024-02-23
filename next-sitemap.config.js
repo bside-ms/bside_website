@@ -12,6 +12,7 @@ module.exports = {
 
         // pages with layouts
         '/kultur',
+        '/news',
         '/quartier',
         '/bside/*',
 
