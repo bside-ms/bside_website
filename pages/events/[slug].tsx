@@ -78,27 +78,7 @@ export default ({ initialEvent }: Props): ReactElement => {
                 </ContentWrapper>
 
                 <ContentWrapper>
-                    <div className="flex gap-4">
-                        <div className="basis-1/2 text-black font-serif text-base sm:text-xl">
-                            <Link
-                                href="/events"
-                                className="block p-2 text-center bg-white border-black border-2 hover:bg-orange-600"
-                            >
-                                <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
-                            </Link>
-                        </div>
-
-                        {!isPast(event.eventDate) && (
-                            <div className="basis-1/2 text-white font-serif text-base sm:text-xl">
-                                <Link
-                                    className="block p-2 text-center bg-black border-black border-2 hover:bg-orange-600"
-                                    href={`/api/ics/?eventId=${event.id}`}
-                                >
-                                    {locale === 'de' ? 'Zum Kalender hinzufügen' : 'Add event to calendar'}
-                                </Link>
-                            </div>
-                        )}
-                    </div>
+                    <EventButtons event={event} />
                 </ContentWrapper>
             </main>
 
