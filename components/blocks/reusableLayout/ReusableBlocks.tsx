@@ -1,9 +1,10 @@
 import type { ReactElement } from 'react';
+import type EventsOnPage from '@/types/EventsOnPage';
 import type { BlockLayoutProps } from '@/types/payload/Blocks';
-import type { Circle, Event } from '@/types/payload/payload-types';
+import type { Circle } from '@/types/payload/payload-types';
 import CallToActionBlock from '@blocks/callToActionBlock/CallToActionBlock';
 import CircleOverviewBlock from '@blocks/circleOverviewBlock/CircleOverviewBlock';
-import EventOverviewBlock from '@blocks/eventOverviewBlock/EventOverviewBlock';
+import EventsOverviewBlock from '@blocks/eventOverviewBlock/EventsOverviewBlock';
 import HeadlineBlock from '@blocks/headlineBlock/HeadlineBlock';
 import MediaBlock from '@blocks/mediaBlock/MediaBlock';
 import MediaContentBlock from '@blocks/mediaContent/MediaContentBlock';
@@ -11,12 +12,12 @@ import SliderBlock from '@blocks/sliderBlock/SliderBlock';
 import TeaserBlock from '@blocks/teaserBlock/TeaserBlock';
 import ContentBlock from '@blocks/textBlock/ContentBlock';
 
-export interface ReusableBlockProps {
+interface Props {
     circles?: Array<Circle> | null;
-    events?: Array<Event> | null;
     layoutElement: NonNullable<BlockLayoutProps['blocks']>[0];
     nextBlock?: string;
     previousBlock?: string;
+    eventsOnPage?: EventsOnPage;
 }
 
 const ReusableTeaserBlock = ({ layoutElement, previousBlock, nextBlock }: Omit<ReusableBlockProps, 'circles' | 'events'>): ReactElement | null => {
@@ -39,10 +40,9 @@ const ReusableTeaserBlock = ({ layoutElement, previousBlock, nextBlock }: Omit<R
     );
 };
 
-const ReusableBlocks = ({ layoutElement, circles = null, events = null, previousBlock, nextBlock }: ReusableBlockProps): ReactElement | null => {
+const ReusableBlocks = ({ layoutElement, circles = null, previousBlock, nextBlock, eventsOnPage }: Props): ReactElement | null => {
 
     switch (layoutElement.blockType) {
-
         case 'callToAction':
             return (
                 <CallToActionBlock
@@ -108,10 +108,10 @@ const ReusableBlocks = ({ layoutElement, circles = null, events = null, previous
 
         case 'eventOverview':
             return (
-                <EventOverviewBlock
+                <EventsOverviewBlock
                     headlineText={layoutElement.title}
-                    events={events ?? []}
                     richText={layoutElement.richText}
+                    eventsOnPage={eventsOnPage}
                 />
             );
 

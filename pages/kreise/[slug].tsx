@@ -11,16 +11,14 @@ import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { getPublicClientUrl } from '@/lib/common/url';
-import { getUpcomingEventsByOwner } from '@/lib/events';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Circle, Event, Media } from '@/types/payload/payload-types';
+import type { Circle, Media } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 import Headline from 'components/blocks/headlineBlock/Headline';
 
 interface Props {
     initialCircle: Circle;
-    events: Array<Event>;
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
@@ -66,13 +64,12 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
         revalidate: 60,
         props: {
             initialCircle: circle,
-            events: await getUpcomingEventsByOwner(circle.id, 0, 'Circle'),
             locale,
         },
     };
 };
 
-export default ({ initialCircle, events }: Props): ReactElement => {
+export default ({ initialCircle }: Props): ReactElement => {
 
     const { locale } = useRouter();
 
@@ -92,7 +89,7 @@ export default ({ initialCircle, events }: Props): ReactElement => {
         circle.meta.title : `${circle.name} ${organisation && `| ${organisation.name}`}`;
     const metaDescription = circle.meta !== undefined && !isEmptyString(circle.meta.description) ?
         circle.meta.description : `${circle.name} ${organisation && `| ${organisation.name} | B-Side`}`;
-    const canonialUrl = `${getPublicClientUrl(locale)}/${organisationName}/${circleName}`;
+    const canonicalUrl = `${getPublicClientUrl(locale)}/${organisationName}/${circleName}`;
 
     // Circle
     const imageUrl: string = (circle.circleImage ?? null) !== null ? (circle.circleImage as Media).url! : `/assets/stickFigures/${circle.fallbackImage}.svg`;
@@ -102,7 +99,7 @@ export default ({ initialCircle, events }: Props): ReactElement => {
             <NextHead
                 title={metaTitle}
                 description={metaDescription}
-                url={canonialUrl}
+                url={canonicalUrl}
             />
 
             <div className="min-h-screen flex flex-col justify-between">
@@ -135,7 +132,11 @@ export default ({ initialCircle, events }: Props): ReactElement => {
 
                     <ReusableBlockLayout
                         layout={circle.layout}
-                        events={events}
+                        eventsOnPage={{
+                            ownerId: circle.id,
+                            filter: 'Circle',
+                            perPage: 10,
+                        }}
                     />
                 </main>
 

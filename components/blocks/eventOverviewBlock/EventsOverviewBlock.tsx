@@ -1,18 +1,18 @@
 import type { ReactElement } from 'react';
-import EventOverview from '@/components/events/overview/EventOverview';
+import EventsOverview from '@/components/events/overview/EventsOverview';
 import ContentWrapper from '@/components/layout/ContentWrapper';
+import type EventsOnPage from '@/types/EventsOnPage';
 import type { SlateChildren } from '@/types/payload/Blocks';
-import type { Event } from '@/types/payload/payload-types';
 import Headline from '@blocks/headlineBlock/Headline';
 import RichText from '@blocks/richTextBlock/RichText';
 
 interface EventOverviewBlockProps {
     headlineText: string;
-    events: Array<Event>;
     richText: SlateChildren;
+    eventsOnPage?: EventsOnPage;
 }
 
-const EventOverviewBlock = ({ events, headlineText, richText }: EventOverviewBlockProps): ReactElement => {
+const EventsOverviewBlock = ({ headlineText, richText, eventsOnPage }: EventOverviewBlockProps): ReactElement => {
 
     return (
         <>
@@ -33,10 +33,7 @@ const EventOverviewBlock = ({ events, headlineText, richText }: EventOverviewBlo
                     </div>
 
                     <div className="lg:basis-2/3 overflow-y">
-                        <EventOverview
-                            title=""
-                            events={events}
-                        />
+                        <EventsOverview eventsOnPage={eventsOnPage} />
                     </div>
                 </div>
             </ContentWrapper>
@@ -44,4 +41,4 @@ const EventOverviewBlock = ({ events, headlineText, richText }: EventOverviewBlo
     );
 };
 
-export default EventOverviewBlock;
+export default EventsOverviewBlock;

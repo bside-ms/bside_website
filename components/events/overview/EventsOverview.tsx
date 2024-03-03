@@ -1,21 +1,23 @@
-import { Fragment, useCallback, useMemo, useState } from 'react';
+import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { uniq } from 'lodash';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import EventOverviewEmpty from '@/components/events/overview/EventOverviewEmpty';
 import EventOverviewEntry from '@/components/events/overview/EventOverviewEntry';
+import EventsPagination from '@/components/events/overview/EventsPagination';
+import delayExecution from '@/lib/common/helper/delayExecution';
 import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
-import { groupEventsByDay } from '@/lib/events';
 import type EventCategory from '@/lib/events/EventCategory';
 import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
-import type { Event } from '@/types/payload/payload-types';
+import groupEventsByDay from '@/lib/events/groupEventsByDay';
+import useAllEvents from '@/lib/events/useAllEvents';
+import type EventsOnPage from '@/types/EventsOnPage';
 
 interface Props {
     title?: string;
-    events: Array<Event>;
-    pastEvents?: boolean;
     noFilters?: boolean;
+    eventsOnPage?: EventsOnPage;
 }
 
 const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onClick: (type: EventCategory) => void, isActive: boolean }): ReactElement => {
@@ -35,18 +37,21 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onC
     );
 };
 
-const EventOverview = ({
+const EventsOverview = ({
     title = '',
-    events: allEvents,
-    pastEvents = false,
     noFilters = false,
+    eventsOnPage,
 }: Props): ReactElement => {
+
+    const [page, setPage] = useState(1);
+
+    const paginatedEvents = useAllEvents(eventsOnPage, page);
 
     const { locale } = useRouter();
 
     const allAvailableCategories = useMemo((): Array<EventCategory> => (
         uniq(
-            allEvents.reduce(
+            paginatedEvents?.docs.reduce(
                 (availableCategories, eventItem) => {
 
                     if (eventItem.category !== undefined && eventItem.category !== null) {
@@ -58,27 +63,40 @@ const EventOverview = ({
                 new Array<EventCategory>()
             )
         )
-    ), [allEvents]);
+    ), [paginatedEvents?.docs]);
 
     const [filteredEventType, setFilteredEventType] = useState<EventCategory | null>(null);
 
-    const filteredEvents = allEvents.filter(eventItem => (
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const filteredEvents = paginatedEvents?.docs.filter(eventItem => (
         filteredEventType === null || (eventItem.category ?? []).includes(filteredEventType)
-    ));
+    )) ?? [];
 
     const unsetFilteredEventType = useCallback(() => setFilteredEventType(null), []);
 
     const groupByDay = useMemo(
-        () => groupEventsByDay(filteredEvents, pastEvents),
-        [filteredEvents, pastEvents]
+        () => groupEventsByDay(filteredEvents, eventsOnPage?.dateDirection === 'past'),
+        [eventsOnPage?.dateDirection, filteredEvents]
     );
+
+    const eventsScrollAnchorRef = useRef<HTMLDivElement>(null);
+
+    const handleSetPage = useCallback(async (newPage: number) => {
+        setPage(newPage);
+
+        await delayExecution(100);
+
+        eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, []);
 
     if (filteredEvents.length === 0) {
         return EventOverviewEmpty({ title });
     }
 
     return (
-        <div>
+        <div className="relative">
+            <div ref={eventsScrollAnchorRef} className="absolute -top-52 md:-top-24" />
+
             {!isEmptyString(title) && (
                 <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
                     {title}
@@ -125,9 +143,13 @@ const EventOverview = ({
                         </div>
                     ))}
                 </div>
+
+                {paginatedEvents !== undefined && (
+                    <EventsPagination paginatedEvents={paginatedEvents} page={page} setPage={handleSetPage} />
+                )}
             </div>
         </div>
     );
 };
 
-export default EventOverview;
+export default EventsOverview;

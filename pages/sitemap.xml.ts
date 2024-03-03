@@ -1,8 +1,9 @@
+import { format, isPast } from 'date-fns';
 import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getServerSideSitemapLegacy } from 'next-sitemap';
-import { getEventIndex } from '@/lib/events';
 import createCircleLink from '@/lib/events/createCircleLink';
 import createEventSlug from '@/lib/events/createEventSlug';
+import fetchAllEvents from '@/lib/events/fetchAllEvents';
 import { getCircleIndex } from '@/lib/organisations';
 import type { Circle, Event } from '@/types/payload/payload-types';
 
@@ -13,62 +14,70 @@ interface SiteIndexFields {
     priority?: number;
 }
 
-const generateStaticIndexes = (now: Date): Array<SiteIndexFields> => {
+const generateStaticIndexes = (): Array<SiteIndexFields> => {
+    const today = format(new Date(), 'yyyy-MM-dd');
+
     return [
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'daily',
             priority: 1,
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'daily',
             priority: 0.9,
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/quartier`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
+            changefreq: 'daily',
+            priority: 0.9,
+        },
+        {
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/news`,
+            lastmod: today,
             changefreq: 'daily',
             priority: 0.9,
         },
 
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/bside`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'daily',
             priority: 0.8,
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/bside/haus`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'weekly',
             priority: 0.5,
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/bside/kollektiv`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'daily',
             priority: 0.8,
         },
 
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/events`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'daily',
             priority: 0.7,
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/events/history`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'daily',
             priority: 0.4,
         },
 
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/events/kontakt`,
-            lastmod: now.toISOString().split('T')[0]!,
+            lastmod: today,
             changefreq: 'weekly',
             priority: 0.4,
         },
@@ -76,17 +85,15 @@ const generateStaticIndexes = (now: Date): Array<SiteIndexFields> => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
-    const now = new Date();
     const { locale } = ctx;
 
-    const events = await getEventIndex();
+    const events = await fetchAllEvents();
     const circles = await getCircleIndex(locale!);
 
-    const fields = generateStaticIndexes(now);
+    const fields = generateStaticIndexes();
 
     events.forEach((event: Event) => {
-        const eventDate = new Date(event.eventDate);
-        const inPast = eventDate < now;
+        const inPast = isPast(event.eventDate);
 
         fields.push({
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/events/${createEventSlug(event)}`,

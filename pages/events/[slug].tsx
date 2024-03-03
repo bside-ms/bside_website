@@ -11,8 +11,8 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import createEventSlug from '@/lib/events/createEventSlug';
-import getPayloadResponse from '@/lib/payload/getPayloadResponse';
-import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import fetchAllEvents from '@/lib/events/fetchAllEvents';
+import fetchEventBySlug from '@/lib/events/fetchEventBySlug';
 import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
@@ -21,9 +21,9 @@ interface Props {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const pages = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=9999');
+    const events = await fetchAllEvents();
 
-    const paths = pages.docs.map(event => ({
+    const paths = events.map(event => ({
         params: {
             slug: createEventSlug(event),
         },
@@ -49,11 +49,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
         return { notFound: true };
     }
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=9999');
-
-    const event = pagesResponse.docs.find(eventItem => (
-        createEventSlug(eventItem as Event) === slug
-    ));
+    const event = await fetchEventBySlug(slug);
 
     if (event === undefined) {
         return { notFound: true };

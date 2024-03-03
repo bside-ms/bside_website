@@ -9,37 +9,30 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import { getPublicClientUrl } from '@/lib/common/url';
-import { getUpcomingEvents } from '@/lib/events';
 import { getAllCircles, getOrganisation } from '@/lib/organisations';
-import type { Circle, Event, Organisation } from '@/types/payload/payload-types';
+import type { Circle, Organisation } from '@/types/payload/payload-types';
 import ReusableBlocks from '@blocks/reusableLayout/ReusableBlocks';
 import SubNavigation from '@blocks/subNavigation/SubNavigation';
 import SubNavigationLink from '@blocks/subNavigation/SubNavigationLink';
 
 interface Props {
-    events: Array<Event>;
     organisation: Organisation;
     circles: Array<Circle>;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-    // ToDo: Apply filter to the eventlist.
-    const events = await getUpcomingEvents(25);
-
-    const organisationId = '647e605b7054a955522b2471';
-    const organisation = await getOrganisation(organisationId, locale!);
+    const organisation = await getOrganisation('647e605b7054a955522b2471', locale!);
 
     return {
         revalidate: 60,
         props: {
-            events,
             organisation,
             circles: await getAllCircles(locale!),
         },
     };
 };
 
-export default ({ events, organisation, circles }: Props): ReactElement => {
+export default ({ organisation, circles }: Props): ReactElement => {
 
     const { locale } = useRouter();
     const { isMd } = useBreakpointContext();
@@ -96,7 +89,7 @@ export default ({ events, organisation, circles }: Props): ReactElement => {
                             key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
                             layoutElement={layoutElement}
                             circles={circles}
-                            events={events}
+                            eventsOnPage={{ ownerId: organisation.id, perPage: 10 }}
                         />
                     ))}
                 </main>

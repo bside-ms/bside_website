@@ -15,6 +15,10 @@ const getPayloadResponse = async <T>(path: string, preview: boolean = false): Pr
         }
     );
 
+    if (!fetchResponse.ok) {
+        throw new Error();
+    }
+
     return fetchResponse.json() as T;
 };
 
