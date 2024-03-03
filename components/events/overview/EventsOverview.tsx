@@ -1,5 +1,4 @@
-import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
-import { uniq } from 'lodash';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import EventOverviewEmpty from '@/components/events/overview/EventOverviewEmpty';
@@ -12,17 +11,25 @@ import type EventCategory from '@/lib/events/EventCategory';
 import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
 import groupEventsByDay from '@/lib/events/groupEventsByDay';
 import useAllEvents from '@/lib/events/useAllEvents';
+import useAvailableCategoryFilters from '@/lib/events/useAvailableCategoryFilters';
 import type EventsOnPage from '@/types/EventsOnPage';
 
 interface Props {
     title?: string;
-    noFilters?: boolean;
     eventsOnPage?: EventsOnPage;
 }
 
-const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onClick: (type: EventCategory) => void, isActive: boolean }): ReactElement => {
+const EventCategoryFilter = ({
+    category,
+    onClick,
+    isActive,
+}: {
+    category: EventCategory;
+    onClick: (type: EventCategory) => void;
+    isActive: boolean;
+}): ReactElement => {
 
-    const handleClick = useCallback(() => onClick(type), [onClick, type]);
+    const handleClick = useCallback(() => onClick(category), [onClick, category]);
     const { locale } = useRouter();
 
     return (
@@ -31,52 +38,39 @@ const EventTypeFilter = ({ type, onClick, isActive }: { type: EventCategory, onC
             className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
         >
             <div className={isActive ? 'text-gray-500' : ''}>
-                {getEventCategoryTitle(type, locale)}
+                {getEventCategoryTitle(category, locale)}
             </div>
         </div>
     );
 };
 
-const EventsOverview = ({
-    title = '',
-    noFilters = false,
-    eventsOnPage,
-}: Props): ReactElement => {
+const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
 
     const [page, setPage] = useState(1);
 
-    const paginatedEvents = useAllEvents(eventsOnPage, page);
+    const [categories, setCategories] = useState<Array<EventCategory>>([]);
+
+    const paginatedEvents = useAllEvents(eventsOnPage, page, categories);
+
+    const allAvailableCategories = useAvailableCategoryFilters(eventsOnPage);
+
+    const handleToggleCategory = useCallback((category: EventCategory) => {
+        setCategories(prevState => {
+            if (prevState.includes(category)) {
+                return prevState.filter(categoryItem => categoryItem !== category);
+            } else {
+                return [...prevState, category];
+            }
+        });
+    }, []);
 
     const { locale } = useRouter();
 
-    const allAvailableCategories = useMemo((): Array<EventCategory> => (
-        uniq(
-            paginatedEvents?.docs.reduce(
-                (availableCategories, eventItem) => {
-
-                    if (eventItem.category !== undefined && eventItem.category !== null) {
-                        availableCategories.push(...eventItem.category);
-                    }
-
-                    return availableCategories;
-                },
-                new Array<EventCategory>()
-            )
-        )
-    ), [paginatedEvents?.docs]);
-
-    const [filteredEventType, setFilteredEventType] = useState<EventCategory | null>(null);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const filteredEvents = paginatedEvents?.docs.filter(eventItem => (
-        filteredEventType === null || (eventItem.category ?? []).includes(filteredEventType)
-    )) ?? [];
-
-    const unsetFilteredEventType = useCallback(() => setFilteredEventType(null), []);
+    const unsetFilteredEventType = useCallback(() => setCategories([]), []);
 
     const groupByDay = useMemo(
-        () => groupEventsByDay(filteredEvents, eventsOnPage?.dateDirection === 'past'),
-        [eventsOnPage?.dateDirection, filteredEvents]
+        () => groupEventsByDay(paginatedEvents?.docs ?? [], eventsOnPage?.dateDirection === 'past'),
+        [eventsOnPage?.dateDirection, paginatedEvents?.docs]
     );
 
     const eventsScrollAnchorRef = useRef<HTMLDivElement>(null);
@@ -89,7 +83,7 @@ const EventsOverview = ({
         eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, []);
 
-    if (filteredEvents.length === 0) {
+    if (paginatedEvents?.docs.length === 0) {
         return EventOverviewEmpty({ title });
     }
 
@@ -106,27 +100,23 @@ const EventsOverview = ({
             <div className="md:text-lg">
                 {allAvailableCategories.length > 1 && (
                     <div className="px-4 sm:px-0 mb-3 flex flex-wrap">
-                        {!noFilters && (
-                            <Fragment>
-                                <div
-                                    onClick={unsetFilteredEventType}
-                                    className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
-                                >
-                                    <div className={filteredEventType === null ? 'text-gray-500' : ''}>
-                                        {locale === 'de' ? 'Alle' : 'All'}
-                                    </div>
-                                </div>
+                        <div
+                            onClick={unsetFilteredEventType}
+                            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
+                        >
+                            <div className={categories.length === 0 ? 'text-gray-500' : ''}>
+                                {locale === 'de' ? 'Alle' : 'All'}
+                            </div>
+                        </div>
 
-                                {allAvailableCategories.map(eventType => (
-                                    <EventTypeFilter
-                                        key={eventType}
-                                        type={eventType}
-                                        onClick={setFilteredEventType}
-                                        isActive={filteredEventType === eventType}
-                                    />
-                                ))}
-                            </Fragment>
-                        )}
+                        {allAvailableCategories.map(eventCategory => (
+                            <EventCategoryFilter
+                                key={eventCategory}
+                                category={eventCategory}
+                                onClick={handleToggleCategory}
+                                isActive={categories.includes(eventCategory)}
+                            />
+                        ))}
                     </div>
                 )}
 
