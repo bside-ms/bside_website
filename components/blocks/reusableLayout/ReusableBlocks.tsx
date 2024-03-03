@@ -20,26 +20,6 @@ interface Props {
     eventsOnPage?: EventsOnPage;
 }
 
-const ReusableTeaserBlock = ({ layoutElement, previousBlock, nextBlock }: Omit<ReusableBlockProps, 'circles' | 'events'>): ReactElement | null => {
-    if (layoutElement.blockType !== 'teaser') {
-        return null;
-    }
-
-    return (
-        <TeaserBlock
-            headlineTitle={layoutElement.headlineTitle}
-            headlineTeaser={layoutElement.headlineTeaser ?? ''}
-            text={layoutElement.richText}
-            image={layoutElement.image}
-            reversed={layoutElement.reversed ?? false}
-            linkText={layoutElement.linkText}
-            linkHref={layoutElement.linkHref}
-            previousBlock={previousBlock}
-            nextBlock={nextBlock}
-        />
-    );
-};
-
 const ReusableBlocks = ({ layoutElement, circles = null, previousBlock, nextBlock, eventsOnPage }: Props): ReactElement | null => {
 
     switch (layoutElement.blockType) {
@@ -116,7 +96,19 @@ const ReusableBlocks = ({ layoutElement, circles = null, previousBlock, nextBloc
             );
 
         case 'teaser':
-            return <ReusableTeaserBlock layoutElement={layoutElement} previousBlock={previousBlock} nextBlock={nextBlock} />;
+            return (
+                <TeaserBlock
+                    headlineTitle={layoutElement.headlineTitle}
+                    headlineTeaser={layoutElement.headlineTeaser ?? ''}
+                    text={layoutElement.richText}
+                    image={layoutElement.image}
+                    reversed={layoutElement.reversed ?? false}
+                    linkText={layoutElement.linkText}
+                    linkHref={layoutElement.linkHref}
+                    previousBlock={previousBlock}
+                    nextBlock={nextBlock}
+                />
+            );
 
         case 'slider':
             return <SliderBlock imageSlides={layoutElement.imageSlides ?? []} />;
