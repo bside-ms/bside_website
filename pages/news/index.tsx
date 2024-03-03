@@ -9,7 +9,7 @@ import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import formatDate from '@/lib/common/helper/formatDate';
 import { getPublicClientUrl } from '@/lib/common/url';
-import { getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
+import { createNewsSlug, getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Media, News } from '@/types/payload/payload-types';
@@ -20,8 +20,7 @@ interface Props {
     news: Array<News>;
 }
 
-// ToDo: Add pagination.
-const PER_PAGE: number = 10;
+const PER_PAGE: number = 20;
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 
@@ -76,7 +75,7 @@ export default ({ news }: Props): ReactElement => {
                             return (
                                 <div key={item.id}>
 
-                                    <a className="lg:flex lg:gap-4" href={`/news/${item.id}`}>
+                                    <a className="lg:flex lg:gap-4" href={`/news/${createNewsSlug(item)}`}>
 
                                         <div className="lg:grow py-4 md:p-4">
                                             <small className="block font-normal leading-none tracking-normal italic text-base md:text-base mb-1">
@@ -106,7 +105,7 @@ export default ({ news }: Props): ReactElement => {
                                             <p
                                                 className="sm:text-lg underline underline-offset-4 flex items-center gap-2 hover:text-orange-500"
                                             >
-                                                Weiterlesen...
+                                                {locale !== 'en' ? 'Weiterlesen' : 'Read more'}
                                             </p>
                                         </div>
 

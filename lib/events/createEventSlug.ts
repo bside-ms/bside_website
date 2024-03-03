@@ -2,7 +2,16 @@ import { kebabCase } from 'lodash';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import type { Event } from '@/types/payload/payload-types';
 
-const createEventSlug = (event: Event): string => {
+export const createEventSlug = (event: Event): string => {
+
+    if (isNotEmptyString(event.slug)) {
+        return `${event.id.slice(-4)}-${kebabCase(event.title)}`;
+    }
+
+    return `${event.id.slice(-4)}-${kebabCase(event.title)}`;
+};
+
+export const createEventSlugOld = (event: Event): string => {
 
     if (isNotEmptyString(event.slug)) {
         return event.slug;

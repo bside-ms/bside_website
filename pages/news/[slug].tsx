@@ -10,8 +10,9 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import formatDate from '@/lib/common/helper/formatDate';
-import { getPublicClientUrl } from '@/lib/common/url';
-import { getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
+import { getPublicClientUrl, processSlug } from '@/lib/common/url';
+import { createNewsSlug, fetchNewsByIdentifier, getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Media, News } from '@/types/payload/payload-types';
@@ -28,7 +29,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
     const paths = pages.docs.map((news) => locales!.map((locale) => ({
         params: {
-            slug: news.id,
+            slug: createNewsSlug(news),
         },
         locale,
     }))).flat();
@@ -39,26 +40,21 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     };
 };
 
-const getSlug = (slug: string | Array<string> | undefined): string => {
-    if (slug === undefined) {
-        return '';
-    }
-
-    return typeof slug === 'string' ? slug : slug.join('/');
-};
-
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
-
-    if (params?.slug === undefined) {
+    const slug = processSlug(params?.slug);
+    if (isEmptyString(slug) || locale === undefined) {
         return { notFound: true };
     }
 
-    const news = await getPayloadResponse<News>(`/api/news/${getSlug(params.slug)}?depth=1&locale=${locale}`);
+    const entry: News | undefined = await fetchNewsByIdentifier(slug, locale);
+    if (!entry) {
+        return { notFound: true };
+    }
 
     return {
         revalidate: 60,
         props: {
-            news,
+            news: entry,
             locale,
         },
     };
@@ -87,9 +83,9 @@ export default ({ news: data }: Props): ReactElement => {
                         </small>
 
                         <div className="max-w-full">
-                            <div className={headlineClass.h4}>
+                            <h1 className={headlineClass.h1}>
                                 {data.title}
-                            </div>
+                            </h1>
                         </div>
                     </>
                     <div className="float-right p-4">
@@ -108,7 +104,7 @@ export default ({ news: data }: Props): ReactElement => {
                 />
 
                 <ContentWrapper>
-                    <Link href="/news" className="mt-4 underline underline-offset-4 flex items-center gap-2 hover:text-orange-500">
+                    <Link href="/news" className="mt-4 underline underline-offset-4 flex items-center gap-2 hover:text-orange-500 md:text-lg">
                         <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" /> {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
                     </Link>
                 </ContentWrapper>

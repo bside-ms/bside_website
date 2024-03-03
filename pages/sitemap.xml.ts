@@ -4,8 +4,9 @@ import { getServerSideSitemapLegacy } from 'next-sitemap';
 import createCircleLink from '@/lib/events/createCircleLink';
 import createEventSlug from '@/lib/events/createEventSlug';
 import fetchAllEvents from '@/lib/events/fetchAllEvents';
+import { createNewsSlug, getNewsIndex } from '@/lib/news/news';
 import { getCircleIndex } from '@/lib/organisations';
-import type { Circle, Event } from '@/types/payload/payload-types';
+import type { Circle, Event, News } from '@/types/payload/payload-types';
 
 interface SiteIndexFields {
     loc: string;
@@ -32,6 +33,12 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/quartier`,
+            lastmod: today,
+            changefreq: 'daily',
+            priority: 0.9,
+        },
+        {
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/news`,
             lastmod: today,
             changefreq: 'daily',
             priority: 0.9,
@@ -89,6 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
 
     const events = await fetchAllEvents();
     const circles = await getCircleIndex(locale!);
+    const news = await getNewsIndex();
 
     const fields = generateStaticIndexes();
 
@@ -107,6 +115,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
         fields.push({
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}${createCircleLink(circle)}`,
             lastmod: new Date(circle.updatedAt).toISOString().split('T')[0]!,
+            priority: 0.5,
+            changefreq: 'daily',
+        });
+    });
+
+    news.forEach((newsItem: News) => {
+        fields.push({
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/news/${createNewsSlug(newsItem)}`,
+            lastmod: new Date(newsItem.updatedAt).toISOString().split('T')[0]!,
             priority: 0.5,
             changefreq: 'daily',
         });

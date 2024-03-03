@@ -29,3 +29,11 @@ export const getPublicClientUrl = (locale?: string): string => {
 };
 
 export const getPublicPayloadUrl = (path: string): string => `${process.env.NEXT_PUBLIC_PAYLOAD_URL}${path}`;
+
+export const processSlug = (rawSlug: string | Array<string> | undefined): string => {
+    if (rawSlug === undefined) {
+        return '';
+    }
+
+    return typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
+};
