@@ -134,7 +134,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                     ))}
                 </div>
 
-                {paginatedEvents !== undefined && (
+                {eventsOnPage?.pagination === true && paginatedEvents !== undefined && paginatedEvents.totalPages > 1 && (
                     <EventsPagination paginatedEvents={paginatedEvents} page={page} setPage={handleSetPage} />
                 )}
             </div>

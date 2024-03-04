@@ -60,6 +60,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
                             ownerId: organisation.id,
                             filter: 'Organisation',
                             perPage: 10,
+                            pagination: true,
                         }}
                     />
                 </main>

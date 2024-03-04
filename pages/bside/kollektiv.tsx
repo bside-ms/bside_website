@@ -89,7 +89,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
                             key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
                             layoutElement={layoutElement}
                             circles={circles}
-                            eventsOnPage={{ ownerId: organisation.id, perPage: 10 }}
+                            eventsOnPage={{ ownerId: organisation.id, perPage: 10, pagination: true }}
                         />
                     ))}
                 </main>

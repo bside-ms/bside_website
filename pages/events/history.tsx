@@ -53,7 +53,7 @@ export default ({ page }: Props): ReactElement => {
 
                 <ReusableBlockLayout
                     layout={pageData.layout}
-                    eventsOnPage={{ dateDirection: 'past', perPage: 10 }}
+                    eventsOnPage={{ dateDirection: 'past', perPage: 10, pagination: true }}
                 />
             </main>
 

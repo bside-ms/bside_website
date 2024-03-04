@@ -53,7 +53,7 @@ export default ({ page, homePage }: Props): ReactElement => {
                     layout={page.layout}
                     eventsOnPage={{
                         filter: 'Home',
-                        perPage: 10,
+                        perPage: 5,
                     }}
                 />
 

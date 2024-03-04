@@ -136,6 +136,7 @@ export default ({ initialCircle }: Props): ReactElement => {
                             ownerId: circle.id,
                             filter: 'Circle',
                             perPage: 10,
+                            pagination: true,
                         }}
                     />
                 </main>

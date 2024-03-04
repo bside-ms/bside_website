@@ -10,16 +10,12 @@ interface Props {
     setPage: (page: number) => void;
 }
 
-const EventsPagination = ({ paginatedEvents: { totalPages, hasNextPage, hasPrevPage }, page, setPage }: Props): ReactElement | null => {
+const EventsPagination = ({ paginatedEvents: { totalPages, hasNextPage, hasPrevPage }, page, setPage }: Props): ReactElement => {
 
     const handleFirstPageClick = useCallback(() => setPage(1), [setPage]);
     const handlePriorPageClick = useCallback(() => setPage(page - 1), [page, setPage]);
     const handleNextPageClick = useCallback(() => setPage(page + 1), [page, setPage]);
     const handleLastPageClick = useCallback(() => setPage(totalPages), [totalPages, setPage]);
-
-    if (totalPages <= 1) {
-        return null;
-    }
 
     return (
         <div className="flex justify-center gap-2 items-center text-xl mt-4">
