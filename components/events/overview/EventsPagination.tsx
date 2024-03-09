@@ -6,15 +6,15 @@ import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
     paginatedEvents: PaginatedDocs<Event>;
-    currentPage: number;
+    page: number;
     setPage: (page: number) => void;
 }
 
-const EventsPagination = ({ paginatedEvents: { page, totalPages, hasNextPage, hasPrevPage }, currentPage, setPage }: Props): ReactElement => {
+const EventsPagination = ({ paginatedEvents: { totalPages, hasNextPage, hasPrevPage }, page, setPage }: Props): ReactElement => {
 
     const handleFirstPageClick = useCallback(() => setPage(1), [setPage]);
-    const handlePriorPageClick = useCallback(() => setPage(page ?? currentPage - 1), [currentPage, page, setPage]);
-    const handleNextPageClick = useCallback(() => setPage(page ?? currentPage + 1), [currentPage, page, setPage]);
+    const handlePriorPageClick = useCallback(() => setPage(page - 1), [page, setPage]);
+    const handleNextPageClick = useCallback(() => setPage(page + 1), [page, setPage]);
     const handleLastPageClick = useCallback(() => setPage(totalPages), [totalPages, setPage]);
 
     return (
@@ -35,7 +35,7 @@ const EventsPagination = ({ paginatedEvents: { page, totalPages, hasNextPage, ha
                 <MdKeyboardArrowLeft />
             </button>
 
-            <div className="cursor-pointer text-base">{page ?? currentPage} / {totalPages}</div>
+            <div className="cursor-pointer text-base">{page} / {totalPages}</div>
 
             <button
                 className="cursor-pointer disabled:text-gray-300 disabled:cursor-default"
