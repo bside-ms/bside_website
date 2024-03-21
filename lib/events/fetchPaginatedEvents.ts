@@ -1,4 +1,3 @@
-import { addDays, subDays } from 'date-fns';
 import formatDate from '@/lib/common/helper/formatDate';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
@@ -29,10 +28,10 @@ const fetchPaginatedEvents = ({
     searchParams.append('limit', perPage?.toString() ?? '99999');
 
     if (direction === 'past') {
-        searchParams.append('where[eventDate][less_than]', formatDate(addDays(new Date(), 1), 'yyyy-MM-dd'));
+        searchParams.append('where[eventDate][less_than]', formatDate(new Date(), 'yyyy-MM-dd'));
         searchParams.append('sort', '-eventDate');
     } else {
-        searchParams.append('where[eventDate][greater_than]', formatDate(subDays(new Date(), 1), 'yyyy-MM-dd'));
+        searchParams.append('where[eventDate][greater_than]', formatDate(new Date(), 'yyyy-MM-dd'));
         searchParams.append('sort', 'eventDate');
     }
 
