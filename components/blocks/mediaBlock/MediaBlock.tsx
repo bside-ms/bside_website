@@ -22,7 +22,6 @@ const WideMediaBlock = (url: string, effects: Array<'blur' | 'grayscale' | 'desa
     );
 };
 
-// eslint-disable-next-line complexity
 const MediaBlock = ({ media, caption = '', size, effects }: MediaBlockProps): ReactElement | null => {
 
     if (typeof media === 'string') {

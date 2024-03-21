@@ -2,8 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
-import getPayloadResponse from '@/lib/payload/getPayloadResponse';
-import type PaginatedDocs from '@/types/payload/PaginatedDocs';
+import fetchEventById from '@/lib/events/fetchEventById';
 import type { Event } from '@/types/payload/payload-types';
 
 const createIcsFile = (event: Event): string => {
@@ -80,18 +79,14 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
             throw new Error('Event not found.');
         }
 
-        const pagesResponse = await getPayloadResponse<PaginatedDocs<Event>>('/api/events/?limit=9999');
+        const event = await fetchEventById(eventId);
 
-        const page = pagesResponse.docs.find(event => {
-            return event.id === `${eventId}`;
-        });
-
-        if (page === undefined) {
+        if (event === undefined) {
             throw new Error('Event not found.');
         }
 
         res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
-        res.status(200).send(createIcsFile(page));
+        res.status(200).send(createIcsFile(event));
     } catch (error) {
         res
             .status(500)

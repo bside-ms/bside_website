@@ -5,32 +5,28 @@ import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
 import HeaderBar from '@/components/layout/header/HeaderBar';
-import { getUpcomingEvents } from '@/lib/events';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import heroImage from '@/public/assets/stickFigures/Veranstaltungen.svg';
-import type { Event, EventPage } from '@/types/payload/payload-types';
+import type { EventPage } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
-    events: Array<Event>;
     page: EventPage;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-    const allEvents = await getUpcomingEvents(0, 'Overview');
     const page = await getPayloadResponse<EventPage>(`/api/globals/event-page/?locale=${locale}`);
 
     return {
         revalidate: 60,
         props: {
-            events: allEvents,
             page,
             locale,
         },
     };
 };
 
-export default ({ events, page }: Props): ReactElement => {
+export default ({ page }: Props): ReactElement => {
     const { locale } = useRouter();
 
     const { data: pageData } = useLivePreview({
@@ -52,7 +48,11 @@ export default ({ events, page }: Props): ReactElement => {
 
                 <ReusableBlockLayout
                     layout={pageData.layout}
-                    events={events}
+                    eventsOnPage={{
+                        filter: 'Overview',
+                        perPage: 10,
+                        pagination: true,
+                    }}
                 />
             </main>
 
