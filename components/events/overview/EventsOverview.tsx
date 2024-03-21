@@ -36,7 +36,7 @@ const EventCategoryFilter = ({
             onClick={handleClick}
             className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
         >
-            <div className={isActive ? 'text-gray-500' : ''}>
+            <div className={isActive ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500' : ''}>
                 {getEventCategoryTitle(category, locale)}
             </div>
         </div>
@@ -130,7 +130,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                             onClick={unsetFilteredEventType}
                             className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
                         >
-                            <div className={categories.length === 0 ? 'text-gray-500' : ''}>
+                            <div className={categories.length === 0 ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500' : ''}>
                                 {locale === 'de' ? 'Alle' : 'All'}
                             </div>
                         </div>
