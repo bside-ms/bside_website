@@ -6,10 +6,13 @@ const nextConfig = {
   swcMinify: true,
 
   images: {
-    domains: [
-      'localhost',
-      'cms.b-side.ovh',
-      'cms.b-side.ms',
+
+    remotePatterns: [
+      {
+          protocol: 'https',
+          hostname: 'cms.b-side.ms',
+          pathname: '**',
+      },
     ],
     minimumCacheTTL: 60 * 60 * 24,
     formats: ['image/webp', 'image/avif'],
