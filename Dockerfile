@@ -1,4 +1,4 @@
-FROM node:18.18.2-slim as base
+FROM node:20.11.1-slim as base
 
 # We don't need the standalone Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
