@@ -5,7 +5,6 @@ import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type { EventArchive, Media } from '@/types/payload/payload-types';
-import HeadlineBlock from '@blocks/headlineBlock/HeadlineBlock';
 import MediaBlock from '@blocks/mediaBlock/MediaBlock';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
@@ -45,10 +44,6 @@ export default ({ page }: Props): ReactElement => {
                         media={pageData.headerImage as Media}
                     />
                 )}
-                <HeadlineBlock
-                    title={pageData.title}
-                    level="h1"
-                />
                 <div className="my-6" />
 
                 <ReusableBlockLayout

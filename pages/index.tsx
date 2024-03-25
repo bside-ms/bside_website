@@ -47,7 +47,7 @@ export default ({ page, homePage }: Props): ReactElement => {
             <main id="content">
                 <FrontPageHero title={homePage.title} textBody={homePage.textBody} buttonText={homePage.buttonText} />
 
-                <div className="py-2" />
+                <div className="py-2 md:py-4" />
 
                 <ReusableBlockLayout
                     layout={page.layout}

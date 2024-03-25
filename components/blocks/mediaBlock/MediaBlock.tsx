@@ -15,6 +15,7 @@ const WideMediaBlock = (url: string, effects: Array<'blur' | 'grayscale' | 'desa
                     effects.includes('grayscale') && 'grayscale',
                     effects.includes('desaturated') && 'saturate-50',
                     effects.includes('darker') && 'brightness-50',
+                    'xl:rounded-lg'
                 )}
                 style={{ backgroundImage: `url(${url})` }}
             />
