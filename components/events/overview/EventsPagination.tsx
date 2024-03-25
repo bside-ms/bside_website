@@ -1,6 +1,15 @@
 import { useCallback } from 'react';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/pagination';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Event } from '@/types/payload/payload-types';
 
@@ -17,42 +26,62 @@ const EventsPagination = ({ paginatedEvents: { totalPages, hasNextPage, hasPrevP
     const handleNextPageClick = useCallback(() => setPage(page + 1), [page, setPage]);
     const handleLastPageClick = useCallback(() => setPage(totalPages), [totalPages, setPage]);
 
+    const displayFistPage = hasPrevPage && page !== 2;
+    const displayLastPage = hasNextPage && page !== (totalPages - 1);
+
+    const { locale } = useRouter();
+
     return (
-        <div className="flex justify-center gap-2 items-center text-xl mt-4">
-            <button
-                className="cursor-pointer disabled:text-gray-300 disabled:cursor-default"
-                onClick={handleFirstPageClick}
-                disabled={page === 1}
-            >
-                <MdKeyboardDoubleArrowLeft />
-            </button>
+        <Pagination className="mt-8">
+            <PaginationContent>
 
-            <button
-                className="cursor-pointer disabled:text-gray-300 disabled:cursor-default"
-                onClick={handlePriorPageClick}
-                disabled={!hasPrevPage}
-            >
-                <MdKeyboardArrowLeft />
-            </button>
+                <PaginationItem>
+                    <PaginationPrevious onClick={handlePriorPageClick} href="#" title={locale === 'de' ? 'Zurück' : 'Previous'} />
+                </PaginationItem>
 
-            <div className="cursor-pointer text-base">{page} / {totalPages}</div>
+                {displayFistPage && (
+                    <>
+                        <PaginationItem>
+                            <PaginationLink onClick={handleFirstPageClick} href="#">1</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationEllipsis title={locale === 'de' ? 'Mehr Seiten' : 'More pages'} />
+                        </PaginationItem>
+                    </>
+                )}
 
-            <button
-                className="cursor-pointer disabled:text-gray-300 disabled:cursor-default"
-                onClick={handleNextPageClick}
-                disabled={!hasNextPage}
-            >
-                <MdKeyboardArrowRight />
-            </button>
+                {hasPrevPage && (
+                    <PaginationItem>
+                        <PaginationLink onClick={handlePriorPageClick} href="#">{page - 1}</PaginationLink>
+                    </PaginationItem>
+                )}
 
-            <button
-                className="cursor-pointer disabled:text-gray-300 disabled:cursor-default"
-                onClick={handleLastPageClick}
-                disabled={page === totalPages}
-            >
-                <MdKeyboardDoubleArrowRight />
-            </button>
-        </div>
+                <PaginationItem>
+                    <PaginationLink href="#" isActive={true}>{page}</PaginationLink>
+                </PaginationItem>
+
+                {hasNextPage && (
+                    <PaginationItem>
+                        <PaginationLink onClick={handleNextPageClick} href="#">{page + 1}</PaginationLink>
+                    </PaginationItem>
+                )}
+
+                {displayLastPage && (
+                    <>
+                        <PaginationItem>
+                            <PaginationEllipsis title={locale === 'de' ? 'Mehr Seiten' : 'More pages'} />
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink onClick={handleLastPageClick} href="#">{totalPages}</PaginationLink>
+                        </PaginationItem>
+                    </>
+                )}
+
+                <PaginationItem>
+                    <PaginationNext onClick={handleNextPageClick} href="#" title={locale === 'de' ? 'Weiter' : 'Next'} />
+                </PaginationItem>
+            </PaginationContent>
+        </Pagination>
     );
 };
 
