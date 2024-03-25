@@ -7,6 +7,7 @@ import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
+import { Separator } from '@/components/ui/separator';
 import formatDate from '@/lib/common/helper/formatDate';
 import { getPublicClientUrl } from '@/lib/common/url';
 import { createNewsSlug, getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
@@ -122,7 +123,7 @@ export default ({ news }: Props): ReactElement => {
 
                                     {
                                         // Display a horizontal line after each news item, except for the last one.
-                                        index < news.length - 1 && <hr className="my-4 w-full mx-auto border-1 border-gray-800" />
+                                        index < news.length - 1 && <Separator className="my-4" />
                                     }
                                 </div>
                             );
