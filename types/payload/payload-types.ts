@@ -27,6 +27,7 @@ export interface Config {
     'about-bside': AboutBside;
     'event-page': EventPage;
     'event-archive': EventArchive;
+    banner: Banner;
   };
 }
 /**
@@ -1022,6 +1023,29 @@ export interface EventArchive {
   }
       )[]
       | null;
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "banner".
+ */
+export interface Banner {
+  id: string;
+  isActive: boolean;
+  bannerId: number;
+  bannerText: string;
+  bannerLink?: string | null;
+  backgroundColor: string;
+  textColor: string;
   createdBy?: {
     relationTo: 'users';
     value: string | User;

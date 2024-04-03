@@ -2,23 +2,25 @@ import { useCallback } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
 import type { MouseEvent, ReactElement } from 'react';
+import useSWR from 'swr';
 import ContentWrapper from '@/components/layout/ContentWrapper';
+import fetcher from '@/lib/common/fetcher';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import useLocalStorage from '@/lib/common/hooks/useLocalStorage';
+import type { Banner } from '@/types/payload/payload-types';
 
 const HeaderBanner = (): ReactElement => {
 
-    // TODO: Move config to CMS
-    const isBannerActive = true;
-    const bannerId = 20240401;
-    const bannerText = 'Es gibt aktuelle Ausschreibungen in der offenen Werkstatt!';
-    const bannerLink = '/jobs';
-    const bannerColor = '#1555ff';
-    const bannerTextColor = '#ffffff';
+    const { data: bannerData } = useSWR<Banner>('/api/banner', fetcher, { keepPreviousData: true });
+
+    const isBannerActive = bannerData ? bannerData.isActive : false;
+    const bannerId = bannerData ? bannerData.id : '';
+    const bannerText = bannerData ? bannerData.bannerText : '';
+    const bannerLink = bannerData ? bannerData.bannerLink : '';
+    const bannerColor = bannerData ? bannerData.backgroundColor : '#000000';
+    const bannerTextColor = bannerData ? bannerData.textColor : '#ffffff';
 
     const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(`header_${bannerId}_dismissed`, false);
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const isBannerVisible = isBannerActive && !hasDismissedBanner;
 
     const onDismissClick = useCallback((event: MouseEvent<HTMLDivElement>) => {
@@ -31,7 +33,7 @@ const HeaderBanner = (): ReactElement => {
         <ContentWrapper className="!py-2">
             <div className="flex justify-between items-center gap-2">
                 <div className="mx-auto">{bannerText}</div>
-                <div className="hover:text-red-800 px-4" onClick={onDismissClick}>✕</div>
+                <div className="hover:text-red-800 hover:italic px-4" onClick={onDismissClick}>✕</div>
             </div>
         </ContentWrapper>
     );
@@ -48,7 +50,6 @@ const HeaderBanner = (): ReactElement => {
             style={{ backgroundColor: bannerColor, color: bannerTextColor }}
         >
             {isNotEmptyString(bannerLink) ? <Link href={bannerLink}>{content}</Link> : content}
-
         </div>
     );
 };
