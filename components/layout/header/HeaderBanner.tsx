@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { MouseEvent, ReactElement } from 'react';
 import useSWR from 'swr';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -11,7 +12,8 @@ import type { Banner } from '@/types/payload/payload-types';
 
 const HeaderBanner = (): ReactElement => {
 
-    const { data: bannerData } = useSWR<Banner>('/api/banner', fetcher, { keepPreviousData: true });
+    const { locale } = useRouter();
+    const { data: bannerData } = useSWR<Banner>(`/api/banner?lang=${locale}`, fetcher, { keepPreviousData: true });
 
     const isBannerActive = bannerData ? bannerData.isActive : false;
     const bannerId = bannerData ? bannerData.id : '';
