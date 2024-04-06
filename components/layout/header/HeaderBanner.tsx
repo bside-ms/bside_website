@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { MouseEvent, ReactElement } from 'react';
@@ -10,26 +9,28 @@ import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import useLocalStorage from '@/lib/common/hooks/useLocalStorage';
 import type { Banner } from '@/types/payload/payload-types';
 
-const HeaderBanner = (): ReactElement => {
+const HeaderBannerContent = ({
+    bannerData: {
+        id,
+        isActive,
+        bannerText,
+        bannerLink,
+        textColor,
+        backgroundColor,
+    },
+}: { bannerData: Banner }): ReactElement | null => {
 
-    const { locale } = useRouter();
-    const { data: bannerData } = useSWR<Banner>(`/api/banner?lang=${locale}`, fetcher, { keepPreviousData: true });
-
-    const isBannerActive = bannerData ? bannerData.isActive : false;
-    const bannerId = bannerData ? bannerData.id : '';
-    const bannerText = bannerData ? bannerData.bannerText : '';
-    const bannerLink = bannerData ? bannerData.bannerLink : '';
-    const bannerColor = bannerData ? bannerData.backgroundColor : '#000000';
-    const bannerTextColor = bannerData ? bannerData.textColor : '#ffffff';
-
-    const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(`header_${bannerId}_dismissed`, false);
-    const isBannerVisible = isBannerActive && !hasDismissedBanner;
+    const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(`header_${id}_dismissed`, false);
 
     const onDismissClick = useCallback((event: MouseEvent<HTMLDivElement>) => {
         event.preventDefault();
 
         setDismissedBanner(true);
     }, [setDismissedBanner]);
+
+    if (!isActive || hasDismissedBanner) {
+        return null;
+    }
 
     const content = (
         <ContentWrapper className="!py-2">
@@ -42,18 +43,19 @@ const HeaderBanner = (): ReactElement => {
 
     return (
         <div
-            className={classNames(
-                'font-serif',
-                'text-sm',
-                'md:text-base',
-                'lg:text-lg',
-                !isBannerVisible && 'hidden'
-            )}
-            style={{ backgroundColor: bannerColor, color: bannerTextColor }}
+            className="font-serif text-sm md:text-base lg:text-lg"
+            style={{ backgroundColor, color: textColor }}
         >
             {isNotEmptyString(bannerLink) ? <Link href={bannerLink}>{content}</Link> : content}
         </div>
     );
+};
+
+const HeaderBanner = (): ReactElement | null => {
+    const { locale } = useRouter();
+    const { data: bannerData } = useSWR<Banner>(`/api/banner?lang=${locale}`, fetcher, { keepPreviousData: true });
+
+    return bannerData === undefined ? null : <HeaderBannerContent bannerData={bannerData} />;
 };
 
 export default HeaderBanner;
