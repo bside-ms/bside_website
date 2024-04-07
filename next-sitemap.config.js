@@ -20,8 +20,6 @@ module.exports = {
         '/events/!history',
     ],
     robotsTxtOptions: {
-        additionalSitemaps: [
-            `${process.env.NEXT_PUBLIC_FRONTEND_URL}/server-sitemap.xml`,
-        ],
+        additionalSitemaps: [`${process.env.NEXT_PUBLIC_FRONTEND_URL}/server-sitemap.xml`],
     },
-}
+};
