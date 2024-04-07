@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { ScrollImage } from '@/lib/houseParallax/getScrollElements';
 
 const useEndScroll = (isMounted: boolean, scrollImages: Array<ScrollImage>): number => {
-
     const fallbackValue = 10000;
 
     const [screenHeight, setScreenHeight] = useState(0);
@@ -20,7 +19,6 @@ const useEndScroll = (isMounted: boolean, scrollImages: Array<ScrollImage>): num
     }
 
     const observer = new ResizeObserver(() => {
-
         const isPortrait = window.matchMedia('(orientation: portrait)').matches;
 
         if (isPortrait) {
@@ -36,7 +34,6 @@ const useEndScroll = (isMounted: boolean, scrollImages: Array<ScrollImage>): num
     observer.observe(document.body);
 
     const getEndOfImage = (image: ScrollImage): number => {
-
         if (image.fade !== undefined) {
             return image.fade.outEnd;
         }
@@ -48,20 +45,17 @@ const useEndScroll = (isMounted: boolean, scrollImages: Array<ScrollImage>): num
         return 0;
     };
 
-    const lastImage = scrollImages.reduce<ScrollImage | null>(
-        (currentLastImage, scrollImage) => {
-            if (currentLastImage === null) {
-                return scrollImage;
-            }
+    const lastImage = scrollImages.reduce<ScrollImage | null>((currentLastImage, scrollImage) => {
+        if (currentLastImage === null) {
+            return scrollImage;
+        }
 
-            if (getEndOfImage(scrollImage) > getEndOfImage(currentLastImage)) {
-                return scrollImage;
-            }
+        if (getEndOfImage(scrollImage) > getEndOfImage(currentLastImage)) {
+            return scrollImage;
+        }
 
-            return currentLastImage;
-        },
-        null
-    );
+        return currentLastImage;
+    }, null);
 
     if (lastImage === null) {
         return fallbackValue;

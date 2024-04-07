@@ -5,9 +5,7 @@ const { combine, timestamp, json, prettyPrint } = format;
 const logger = createLogger({
     level: 'info',
     format: combine(timestamp(), json(), prettyPrint()),
-    transports: [
-        new transports.Console(),
-    ],
+    transports: [new transports.Console()],
 });
 
 export default logger;

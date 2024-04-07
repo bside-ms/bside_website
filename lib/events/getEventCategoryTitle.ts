@@ -1,7 +1,6 @@
 import type EventCategory from '@/lib/events/EventCategory';
 
 const getEventCategoryTitle = (category: EventCategory, locale: string | undefined): string => {
-
     switch (category) {
         case 'concert':
             return locale === 'de' ? 'Konzert' : 'Concert';

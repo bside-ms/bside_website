@@ -9,7 +9,9 @@ const fetchEventByIdentifier = async (slug: string, locale: string): Promise<Eve
     }
 
     const identifier = slug.slice(0, 4);
-    const response = await getPayloadResponse<PaginatedDocs<Event>>(`/api/events/?where[identifier][equals]=${identifier}&locale=${locale}`);
+    const response = await getPayloadResponse<PaginatedDocs<Event>>(
+        `/api/events/?where[identifier][equals]=${identifier}&locale=${locale}`,
+    );
     return response.docs[0] ?? undefined;
 };
 

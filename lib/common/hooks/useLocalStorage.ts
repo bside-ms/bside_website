@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import useEffectOnMount from '@/lib/common/hooks/useEffectOnMount';
 
 const useLocalStorage = <T>(key: string, defaultValue: T): [T, (value: T) => void] => {
-
     const [currentValue, setCurrentValue] = useState<T>(defaultValue);
 
     useEffectOnMount(() => {
@@ -13,10 +12,13 @@ const useLocalStorage = <T>(key: string, defaultValue: T): [T, (value: T) => voi
         }
     });
 
-    const setValue = useCallback((newValue: T) => {
-        setCurrentValue(newValue);
-        window.localStorage.setItem(key, JSON.stringify(newValue));
-    }, [key]);
+    const setValue = useCallback(
+        (newValue: T) => {
+            setCurrentValue(newValue);
+            window.localStorage.setItem(key, JSON.stringify(newValue));
+        },
+        [key],
+    );
 
     return [currentValue, setValue];
 };

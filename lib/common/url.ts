@@ -8,7 +8,6 @@ const validHostnames = [
 ];
 
 export const isValidBsideUrl = (string: string): boolean => {
-
     try {
         const url = new URL(string);
 
@@ -18,7 +17,8 @@ export const isValidBsideUrl = (string: string): boolean => {
     }
 };
 
-export const getFullClientUrl = (path: string): string => `${process.env.NEXT_PUBLIC_FRONTEND_URL}${path}`;
+export const getFullClientUrl = (path: string): string =>
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}${path}`;
 
 export const getPublicClientUrl = (locale?: string): string => {
     if (locale === 'de') {
@@ -28,7 +28,8 @@ export const getPublicClientUrl = (locale?: string): string => {
     return `${process.env.NEXT_PUBLIC_FRONTEND_URL}/en`;
 };
 
-export const getPublicPayloadUrl = (path: string): string => `${process.env.NEXT_PUBLIC_PAYLOAD_URL}${path}`;
+export const getPublicPayloadUrl = (path: string): string =>
+    `${process.env.NEXT_PUBLIC_PAYLOAD_URL}${path}`;
 
 export const processSlug = (rawSlug: string | Array<string> | undefined): string => {
     if (rawSlug === undefined) {

@@ -54,34 +54,32 @@ export interface ScrollImage {
 
 export type ScrollElement = ScrollInfoBox | ScrollImage;
 
-export const isScrollImage = (scrollElement: ScrollElement): scrollElement is ScrollImage => (
-    'image' in scrollElement
-);
+export const isScrollImage = (scrollElement: ScrollElement): scrollElement is ScrollImage =>
+    'image' in scrollElement;
 
-export const isScrollInfoBox = (scrollElement: ScrollElement): scrollElement is ScrollInfoBox => (
-    'text' in scrollElement
-);
+export const isScrollInfoBox = (scrollElement: ScrollElement): scrollElement is ScrollInfoBox =>
+    'text' in scrollElement;
 
 const getScrollElements = (): Array<ScrollElement> => {
-
-    const scrollImages = new Array<ScrollImage>(
-        {
-            image: parallax02Image,
-            fade: {
-                inBegin: 0,
-                inEnd: 0,
-                outBegin: 150,
-                outEnd: 400,
-            },
+    const scrollImages = new Array<ScrollImage>({
+        image: parallax02Image,
+        fade: {
+            inBegin: 0,
+            inEnd: 0,
+            outBegin: 150,
+            outEnd: 400,
         },
-    );
+    });
 
     const scrollInfoBoxes = new Array<ScrollInfoBox>();
 
     let currentBegin = 0;
 
-    const addFadingScrollImage = (image: StaticImageData, duration: number, transition = 35): void => {
-
+    const addFadingScrollImage = (
+        image: StaticImageData,
+        duration: number,
+        transition = 35,
+    ): void => {
         const inBegin = currentBegin === 0 ? 0 : currentBegin - transition;
         const inEnd = currentBegin === 0 ? 0 : currentBegin + transition;
 
@@ -102,7 +100,6 @@ const getScrollElements = (): Array<ScrollElement> => {
     };
 
     const addDisplayingScrollImage = (image: StaticImageData, duration: number): void => {
-
         const begin = currentBegin === 0 ? 0 : currentBegin;
 
         currentBegin = currentBegin + duration;
@@ -118,8 +115,11 @@ const getScrollElements = (): Array<ScrollElement> => {
         });
     };
 
-    const addDisplayInfoBox = (title: string | undefined, text: string | ReactElement, duration: number): void => {
-
+    const addDisplayInfoBox = (
+        title: string | undefined,
+        text: string | ReactElement,
+        duration: number,
+    ): void => {
         const begin = currentBegin === 0 ? 0 : currentBegin;
 
         const end = currentBegin + duration;
@@ -149,7 +149,7 @@ const getScrollElements = (): Array<ScrollElement> => {
     addDisplayInfoBox(
         'Hill-Speicher',
         'Den alten Hill-Speicher am Hafen teilen wir (rot) uns mit dem Ruderverein Münster (blau).',
-        500
+        500,
     );
 
     addFadingScrollImage(parallax08Image, 500, 150);
@@ -162,116 +162,115 @@ const getScrollElements = (): Array<ScrollElement> => {
     addDisplayInfoBox(
         'Dachterrasse',
         'Über die Hafentreppe gelangst du auf das Sonnendeck mit ordentlich Platz zum Verweilen.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax10Image, 500);
 
     addDisplayInfoBox(
         'Quartierswohnzimmer',
         'Komm rein ins Herz des soziokulturellen Zentrums! Hier kannst du auf Sofas chillen, was Leckeres essen oder an der Bar rumhängen.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax11Image, 500);
 
     addDisplayInfoBox(
         'Haus- und Allmendeküche',
         'Die Hausküche sorgt für gutes Essen; die Allmendeküche steht Initiativen rund ums Thema Ernährungswende zur Verfügung.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax12Image, 500);
 
     addDisplayInfoBox(
         'Veranstaltungssaal',
-        (
-            <>
-                Hier steppt der Bär! Etwa bei Konzerten und diversen Kultur&shy;veranstaltungen. Bei Kongressen oder Podiums&shy;diskussionen sitzt er dann eher.
-            </>
-        ),
-        500
+        <>
+            Hier steppt der Bär! Etwa bei Konzerten und diversen Kultur&shy;veranstaltungen. Bei
+            Kongressen oder Podiums&shy;diskussionen sitzt er dann eher.
+        </>,
+        500,
     );
     addDisplayingScrollImage(parallax13Image, 500);
 
     addDisplayInfoBox(
         'Ausstellungsraum',
         'Im Foyer kannst du regelmäßig wechselnde Ausstellungen bestaunen.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax14Image, 500);
 
     addDisplayInfoBox(
         'Gruppenräume',
         'Du bist in einer Initiative oder einem Verein aktiv? Drei Gruppenräume könnt ihr für eure Plena und Workshops nutzen.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax15Image, 500);
 
     addDisplayInfoBox(
         'B-Side Büro',
         'Wenn du dazu Fragen hast, sprich uns einfach an! ;) ???',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax16Image, 500);
 
     addDisplayInfoBox(
         'fairdruckt eG',
         'Nachhaltige (Print-)Produkte kannst du im fairdruckt-Laden kaufen. Wenn du lieber selbst was Drucken willst, geht das in deren Siebdruckwerkstatt.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax17Image, 500);
 
     addDisplayInfoBox(
         'Offene Werkstatt',
         'Einen größeren Maschinenfuhrpark findest du eine Etage tiefer. Hier kannst du unter Anleitung Dinge aus Holz und Metall bauen oder Kaputtes reparieren.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax18Image, 500);
 
     addDisplayInfoBox(
         'Soziallabor',
         'Vielleicht willst du aber auch ein Sozialunternehmen gründen, um soziale und ökologische Herausforderungen zu meistern? Im Coworking-Space findest du Gleichgesinnte.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax19Image, 500);
 
     addDisplayInfoBox(
         'Bewegungsraum',
         'Wenn dir die Krisen dieser Welt zwischendurch zu nahe gehen, bekommst du bei Yoga, Meditation oder Tanz hoffentlich den Kopf frei.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax20Image, 500);
 
     addDisplayInfoBox(
         'Gemeinschaftsatelier',
         'Oder auf dem Wege der bildenden Kunst? Auch für Künstler:innen gibt es ordentlich Platz, um schöpferisch tätig zu sein.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax21Image, 500);
 
     addDisplayInfoBox(
         'Kreativräume',
         'Es gibt aber auch Ateliers auf die du dich bewerben kannst, wenn du von dort aus kreativ werken und wirken möchtest.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax22Image, 500);
 
     addDisplayInfoBox(
         'Büros',
         'Die Büros stehen Vereinen, Organisationen und Initiativen zur Verfügung, die gemeinnützig oder gemeinwohlorientiert arbeiten.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax23Image, 500);
 
     addDisplayInfoBox(
         'Proberäume',
         'Und wenn du einen Raum brauchst, um mit deiner Band Mucke zu machen, kannst du dich auf einen von vier Proberäumen bewerben.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax24Image, 500);
 
     addDisplayInfoBox(
         'Mobi',
         'Ach, du musst schon wieder los? Nutze gerne unser Mobilitätsangebot. Neben Stadtteilautos steht eine Cargobike-Flotte zur Ausleihe bereit.',
-        500
+        500,
     );
     addDisplayingScrollImage(parallax25Image, 500);
 
@@ -299,11 +298,7 @@ const getScrollElements = (): Array<ScrollElement> => {
     addFadingScrollImage(parallax062Image, 20);
     addFadingScrollImage(parallax061Image, 20);
 
-    addDisplayInfoBox(
-        'Ciao!',
-        'Bis bald am Hafen!',
-        200
-    );
+    addDisplayInfoBox('Ciao!', 'Bis bald am Hafen!', 200);
 
     addFadingScrollImage(parallax01Image, 600);
 
