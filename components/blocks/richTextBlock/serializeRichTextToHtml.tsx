@@ -75,6 +75,9 @@ const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
     let height = media.sizes?.event?.height ?? media.height!;
     height = height / 3.3;
 
+    const justifyRight = justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } : {};
+    const justifyLeft = justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : {};
+
     return (
         <Image
             key={`rt-image-${media.id}`}
@@ -83,13 +86,7 @@ const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
             width={width}
             height={height}
             className="mx-auto"
-            style={
-                justify === 'right'
-                    ? { marginLeft: 'auto', marginRight: 0 }
-                    : justify === 'left'
-                      ? { marginLeft: 0, marginRight: 'auto' }
-                      : undefined
-            }
+            style={justify === 'right' ? justifyRight : justifyLeft}
         />
     );
 };

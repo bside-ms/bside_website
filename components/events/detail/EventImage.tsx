@@ -12,6 +12,9 @@ interface Props {
 }
 
 const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactElement | null => {
+    const justifyRight = justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } : {};
+    const justifyLeft = justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : {};
+
     if (isEventImageString(eventImage)) {
         return (
             <Link href={eventImage} target="_blank" className="cursor-default">
@@ -22,13 +25,7 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
                     alt={eventTitle}
                     sizes="thumbnail"
                     className="mx-auto mb-4 md:cursor-pointer"
-                    style={
-                        justify === 'right'
-                            ? { marginLeft: 'auto', marginRight: 0 }
-                            : justify === 'left'
-                              ? { marginLeft: 0, marginRight: 'auto' }
-                              : undefined
-                    }
+                    style={justify === 'right' ? justifyRight : justifyLeft}
                     priority={true}
                 />
             </Link>
@@ -51,13 +48,7 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
                 alt={eventImage.alt}
                 sizes="thumbnail"
                 className="mx-auto mb-4 md:cursor-pointer"
-                style={
-                    justify === 'right'
-                        ? { marginLeft: 'auto', marginRight: 0 }
-                        : justify === 'left'
-                          ? { marginLeft: 0, marginRight: 'auto' }
-                          : undefined
-                }
+                style={justify === 'right' ? justifyRight : justifyLeft}
                 priority={true}
             />
         </Link>

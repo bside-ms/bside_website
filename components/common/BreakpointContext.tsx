@@ -4,6 +4,7 @@ import useAsyncEffectOnMount from '@/lib/common/hooks/useAsyncEffectOnMount';
 
 type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
+/* eslint-disable quote-props */
 // TODO: https://tailwindcss.com/docs/screens
 const breakpoints: Record<Breakpoint, number> = {
     xs: 0,
@@ -13,6 +14,7 @@ const breakpoints: Record<Breakpoint, number> = {
     xl: 1280,
     '2xl': 1536,
 };
+/* eslint-enable quote-props */
 
 interface BreakpointContextData {
     isXs: boolean;

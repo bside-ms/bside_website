@@ -44,6 +44,7 @@ const ContactForm = (): ReactElement => {
         // eslint-disable-next-line no-console
         console.warn(formValues);
 
+        /* eslint-disable quote-props */
         const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/contact/submit`, {
             method: 'POST',
             headers: {
@@ -52,6 +53,7 @@ const ContactForm = (): ReactElement => {
             },
             body: JSON.stringify(formValues),
         });
+        /* eslint-enable quote-props */
 
         if (response.status === 200) {
             setFormMinHeight(formContainerRef.current?.getBoundingClientRect().height ?? 0);

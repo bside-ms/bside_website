@@ -119,6 +119,11 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
         eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, []);
 
+    const hasPagination =
+        eventsOnPage?.pagination === true &&
+        paginatedEvents !== undefined &&
+        paginatedEvents.totalPages > 1;
+
     return (
         <div className="relative">
             <div ref={eventsScrollAnchorRef} className="absolute -top-52 md:-top-24" />
@@ -192,15 +197,13 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                     )}
                 </div>
 
-                {eventsOnPage?.pagination === true &&
-                    paginatedEvents !== undefined &&
-                    paginatedEvents.totalPages > 1 && (
-                        <EventsPagination
-                            paginatedEvents={paginatedEvents}
-                            page={page}
-                            setPage={handleSetPage}
-                        />
-                    )}
+                {hasPagination && (
+                    <EventsPagination
+                        paginatedEvents={paginatedEvents}
+                        page={page}
+                        setPage={handleSetPage}
+                    />
+                )}
             </div>
         </div>
     );
