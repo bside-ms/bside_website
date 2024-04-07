@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "American Typewriter";
-    src: url("../public/fonts/American Typewriter Bold.ttf");
+    font-family: 'American Typewriter';
+    src: url('../public/fonts/American Typewriter Bold.ttf');
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Mulish";
-    src: url("../public/fonts/Mulish-Regular.ttf");
+    font-family: 'Mulish';
+    src: url('../public/fonts/Mulish-Regular.ttf');
     font-display: swap;
 }
 @tailwind base;

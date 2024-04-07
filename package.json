@@ -10,7 +10,9 @@
     "lint": "next lint -c .eslintrc.js",
     "lint:fix": "next lint -c .eslintrc.js -- --fix",
     "tsc": "tsc --noEmit",
-    "tsc:watch": "tsc --noEmit --watch"
+    "tsc:watch": "tsc --noEmit --watch",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.5.x",

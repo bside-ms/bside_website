@@ -1,21 +1,21 @@
 {
-  "name": "B-Side",
-  "short_name": "B-Side",
-  "theme_color": "#ffffff",
-  "background_color": "#000000",
-  "start_url": "/?pwa",
-  "display": "standalone",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "/favicon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/favicon-512.png",
-      "type": "image/png",
-      "sizes": "256x256"
-    }
-  ]
+    "name": "B-Side",
+    "short_name": "B-Side",
+    "theme_color": "#ffffff",
+    "background_color": "#000000",
+    "start_url": "/?pwa",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/favicon-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/favicon-512.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        }
+    ]
 }
