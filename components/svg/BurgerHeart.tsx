@@ -1,10 +1,9 @@
 import type { ReactElement } from 'react';
 
 const Heart = (): ReactElement => {
-
     return (
         <svg
-            className="fill-none stroke-current stroke-[6px] overflow-visible"
+            className="overflow-visible fill-none stroke-current stroke-[6px]"
             version="1.1"
             viewBox="63 98.63 66.11 54.67"
             xmlns="http://www.w3.org/2000/svg"

@@ -20,8 +20,13 @@ interface Props {
     eventsOnPage?: EventsOnPage;
 }
 
-const ReusableBlocks = ({ layoutElement, circles = null, previousBlock, nextBlock, eventsOnPage }: Props): ReactElement | null => {
-
+const ReusableBlocks = ({
+    layoutElement,
+    circles = null,
+    previousBlock,
+    nextBlock,
+    eventsOnPage,
+}: Props): ReactElement | null => {
     switch (layoutElement.blockType) {
         case 'callToAction':
             return (

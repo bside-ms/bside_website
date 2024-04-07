@@ -27,16 +27,21 @@ const EventCategoryFilter = ({
     onClick: (type: EventCategory) => void;
     isActive: boolean;
 }): ReactElement => {
-
     const handleClick = useCallback(() => onClick(category), [onClick, category]);
     const { locale } = useRouter();
 
     return (
         <div
             onClick={handleClick}
-            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
+            className="select-none border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500"
         >
-            <div className={isActive ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500' : ''}>
+            <div
+                className={
+                    isActive
+                        ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500'
+                        : ''
+                }
+            >
                 {getEventCategoryTitle(category, locale)}
             </div>
         </div>
@@ -46,8 +51,9 @@ const EventCategoryFilter = ({
 const pageParam = 'page';
 
 const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
-
-    const searchParams = new URLSearchParams(typeof window === 'undefined' ? undefined : window.location.search);
+    const searchParams = new URLSearchParams(
+        typeof window === 'undefined' ? undefined : window.location.search,
+    );
 
     const [page, setPage] = useState(Number(searchParams.get(pageParam) ?? 1));
 
@@ -85,9 +91,9 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
     const allAvailableCategories = useAvailableCategoryFilters(eventsOnPage);
 
     const handleToggleCategory = useCallback((category: EventCategory) => {
-        setCategories(prevState => {
+        setCategories((prevState) => {
             if (prevState.includes(category)) {
-                return prevState.filter(categoryItem => categoryItem !== category);
+                return prevState.filter((categoryItem) => categoryItem !== category);
             } else {
                 return [...prevState, category];
             }
@@ -100,7 +106,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
 
     const groupByDay = useMemo(
         () => groupEventsByDay(paginatedEvents?.docs ?? [], eventsOnPage?.dateDirection === 'past'),
-        [eventsOnPage?.dateDirection, paginatedEvents?.docs]
+        [eventsOnPage?.dateDirection, paginatedEvents?.docs],
     );
 
     const eventsScrollAnchorRef = useRef<HTMLDivElement>(null);
@@ -118,24 +124,30 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
             <div ref={eventsScrollAnchorRef} className="absolute -top-52 md:-top-24" />
 
             {!isEmptyString(title) && (
-                <div className="font-bold font-serif text-xl md:text-2xl text-center mb-3">
+                <div className="mb-3 text-center font-serif text-xl font-bold md:text-2xl">
                     {title}
                 </div>
             )}
 
             <div className="md:text-lg">
                 {allAvailableCategories.length > 1 && (
-                    <div className="px-4 sm:px-0 mb-3 flex flex-wrap">
+                    <div className="mb-3 flex flex-wrap px-4 sm:px-0">
                         <div
                             onClick={unsetFilteredEventType}
-                            className="border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500 select-none"
+                            className="select-none border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500"
                         >
-                            <div className={categories.length === 0 ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500' : ''}>
+                            <div
+                                className={
+                                    categories.length === 0
+                                        ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500'
+                                        : ''
+                                }
+                            >
                                 {locale === 'de' ? 'Alle' : 'All'}
                             </div>
                         </div>
 
-                        {allAvailableCategories.map(eventCategory => (
+                        {allAvailableCategories.map((eventCategory) => (
                             <EventCategoryFilter
                                 key={eventCategory}
                                 category={eventCategory}
@@ -147,34 +159,48 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                 )}
 
                 <div>
-                    {groupByDay.length > 0 ? groupByDay.map(([date, events]) => (
-                        <div key={date.toString()} className="mb-2">
-                            <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
-                                {formatDate(date, 'EE dd. MMMM yy', locale)}
-                            </div>
+                    {groupByDay.length > 0 ? (
+                        groupByDay.map(([date, events]) => (
+                            <div key={date.toString()} className="mb-2">
+                                <div className="bg-black px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">
+                                    {formatDate(date, 'EE dd. MMMM yy', locale)}
+                                </div>
 
-                            {events.map((event, index) => (
-                                <EventOverviewEntry key={`event-${event.id}`} event={event} index={index} />
-                            ))}
-                        </div>
-                    )) : (
+                                {events.map((event, index) => (
+                                    <EventOverviewEntry
+                                        key={`event-${event.id}`}
+                                        event={event}
+                                        index={index}
+                                    />
+                                ))}
+                            </div>
+                        ))
+                    ) : (
                         <div className="mb-2">
-                            <div className="px-3 md:px-4 py-1 md:py-2 bg-black text-white font-serif font-bold">
+                            <div className="bg-black px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">
                                 {locale === 'de' ? 'Nichts gefunden!' : 'Nothing found!'}
                             </div>
 
-                            <div className="py-1 md:py-2 flex gap-3">
+                            <div className="flex gap-3 py-1 md:py-2">
                                 <div className="w-full">
-                                    {locale === 'de' ? 'Hier gibt es aktuell keine Termine.' : 'There are currently no events.'}
+                                    {locale === 'de'
+                                        ? 'Hier gibt es aktuell keine Termine.'
+                                        : 'There are currently no events.'}
                                 </div>
                             </div>
                         </div>
                     )}
                 </div>
 
-                {eventsOnPage?.pagination === true && paginatedEvents !== undefined && paginatedEvents.totalPages > 1 && (
-                    <EventsPagination paginatedEvents={paginatedEvents} page={page} setPage={handleSetPage} />
-                )}
+                {eventsOnPage?.pagination === true &&
+                    paginatedEvents !== undefined &&
+                    paginatedEvents.totalPages > 1 && (
+                        <EventsPagination
+                            paginatedEvents={paginatedEvents}
+                            page={page}
+                            setPage={handleSetPage}
+                        />
+                    )}
             </div>
         </div>
     );

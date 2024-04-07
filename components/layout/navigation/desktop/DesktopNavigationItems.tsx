@@ -1,4 +1,3 @@
-
 export interface DesktopNavigationItemProps {
     link: string;
     labelDe: string;

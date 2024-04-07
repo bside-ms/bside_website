@@ -8,35 +8,28 @@ import BurgerHeart from '@/components/svg/BurgerHeart';
 import Heart from '@/components/svg/Heart';
 
 const HeaderBarMobile = (): ReactElement => {
-
     const { pathname, push } = useRouter();
     const handleClickOnHeart = useCallback(
-        () => pathname === '/'
-            ? window.scrollTo({ top: 0, behavior: 'smooth' })
-            : push('/'),
-        [pathname, push]
+        () => (pathname === '/' ? window.scrollTo({ top: 0, behavior: 'smooth' }) : push('/')),
+        [pathname, push],
     );
 
     const { toggleNavigation } = useAppContext();
 
     return (
-        <header className="sticky top-0 left-0 right-0 z-20">
+        <header className="sticky left-0 right-0 top-0 z-20">
             <HeaderBanner />
 
             <div className="relative">
-                <div className="absolute top-0 left-0 border-[50px] border-transparent border-t-white border-l-white" />
-                <div className="absolute top-0 right-0 border-[50px] border-transparent border-t-white border-r-white" />
+                <div className="absolute left-0 top-0 border-[50px] border-transparent border-l-white border-t-white" />
+                <div className="absolute right-0 top-0 border-[50px] border-transparent border-r-white border-t-white" />
 
                 <div className="flex justify-between p-4">
-
-                    <div
-                        className="w-6 z-20"
-                        onClick={handleClickOnHeart}
-                    >
+                    <div className="z-20 w-6" onClick={handleClickOnHeart}>
                         <Heart />
                     </div>
 
-                    <div className="w-6 z-20" onClick={toggleNavigation}>
+                    <div className="z-20 w-6" onClick={toggleNavigation}>
                         <BurgerHeart />
                     </div>
                 </div>

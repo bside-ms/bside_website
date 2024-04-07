@@ -12,7 +12,6 @@ interface Props {
 }
 
 const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactElement | null => {
-
     if (isEventImageString(eventImage)) {
         return (
             <Link href={eventImage} target="_blank" className="cursor-default">
@@ -23,15 +22,21 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
                     alt={eventTitle}
                     sizes="thumbnail"
                     className="mx-auto mb-4 md:cursor-pointer"
-                    style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
-                        (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
+                    style={
+                        justify === 'right'
+                            ? { marginLeft: 'auto', marginRight: 0 }
+                            : justify === 'left'
+                              ? { marginLeft: 0, marginRight: 'auto' }
+                              : undefined
+                    }
                     priority={true}
                 />
             </Link>
         );
     }
 
-    const imageUrl = eventImage.sizes?.event?.url ?? eventImage.sizes?.thumbnail?.url ?? eventImage.url;
+    const imageUrl =
+        eventImage.sizes?.event?.url ?? eventImage.sizes?.thumbnail?.url ?? eventImage.url;
 
     if (isEmptyString(imageUrl)) {
         return null;
@@ -46,13 +51,17 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
                 alt={eventImage.alt}
                 sizes="thumbnail"
                 className="mx-auto mb-4 md:cursor-pointer"
-                style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
-                    (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
+                style={
+                    justify === 'right'
+                        ? { marginLeft: 'auto', marginRight: 0 }
+                        : justify === 'left'
+                          ? { marginLeft: 0, marginRight: 'auto' }
+                          : undefined
+                }
                 priority={true}
             />
         </Link>
     );
-
 };
 
 export default EventImage;

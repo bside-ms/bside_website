@@ -12,9 +12,8 @@ const AppContext = createContext<AppContextData | null>(null);
 type Props = PropsWithChildren;
 
 const AppContextProvider = ({ children }: Props): ReactElement => {
-
     const [isNavigationOpen, setIsNavigationOpen] = useState(false);
-    const toggleNavigation = useCallback(() => setIsNavigationOpen(prevState => !prevState), []);
+    const toggleNavigation = useCallback(() => setIsNavigationOpen((prevState) => !prevState), []);
 
     const { pathname } = useRouter();
 
@@ -35,17 +34,13 @@ const AppContextProvider = ({ children }: Props): ReactElement => {
 };
 
 const useAppContext = (): AppContextData => {
-
     const appContext = useContext(AppContext);
 
     if (appContext === null) {
-        throw new Error('useAppContext hook wasn\'t used within AppContextProvider');
+        throw new Error("useAppContext hook wasn't used within AppContextProvider");
     }
 
     return appContext;
 };
 
-export {
-    AppContextProvider,
-    useAppContext,
-};
+export { AppContextProvider, useAppContext };

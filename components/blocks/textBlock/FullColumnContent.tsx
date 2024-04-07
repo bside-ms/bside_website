@@ -7,7 +7,6 @@ interface Props {
 }
 
 const FullColumnContent = ({ firstColumn }: Props): ReactElement | null => {
-
     return <RichText content={firstColumn.richText} />;
 };
 

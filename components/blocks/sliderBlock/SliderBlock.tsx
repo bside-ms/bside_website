@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import type { ReactElement } from 'react';
 import { Keyboard, Mousewheel, Navigation, Pagination, Zoom } from 'swiper/modules';
@@ -18,7 +17,7 @@ interface SliderBlockProps {
 
 const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
     if (imageSlides.length <= 0) {
-        return (<div />);
+        return <div />;
     }
 
     return (
@@ -38,12 +37,9 @@ const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
                 mousewheel={{ forceToAxis: true }}
             >
                 {imageSlides.map((item) => (
-                    <SwiperSlide
-                        key={`media-${item.id}`}
-
-                    >
+                    <SwiperSlide key={`media-${item.id}`}>
                         <div
-                            className="swiper-zoom-container flex justify-center items-center relative"
+                            className="swiper-zoom-container relative flex items-center justify-center"
                             style={{
                                 height: '450px',
                                 position: 'relative',
@@ -53,13 +49,13 @@ const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
                                 fill={true}
                                 src={(item.image as Media).url!}
                                 alt={(item.image as Media).alt!}
-                                className="my-auto mx-auto"
+                                className="mx-auto my-auto"
                                 objectFit="contain"
                                 loading="lazy"
                             />
                         </div>
                         {!isEmptyString(item.description) && (
-                            <p className="hidden md:block font-serif text-center mt-0 pb-8">
+                            <p className="mt-0 hidden pb-8 text-center font-serif md:block">
                                 {item.description}
                             </p>
                         )}

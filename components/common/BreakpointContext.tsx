@@ -6,11 +6,11 @@ type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 // TODO: https://tailwindcss.com/docs/screens
 const breakpoints: Record<Breakpoint, number> = {
-    'xs': 0,
-    'sm': 640,
-    'md': 768,
-    'lg': 1024,
-    'xl': 1280,
+    xs: 0,
+    sm: 640,
+    md: 768,
+    lg: 1024,
+    xl: 1280,
     '2xl': 1536,
 };
 
@@ -28,7 +28,6 @@ const BreakpointContext = createContext<BreakpointContextData | null>(null);
 type Props = PropsWithChildren;
 
 const BreakpointContextProvider = ({ children }: Props): ReactElement => {
-
     const [breakpoint, setBreakpoint] = useState<Breakpoint>('xs');
 
     const isXs = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'].includes(breakpoint);
@@ -40,7 +39,6 @@ const BreakpointContextProvider = ({ children }: Props): ReactElement => {
 
     const handleBodyWidthUpdate = useCallback(
         (bodyWidth: DOMRectReadOnly['width']) => {
-
             if (bodyWidth >= breakpoints['2xl']) {
                 if (breakpoint !== '2xl') {
                     setBreakpoint('2xl');
@@ -65,11 +63,10 @@ const BreakpointContextProvider = ({ children }: Props): ReactElement => {
                 setBreakpoint('xs');
             }
         },
-        [breakpoint]
+        [breakpoint],
     );
 
     useAsyncEffectOnMount(async () => {
-
         if (!('ResizeObserver' in window)) {
             // eslint-disable-next-line @next/next/no-assign-module-variable
             const module = await import('@juggle/resize-observer');
@@ -101,17 +98,13 @@ const BreakpointContextProvider = ({ children }: Props): ReactElement => {
 };
 
 const useBreakpointContext = (): BreakpointContextData => {
-
     const breakpointContext = useContext(BreakpointContext);
 
     if (breakpointContext === null) {
-        throw new Error('useBreakpointContext hook wasn\'t used within BreakpointContextProvider');
+        throw new Error("useBreakpointContext hook wasn't used within BreakpointContextProvider");
     }
 
     return breakpointContext;
 };
 
-export {
-    BreakpointContextProvider,
-    useBreakpointContext,
-};
+export { BreakpointContextProvider, useBreakpointContext };

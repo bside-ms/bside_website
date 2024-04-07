@@ -11,14 +11,9 @@ interface Props {
 }
 
 const CircleOverviewBlock = ({ headlineText, circles, richText }: Props): ReactElement => {
-
     return (
         <ContentWrapper>
-            <CircleOverview
-                headlineText={headlineText}
-                circles={circles}
-                richText={richText}
-            />
+            <CircleOverview headlineText={headlineText} circles={circles} richText={richText} />
         </ContentWrapper>
     );
 };

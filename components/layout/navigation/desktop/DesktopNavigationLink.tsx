@@ -8,11 +8,15 @@ export interface DesktopNavigationItemLocaleProps {
     subLabel?: string;
 }
 
-const DesktopNavigationLink = ({ link, label, subLabel }: DesktopNavigationItemLocaleProps): ReactElement => {
+const DesktopNavigationLink = ({
+    link,
+    label,
+    subLabel,
+}: DesktopNavigationItemLocaleProps): ReactElement => {
     return (
         <Link
             href={link}
-            className="leading-5 pt-1 hover:text-orange-500 hover:cursor-pointer whitespace-nowrap"
+            className="whitespace-nowrap pt-1 leading-5 hover:cursor-pointer hover:text-orange-500"
         >
             {label}
 

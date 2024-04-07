@@ -1,7 +1,6 @@
 import type { ReactElement } from 'react';
 
 const Spinner = (): ReactElement => {
-
     return (
         <svg
             className="animate-spin-slow"

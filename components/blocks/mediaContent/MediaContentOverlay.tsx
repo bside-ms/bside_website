@@ -18,14 +18,21 @@ interface Props {
     effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
-const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref, effects }: Props): ReactElement => {
-
+const MediaContentOverlay = ({
+    media,
+    richText,
+    headlineText,
+    headlineTeaser,
+    buttonText,
+    buttonHref,
+    effects,
+}: Props): ReactElement => {
     return (
         <>
-            <div className="w-full p-4 lg:w-[60rem] xl:w-[80rem] lg:mx-auto">
+            <div className="w-full p-4 lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
                 <div
                     className={clsx(
-                        'bg-cover bg-center w-full h-52 md:h-72',
+                        'h-52 w-full bg-cover bg-center md:h-72',
                         effects.includes('blur') && 'blur-[2px]',
                         effects.includes('grayscale') && 'grayscale',
                         effects.includes('desaturated') && 'saturate-50',
@@ -35,9 +42,9 @@ const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, bu
                 />
             </div>
 
-            <div className="px-4 md:px-0 -translate-y-20 -mb-24 md:-translate-y-20 md:-mb-20">
+            <div className="-mb-24 -translate-y-20 px-4 md:-mb-20 md:-translate-y-20 md:px-0">
                 <ContentWrapper>
-                    <div className="bg-black text-white p-6">
+                    <div className="bg-black p-6 text-white">
                         {!isEmptyString(headlineText) && (
                             <Headline
                                 title={headlineText}
@@ -51,12 +58,7 @@ const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, bu
                         </div>
 
                         {!isEmptyString(buttonText) && !isEmptyString(buttonHref ?? '') && (
-                            <Button
-                                title=""
-                                text={buttonText}
-                                href={buttonHref!}
-                                inverse={true}
-                            />
+                            <Button title="" text={buttonText} href={buttonHref!} inverse={true} />
                         )}
                     </div>
                 </ContentWrapper>

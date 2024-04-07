@@ -5,8 +5,11 @@ import HalfColumnsContent from '@blocks/textBlock/HalfColumnsContent';
 import OneThirdColumnsContent from '@blocks/textBlock/OneThirdColumnsContent';
 import TwoThirdsColumnsContent from '@blocks/textBlock/TwoThirdsColumnsContent';
 
-const ColumnsContent = ({ columns }: { columns: Array<ContentColumnProps> }): ReactElement | null => {
-
+const ColumnsContent = ({
+    columns,
+}: {
+    columns: Array<ContentColumnProps>;
+}): ReactElement | null => {
     const [firstColumn, secondColumn, thirdColumn] = columns;
 
     if (firstColumn === undefined) {
@@ -18,26 +21,14 @@ const ColumnsContent = ({ columns }: { columns: Array<ContentColumnProps> }): Re
 
     switch (firstColumn.width) {
         case 'full':
-            return (
-                <FullColumnContent
-                    firstColumn={firstColumn}
-                />
-            );
+            return <FullColumnContent firstColumn={firstColumn} />;
 
         case 'half':
-            return (
-                <HalfColumnsContent
-                    firstColumn={firstColumn}
-                    secondColumn={secondColumn}
-                />
-            );
+            return <HalfColumnsContent firstColumn={firstColumn} secondColumn={secondColumn} />;
 
         case 'twoThirds':
             return (
-                <TwoThirdsColumnsContent
-                    firstColumn={firstColumn}
-                    secondColumn={secondColumn}
-                />
+                <TwoThirdsColumnsContent firstColumn={firstColumn} secondColumn={secondColumn} />
             );
 
         case 'oneThird':

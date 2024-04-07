@@ -6,7 +6,6 @@ import MobileNavigationLink from '@/components/layout/navigation/mobile/MobileNa
 import { colors } from '@blocks/circleOverviewBlock/CircleOverview';
 
 const MobileNavigationItems = (): ReactElement => {
-
     const { asPath, locale } = useRouter();
 
     return (
@@ -26,14 +25,20 @@ const MobileNavigationItems = (): ReactElement => {
             <MobileNavigationLink href="/kultur" color={colors[3 % colors.length]!}>
                 <div className="leading-4">
                     {locale === 'en' ? 'Culture & education' : 'Kultur & Bildung'}
-                    <span className="text-sm"><br />B-Side Kultur e.V.</span>
+                    <span className="text-sm">
+                        <br />
+                        B-Side Kultur e.V.
+                    </span>
                 </div>
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/quartier" color={colors[4 % colors.length]!}>
                 <div className="leading-4">
                     {locale === 'en' ? 'Neighbourhood work' : 'Quartiersarbeit'}
-                    <span className="text-sm"><br />B-Side GmbH</span>
+                    <span className="text-sm">
+                        <br />
+                        B-Side GmbH
+                    </span>
                 </div>
             </MobileNavigationLink>
 
@@ -45,11 +50,7 @@ const MobileNavigationItems = (): ReactElement => {
                 {locale === 'en' ? 'Contact' : 'Kontakt'}
             </MobileNavigationLink>
 
-            <Link
-                href="https://www.instagram.com/bsidemuenster/"
-                className="mt-4"
-                target="_blank"
-            >
+            <Link href="https://www.instagram.com/bsidemuenster/" className="mt-4" target="_blank">
                 <Image
                     src="/assets/social/instagram.svg"
                     alt="Instagram Logo"
@@ -60,8 +61,12 @@ const MobileNavigationItems = (): ReactElement => {
 
             <Link
                 href={asPath !== '/' ? asPath : locale === 'de' ? '/en' : '/'}
-                className="text-white text-sm hover:text-orange-500 cursor-pointer"
-                aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
+                className="cursor-pointer text-sm text-white hover:text-orange-500"
+                aria-label={
+                    locale !== 'en'
+                        ? 'Show the english version'
+                        : 'Deutschsprachige Version anzeigen'
+                }
                 locale={locale !== 'en' ? 'en' : 'de'}
             >
                 {locale !== 'en' ? 'Show the english version' : 'Zur deutschsprachigen Version'}

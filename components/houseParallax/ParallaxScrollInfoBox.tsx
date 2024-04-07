@@ -12,8 +12,10 @@ interface ParallaxScrollInfoBoxProps extends ScrollInfoBox {
     infoBoxPositions: Array<number>;
 }
 
-const getOpacityAndLeftPosition = (display: ScrollInfoBox['display'], scrollY: number): [number, string] => {
-
+const getOpacityAndLeftPosition = (
+    display: ScrollInfoBox['display'],
+    scrollY: number,
+): [number, string] => {
     if (scrollY < display.begin) {
         return [0, '0%'];
     }
@@ -27,46 +29,44 @@ const getOpacityAndLeftPosition = (display: ScrollInfoBox['display'], scrollY: n
 
 const getNeighbouringInfoBoxPositions = (
     scrollInfoBoxDisplay: ScrollInfoBox['display'],
-    infoBoxPositions: Array<number>
+    infoBoxPositions: Array<number>,
 ): [number | null, number | null] => {
-
     const infoBoxPosition = getInfoBoxPosition(scrollInfoBoxDisplay);
 
     const priorInfoBoxPosition = [...infoBoxPositions]
-        .sort((posA, posB) => posA < posB ? 1 : -1)
-        .find(pos => pos < infoBoxPosition);
+        .sort((posA, posB) => (posA < posB ? 1 : -1))
+        .find((pos) => pos < infoBoxPosition);
 
-    const nextInfoBoxPosition = infoBoxPositions
-        .find(pos => pos > infoBoxPosition);
+    const nextInfoBoxPosition = infoBoxPositions.find((pos) => pos > infoBoxPosition);
 
-    return [
-        priorInfoBoxPosition ?? null,
-        nextInfoBoxPosition ?? null,
-    ];
+    return [priorInfoBoxPosition ?? null, nextInfoBoxPosition ?? null];
 };
 
 const getInfoBoxesPagingInfo = (
     scrollInfoBoxDisplay: ScrollInfoBox['display'],
-    infoBoxPositions: Array<number>
+    infoBoxPositions: Array<number>,
 ): [number, number] => {
-
     const infoBoxPosition = getInfoBoxPosition(scrollInfoBoxDisplay);
 
-    return [
-        infoBoxPositions.indexOf(infoBoxPosition) + 1,
-        infoBoxPositions.length,
-    ];
+    return [infoBoxPositions.indexOf(infoBoxPosition) + 1, infoBoxPositions.length];
 };
 
-const ParallaxScrollInfoBox = ({ title, text, display, scrollY, infoBoxPositions }: ParallaxScrollInfoBoxProps): ReactElement => {
-
+const ParallaxScrollInfoBox = ({
+    title,
+    text,
+    display,
+    scrollY,
+    infoBoxPositions,
+}: ParallaxScrollInfoBoxProps): ReactElement => {
     const [opacity, leftPosition] = getOpacityAndLeftPosition(display, scrollY);
 
-    const [priorInfoBoxPosition, nextInfoBoxPosition] = getNeighbouringInfoBoxPositions(display, infoBoxPositions);
+    const [priorInfoBoxPosition, nextInfoBoxPosition] = getNeighbouringInfoBoxPositions(
+        display,
+        infoBoxPositions,
+    );
     const [page, pageCount] = getInfoBoxesPagingInfo(display, infoBoxPositions);
 
     const handlePriorClick = useCallback(() => {
-
         if (isNotEmptyNumber(priorInfoBoxPosition)) {
             window.scrollTo({
                 top: priorInfoBoxPosition,
@@ -75,7 +75,6 @@ const ParallaxScrollInfoBox = ({ title, text, display, scrollY, infoBoxPositions
     }, [priorInfoBoxPosition]);
 
     const handleNextClick = useCallback(() => {
-
         if (isNotEmptyNumber(nextInfoBoxPosition)) {
             window.scrollTo({
                 top: nextInfoBoxPosition,
@@ -90,42 +89,50 @@ const ParallaxScrollInfoBox = ({ title, text, display, scrollY, infoBoxPositions
                 pointerEvents: opacity === 0 ? 'none' : 'all',
                 left: leftPosition,
             }}
-            className="absolute bottom-0 md:top-[calc(100%-65px)] transition-all duration-150 -translate-x-1/2 w-[90%] md:w-[40rem]"
+            className="absolute bottom-0 w-[90%] -translate-x-1/2 transition-all duration-150 md:top-[calc(100%-65px)] md:w-[40rem]"
         >
-            <div className="flex flex-col bg-black bg-opacity-80 text-white p-6">
-                <div className="flex justify-between flex-wrap md:flex-nowrap mb-3">
+            <div className="flex flex-col bg-black bg-opacity-80 p-6 text-white">
+                <div className="mb-3 flex flex-wrap justify-between md:flex-nowrap">
                     {isNotEmptyString(title) ? (
-                        <div className="font-bold font-serif text-lg md:text-xl md:whitespace-nowrap">
+                        <div className="font-serif text-lg font-bold md:whitespace-nowrap md:text-xl">
                             {title}
                         </div>
                     ) : (
                         <div>&nbsp;</div>
                     )}
 
-                    <div className="flex w-full gap-1 md:justify-end items-center text-lg leading-none select-none">
+                    <div className="flex w-full select-none items-center gap-1 text-lg leading-none md:justify-end">
                         <a
-                            className="md:cursor-pointer md:hover:text-orange-500 py-1 px-1 md:px-2"
+                            className="px-1 py-1 md:cursor-pointer md:px-2 md:hover:text-orange-500"
                             onClick={handlePriorClick}
-                            style={isEmptyNumber(priorInfoBoxPosition) ? { opacity: 0.3, cursor: 'default' } : undefined}
+                            style={
+                                isEmptyNumber(priorInfoBoxPosition)
+                                    ? { opacity: 0.3, cursor: 'default' }
+                                    : undefined
+                            }
                         >
                             <BsChevronLeft />
                         </a>
 
-                        <div>{page}&nbsp;/&nbsp;{pageCount}</div>
+                        <div>
+                            {page}&nbsp;/&nbsp;{pageCount}
+                        </div>
 
                         <a
-                            className="md:cursor-pointer md:hover:text-orange-500 py-1 px-1 md:px-2"
+                            className="px-1 py-1 md:cursor-pointer md:px-2 md:hover:text-orange-500"
                             onClick={handleNextClick}
-                            style={isEmptyNumber(nextInfoBoxPosition) ? { opacity: 0.3, cursor: 'default' } : undefined}
+                            style={
+                                isEmptyNumber(nextInfoBoxPosition)
+                                    ? { opacity: 0.3, cursor: 'default' }
+                                    : undefined
+                            }
                         >
                             <BsChevronRight />
                         </a>
                     </div>
                 </div>
 
-                <div className="md:text-lg">
-                    {text}
-                </div>
+                <div className="md:text-lg">{text}</div>
             </div>
         </div>
     );

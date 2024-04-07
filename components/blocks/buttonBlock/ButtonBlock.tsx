@@ -4,7 +4,6 @@ import type { CallToActionBlockProps } from '@/types/payload/Blocks';
 import Button from '@blocks/buttonBlock/Button';
 
 const ButtonBlock = ({ title, href, text }: CallToActionBlockProps): ReactElement => {
-
     return (
         <ContentWrapper>
             <Button title={title} href={href} text={text} />

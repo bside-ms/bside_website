@@ -7,7 +7,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import createEventSlug from '@/lib/events/createEventSlug';
 import type { Event } from '@/types/payload/payload-types';
 
-const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
+const EventOrganiser = ({ event }: { event: Event }): ReactElement => {
     const hasOwner = event.eventOwner?.length !== 0;
     const hasOrganiser = !isEmptyString(event.eventOrganizer);
     const { locale } = useRouter();
@@ -21,8 +21,12 @@ const EventOrganiser = ({ event }: {event: Event}): ReactElement => {
             <Link
                 key={`event-${event.id}-organiser`}
                 href={`/events/${createEventSlug(event)}`}
-                className="truncate px-1 my-auto leading-6 text-sm italic border-black border-b text-black z-10 hover:border-b-orange-500"
-                aria-label={locale === 'de' ? `Erfahre mehr über die Veranstalter:innen ${event.eventOrganizer}` : `Learn more about the event organizer ${event.eventOrganizer}`}
+                className="z-10 my-auto truncate border-b border-black px-1 text-sm italic leading-6 text-black hover:border-b-orange-500"
+                aria-label={
+                    locale === 'de'
+                        ? `Erfahre mehr über die Veranstalter:innen ${event.eventOrganizer}`
+                        : `Learn more about the event organizer ${event.eventOrganizer}`
+                }
             >
                 {event.eventOrganizer}
             </Link>

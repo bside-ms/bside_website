@@ -12,25 +12,26 @@ interface Props {
 }
 
 const MobileNavigationLink = ({ children, href, color }: Props): ReactElement => {
-
     const { pathname } = useRouter();
     const { toggleNavigation } = useAppContext();
 
     const isActivePage = pathname === href;
 
-    const handleClick = useCallback((event: SyntheticEvent<HTMLSpanElement>) => {
+    const handleClick = useCallback(
+        (event: SyntheticEvent<HTMLSpanElement>) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-        event.preventDefault();
-        event.stopPropagation();
-
-        if (!isActivePage) {
-            toggleNavigation();
-        }
-    }, [isActivePage, toggleNavigation]);
+            if (!isActivePage) {
+                toggleNavigation();
+            }
+        },
+        [isActivePage, toggleNavigation],
+    );
 
     return (
         <span
-            className={`text-xl leading-[1.1] text-white font-serif cursor-default md:cursor-pointer whitespace-nowrap ${isActivePage ? 'italic' : ''}`}
+            className={`cursor-default whitespace-nowrap font-serif text-xl leading-[1.1] text-white md:cursor-pointer ${isActivePage ? 'italic' : ''}`}
             style={!isActivePage && !isEmptyString(color) ? undefined : { color }}
             onClick={handleClick}
         >

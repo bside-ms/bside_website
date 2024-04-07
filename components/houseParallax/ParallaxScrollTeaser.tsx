@@ -11,18 +11,13 @@ interface Props {
 }
 
 const ParallaxScrollTeaser = ({ scrollY, firstInfoBoxPositions }: Props): ReactElement | null => {
-
     const isMounted = useIsMounted();
 
     const [showTeaser, setShowTeaser] = useState(false);
 
-    useEffect(
-        () => setShowTeaser(isMounted && scrollY === 0),
-        [isMounted, scrollY]
-    );
+    useEffect(() => setShowTeaser(isMounted && scrollY === 0), [isMounted, scrollY]);
 
     const handleClick = useCallback(() => {
-
         if (isEmptyNumber(firstInfoBoxPositions)) {
             return;
         }
@@ -31,20 +26,27 @@ const ParallaxScrollTeaser = ({ scrollY, firstInfoBoxPositions }: Props): ReactE
             top: firstInfoBoxPositions,
             behavior: 'smooth',
         });
-
     }, [firstInfoBoxPositions]);
 
     return (
         <div
-            className="absolute bottom-8 md:top-full left-1/2 -translate-x-1/2 transition-opacity duration-500 delay-500 cursor-pointer"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer transition-opacity delay-500 duration-500 md:top-full"
             style={{ opacity: showTeaser ? 1 : 0 }}
             onClick={handleClick}
         >
-            <div className="bg-black text-white rounded-full flex flex-col leading-none items-center p-2 pb-3">
-                <div className="text-2xl mb-1"><BsArrowDownCircle /></div>
-                <div className="animate-disappear-1 -mb-1"><RxChevronDown /></div>
-                <div className="animate-disappear-2 -mb-1"><RxChevronDown /></div>
-                <div className="animate-disappear-3 -mb-1"><RxChevronDown /></div>
+            <div className="flex flex-col items-center rounded-full bg-black p-2 pb-3 leading-none text-white">
+                <div className="mb-1 text-2xl">
+                    <BsArrowDownCircle />
+                </div>
+                <div className="-mb-1 animate-disappear-1">
+                    <RxChevronDown />
+                </div>
+                <div className="-mb-1 animate-disappear-2">
+                    <RxChevronDown />
+                </div>
+                <div className="-mb-1 animate-disappear-3">
+                    <RxChevronDown />
+                </div>
             </div>
         </div>
     );

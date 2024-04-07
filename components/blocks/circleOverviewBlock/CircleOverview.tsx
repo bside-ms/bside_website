@@ -15,13 +15,7 @@ interface Props {
     richText: SlateChildren;
 }
 
-export const colors = [
-    '#ccffcc',
-    '#ccffff',
-    '#ccccff',
-    '#ffcccc',
-    '#ffffcc',
-];
+export const colors = ['#ccffcc', '#ccffff', '#ccccff', '#ffcccc', '#ffffcc'];
 
 const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElement => {
     const { locale } = useRouter();
@@ -29,34 +23,21 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
     return (
         <Fragment>
             <div className="my-4" id="kreise">
-                <Headline
-                    title={headlineText}
-                    level="h2"
-                />
+                <Headline title={headlineText} level="h2" />
             </div>
 
-            <div className="lg:flex lg:gap-4 lg:flex-row-reverse">
-
-                <div className="lg:basis-1/2 lg:align-text-top lg:px-4 overflow-y-auto">
-                    <RichText
-                        content={richText}
-                    />
+            <div className="lg:flex lg:flex-row-reverse lg:gap-4">
+                <div className="overflow-y-auto lg:basis-1/2 lg:px-4 lg:align-text-top">
+                    <RichText content={richText} />
                 </div>
 
                 <div className="lg:basis-1/2">
-                    <div className="border-2 border-black my-4">
+                    <div className="my-4 border-2 border-black">
                         {circles.map((circle: Circle, index: number) => (
-                            <Link
-                                href={createCircleLink(circle)}
-                                key={circle.name}
-                            >
-                                <div
-                                    className="group relative flex justify-between items-center px-4 py-1 cursor-pointer border-b border-gray-300"
-                                >
-                                    <div className="z-10 lg:text-lg group-hover:text-black transition-all duration-100">
-                                        <p className="font-serif">
-                                            {circle.name}
-                                        </p>
+                            <Link href={createCircleLink(circle)} key={circle.name}>
+                                <div className="group relative flex cursor-pointer items-center justify-between border-b border-gray-300 px-4 py-1">
+                                    <div className="z-10 transition-all duration-100 group-hover:text-black lg:text-lg">
+                                        <p className="font-serif">{circle.name}</p>
                                         {!isEmptyString(circle.description) && (
                                             <p className="text-sm lg:text-base">
                                                 {circle.description}
@@ -64,11 +45,11 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                         )}
                                     </div>
                                     <div
-                                        className="absolute top-0 right-0 bottom-0 left-0 opacity-0 group-hover:opacity-100 transition-all duration-100"
+                                        className="absolute bottom-0 left-0 right-0 top-0 opacity-0 transition-all duration-100 group-hover:opacity-100"
                                         style={{ backgroundColor: colors[index % colors.length] }}
                                     />
 
-                                    <div className="text-sm z-10 group-hover:text-black transition-all duration-100">
+                                    <div className="z-10 text-sm transition-all duration-100 group-hover:text-black">
                                         »&nbsp;{locale === 'de' ? 'mehr' : 'more'}
                                     </div>
                                 </div>
