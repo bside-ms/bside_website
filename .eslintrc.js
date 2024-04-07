@@ -61,6 +61,8 @@ module.exports = {
 
         // node_modules/eslint-plugin-react-hooks/src/index.js
         'plugin:react-hooks/recommended',
+
+        // https://github.com/prettier/eslint-config-prettier
         'prettier',
     ],
     settings: {
