@@ -4,21 +4,22 @@ import MobileNavigationItems from '@/components/layout/navigation/mobile/MobileN
 import { useAppContext } from '@/components/layout/next/AppContext';
 
 const MobileNavigationOverlay = (): ReactElement | null => {
-
     const { isNavigationOpen, toggleNavigation } = useAppContext();
 
-    const handleSvgClick = useCallback((event: SyntheticEvent<SVGElement>) => {
-
-        // Toggle navigation when user does not click on path aka the heart
-        if (!(event.target instanceof SVGPathElement)) {
-            toggleNavigation();
-        }
-    }, [toggleNavigation]);
+    const handleSvgClick = useCallback(
+        (event: SyntheticEvent<SVGElement>) => {
+            // Toggle navigation when user does not click on path aka the heart
+            if (!(event.target instanceof SVGPathElement)) {
+                toggleNavigation();
+            }
+        },
+        [toggleNavigation],
+    );
 
     return (
         <>
             <nav
-                className="fixed lg:hidden w-[360px] h-[833px] right-0 z-40 transition-all"
+                className="fixed right-0 z-40 h-[833px] w-[360px] transition-all lg:hidden"
                 style={isNavigationOpen ? { right: 0 } : { right: '-833px' }}
             >
                 <svg
@@ -42,20 +43,20 @@ const MobileNavigationOverlay = (): ReactElement | null => {
                 <div
                     className={`tw
                         absolute
-                        top-[100px]
                         left-[95px]
-                        rounded-full
-                        w-16
-                        h-16
-                        border-black
-                        border-4
-                        bg-white
+                        top-[100px]
+                        z-50
                         flex
-                        justify-center
+                        h-16
+                        w-16
                         items-center
+                        justify-center
+                        rounded-full
+                        border-4
+                        border-black
+                        bg-white
                         text-4xl
                         md:cursor-pointer
-                        z-50
                     `}
                     onClick={toggleNavigation}
                 >
@@ -65,10 +66,10 @@ const MobileNavigationOverlay = (): ReactElement | null => {
                 <div
                     className={`tw
                         absolute
-                        top-[130px]
                         right-[30px]
-                        w-[270px]
+                        top-[130px]
                         z-40
+                        w-[270px]
                     `}
                 >
                     <MobileNavigationItems />
@@ -78,8 +79,8 @@ const MobileNavigationOverlay = (): ReactElement | null => {
             <div
                 className={
                     isNavigationOpen
-                        ? 'fixed top-0 right-0 bottom-0 left-0 bg-black z-30 opacity-30 transition-opacity'
-                        : 'fixed top-0 right-0 bottom-0 left-0 bg-black z-30 opacity-0 pointer-events-none'
+                        ? 'fixed bottom-0 left-0 right-0 top-0 z-30 bg-black opacity-30 transition-opacity'
+                        : 'pointer-events-none fixed bottom-0 left-0 right-0 top-0 z-30 bg-black opacity-0'
                 }
                 onClick={isNavigationOpen ? toggleNavigation : undefined}
             />

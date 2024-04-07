@@ -2,57 +2,53 @@ import { isBefore, isEqual, isSameDay, setMilliseconds } from 'date-fns';
 import type { Event } from '@/types/payload/payload-types';
 
 const sortEvents = (eventList: Array<Event>, reversedDayOrder: boolean): Array<Event> => {
+    return eventList.sort((eventA, eventB) => {
+        const dateA = new Date(eventA.eventDate);
+        const startTimeA = setMilliseconds(new Date(eventA.eventStart), 0);
+        const dateB = new Date(eventB.eventDate);
+        const startTimeB = setMilliseconds(new Date(eventB.eventStart), 0);
 
-    return eventList
-        .sort((eventA, eventB) => {
+        if (isEqual(dateA, dateB) && isEqual(startTimeA, startTimeB)) {
+            return eventA.title.localeCompare(eventB.title);
+        }
 
-            const dateA = new Date(eventA.eventDate);
-            const startTimeA = setMilliseconds(new Date(eventA.eventStart), 0);
-            const dateB = new Date(eventB.eventDate);
-            const startTimeB = setMilliseconds(new Date(eventB.eventStart), 0);
+        if (isSameDay(dateA, dateB)) {
+            return isBefore(startTimeA, startTimeB) ? -1 : 1;
+        }
 
-            if (isEqual(dateA, dateB) && isEqual(startTimeA, startTimeB)) {
-                return eventA.title.localeCompare(eventB.title);
-            }
+        if (isBefore(dateA, dateB)) {
+            return reversedDayOrder ? 1 : -1;
+        }
 
-            if (isSameDay(dateA, dateB)) {
-                return isBefore(startTimeA, startTimeB) ? -1 : 1;
-            }
-
-            if (isBefore(dateA, dateB)) {
-                return reversedDayOrder ? 1 : -1;
-            }
-
-            return reversedDayOrder ? -1 : 1;
-        });
+        return reversedDayOrder ? -1 : 1;
+    });
 };
 
-const groupEventsByDay = (eventList: Array<Event>, reversedDayOrder = false): Array<[Date, Array<Event>]> => {
+const groupEventsByDay = (
+    eventList: Array<Event>,
+    reversedDayOrder = false,
+): Array<[Date, Array<Event>]> => {
+    return sortEvents(eventList, reversedDayOrder).reduce<Array<[Date, Array<Event>]>>(
+        (currentEventsGroupedByDay, event) => {
+            let foundDate = false;
 
-    return sortEvents(eventList, reversedDayOrder)
-        .reduce<Array<[Date, Array<Event>]>>(
-            (currentEventsGroupedByDay, event) => {
-                let foundDate = false;
-
-                currentEventsGroupedByDay.forEach(
-                    ([date, events]) => {
-                        if (isSameDay(date, new Date(event.eventDate))) {
-                            foundDate = true;
-                            events.push(event);
-                        }
-                    }
-                );
-
-                // See https://github.com/typescript-eslint/typescript-eslint/issues/5376#issuecomment-1194069175, if you care for the reason.
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                if (!foundDate) {
-                    currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
+            currentEventsGroupedByDay.forEach(([date, events]) => {
+                if (isSameDay(date, new Date(event.eventDate))) {
+                    foundDate = true;
+                    events.push(event);
                 }
+            });
 
-                return currentEventsGroupedByDay;
-            },
-            []
-        );
+            // See https://github.com/typescript-eslint/typescript-eslint/issues/5376#issuecomment-1194069175, if you care for the reason.
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (!foundDate) {
+                currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
+            }
+
+            return currentEventsGroupedByDay;
+        },
+        [],
+    );
 };
 
 export default groupEventsByDay;

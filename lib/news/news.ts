@@ -14,19 +14,31 @@ enum NewsCategoriesEn {
     announcements = 'Announcements',
 }
 
-export const fetchNewsByIdentifier = async (slug: string, locale: string): Promise<News | undefined> => {
+export const fetchNewsByIdentifier = async (
+    slug: string,
+    locale: string,
+): Promise<News | undefined> => {
     // Check if it matches the new slug format.
     if (!(/^[a-zA-Z0-9]{4}-/.test(slug) && slug.length >= 5)) {
         return undefined;
     }
 
     const identifier = slug.slice(0, 4);
-    const response = await getPayloadResponse<PaginatedDocs<News>>(`/api/news/?where[identifier][equals]=${identifier}&locale=${locale}`);
+    const response = await getPayloadResponse<PaginatedDocs<News>>(
+        `/api/news/?where[identifier][equals]=${identifier}&locale=${locale}`,
+    );
     return response.docs[0] ?? undefined;
 };
 
-export const getCircleOrOrganisationName = (data: Array<{ value: string | Organisation, relationTo: 'organisations' } | { value: string | Circle, relationTo: 'circles'}> | null | undefined): string => {
-
+export const getCircleOrOrganisationName = (
+    data:
+        | Array<
+              | { value: string | Organisation; relationTo: 'organisations' }
+              | { value: string | Circle; relationTo: 'circles' }
+          >
+        | null
+        | undefined,
+): string => {
     if (data === null || data === undefined) {
         return '';
     }

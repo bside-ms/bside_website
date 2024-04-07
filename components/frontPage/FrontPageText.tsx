@@ -4,18 +4,14 @@ import type { HomePageProps } from '@/types/globals';
 
 const FrontPageText = ({ title, textBody, buttonText }: HomePageProps): ReactElement => (
     <div>
-        <div className="font-bold font-serif text-center text-2xl lg:text-xl">
-            {title}
-        </div>
+        <div className="text-center font-serif text-2xl font-bold lg:text-xl">{title}</div>
 
-        <div className="mt-1 text-md lg:mt-3 md:text-lg">
-            {textBody}
-        </div>
+        <div className="text-md mt-1 md:text-lg lg:mt-3">{textBody}</div>
 
         <div className="mt-3">
             <Link
                 href="/bside"
-                className="block text-lg text-center font-serif py-1 lg:py-2 mt-1 text-white bg-black lg:cursor-pointer lg:hover:text-black lg:hover:bg-orange-500"
+                className="mt-1 block bg-black py-1 text-center font-serif text-lg text-white lg:cursor-pointer lg:py-2 lg:hover:bg-orange-500 lg:hover:text-black"
             >
                 {buttonText}
             </Link>

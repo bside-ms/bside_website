@@ -11,22 +11,21 @@ interface Props {
 }
 
 const Button = ({ title, href, text, target = '_self' }: Props): ReactElement => {
-
     return (
         <span
             key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : ''}
             className="mx-auto py-4 text-center"
         >
-            {(!isEmptyString(title) && (
-                <div className="font-bold font-serif text-xl md:text-2xl mb-1 md:mb-3 ">
+            {!isEmptyString(title) && (
+                <div className="mb-1 font-serif text-xl font-bold md:mb-3 md:text-2xl ">
                     {title}
                 </div>
-            ))}
+            )}
 
             <Link
                 href={href}
                 target={target}
-                className="block text-lg py-1 md:py-3 text-white font-bold bg-black md:cursor-pointer md:hover:text-black md:hover:bg-orange-500"
+                className="block bg-black py-1 text-lg font-bold text-white md:cursor-pointer md:py-3 md:hover:bg-orange-500 md:hover:text-black"
             >
                 {text}
             </Link>

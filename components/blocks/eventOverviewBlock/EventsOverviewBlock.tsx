@@ -12,27 +12,26 @@ interface EventOverviewBlockProps {
     eventsOnPage?: EventsOnPage;
 }
 
-const EventsOverviewBlock = ({ headlineText, richText, eventsOnPage }: EventOverviewBlockProps): ReactElement => {
-
+const EventsOverviewBlock = ({
+    headlineText,
+    richText,
+    eventsOnPage,
+}: EventOverviewBlockProps): ReactElement => {
     return (
         <>
-            <ContentWrapper className="!py-0 !pb-0 !-mb-2">
+            <ContentWrapper className="!-mb-2 !py-0 !pb-0">
                 <div className="mt-4" id="veranstaltungen">
-                    <Headline
-                        title={headlineText}
-                        level="h2"
-                    />
+                    <Headline title={headlineText} level="h2" />
                 </div>
             </ContentWrapper>
 
             <ContentWrapper>
-                <div className="lg:flex lg:gap-4 lg:flex-row-reverse">
-
-                    <div className="lg:basis-1/3 lg:align-text-top lg:px-4 overflow-y-auto pb-8 lg:pb-0">
+                <div className="lg:flex lg:flex-row-reverse lg:gap-4">
+                    <div className="overflow-y-auto pb-8 lg:basis-1/3 lg:px-4 lg:pb-0 lg:align-text-top">
                         <RichText content={richText} />
                     </div>
 
-                    <div className="lg:basis-2/3 overflow-y">
+                    <div className="overflow-y lg:basis-2/3">
                         <EventsOverview eventsOnPage={eventsOnPage} />
                     </div>
                 </div>

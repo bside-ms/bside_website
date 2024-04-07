@@ -12,11 +12,9 @@ interface Props {
 }
 
 const SubNavigationLink = ({ anchor, title, teaser = false }: Props): ReactElement => {
-
     const { isMd } = useBreakpointContext();
 
     const handleClick = useCallback(() => {
-
         const headlineId = getHeadlineId(anchor, title);
 
         if (isEmptyString(headlineId)) {
@@ -27,14 +25,10 @@ const SubNavigationLink = ({ anchor, title, teaser = false }: Props): ReactEleme
 
         const paddingForHeadlineKicker = !teaser ? 0 : isMd ? 30 : 20;
 
-        scroller.scrollTo(
-            headlineId,
-            {
-                smooth: true,
-                offset: (navigationHeight + paddingForHeadlineKicker) * -1,
-            }
-        );
-
+        scroller.scrollTo(headlineId, {
+            smooth: true,
+            offset: (navigationHeight + paddingForHeadlineKicker) * -1,
+        });
     }, [anchor, isMd, teaser, title]);
 
     const width = isMd ? 'basis-1/3' : 'basis-1/2';
@@ -42,7 +36,7 @@ const SubNavigationLink = ({ anchor, title, teaser = false }: Props): ReactEleme
     return (
         <li
             onClick={handleClick}
-            className={`${width} text-center px-2 cursor-pointer md:hover:text-orange-500 underline underline-offset-4`}
+            className={`${width} cursor-pointer px-2 text-center underline underline-offset-4 md:hover:text-orange-500`}
         >
             {title}
         </li>

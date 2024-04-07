@@ -15,28 +15,27 @@ interface Props {
 }
 
 const EventDetails = ({ event }: Props): ReactElement => {
-
     const { locale } = useRouter();
 
     return (
         <div className="mb-2 md:mb-3">
-            {(isEventImageMedia(event.eventImage) || isEventImageString(event.eventImage)) ? (
-                <EventImage
-                    eventTitle={event.title}
-                    eventImage={event.eventImage}
-                />
-            ) : <div className="h-6">{/* Image placeholder */}</div>}
+            {isEventImageMedia(event.eventImage) || isEventImageString(event.eventImage) ? (
+                <EventImage eventTitle={event.title} eventImage={event.eventImage} />
+            ) : (
+                <div className="h-6">{/* Image placeholder */}</div>
+            )}
 
             {isPast(event.eventDate) && (
-                <div className="px-3 sm:px-4 py-1 bg-orange-400 mb-2 font-serif sm:text-lg text-center">
+                <div className="mb-2 bg-orange-400 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg">
                     <Link href="/events">
-                        Die Veranstaltung liegt in der Vergangenheit!<br />
+                        Die Veranstaltung liegt in der Vergangenheit!
+                        <br />
                         Klicke hier, um zu unseren aktuellen Veranstaltungen zu gelangen!
                     </Link>
                 </div>
             )}
 
-            <div className="px-3 sm:px-4 py-1 sm:py-2 bg-black text-white font-serif flex justify-between">
+            <div className="flex justify-between bg-black px-3 py-1 font-serif text-white sm:px-4 sm:py-2">
                 <span className="sm:text-lg">
                     {formatDate(event.eventDate, 'EE dd. MMM yy', locale)}
                 </span>
@@ -49,21 +48,19 @@ const EventDetails = ({ event }: Props): ReactElement => {
 
             {isNotEmptyString(event.eventExtra) && (
                 <>
-                    <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+                    <div className="gap-3 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg md:py-2">
                         {event.eventExtra}
                     </div>
 
-                    <hr className="w-1/3 mx-auto border-1 border-black" />
+                    <hr className="border-1 mx-auto w-1/3 border-black" />
                 </>
             )}
 
-            <div className="px-3 sm:px-4 py-1 md:py-2 gap-3 sm:text-lg text-center font-serif">
+            <div className="gap-3 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg md:py-2">
                 {event.eventLocation}
             </div>
 
-            <div
-                className="px-3 md:px-4 py-1 sm:py-2 bg-black text-white font-serif text-lg sm:text-2xl font-bold"
-            >
+            <div className="bg-black px-3 py-1 font-serif text-lg font-bold text-white sm:py-2 sm:text-2xl md:px-4">
                 {event.title}
             </div>
 
@@ -71,13 +68,11 @@ const EventDetails = ({ event }: Props): ReactElement => {
 
             {isNotEmptyString(event.eventOrganizer) && (
                 <>
-                    <div className="mt-2 sm:text-lg md:mt-4 font-bold">
+                    <div className="mt-2 font-bold sm:text-lg md:mt-4">
                         {locale === 'de' ? 'Veranstaltet von:' : 'Organized by:'}
                     </div>
 
-                    <div className="sm:text-lg">
-                        {event.eventOrganizer}
-                    </div>
+                    <div className="sm:text-lg">{event.eventOrganizer}</div>
                 </>
             )}
         </div>

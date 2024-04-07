@@ -3,8 +3,9 @@ import fetcher from '@/lib/common/fetcher';
 import type EventCategory from '@/lib/events/EventCategory';
 import type EventsOnPage from '@/types/EventsOnPage';
 
-const useAvailableCategoryFilters = (eventsOnPage?: Pick<EventsOnPage, 'dateDirection' | 'filter' | 'ownerId'>): Array<EventCategory> => {
-
+const useAvailableCategoryFilters = (
+    eventsOnPage?: Pick<EventsOnPage, 'dateDirection' | 'filter' | 'ownerId'>,
+): Array<EventCategory> => {
     const searchParams = new URLSearchParams();
 
     if (eventsOnPage?.dateDirection !== undefined) {
@@ -22,7 +23,7 @@ const useAvailableCategoryFilters = (eventsOnPage?: Pick<EventsOnPage, 'dateDire
     const { data } = useSWR<{ categoryFilters: Array<EventCategory> }>(
         `/api/events/categoryFilters?${searchParams.toString()}`,
         fetcher,
-        { keepPreviousData: true }
+        { keepPreviousData: true },
     );
 
     return data?.categoryFilters ?? [];

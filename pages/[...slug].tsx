@@ -17,25 +17,26 @@ interface Props {
     page: Page;
 }
 
-const reservedSlugs: Array<string> = [
-    'bside',
-    'home',
-    'kultur',
-];
+const reservedSlugs: Array<string> = ['bside', 'home', 'kultur'];
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-
     const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=9999');
     const filtered = pages.docs.filter(({ slug }) => {
         return slug !== undefined && slug !== null && !reservedSlugs.includes(slug);
     });
 
-    const paths = filtered.map(({ breadcrumbs }) => locales!.map((locale) => ({
-        params: {
-            slug: breadcrumbs![breadcrumbs!.length - 1]?.url?.substring(1).split('/'),
-        },
-        locale,
-    }))).flat();
+    /* eslint-disable function-paren-newline */
+    const paths = filtered
+        .map(({ breadcrumbs }) =>
+            locales!.map((locale) => ({
+                params: {
+                    slug: breadcrumbs![breadcrumbs!.length - 1]?.url?.substring(1).split('/'),
+                },
+                locale,
+            })),
+        )
+        .flat();
+    /* eslint-enable function-paren-newline */
 
     return {
         fallback: 'blocking',
@@ -52,8 +53,11 @@ const getSlug = (slug: string | Array<string> | undefined): string => {
 };
 
 const fetchPage = async (slug: string, locale: string): Promise<Page | undefined> => {
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?limit=9999&locale=${locale}`);
-    let page = pagesResponse.docs.find(doc => {
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
+        `/api/pages/?limit=9999&locale=${locale}`,
+    );
+
+    let page = pagesResponse.docs.find((doc) => {
         if (doc.breadcrumbs === undefined || doc.breadcrumbs === null) {
             return;
         }
@@ -67,7 +71,7 @@ const fetchPage = async (slug: string, locale: string): Promise<Page | undefined
     });
 
     if (page === undefined) {
-        page = pagesResponse.docs.find(doc => {
+        page = pagesResponse.docs.find((doc) => {
             return doc.id === `${slug}`;
         });
     }
@@ -76,9 +80,11 @@ const fetchPage = async (slug: string, locale: string): Promise<Page | undefined
 };
 
 const fetchRedirect = async (slug: string): Promise<Redirect | undefined> => {
-    const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>('/api/redirects/?limit=9999');
+    const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>(
+        '/api/redirects/?limit=9999',
+    );
 
-    return redirectResponse.docs.find(doc => {
+    return redirectResponse.docs.find((doc) => {
         return doc.from === `/${slug}`;
     });
 };
@@ -86,8 +92,14 @@ const fetchRedirect = async (slug: string): Promise<Redirect | undefined> => {
 export const getStaticProps: ({
     params,
     locale,
-}: { params: NextParsedUrlQuery, locale: string }) => Promise<{ notFound: boolean } | { redirect: { permanent: boolean, destination: string | null | undefined } } | { revalidate: number, props: { page: Page } }> = async ({ params, locale }) => {
-
+}: {
+    params: NextParsedUrlQuery;
+    locale: string;
+}) => Promise<
+    | { notFound: boolean }
+    | { redirect: { permanent: boolean; destination: string | null | undefined } }
+    | { revalidate: number; props: { page: Page } }
+> = async ({ params, locale }) => {
     const slug = getSlug(params.slug);
     if (isEmptyString(slug)) {
         return { notFound: true };
@@ -128,10 +140,13 @@ export default ({ page }: Props): ReactElement => {
     });
 
     return (
-        <div className="min-h-screen flex flex-col justify-between">
+        <div className="flex min-h-screen flex-col justify-between">
             <NextHead
                 title={data.meta?.title ?? `${data.title} | B-Side Münster`}
-                description={data.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
+                description={
+                    data.meta?.description ??
+                    'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'
+                }
                 url={`${getPublicClientUrl(locale)}/${data.slug}`}
             />
             <HeaderBar />
@@ -139,9 +154,7 @@ export default ({ page }: Props): ReactElement => {
             <div className="mt-[60px]" />
 
             <main id="content">
-                <ReusableBlockLayout
-                    layout={data.layout}
-                />
+                <ReusableBlockLayout layout={data.layout} />
             </main>
 
             <Footer />

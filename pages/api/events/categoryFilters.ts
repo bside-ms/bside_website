@@ -4,11 +4,7 @@ import fetchPaginatedEvents from '@/lib/events/fetchPaginatedEvents';
 import getCategoriesFromEvents from '@/lib/events/getCategoriesFromEvents';
 import type { DateDirection, EventFilter } from '@/types/EventsOnPage';
 
-export default async (
-    request: NextApiRequest,
-    response: NextApiResponse
-): Promise<void> => {
-
+export default async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
     const direction = getQueryParam<DateDirection>(request, 'direction');
     const filter = getQueryParam<EventFilter>(request, 'filter');
     const ownerId = getQueryParam(request, 'ownerId');

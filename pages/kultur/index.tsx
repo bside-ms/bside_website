@@ -21,7 +21,6 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-
     const organisation = await getOrganisation('647e60a67054a955522b24ad', locale!);
 
     return {
@@ -35,7 +34,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ organisation, circles }: Props): ReactElement => {
-
     const { locale } = useRouter();
     const { isMd } = useBreakpointContext();
 
@@ -43,11 +41,14 @@ export default ({ organisation, circles }: Props): ReactElement => {
         <Fragment>
             <NextHead
                 title={organisation.meta?.title ?? 'Kultur e.V.'}
-                description={organisation.meta?.description ?? 'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'}
+                description={
+                    organisation.meta?.description ??
+                    'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'
+                }
                 url={`${getPublicClientUrl(locale)}/kultur`}
             />
 
-            <div className="min-h-screen flex flex-col justify-between">
+            <div className="flex min-h-screen flex-col justify-between">
                 <HeaderBar />
 
                 <main id="content">
@@ -89,7 +90,6 @@ export default ({ organisation, circles }: Props): ReactElement => {
 
                 <Footer />
             </div>
-
         </Fragment>
     );
 };

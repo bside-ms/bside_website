@@ -10,8 +10,10 @@ export interface Props {
     effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
-export const PayloadImage = ({ resource: { url, alt, height, width }, effects }: Props): ReactElement => {
-
+export const PayloadImage = ({
+    resource: { url, alt, height, width },
+    effects,
+}: Props): ReactElement => {
     if (isEmptyString(url) || isEmptyNumber(height) || isEmptyNumber(width)) {
         // eslint-disable-next-line no-console
         console.warn('Resource is missing required fields', { url, height, width });

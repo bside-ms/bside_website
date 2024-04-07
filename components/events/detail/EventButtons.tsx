@@ -11,29 +11,27 @@ interface Props {
 }
 
 const EventButtons = ({ event }: Props): ReactElement => {
-
     const { locale } = useRouter();
 
     return (
-        <div className="flex gap-4 flex-wrap sm:flex-nowrap">
-            <div className="basis-full sm:basis-1/2 text-black font-serif text-base sm:text-xl">
+        <div className="flex flex-wrap gap-4 sm:flex-nowrap">
+            <div className="basis-full font-serif text-base text-black sm:basis-1/2 sm:text-xl">
                 <Link
                     href="/events"
-                    className="p-2 bg-white border-black border-2 hover:bg-orange-600 flex justify-center items-center gap-2"
+                    className="flex items-center justify-center gap-2 border-2 border-black bg-white p-2 hover:bg-orange-600"
                 >
-                    <FontAwesomeIcon
-                        icon={faArrowAltCircleLeft} height={16}
-                        className="inline"
-                    />
+                    <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" />
 
-                    <div className="text-center">{locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}</div>
+                    <div className="text-center">
+                        {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
+                    </div>
                 </Link>
             </div>
 
             {!isPast(event.eventDate) && (
-                <div className="basis-full sm:basis-1/2 text-white font-serif text-base sm:text-xl">
+                <div className="basis-full font-serif text-base text-white sm:basis-1/2 sm:text-xl">
                     <Link
-                        className="block p-2 text-center bg-black border-black border-2 hover:bg-orange-600"
+                        className="block border-2 border-black bg-black p-2 text-center hover:bg-orange-600"
                         href={`/api/ics/?eventId=${event.id}`}
                     >
                         {locale === 'de' ? 'Zum Kalender hinzufügen' : 'Add event to calendar'}

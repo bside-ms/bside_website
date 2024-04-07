@@ -18,7 +18,6 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-
     const organisation = await getOrganisation('647e60bd7054a955522b24cb', locale!);
 
     return {
@@ -32,18 +31,20 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ organisation, circles }: Props): ReactElement => {
-
     const { locale } = useRouter();
 
     return (
         <Fragment>
             <NextHead
                 title={organisation.meta?.title ?? 'B-Side GmbH'}
-                description={organisation.meta?.description ?? 'Die B-Side GmbH betreibt das soziokulturelle Zentrum am Münsteraner Mittelhafen.'}
+                description={
+                    organisation.meta?.description ??
+                    'Die B-Side GmbH betreibt das soziokulturelle Zentrum am Münsteraner Mittelhafen.'
+                }
                 url={`${getPublicClientUrl(locale)}/quartier`}
             />
 
-            <div className="min-h-screen flex flex-col justify-between">
+            <div className="flex min-h-screen flex-col justify-between">
                 <HeaderBar />
 
                 <main id="content">
@@ -67,7 +68,6 @@ export default ({ organisation, circles }: Props): ReactElement => {
 
                 <Footer />
             </div>
-
         </Fragment>
     );
 };

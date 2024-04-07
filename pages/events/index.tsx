@@ -36,7 +36,7 @@ export default ({ page }: Props): ReactElement => {
     });
 
     return (
-        <div className="min-h-screen flex flex-col justify-between">
+        <div className="flex min-h-screen flex-col justify-between">
             <HeaderBar />
 
             <main id="content">

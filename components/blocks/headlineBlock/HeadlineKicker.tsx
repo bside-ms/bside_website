@@ -10,7 +10,6 @@ interface Props {
 }
 
 const HeadlineKicker = ({ children, level, link = '' }: Props): ReactElement => {
-
     const content = (
         <>
             {/* eslint-disable-next-line react/no-danger */}
@@ -22,23 +21,19 @@ const HeadlineKicker = ({ children, level, link = '' }: Props): ReactElement => 
     const linkContent = (
         <>
             {!isEmptyString(link) && (
-                <Link href={link} className="hover:text-orange-500 hover:font-bold">
+                <Link href={link} className="hover:font-bold hover:text-orange-500">
                     {content}
                 </Link>
             )}
 
-            {isEmptyString(link) && (
-                <>
-                    { content }
-                </>
-            )}
+            {isEmptyString(link) && <>{content}</>}
         </>
     );
 
     switch (level) {
         case 'h1':
             return (
-                <small className="block font-normal leading-none tracking-normal italic text-base md:text-base mb-1">
+                <small className="mb-1 block text-base font-normal italic leading-none tracking-normal md:text-base">
                     {linkContent}
                 </small>
             );
@@ -47,7 +42,7 @@ const HeadlineKicker = ({ children, level, link = '' }: Props): ReactElement => 
         case 'h3':
         case 'h4':
             return (
-                <small className="block font-normal leading-none tracking-normal text-base md:text-base italic">
+                <small className="block text-base font-normal italic leading-none tracking-normal md:text-base">
                     {linkContent}
                 </small>
             );

@@ -9,11 +9,13 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import useIsMounted from '@/lib/common/hooks/useIsMounted';
 import getInfoBoxPositions from '@/lib/houseParallax/getInfoBoxPositions';
-import getScrollElements, { isScrollImage, isScrollInfoBox } from '@/lib/houseParallax/getScrollElements';
+import getScrollElements, {
+    isScrollImage,
+    isScrollInfoBox,
+} from '@/lib/houseParallax/getScrollElements';
 import useEndScroll from '@/lib/houseParallax/useEndScroll';
 
 export default (): ReactElement | null => {
-
     const [scrollY, setScrollY] = useState(0);
 
     const handleScrollChange = useCallback(() => setScrollY(window.scrollY), []);
@@ -42,7 +44,7 @@ export default (): ReactElement | null => {
             <HeaderBar />
 
             <div className="flex overflow-hidden" style={{ height: endScroll }}>
-                <div className="fixed top-[40%] left-1/2 h-screen w-screen md:top-16 md:translate-y-0 md:h-3/4 d:w-3/4 -translate-y-1/2 -translate-x-1/2">
+                <div className="d:w-3/4 fixed left-1/2 top-[40%] h-screen w-screen -translate-x-1/2 -translate-y-1/2 md:top-16 md:h-3/4 md:translate-y-0">
                     {scrollImages.map(({ image, fade, display }) => (
                         <ParallaxScrollImage
                             key={`${image.src}${fade?.inBegin ?? ''}${display?.begin ?? ''}`}
@@ -71,10 +73,10 @@ export default (): ReactElement | null => {
                 </div>
             </div>
 
-            <main id="content" className="z-10 relative">
+            <main id="content" className="relative z-10">
                 <ContentWrapper>
                     <div>
-                        <div className="w-full h-32 xs:h-40 md:h-52 relative mt-16 mb-8">
+                        <div className="xs:h-40 relative mb-8 mt-16 h-32 w-full md:h-52">
                             <Image
                                 src="/assets/haus.png"
                                 alt="Eine Grafik des Hauses"
@@ -84,11 +86,12 @@ export default (): ReactElement | null => {
                             />
                         </div>
 
-                        <div className="font-serif text-lg md:text-xl text-center">
-                            Die B-Side ist ein Haus,<br />
+                        <div className="text-center font-serif text-lg md:text-xl">
+                            Die B-Side ist ein Haus,
+                            <br />
                             ein Kollektiv, eine Idee.
                         </div>
-                        <div className="md:text-lg text-center">
+                        <div className="text-center md:text-lg">
                             Erfahre hier alles was du wissen willst.
                         </div>
                     </div>

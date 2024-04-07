@@ -9,16 +9,11 @@ interface Props {
 }
 
 const HalfColumnsContent = ({ firstColumn, secondColumn }: Props): ReactElement | null => {
-
     if (secondColumn === undefined) {
         // eslint-disable-next-line no-console
         console.warn('Falling back to full column instead of half since second column is missing');
 
-        return (
-            <FullColumnContent
-                firstColumn={firstColumn}
-            />
-        );
+        return <FullColumnContent firstColumn={firstColumn} />;
     }
 
     return (

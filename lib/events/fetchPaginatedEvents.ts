@@ -44,7 +44,10 @@ const fetchPaginatedEvents = ({
     }
 
     if (categories !== null) {
-        searchParams.append('where[category][in]', categories.split(',').filter(isNotEmptyString).join(','));
+        searchParams.append(
+            'where[category][in]',
+            categories.split(',').filter(isNotEmptyString).join(','),
+        );
     }
 
     if (depth !== null) {

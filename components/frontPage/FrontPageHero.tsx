@@ -10,7 +10,7 @@ const FrontPageHero = ({ title, textBody, buttonText }: HomePageProps): ReactEle
             <FrontPageImage title={title} textBody={textBody} buttonText={buttonText} />
         </ContentWrapper>
 
-        <div className="lg:hidden px-0 lg:mb-2">
+        <div className="px-0 lg:mb-2 lg:hidden">
             <ContentWrapper>
                 <FrontPageText title={title} textBody={textBody} buttonText={buttonText} />
             </ContentWrapper>

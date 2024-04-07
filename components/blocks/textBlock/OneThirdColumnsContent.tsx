@@ -10,30 +10,30 @@ interface Props {
     thirdColumn?: ContentColumnProps;
 }
 
-const OneThirdColumnsContent = ({ firstColumn, secondColumn, thirdColumn }: Props): ReactElement | null => {
-
+const OneThirdColumnsContent = ({
+    firstColumn,
+    secondColumn,
+    thirdColumn,
+}: Props): ReactElement | null => {
     if (secondColumn === undefined) {
         // eslint-disable-next-line no-console
-        console.warn('Falling back to full column instead of oneThird since second column is missing');
-
-        return (
-            <FullColumnContent
-                firstColumn={firstColumn}
-            />
+        console.warn(
+            'Falling back to full column instead of oneThird since second column is missing',
         );
+
+        return <FullColumnContent firstColumn={firstColumn} />;
     }
 
     // Three Columns
     if (secondColumn.width === 'oneThird') {
         if (thirdColumn === undefined) {
             // eslint-disable-next-line no-console
-            console.warn('Falling back to two columns instead of oneThird since third column is missing');
+            console.warn(
+                'Falling back to two columns instead of oneThird since third column is missing',
+            );
 
             return (
-                <TwoThirdsColumnsContent
-                    firstColumn={firstColumn}
-                    secondColumn={secondColumn}
-                />
+                <TwoThirdsColumnsContent firstColumn={firstColumn} secondColumn={secondColumn} />
             );
         }
 
@@ -50,16 +50,10 @@ const OneThirdColumnsContent = ({ firstColumn, secondColumn, thirdColumn }: Prop
                 </div>
             </div>
         );
-
     }
 
     // Two Columns.
-    return (
-        <TwoThirdsColumnsContent
-            firstColumn={firstColumn}
-            secondColumn={secondColumn}
-        />
-    );
+    return <TwoThirdsColumnsContent firstColumn={firstColumn} secondColumn={secondColumn} />;
 };
 
 export default OneThirdColumnsContent;

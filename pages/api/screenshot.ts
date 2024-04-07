@@ -3,17 +3,17 @@ import * as puppeteer from 'puppeteer';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import { isValidBsideUrl } from '@/lib/common/url';
 
-const getBrowserInstance = async (): Promise<puppeteer.Browser> => puppeteer.launch({
-    args: ['--no-sandbox'],
-    headless: true,
-    defaultViewport: {
-        width: 1200,
-        height: 600,
-    },
-});
+const getBrowserInstance = async (): Promise<puppeteer.Browser> =>
+    puppeteer.launch({
+        args: ['--no-sandbox'],
+        headless: true,
+        defaultViewport: {
+            width: 1200,
+            height: 600,
+        },
+    });
 
 const takeScreenshot = async (url: string): Promise<Buffer | null> => {
-
     let browser = null;
 
     try {
@@ -27,10 +27,9 @@ const takeScreenshot = async (url: string): Promise<Buffer | null> => {
         await page.evaluate(() => {
             const banners = document.querySelectorAll<HTMLElement>('[id^="banner__"]');
 
-            banners.forEach(banner => {
+            banners.forEach((banner) => {
                 banner.style.display = 'none';
             });
-
         });
 
         // Create the screenshot.
@@ -48,7 +47,6 @@ const takeScreenshot = async (url: string): Promise<Buffer | null> => {
 };
 
 export default async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
-
     const { url } = request.query as { url?: string };
 
     try {
@@ -65,11 +63,10 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
             response.status(200).send(screenshot);
         } else {
             throw new Error(
-                'Either the URL parameter wasn\'t passed or the URL is not allowed to be screenshot.'
+                "Either the URL parameter wasn't passed or the URL is not allowed to be screenshot.",
             );
         }
     } catch (error) {
-
         response.status(500).send({ error });
     }
 

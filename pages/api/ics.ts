@@ -6,9 +6,7 @@ import fetchEventById from '@/lib/events/fetchEventById';
 import type { Event } from '@/types/payload/payload-types';
 
 const createIcsFile = (event: Event): string => {
-
-    let ics =
-`BEGIN:VCALENDAR\r\n
+    let ics = `BEGIN:VCALENDAR\r\n
 VERSION:2.0\r\n
 PRODID:-//B-Side//DE\r\n
 CALSCALE:GREGORIAN\r\n
@@ -71,7 +69,6 @@ BEGIN:VEVENT\r\n`;
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-
     const { eventId } = req.query as { eventId?: string };
 
     try {
@@ -88,12 +85,6 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
         res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
         res.status(200).send(createIcsFile(event));
     } catch (error) {
-        res
-            .status(500)
-            .send(
-                process.env.NODE_ENV !== 'production'
-                    ? JSON.stringify(error)
-                    : ''
-            );
+        res.status(500).send(process.env.NODE_ENV !== 'production' ? JSON.stringify(error) : '');
     }
 };

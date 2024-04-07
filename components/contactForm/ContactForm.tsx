@@ -24,14 +24,18 @@ export interface FormValues {
 }
 
 const ContactForm = (): ReactElement => {
-
-    const { register, handleSubmit, getValues, formState: { errors, isSubmitting, isSubmitSuccessful }, setError } = useForm<FormValues>();
+    const {
+        register,
+        handleSubmit,
+        getValues,
+        formState: { errors, isSubmitting, isSubmitSuccessful },
+        setError,
+    } = useForm<FormValues>();
 
     const formContainerRef = useRef<HTMLDivElement>(null);
     const [formMinHeight, setFormMinHeight] = useState<number>(0);
 
     const handleFormSubmit = useCallback(async (): Promise<void> => {
-
         // This is a hacky workaround to get the form values from the form.
         // Otherwise. the cf-turnstile-response will be undefined after the first submit.
         // Only resubmitting the form without changing anything would update the value.
@@ -40,17 +44,18 @@ const ContactForm = (): ReactElement => {
         // eslint-disable-next-line no-console
         console.warn(formValues);
 
+        /* eslint-disable quote-props */
         const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/contact/submit`, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json, text/plain, */*',
+                Accept: 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formValues),
         });
+        /* eslint-enable quote-props */
 
         if (response.status === 200) {
-
             setFormMinHeight(formContainerRef.current?.getBoundingClientRect().height ?? 0);
 
             createPayloadEntry('/api/contact-forms', {
@@ -60,16 +65,14 @@ const ContactForm = (): ReactElement => {
                 sendCopyToSender: formValues.sendCopyToSender ? 'ja' : 'nein',
                 recipient: formValues.contactReason,
             }).then();
-
         } else {
-
-            setError(
-                'root',
-                { message: 'Bei der Übertragung deiner Nachricht ist leider ein Fehler aufgetreten. Bitte versuche es nochmal!' }
-            );
+            setError('root', {
+                message:
+                    'Bei der Übertragung deiner Nachricht ist leider ein Fehler aufgetreten. Bitte versuche es nochmal!',
+            });
         }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setError]);
 
     useEffect(() => setFormMinHeight(0), [isSubmitSuccessful]);
@@ -81,42 +84,45 @@ const ContactForm = (): ReactElement => {
                 async={true}
                 defer={true}
             />
-            <div className="bg-black transition-[min-height] duration-500" ref={formContainerRef} style={{ minHeight: formMinHeight }}>
-                <div className="py-4 px-6">
+            <div
+                className="bg-black transition-[min-height] duration-500"
+                ref={formContainerRef}
+                style={{ minHeight: formMinHeight }}
+            >
+                <div className="px-6 py-4">
                     {isSubmitSuccessful ? (
-                        <div className="flex gap-4 items-center flex-col text-white p-6">
-                            <div className="font-serif text-2xl">
-                                Danke für deine Nachricht!
-                            </div>
+                        <div className="flex flex-col items-center gap-4 p-6 text-white">
+                            <div className="font-serif text-2xl">Danke für deine Nachricht!</div>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit(handleFormSubmit)} noValidate={true} className="flex flex-col gap-5">
-                            <div className="font-serif text-white text-2xl text-center">
+                        <form
+                            onSubmit={handleSubmit(handleFormSubmit)}
+                            noValidate={true}
+                            className="flex flex-col gap-5"
+                        >
+                            <div className="text-center font-serif text-2xl text-white">
                                 Melde dich bei uns!
                             </div>
 
                             <div>
-                                <label className="block font-serif text-white pb-1" htmlFor="contactReason">
+                                <label
+                                    className="block pb-1 font-serif text-white"
+                                    htmlFor="contactReason"
+                                >
                                     Grund deiner Anfrage <span className="text-orange-500">*</span>
                                 </label>
                                 <select
-                                    className="p-1 w-full max-w-lg pr-4 bg-white outline-0"
+                                    className="w-full max-w-lg bg-white p-1 pr-4 outline-0"
                                     id="contactReason"
-                                    {...register(
-                                        'contactReason',
-                                        {
-                                            required: {
-                                                value: true,
-                                                message: 'Bitte gib einen Grund für deine Anfrage an',
-                                            },
-                                        }
-                                    )}
+                                    {...register('contactReason', {
+                                        required: {
+                                            value: true,
+                                            message: 'Bitte gib einen Grund für deine Anfrage an',
+                                        },
+                                    })}
                                 >
-                                    {Object.values(ContactReason).map(reason => (
-                                        <option
-                                            key={reason}
-                                            value={reason}
-                                        >
+                                    {Object.values(ContactReason).map((reason) => (
+                                        <option key={reason} value={reason}>
                                             {contactReasonLabels[reason]}
                                         </option>
                                     ))}
@@ -124,66 +130,70 @@ const ContactForm = (): ReactElement => {
                             </div>
 
                             <div>
-                                <label className="block font-serif text-white pb-1" htmlFor="fullName">
+                                <label
+                                    className="block pb-1 font-serif text-white"
+                                    htmlFor="fullName"
+                                >
                                     Dein Name <span className="text-orange-500">*</span>
                                 </label>
                                 <input
                                     className="w-full p-1 disabled:bg-gray-200"
                                     id="fullName"
-                                    {...register(
-                                        'fullName',
-                                        {
-                                            required: {
-                                                value: true,
-                                                message: 'Bitte gib deinen Namen an',
-                                            },
-                                        }
-                                    )}
+                                    {...register('fullName', {
+                                        required: {
+                                            value: true,
+                                            message: 'Bitte gib deinen Namen an',
+                                        },
+                                    })}
                                     disabled={isSubmitting}
                                     type="text"
                                     required={true}
                                 />
                                 {errors.fullName && (
-                                    <div className="text-sm text-orange-400 font-bold pt-1">
+                                    <div className="pt-1 text-sm font-bold text-orange-400">
                                         {errors.fullName.message}
                                     </div>
                                 )}
                             </div>
 
                             <div>
-                                <label className="block font-serif text-white pb-1" htmlFor="mailAddress">
+                                <label
+                                    className="block pb-1 font-serif text-white"
+                                    htmlFor="mailAddress"
+                                >
                                     Deine E-Mail-Adresse <span className="text-orange-500">*</span>
                                 </label>
                                 <input
                                     className="w-full p-1 disabled:bg-gray-200"
                                     id="mailAddress"
-                                    {...register(
-                                        'mailAddress',
-                                        {
-                                            required: {
-                                                value: true,
-                                                message: 'Bitte gib deine E-Mail-Adresse an',
-                                            },
-                                            pattern: {
-                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                                message: 'Bitte gib eine gültige E-Mail-Adresse an',
-                                            },
-                                        }
-                                    )}
+                                    {...register('mailAddress', {
+                                        required: {
+                                            value: true,
+                                            message: 'Bitte gib deine E-Mail-Adresse an',
+                                        },
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: 'Bitte gib eine gültige E-Mail-Adresse an',
+                                        },
+                                    })}
                                     disabled={isSubmitting}
                                     type="email"
                                     required={true}
                                 />
                                 {errors.mailAddress && (
-                                    <div className="text-sm text-orange-400 font-bold pt-1">
+                                    <div className="pt-1 text-sm font-bold text-orange-400">
                                         {errors.mailAddress.message}
                                     </div>
                                 )}
                             </div>
 
                             <div>
-                                <label className="block font-serif text-white pb-1" htmlFor="message">
-                                    Deine Nachricht an uns <span className="text-orange-500">*</span>
+                                <label
+                                    className="block pb-1 font-serif text-white"
+                                    htmlFor="message"
+                                >
+                                    Deine Nachricht an uns{' '}
+                                    <span className="text-orange-500">*</span>
                                 </label>
                                 <textarea
                                     className="w-full p-1 disabled:bg-gray-200"
@@ -191,18 +201,15 @@ const ContactForm = (): ReactElement => {
                                     disabled={isSubmitting}
                                     rows={5}
                                     id="message"
-                                    {...register(
-                                        'message',
-                                        {
-                                            required: {
-                                                value: true,
-                                                message: 'Bitte gib deine Nachricht an',
-                                            },
-                                        }
-                                    )}
+                                    {...register('message', {
+                                        required: {
+                                            value: true,
+                                            message: 'Bitte gib deine Nachricht an',
+                                        },
+                                    })}
                                 />
                                 {errors.message && (
-                                    <div className="text-sm text-orange-400 font-bold">
+                                    <div className="text-sm font-bold text-orange-400">
                                         {errors.message.message}
                                     </div>
                                 )}
@@ -213,12 +220,16 @@ const ContactForm = (): ReactElement => {
                                     <input
                                         type="checkbox"
                                         id="sendCopyToSender"
-                                        className="block w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer"
+                                        className="block h-4 w-4 cursor-pointer rounded border-gray-300 bg-gray-100"
                                         {...register('sendCopyToSender')}
                                     />
                                 </div>
-                                <label className="block font-serif text-white cursor-pointer" htmlFor="sendCopyToSender">
-                                    Ich möchte, dass eine Kopie der Nachricht an meine E-Mail-Adresse gesendet wird
+                                <label
+                                    className="block cursor-pointer font-serif text-white"
+                                    htmlFor="sendCopyToSender"
+                                >
+                                    Ich möchte, dass eine Kopie der Nachricht an meine
+                                    E-Mail-Adresse gesendet wird
                                 </label>
                             </div>
 
@@ -227,31 +238,25 @@ const ContactForm = (): ReactElement => {
                                     className="cf-turnstile checkbox"
                                     data-language="de"
                                     data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
-                                    {...register(
-                                        'cf-turnstile-response',
-                                        {
-                                            required: true,
-                                            onChange: (event: Event) => {
-                                                // eslint-disable-next-line no-console
-                                                console.warn('changed', event);
-                                            },
-                                        }
-                                    )}
+                                    {...register('cf-turnstile-response', {
+                                        required: true,
+                                        onChange: (event: Event) => {
+                                            // eslint-disable-next-line no-console
+                                            console.warn('changed', event);
+                                        },
+                                    })}
                                 />
 
                                 <div className="flex flex-col justify-end">
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="mt-4 md:mt:0 w-full md:w-52 text-black bg-white font-serif py-1 px-7 md:cursor-pointer md:hover:bg-orange-500 disabled:cursor-default disabled:!bg-gray-200"
+                                        className="md:mt:0 mt-4 w-full bg-white px-7 py-1 font-serif text-black disabled:cursor-default disabled:!bg-gray-200 md:w-52 md:cursor-pointer md:hover:bg-orange-500"
                                     >
                                         <span className="relative">
                                             Senden
-
                                             {isSubmitting && (
-                                                <span
-                                                    className="absolute top-1/2 right-[calc(100%+8px)] -translate-y-1/2 w-5"
-                                                >
+                                                <span className="absolute right-[calc(100%+8px)] top-1/2 w-5 -translate-y-1/2">
                                                     <Spinner />
                                                 </span>
                                             )}
@@ -261,7 +266,7 @@ const ContactForm = (): ReactElement => {
                             </div>
 
                             {errors.root && (
-                                <div className="text-orange-400 font-bold text-right">
+                                <div className="text-right font-bold text-orange-400">
                                     {errors.root.message}
                                 </div>
                             )}

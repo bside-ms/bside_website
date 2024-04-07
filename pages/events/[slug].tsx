@@ -19,10 +19,9 @@ interface Props {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-
     const events = await fetchAllEvents();
 
-    const paths = events.map(event => ({
+    const paths = events.map((event) => ({
         params: {
             slug: createEventSlug(event),
         },
@@ -61,7 +60,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 };
 
 export default ({ initialEvent }: Props): ReactElement => {
-
     const { data: event } = useLivePreview<Event>({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
         depth: 1,
@@ -69,7 +67,7 @@ export default ({ initialEvent }: Props): ReactElement => {
     });
 
     return (
-        <div className="min-h-screen flex flex-col justify-between">
+        <div className="flex min-h-screen flex-col justify-between">
             <HeaderBar />
 
             <main id="content" className="relative">

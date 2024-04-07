@@ -18,8 +18,17 @@ export interface TeaserBlockProps {
     nextBlock?: string;
 }
 
-const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, reversed, image, previousBlock, nextBlock }: TeaserBlockProps): ReactElement => {
-
+const TeaserBlock = ({
+    headlineTitle,
+    headlineTeaser,
+    linkHref,
+    linkText,
+    text,
+    reversed,
+    image,
+    previousBlock,
+    nextBlock,
+}: TeaserBlockProps): ReactElement => {
     const { isLg } = useBreakpointContext();
 
     if (isLg) {
@@ -27,7 +36,7 @@ const TeaserBlock = ({ headlineTitle, headlineTeaser, linkHref, linkText, text, 
             <div className="flex-grow">
                 <div
                     className={clsx(
-                        'w-full my-8 mx-auto',
+                        'mx-auto my-8 w-full',
                         previousBlock === 'teaser' && '!-mt-8',
                         nextBlock === 'teaser' && '!-mb-8',
                     )}

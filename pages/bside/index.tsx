@@ -20,11 +20,14 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=bside&locale=${locale}`);
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
+        `/api/pages/?where[slug][equals]=bside&locale=${locale}`,
+    );
     const page = pagesResponse.docs[0];
 
-    const aboutResponse = await getPayloadResponse<AboutBside>(`/api/globals/about-bside/?locale=${locale}`);
+    const aboutResponse = await getPayloadResponse<AboutBside>(
+        `/api/globals/about-bside/?locale=${locale}`,
+    );
 
     if (page === undefined) {
         return { notFound: true };
@@ -41,7 +44,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ page, about }: Props): ReactElement => {
-
     const { locale } = useRouter();
 
     const { data: pageData } = useLivePreview<Page>({
@@ -57,10 +59,13 @@ export default ({ page, about }: Props): ReactElement => {
     });
 
     return (
-        <div className="min-h-screen flex flex-col justify-between">
+        <div className="flex min-h-screen flex-col justify-between">
             <NextHead
                 title={pageData.meta?.title ?? `${pageData.title} | B-Side Münster`}
-                description={pageData.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
+                description={
+                    pageData.meta?.description ??
+                    'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'
+                }
                 url={`${getPublicClientUrl(locale)}/${pageData.slug}`}
             />
             <HeaderBar />
@@ -68,7 +73,7 @@ export default ({ page, about }: Props): ReactElement => {
             <main id="content">
                 <ContentWrapper>
                     <div>
-                        <div className="w-full h-32 xs:h-40 md:h-52 relative mt-16 mb-8">
+                        <div className="xs:h-40 relative mb-8 mt-16 h-32 w-full md:h-52">
                             <Image
                                 src="/assets/haus.png"
                                 alt="Eine Grafik des Hauses"
@@ -78,12 +83,10 @@ export default ({ page, about }: Props): ReactElement => {
                             />
                         </div>
 
-                        <div className="font-serif text-lg md:text-xl text-center">
-                            { aboutData.title }
+                        <div className="text-center font-serif text-lg md:text-xl">
+                            {aboutData.title}
                         </div>
-                        <div className="md:text-lg text-center">
-                            { aboutData.textBody }
-                        </div>
+                        <div className="text-center md:text-lg">{aboutData.textBody}</div>
                     </div>
 
                     <div className="mt-6">
@@ -93,9 +96,7 @@ export default ({ page, about }: Props): ReactElement => {
 
                 <div className="my-4" />
 
-                <ReusableBlockLayout
-                    layout={pageData.layout}
-                />
+                <ReusableBlockLayout layout={pageData.layout} />
             </main>
 
             <Footer />

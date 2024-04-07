@@ -11,12 +11,15 @@ interface Props {
 }
 
 const HeroImageSvg = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
-
     return (
         <ContentWrapper>
-            <div className="w-full h-32 xs:h-40 md:h-52 relative lg:mt-4">
+            <div className="xs:h-40 relative h-32 w-full md:h-52 lg:mt-4">
                 <Image
-                    src={typeof imageSrc !== 'string' ? imageSrc : `/assets/stickFigures/${imageSrc}.svg`}
+                    src={
+                        typeof imageSrc !== 'string'
+                            ? imageSrc
+                            : `/assets/stickFigures/${imageSrc}.svg`
+                    }
                     alt={imageAlt}
                     fill={true}
                     className="object-contain"
@@ -25,9 +28,7 @@ const HeroImageSvg = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
             </div>
 
             {!isEmptyString(title) && (
-                <h1
-                    className="font-serif text-white bg-black mt-4 text-2xl text-center p-3"
-                >
+                <h1 className="mt-4 bg-black p-3 text-center font-serif text-2xl text-white">
                     {title}
                 </h1>
             )}

@@ -13,9 +13,8 @@ export const getStaticProps: GetStaticProps = () => {
 };
 
 export default (): ReactElement => {
-
     return (
-        <main className="min-h-screen flex flex-col justify-between">
+        <main className="flex min-h-screen flex-col justify-between">
             <HeaderBar />
 
             <main id="content">

@@ -8,8 +8,10 @@ interface Props<T> {
 }
 
 // eslint-disable-next-line @typescript-eslint/comma-dangle
-const SwrResponseWrapper = <T, >({ response: { data, error }, children }: Props<T>): ReactElement => {
-
+const SwrResponseWrapper = <T,>({
+    response: { data, error },
+    children,
+}: Props<T>): ReactElement => {
     if (error !== undefined) {
         return (
             <div>
@@ -20,9 +22,7 @@ const SwrResponseWrapper = <T, >({ response: { data, error }, children }: Props<
     }
 
     if (data === undefined) {
-        return (
-            <div>Wird geladen...</div>
-        );
+        return <div>Wird geladen...</div>;
     }
 
     return children(data.docs);

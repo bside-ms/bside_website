@@ -17,7 +17,6 @@ export interface RichTextUploadNodeType {
 }
 
 const serializeText = (node: Record<string, unknown> & Text, index: number): ReactElement => {
-
     let text = (
         <span
             key={index}
@@ -59,16 +58,10 @@ const serializeText = (node: Record<string, unknown> & Text, index: number): Rea
     }
 
     if (node.text === '') {
-        text = (
-            <span key={index} />
-        );
+        text = <span key={index} />;
     }
 
-    return (
-        <Fragment key={index}>
-            {text}
-        </Fragment>
-    );
+    return <Fragment key={index}>{text}</Fragment>;
 };
 
 const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
@@ -82,6 +75,9 @@ const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
     let height = media.sizes?.event?.height ?? media.height!;
     height = height / 3.3;
 
+    const justifyRight = justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } : {};
+    const justifyLeft = justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : {};
+
     return (
         <Image
             key={`rt-image-${media.id}`}
@@ -90,20 +86,23 @@ const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
             width={width}
             height={height}
             className="mx-auto"
-            style={(justify === 'right' ? { marginLeft: 'auto', marginRight: 0 } :
-                (justify === 'left' ? { marginLeft: 0, marginRight: 'auto' } : undefined))}
+            style={justify === 'right' ? justifyRight : justifyLeft}
         />
     );
 };
 
-const serializeLink = (nodeChildren: SlateChildren, node: Record<string, unknown>, index: number): ReactElement => {
+const serializeLink = (
+    nodeChildren: SlateChildren,
+    node: Record<string, unknown>,
+    index: number,
+): ReactElement => {
     // @ts-expect-error Needs to be typed.
     if (node.fields?.appearance === 'button') {
         return (
             <InlineButton
                 key={index}
                 title=""
-                text={(nodeChildren[0] !== undefined) ? nodeChildren[0].text as string : ''}
+                text={nodeChildren[0] !== undefined ? (nodeChildren[0].text as string) : ''}
                 // @ts-expect-error Need to find more type safe solution in future
                 href={escapeHTML(node.url)}
                 target={node.newTab === true ? '_blank' : '_self'}
@@ -117,7 +116,11 @@ const serializeLink = (nodeChildren: SlateChildren, node: Record<string, unknown
         mail = mail.replace('.spam', '.ms');
 
         return (
-            <Obfuscate email={mail} key={`mail-${mail}`} className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg" />
+            <Obfuscate
+                email={mail}
+                key={`mail-${mail}`}
+                className="italic underline underline-offset-4 hover:text-orange-500 sm:text-lg"
+            />
         );
     }
     return (
@@ -126,7 +129,7 @@ const serializeLink = (nodeChildren: SlateChildren, node: Record<string, unknown
             // @ts-expect-error Need to find more type safe solution in future
             href={escapeHTML(node.url)}
             target={node.newTab === true ? '_blank' : '_self'}
-            className="underline underline-offset-4 italic hover:text-orange-500 sm:text-lg"
+            className="italic underline underline-offset-4 hover:text-orange-500 sm:text-lg"
         >
             {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
             {serializeRichTextToHtml(nodeChildren)}
@@ -135,7 +138,6 @@ const serializeLink = (nodeChildren: SlateChildren, node: Record<string, unknown
 };
 
 const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | null> => {
-
     return children.map((node, index): ReactElement | null => {
         if (Text.isText(node)) {
             return serializeText(node, index);
@@ -150,7 +152,7 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
             case 'h3':
             case 'h4':
                 return (
-                    <div key={index} className="mt-4 mb-1">
+                    <div key={index} className="mb-1 mt-4">
                         <HeadlineTag level={nodeType}>
                             {serializeRichTextToHtml(nodeChildren)}
                         </HeadlineTag>
@@ -162,24 +164,20 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
 
             case 'ul':
                 return (
-                    <ul className="sm:text-lg list-disc ml-4" key={index}>
+                    <ul className="ml-4 list-disc sm:text-lg" key={index}>
                         {serializeRichTextToHtml(nodeChildren)}
                     </ul>
                 );
 
             case 'ol':
                 return (
-                    <ul className="sm:text-lg list-decimal ml-5" key={index}>
+                    <ul className="ml-5 list-decimal sm:text-lg" key={index}>
                         {serializeRichTextToHtml(nodeChildren)}
                     </ul>
                 );
 
             case 'li':
-                return (
-                    <li key={index}>
-                        {serializeRichTextToHtml(nodeChildren)}
-                    </li>
-                );
+                return <li key={index}>{serializeRichTextToHtml(nodeChildren)}</li>;
 
             case 'upload':
                 return serializeMedia(node);

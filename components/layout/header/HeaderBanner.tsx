@@ -10,23 +10,23 @@ import useLocalStorage from '@/lib/common/hooks/useLocalStorage';
 import type { Banner } from '@/types/payload/payload-types';
 
 const HeaderBannerContent = ({
-    bannerData: {
-        id,
-        isActive,
-        bannerText,
-        bannerLink,
-        textColor,
-        backgroundColor,
-    },
-}: { bannerData: Banner }): ReactElement | null => {
+    bannerData: { id, isActive, bannerText, bannerLink, textColor, backgroundColor },
+}: {
+    bannerData: Banner;
+}): ReactElement | null => {
+    const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(
+        `header_${id}_dismissed`,
+        false,
+    );
 
-    const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(`header_${id}_dismissed`, false);
+    const onDismissClick = useCallback(
+        (event: MouseEvent<HTMLDivElement>) => {
+            event.preventDefault();
 
-    const onDismissClick = useCallback((event: MouseEvent<HTMLDivElement>) => {
-        event.preventDefault();
-
-        setDismissedBanner(true);
-    }, [setDismissedBanner]);
+            setDismissedBanner(true);
+        },
+        [setDismissedBanner],
+    );
 
     if (!isActive || hasDismissedBanner) {
         return null;
@@ -34,9 +34,11 @@ const HeaderBannerContent = ({
 
     const content = (
         <ContentWrapper className="!py-2">
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex items-center justify-between gap-2">
                 <div className="mx-auto">{bannerText}</div>
-                <div className="hover:text-red-800 hover:italic px-4" onClick={onDismissClick}>✕</div>
+                <div className="px-4 hover:italic hover:text-red-800" onClick={onDismissClick}>
+                    ✕
+                </div>
             </div>
         </ContentWrapper>
     );
@@ -53,7 +55,9 @@ const HeaderBannerContent = ({
 
 const HeaderBanner = (): ReactElement | null => {
     const { locale } = useRouter();
-    const { data: bannerData } = useSWR<Banner>(`/api/banner?lang=${locale}`, fetcher, { keepPreviousData: true });
+    const { data: bannerData } = useSWR<Banner>(`/api/banner?lang=${locale}`, fetcher, {
+        keepPreviousData: true,
+    });
 
     return bannerData === undefined ? null : <HeaderBannerContent bannerData={bannerData} />;
 };

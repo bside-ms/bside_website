@@ -4,12 +4,11 @@ import type { HeadlineBlockProps } from '@/types/payload/Blocks';
 import Headline from 'components/blocks/headlineBlock/Headline';
 
 const HeadlineBlock = (props: HeadlineBlockProps): ReactElement => {
-
     if (props.backgroundColor === 'black') {
         return (
             <div className="flex-grow">
                 <div className="bg-black text-white">
-                    <ContentWrapper className="pt-4 !pb-0 !-mb-2">
+                    <ContentWrapper className="!-mb-2 !pb-0 pt-4">
                         <Headline
                             title={props.title}
                             anchor={props.anchor}
@@ -24,7 +23,7 @@ const HeadlineBlock = (props: HeadlineBlockProps): ReactElement => {
     }
 
     return (
-        <ContentWrapper className="pt-4 !pb-0 !-mb-2">
+        <ContentWrapper className="!-mb-2 !pb-0 pt-4">
             <Headline
                 title={props.title}
                 anchor={props.anchor}

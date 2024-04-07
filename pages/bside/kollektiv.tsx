@@ -33,7 +33,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ organisation, circles }: Props): ReactElement => {
-
     const { locale } = useRouter();
     const { isMd } = useBreakpointContext();
 
@@ -41,16 +40,18 @@ export default ({ organisation, circles }: Props): ReactElement => {
         <Fragment>
             <NextHead
                 title={organisation.meta?.title ?? 'B-Side Kollektiv'}
-                description={organisation.meta?.description ?? 'Das B-Side Kollektiv - Das Herz der B-Side.'}
+                description={
+                    organisation.meta?.description ?? 'Das B-Side Kollektiv - Das Herz der B-Side.'
+                }
                 url={`${getPublicClientUrl(locale)}/bside/kollektiv`}
             />
 
-            <div className="min-h-screen flex flex-col justify-between">
+            <div className="flex min-h-screen flex-col justify-between">
                 <HeaderBar />
 
                 <main id="content">
                     <ContentWrapper>
-                        <div className="w-full h-32 xs:h-40 md:h-52 relative lg:mt-4">
+                        <div className="xs:h-40 relative h-32 w-full md:h-52 lg:mt-4">
                             <Image
                                 src="/assets/stickFigures/artists.svg"
                                 alt="artists"
@@ -60,7 +61,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
                             />
                         </div>
 
-                        <div className="font-serif text-white bg-black mt-4 text-2xl text-center p-3">
+                        <div className="mt-4 bg-black p-3 text-center font-serif text-2xl text-white">
                             B-Side Kollektiv
                         </div>
                     </ContentWrapper>
@@ -76,27 +77,30 @@ export default ({ organisation, circles }: Props): ReactElement => {
                             teaser={true}
                         />
                         {isMd && (
-                            <SubNavigationLink
-                                title="Mitmachen"
-                                anchor="mitmachen"
-                                teaser={true}
-                            />
+                            <SubNavigationLink title="Mitmachen" anchor="mitmachen" teaser={true} />
                         )}
                     </SubNavigation>
 
                     {organisation.layout?.map((layoutElement, index) => (
                         <ReusableBlocks
-                            key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
+                            key={
+                                layoutElement.id ??
+                                layoutElement.blockName ??
+                                `${layoutElement.blockType}${index}`
+                            }
                             layoutElement={layoutElement}
                             circles={circles}
-                            eventsOnPage={{ ownerId: organisation.id, perPage: 10, pagination: true }}
+                            eventsOnPage={{
+                                ownerId: organisation.id,
+                                perPage: 10,
+                                pagination: true,
+                            }}
                         />
                     ))}
                 </main>
 
                 <Footer />
             </div>
-
         </Fragment>
     );
 };

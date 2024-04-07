@@ -14,21 +14,21 @@ interface Props {
 }
 
 const MediaContent = ({ media, richText, alignment, effects }: Props): ReactElement => {
-
     const payloadImageElement = <PayloadImage resource={media} effects={effects} />;
     const richTextElement = <RichText content={richText} />;
 
-    const elements = alignment === 'contentOnRight'
-        ? [payloadImageElement, richTextElement] as const
-        : [richTextElement, payloadImageElement] as const;
+    const elements =
+        alignment === 'contentOnRight'
+            ? ([payloadImageElement, richTextElement] as const)
+            : ([richTextElement, payloadImageElement] as const);
 
     return (
         <ContentWrapper>
             <div className="grid grid-cols-12 gap-4">
-                <div className="my-auto col-span-12 md:col-span-6 mx-auto md:mx-0">
+                <div className="col-span-12 mx-auto my-auto md:col-span-6 md:mx-0">
                     {elements[0]}
                 </div>
-                <div className="my-auto col-span-12 md:col-span-6 mx-auto md:mx-0">
+                <div className="col-span-12 mx-auto my-auto md:col-span-6 md:mx-0">
                     {elements[1]}
                 </div>
             </div>

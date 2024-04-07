@@ -6,8 +6,11 @@ import type EventsOnPage from '@/types/EventsOnPage';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Event } from '@/types/payload/payload-types';
 
-const useAllEvents = (eventsOnPage?: EventsOnPage, currentPage = 1, categories: Array<EventCategory> = []): PaginatedDocs<Event> | undefined => {
-
+const useAllEvents = (
+    eventsOnPage?: EventsOnPage,
+    currentPage = 1,
+    categories: Array<EventCategory> = [],
+): PaginatedDocs<Event> | undefined => {
     const searchParams = new URLSearchParams();
 
     if (eventsOnPage?.dateDirection !== undefined) {
@@ -34,7 +37,7 @@ const useAllEvents = (eventsOnPage?: EventsOnPage, currentPage = 1, categories: 
     const { data } = useSWR<{ paginatedEvents: PaginatedDocs<Event> }>(
         `/api/events/all?${searchParams.toString()}`,
         fetcher,
-        { keepPreviousData: true }
+        { keepPreviousData: true },
     );
 
     return data?.paginatedEvents;
