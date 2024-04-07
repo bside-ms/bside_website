@@ -15,11 +15,14 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=home&locale=${locale}`);
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
+        `/api/pages/?where[slug][equals]=home&locale=${locale}`,
+    );
     const page = pagesResponse.docs[0];
 
-    const indexResponse = await getPayloadResponse<StartPage>(`/api/globals/start-page/?locale=${locale}`);
+    const indexResponse = await getPayloadResponse<StartPage>(
+        `/api/globals/start-page/?locale=${locale}`,
+    );
 
     if (page === undefined) {
         return { notFound: true };
@@ -36,16 +39,18 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ page, homePage }: Props): ReactElement => {
-
     return (
-        <div className="min-h-screen flex flex-col justify-between">
-
+        <div className="flex min-h-screen flex-col justify-between">
             <NextHead />
 
             <HeaderBar />
 
             <main id="content">
-                <FrontPageHero title={homePage.title} textBody={homePage.textBody} buttonText={homePage.buttonText} />
+                <FrontPageHero
+                    title={homePage.title}
+                    textBody={homePage.textBody}
+                    buttonText={homePage.buttonText}
+                />
 
                 <div className="py-2 md:py-4" />
 
@@ -56,7 +61,6 @@ export default ({ page, homePage }: Props): ReactElement => {
                         perPage: 5,
                     }}
                 />
-
             </main>
 
             <Footer />

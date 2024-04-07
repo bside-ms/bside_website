@@ -22,15 +22,20 @@ interface Props {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-
     const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=9999');
 
-    const paths = pages.docs.map(({ name }) => locales!.map((locale) => ({
-        params: {
-            slug: kebabCase(name),
-        },
-        locale,
-    }))).flat();
+    /* eslint-disable function-paren-newline */
+    const paths = pages.docs
+        .map(({ name }) =>
+            locales!.map((locale) => ({
+                params: {
+                    slug: kebabCase(name),
+                },
+                locale,
+            })),
+        )
+        .flat();
+    /* eslint-enable function-paren-newline */
 
     return {
         fallback: 'blocking',
@@ -39,7 +44,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
-
     const rawSlug = params?.slug;
     if (rawSlug === undefined) {
         return { notFound: true };
@@ -50,9 +54,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
         return { notFound: true };
     }
 
-    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>(`/api/circles/?limit=9999&locale=${locale!}`);
+    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>(
+        `/api/circles/?limit=9999&locale=${locale!}`,
+    );
 
-    const circle = circlesResponse.docs.find(doc => {
+    const circle = circlesResponse.docs.find((doc) => {
         return kebabCase(doc.name) === `${slug}`;
     });
 
@@ -70,7 +76,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 };
 
 export default ({ initialCircle }: Props): ReactElement => {
-
     const { locale } = useRouter();
 
     const { data: circle } = useLivePreview<Circle>({
@@ -85,44 +90,55 @@ export default ({ initialCircle }: Props): ReactElement => {
     const circleName = kebabCase(circle.name);
 
     // SEO Metadata
-    const metaTitle = circle.meta !== undefined && !isEmptyString(circle.meta.title) ?
-        circle.meta.title : `${circle.name} ${organisation && `| ${organisation.name}`}`;
-    const metaDescription = circle.meta !== undefined && !isEmptyString(circle.meta.description) ?
-        circle.meta.description : `${circle.name} ${organisation && `| ${organisation.name} | B-Side`}`;
+    const metaTitle =
+        circle.meta !== undefined && !isEmptyString(circle.meta.title)
+            ? circle.meta.title
+            : `${circle.name} ${organisation && `| ${organisation.name}`}`;
+    const metaDescription =
+        circle.meta !== undefined && !isEmptyString(circle.meta.description)
+            ? circle.meta.description
+            : `${circle.name} ${organisation && `| ${organisation.name} | B-Side`}`;
     const canonicalUrl = `${getPublicClientUrl(locale)}/${organisationName}/${circleName}`;
 
     // Circle
-    const imageUrl: string = (circle.circleImage ?? null) !== null ? (circle.circleImage as Media).url! : `/assets/stickFigures/${circle.fallbackImage}.svg`;
+    const imageUrl: string =
+        (circle.circleImage ?? null) !== null
+            ? (circle.circleImage as Media).url!
+            : `/assets/stickFigures/${circle.fallbackImage}.svg`;
 
     return (
         <Fragment>
-            <NextHead
-                title={metaTitle}
-                description={metaDescription}
-                url={canonicalUrl}
-            />
+            <NextHead title={metaTitle} description={metaDescription} url={canonicalUrl} />
 
-            <div className="min-h-screen flex flex-col justify-between">
+            <div className="flex min-h-screen flex-col justify-between">
                 <HeaderBar />
 
                 <main id="content">
-                    <div className="w-full lg:w-[54rem] xl:w-[70rem] mx-auto text-center">
-                        <div className="w-full h-40 md:h-52 relative lg:mt-4">
+                    <div className="mx-auto w-full text-center lg:w-[54rem] xl:w-[70rem]">
+                        <div className="relative h-40 w-full md:h-52 lg:mt-4">
                             <Image
                                 src={imageUrl}
                                 alt=""
                                 fill={true}
-                                className={(circle.circleImage ?? null) !== null ? 'object-cover lg:rounded-xl' : 'object-fill'}
+                                className={
+                                    (circle.circleImage ?? null) !== null
+                                        ? 'object-cover lg:rounded-xl'
+                                        : 'object-fill'
+                                }
                                 priority={true}
                             />
                         </div>
 
-                        <div className="bg-black text-white pb-4 mt-2">
-                            <ContentWrapper className="pt-2 !pb-0 !-mb-2">
+                        <div className="mt-2 bg-black pb-4 text-white">
+                            <ContentWrapper className="!-mb-2 !pb-0 pt-2">
                                 <Headline
                                     title={circle.name}
                                     teaser={organisation?.name ?? null}
-                                    teaserLink={(organisation?.shortName ?? null) !== null ? `/${organisation!.shortName}` : null}
+                                    teaserLink={
+                                        (organisation?.shortName ?? null) !== null
+                                            ? `/${organisation!.shortName}`
+                                            : null
+                                    }
                                     level="h1"
                                     as="h3"
                                 />

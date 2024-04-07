@@ -17,7 +17,9 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-    const aboutResponse = await getPayloadResponse<AboutBside>(`/api/globals/about-bside/?locale=${locale}`);
+    const aboutResponse = await getPayloadResponse<AboutBside>(
+        `/api/globals/about-bside/?locale=${locale}`,
+    );
 
     return {
         revalidate: 300,
@@ -29,19 +31,22 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 export default ({ about }: Props): ReactElement => {
-
     try {
         const router = useRouter();
-        if (!router.asPath.startsWith('/_next') && !process.env.NEXT_PUBLIC_FRONTEND_URL.startsWith('http://localhost')) {
+        if (
+            !router.asPath.startsWith('/_next') &&
+            !process.env.NEXT_PUBLIC_FRONTEND_URL.startsWith('http://localhost')
+        ) {
             createPayloadEntry('/api/not-found-pages', {
                 slug: router.asPath,
             }).then();
         }
-
-    } catch { /* empty */ }
+    } catch {
+        /* empty */
+    }
 
     return (
-        <div className="min-h-screen flex flex-col justify-between">
+        <div className="flex min-h-screen flex-col justify-between">
             <NextHead />
             <HeaderBar />
 
@@ -59,19 +64,23 @@ export default ({ about }: Props): ReactElement => {
                     <div className="py-4" />
 
                     <RichText
-                        content={[{
-                            type: 'paragraph',
-                            children: [
-                                { text: 'Falls du der Meinung bist, dass dies ein Fehler ist, dann ' },
-                                {
-                                    type: 'link',
-                                    linkType: 'custom',
-                                    url: '/kontakt',
-                                    children: [{ text: 'schreibe uns eine Nachricht' }],
-                                },
-                                { text: '.' },
-                            ],
-                        }]}
+                        content={[
+                            {
+                                type: 'paragraph',
+                                children: [
+                                    {
+                                        text: 'Falls du der Meinung bist, dass dies ein Fehler ist, dann ',
+                                    },
+                                    {
+                                        type: 'link',
+                                        linkType: 'custom',
+                                        url: '/kontakt',
+                                        children: [{ text: 'schreibe uns eine Nachricht' }],
+                                    },
+                                    { text: '.' },
+                                ],
+                            },
+                        ]}
                     />
 
                     <div className="py-4" />
@@ -86,7 +95,6 @@ export default ({ about }: Props): ReactElement => {
                     <div className="py-4" />
 
                     <BsideElements about={about} />
-
                 </ContentWrapper>
             </main>
 

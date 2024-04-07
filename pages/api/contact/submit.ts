@@ -6,11 +6,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import ContactReason from '@/lib/contact/ContactReason';
 import validateRealUser from '@/lib/contact/validateRealUser';
 
-export default async (
-    req: NextApiRequest,
-    res: NextApiResponse
-): Promise<void> => {
-
+export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     if (req.method !== 'POST') {
         res.status(405).json({ message: 'Method not allowed.' });
         return;
@@ -18,14 +14,19 @@ export default async (
 
     const body = req.body as Partial<FormValues>;
 
-    if (isEmptyString(body.fullName) || isEmptyString(body.mailAddress) || isEmptyString(body.message) || isEmptyString(body['cf-turnstile-response'])) {
+    if (
+        isEmptyString(body.fullName) ||
+        isEmptyString(body.mailAddress) ||
+        isEmptyString(body.message) ||
+        isEmptyString(body['cf-turnstile-response'])
+    ) {
         res.status(400).json({ message: 'Bad request. Malformed body.' });
         return;
     }
 
     const successfullyValidatedRealUser = await validateRealUser(
         body['cf-turnstile-response'],
-        req.headers['x-forwarded-for'] as string
+        req.headers['x-forwarded-for'] as string,
     );
 
     if (!successfullyValidatedRealUser) {
@@ -33,13 +34,19 @@ export default async (
         return;
     }
 
-    if (isEmptyString(process.env.MAIL_USER) || isEmptyString(process.env.MAIL_PASS)
-        || isEmptyString(process.env.MAIL_HOST) || isEmptyString(process.env.MAIL_PORT)) {
+    if (
+        isEmptyString(process.env.MAIL_USER) ||
+        isEmptyString(process.env.MAIL_PASS) ||
+        isEmptyString(process.env.MAIL_HOST) ||
+        isEmptyString(process.env.MAIL_PORT)
+    ) {
         res.status(503).json({ message: 'Service unavailable. Mail credentials not set.' });
         return;
     }
 
-    const recipient = isEmptyString(body.contactReason) ? ContactReason.General : body.contactReason;
+    const recipient = isEmptyString(body.contactReason)
+        ? ContactReason.General
+        : body.contactReason;
 
     const transporter = createTransport({
         host: process.env.MAIL_HOST,
@@ -68,7 +75,6 @@ export default async (
     }
 
     if (body.sendCopyToSender === true) {
-
         const mailDataClone = cloneDeep(mailData);
         mailDataClone.to = body.mailAddress;
         mailDataClone.replyTo = '';
