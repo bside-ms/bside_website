@@ -27,7 +27,7 @@ const NewsTeaser = ({ news }: Props): ReactElement | null => {
 
                 return (
                     <Link
-                        href={createNewsSlug(newsItem)}
+                        href={`/news/${createNewsSlug(newsItem)}`}
                         className="hover:group group text-lg "
                         key={newsItem.id}
                     >

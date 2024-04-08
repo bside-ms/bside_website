@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import EventsOverview from '@/components/events/overview/EventsOverview';
 import ContentWrapper from '@/components/layout/ContentWrapper';
+import { Separator } from '@/components/ui/separator';
 import type EventsOnPage from '@/types/EventsOnPage';
 import type { SlateChildren } from '@/types/payload/Blocks';
 import Headline from '@blocks/headlineBlock/Headline';
@@ -26,13 +27,15 @@ const EventsOverviewBlock = ({
             </ContentWrapper>
 
             <ContentWrapper>
-                <div className="lg:flex lg:flex-row-reverse lg:gap-4">
-                    <div className="overflow-y-auto pb-8 lg:basis-1/3 lg:px-4 lg:pb-0 lg:align-text-top">
-                        <RichText content={richText} />
-                    </div>
-
+                <div className="lg:flex lg:gap-4">
                     <div className="overflow-y lg:basis-2/3">
                         <EventsOverview eventsOnPage={eventsOnPage} />
+                    </div>
+
+                    <div className="overflow-y-auto pb-8 lg:basis-1/3 lg:px-4 lg:pb-0 lg:align-text-top">
+                        <Separator className="my-2 lg:hidden" />
+
+                        <RichText content={richText} />
                     </div>
                 </div>
             </ContentWrapper>
