@@ -43,12 +43,6 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
             changefreq: 'daily',
             priority: 0.9,
         },
-        {
-            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/news`,
-            lastmod: today,
-            changefreq: 'daily',
-            priority: 0.9,
-        },
 
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/bside`,
