@@ -25,7 +25,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
         return slug !== undefined && slug !== null && !reservedSlugs.includes(slug);
     });
 
-    /* eslint-disable function-paren-newline */
     const paths = filtered
         .map(({ breadcrumbs }) =>
             locales!.map((locale) => ({
@@ -36,7 +35,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
             })),
         )
         .flat();
-    /* eslint-enable function-paren-newline */
 
     return {
         fallback: 'blocking',

@@ -24,7 +24,6 @@ interface Props {
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=9999');
 
-    /* eslint-disable function-paren-newline */
     const paths = pages.docs
         .map(({ name }) =>
             locales!.map((locale) => ({
@@ -35,7 +34,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
             })),
         )
         .flat();
-    /* eslint-enable function-paren-newline */
 
     return {
         fallback: 'blocking',

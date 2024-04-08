@@ -7,7 +7,6 @@ interface Props<T> {
     children: (response: PaginatedDocs['docs']) => ReactElement;
 }
 
-// eslint-disable-next-line @typescript-eslint/comma-dangle
 const SwrResponseWrapper = <T,>({
     response: { data, error },
     children,
