@@ -19,8 +19,8 @@ const EventsOverviewBlock = ({
 }: EventOverviewBlockProps): ReactElement => {
     return (
         <>
-            <ContentWrapper className="!-mb-2 !py-0 !pb-0">
-                <div className="mt-4" id="veranstaltungen">
+            <ContentWrapper className="">
+                <div id="veranstaltungen">
                     <Headline title={headlineText} level="h2" />
                 </div>
             </ContentWrapper>
