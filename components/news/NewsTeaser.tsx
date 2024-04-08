@@ -21,19 +21,23 @@ const NewsTeaser = ({ news }: Props): ReactElement | null => {
     const { locale } = useRouter();
 
     return (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="align-stretch grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {news.map((newsItem, index) => {
                 const media = newsItem.newsImage as Media;
 
                 return (
-                    <Link href={createNewsSlug(newsItem)} className="text-lg" key={newsItem.id}>
-                        <Card className="">
-                            <CardHeader>
+                    <Link
+                        href={createNewsSlug(newsItem)}
+                        className="hover:group group text-lg "
+                        key={newsItem.id}
+                    >
+                        <Card className="flex h-full flex-col">
+                            <CardHeader className="">
                                 <div className="mx-auto overflow-hidden rounded-md">
                                     <Image
                                         src={media.url!}
                                         alt={media.alt}
-                                        className="aspect-[3/4] h-auto w-auto object-cover transition-all hover:scale-105"
+                                        className="aspect-[3/4] h-auto w-auto object-cover transition-all group-hover:scale-105"
                                         width={300}
                                         height={300}
                                     />
@@ -44,12 +48,12 @@ const NewsTeaser = ({ news }: Props): ReactElement | null => {
                                     {newsItem.title}
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="flex-grow">
                                 <p className="line-clamp-6 leading-snug tracking-normal">
                                     {newsItem.excerpt}
                                 </p>
                             </CardContent>
-                            <CardFooter className="underline decoration-orange-500 underline-offset-4 hover:text-orange-500">
+                            <CardFooter className="underline decoration-orange-500 underline-offset-4 group-hover:text-orange-500">
                                 {locale === 'de' ? 'Mehr lesen' : 'Read more'}
                             </CardFooter>
                         </Card>
