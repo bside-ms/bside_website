@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 import type { ReactElement } from 'react';
 import type { ButtonProps } from '@/components/ui/button';
 import { buttonVariants } from '@/components/ui/button';
@@ -31,7 +32,6 @@ type PaginationLinkProps = {
     isActive?: boolean;
 } & Pick<ButtonProps, 'size'> &
     React.ComponentProps<'a'>;
-
 const PaginationLink = ({
     className,
     isActive,
@@ -51,6 +51,30 @@ const PaginationLink = ({
     />
 );
 PaginationLink.displayName = 'PaginationLink';
+
+type PaginationLinkInternalProps = {
+    isActive?: boolean;
+} & Pick<ButtonProps, 'size'> &
+    React.ComponentProps<typeof Link>;
+const PaginationLinkInternal = ({
+    className,
+    isActive,
+    size = 'icon',
+    ...props
+}: PaginationLinkInternalProps): ReactElement => (
+    <Link
+        aria-current={isActive === true ? 'page' : undefined}
+        className={cn(
+            buttonVariants({
+                variant: isActive === true ? 'outline' : 'ghost',
+                size,
+            }),
+            className,
+        )}
+        {...props}
+    />
+);
+PaginationLinkInternal.displayName = 'PaginationLink';
 
 const PaginationPrevious = ({
     className,
@@ -110,4 +134,5 @@ export {
     PaginationPrevious,
     PaginationNext,
     PaginationEllipsis,
+    PaginationLinkInternal,
 };

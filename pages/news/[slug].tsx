@@ -31,7 +31,6 @@ interface Props {
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     const pages = await getPayloadResponse<PaginatedDocs<News>>('/api/news/?limit=9999');
 
-    /* eslint-disable function-paren-newline */
     const paths = pages.docs
         .map((news) =>
             locales!.map((locale) => ({
@@ -42,7 +41,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
             })),
         )
         .flat();
-    /* eslint-enable function-paren-newline */
 
     return {
         fallback: 'blocking',
