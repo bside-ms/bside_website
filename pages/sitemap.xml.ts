@@ -123,6 +123,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
         });
     });
 
+    // ToDo: Pages are missing.
+
     return getServerSideSitemapLegacy(ctx, fields);
 };
 

@@ -17,7 +17,7 @@ interface Props {
     page: Page;
 }
 
-const reservedSlugs: Array<string> = ['bside', 'home', 'kultur'];
+const reservedSlugs: Array<string> = ['bside', 'home', 'kultur', 'quartier'];
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=9999');
