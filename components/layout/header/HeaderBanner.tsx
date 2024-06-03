@@ -10,12 +10,12 @@ import useLocalStorage from '@/lib/common/hooks/useLocalStorage';
 import type { Banner } from '@/types/payload/payload-types';
 
 const HeaderBannerContent = ({
-    bannerData: { id, isActive, bannerText, bannerLink, textColor, backgroundColor },
+    bannerData: { bannerId, isActive, bannerText, bannerLink, textColor, backgroundColor },
 }: {
     bannerData: Banner;
 }): ReactElement | null => {
     const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(
-        `header_${id}_dismissed`,
+        `header_${bannerId}_dismissed`,
         false,
     );
 
