@@ -1,5 +1,6 @@
 import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -68,17 +69,24 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
     };
 };
 
-export default ({ news: data }: Props): ReactElement => {
+export default ({ news: initialNews }: Props): ReactElement => {
     const { locale } = useRouter();
-    const media = data.newsImage as Media;
+
+    const { data: news } = useLivePreview<News>({
+        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
+        depth: 1,
+        initialData: initialNews,
+    });
+
+    const media = news.newsImage as Media;
 
     return (
         <div className="flex min-h-screen flex-col justify-between">
             <NextHead
                 // ToDo: Hier anpassen.
-                title={`${data.title} | B-Side Münster`}
+                title={`${news.title} | B-Side Münster`}
                 description="Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen"
-                url={`${getPublicClientUrl(locale)}/news/${data.slug}`}
+                url={`${getPublicClientUrl(locale)}/news/${news.slug}`}
             />
             <HeaderBar />
 
@@ -87,14 +95,14 @@ export default ({ news: data }: Props): ReactElement => {
                     <>
                         <small className="mb-1 block text-base font-normal italic leading-none tracking-normal md:text-base">
                             <strong>
-                                <i>{getNewsCategory(data.newsCategory, locale!)}</i>
+                                <i>{getNewsCategory(news.newsCategory, locale!)}</i>
                             </strong>{' '}
-                            - {formatDate(data.newsDate, 'dd.MM.yyyy')} -{' '}
-                            {getCircleOrOrganisationName(data.newsAuthor)}
+                            - {formatDate(news.newsDate, 'dd.MM.yyyy')} -{' '}
+                            {getCircleOrOrganisationName(news.newsAuthor)}
                         </small>
 
                         <div className="max-w-full">
-                            <h1 className={headlineClass.h1}>{data.title}</h1>
+                            <h1 className={headlineClass.h1}>{news.title}</h1>
                         </div>
                     </>
                     <div className="float-right p-4">
@@ -108,7 +116,7 @@ export default ({ news: data }: Props): ReactElement => {
                     </div>
                 </ContentWrapper>
 
-                <ReusableBlockLayout layout={data.layout} />
+                <ReusableBlockLayout layout={news.layout} />
 
                 <ContentWrapper>
                     <Link
