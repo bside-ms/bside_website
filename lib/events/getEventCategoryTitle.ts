@@ -16,6 +16,21 @@ const getEventCategoryTitle = (category: EventCategory, locale: string | undefin
 
         case 'workshop':
             return 'Workshop';
+
+        case 'party':
+            return 'Party';
+
+        case 'exhibition':
+            return locale === 'de' ? 'Ausstellung' : 'Exhibition';
+
+        case 'reading':
+            return locale === 'de' ? 'Lesung' : 'Reading';
+
+        case 'lecture':
+            return locale === 'de' ? 'Vortrag' : 'Lecture';
+
+        default:
+            return locale === 'de' ? 'Sonstiges' : 'Other';
     }
 };
 

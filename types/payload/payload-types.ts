@@ -47,31 +47,31 @@ export interface Event {
     eventEnd?: string | null;
     eventOwner?:
         | (
-        | {
-        relationTo: 'organisations';
-        value: string | Organisation;
-    }
-        | {
-        relationTo: 'circles';
-        value: string | Circle;
-    }
-        )[]
+              | {
+                    relationTo: 'organisations';
+                    value: string | Organisation;
+                }
+              | {
+                    relationTo: 'circles';
+                    value: string | Circle;
+                }
+          )[]
         | null;
     eventOrganizer?: string | null;
     eventExtra?: string | null;
     category?:
         | (
-        | 'concert'
-        | 'movie'
-        | 'theater'
-        | 'plenum'
-        | 'workshop'
-        | 'party'
-        | 'exhibition'
-        | 'reading'
-        | 'lecture'
-        | 'other'
-        )[]
+              | 'concert'
+              | 'movie'
+              | 'theater'
+              | 'plenum'
+              | 'workshop'
+              | 'party'
+              | 'exhibition'
+              | 'reading'
+              | 'lecture'
+              | 'other'
+          )[]
         | null;
     displayOnHome?: boolean | null;
     displayOnOverview?: boolean | null;
@@ -173,88 +173,88 @@ export interface Circle {
     fallbackImage: string;
     layout?:
         | (
-        | {
-        title: string;
-        teaser?: string | null;
-        level: 'h1' | 'h2' | 'h3' | 'h4';
-        as: 'h1' | 'h2' | 'h3' | 'h4';
-        backgroundColor: 'white' | 'black';
-        anchor?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'headlineBlock';
-    }
-        | {
-        backgroundColor: 'white' | 'black';
-        backgroundWidth: 'full' | 'block';
-        columns?:
-            | {
-            width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-            richText: {
-                [k: string]: unknown;
-            }[];
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-    }
-        | {
-        media: string | Media;
-        size?: ('normal' | 'wide' | 'event') | null;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        caption?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaBlock';
-    }
-        | {
-        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-        backgroundColor: 'white' | 'black';
-        headline?: string | null;
-        media: string | Media;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaContent';
-    }
-        | {
-        headlineTitle: string;
-        headlineTeaser?: string | null;
-        reversed?: boolean | null;
-        linkText: string;
-        linkHref: string;
-        image: string | Media;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'teaser';
-    }
-        | {
-        title?: string | null;
-        text: string;
-        href: string;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'callToAction';
-    }
-        | {
-        title: string;
-        eventSide: 'textLeft' | 'textRight';
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'eventOverview';
-    }
-        )[]
+              | {
+                    title: string;
+                    teaser?: string | null;
+                    level: 'h1' | 'h2' | 'h3' | 'h4';
+                    as: 'h1' | 'h2' | 'h3' | 'h4';
+                    backgroundColor: 'white' | 'black';
+                    anchor?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'headlineBlock';
+                }
+              | {
+                    backgroundColor: 'white' | 'black';
+                    backgroundWidth: 'full' | 'block';
+                    columns?:
+                        | {
+                              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+                              richText: {
+                                  [k: string]: unknown;
+                              }[];
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'content';
+                }
+              | {
+                    media: string | Media;
+                    size?: ('normal' | 'wide' | 'event') | null;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    caption?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaBlock';
+                }
+              | {
+                    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+                    backgroundColor: 'white' | 'black';
+                    headline?: string | null;
+                    media: string | Media;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaContent';
+                }
+              | {
+                    headlineTitle: string;
+                    headlineTeaser?: string | null;
+                    reversed?: boolean | null;
+                    linkText: string;
+                    linkHref: string;
+                    image: string | Media;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'teaser';
+                }
+              | {
+                    title?: string | null;
+                    text: string;
+                    href: string;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'callToAction';
+                }
+              | {
+                    title: string;
+                    eventSide: 'textLeft' | 'textRight';
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'eventOverview';
+                }
+          )[]
         | null;
     meta?: {
         title?: string | null;
@@ -282,98 +282,98 @@ export interface Organisation {
     shortName: string;
     layout?:
         | (
-        | {
-        title: string;
-        teaser?: string | null;
-        level: 'h1' | 'h2' | 'h3' | 'h4';
-        as: 'h1' | 'h2' | 'h3' | 'h4';
-        backgroundColor: 'white' | 'black';
-        anchor?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'headlineBlock';
-    }
-        | {
-        backgroundColor: 'white' | 'black';
-        backgroundWidth: 'full' | 'block';
-        columns?:
-            | {
-            width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-            richText: {
-                [k: string]: unknown;
-            }[];
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-    }
-        | {
-        media: string | Media;
-        size?: ('normal' | 'wide' | 'event') | null;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        caption?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaBlock';
-    }
-        | {
-        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-        backgroundColor: 'white' | 'black';
-        headline?: string | null;
-        media: string | Media;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaContent';
-    }
-        | {
-        title?: string | null;
-        text: string;
-        href: string;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'callToAction';
-    }
-        | {
-        headlineTitle: string;
-        headlineTeaser?: string | null;
-        reversed?: boolean | null;
-        linkText: string;
-        linkHref: string;
-        image: string | Media;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'teaser';
-    }
-        | {
-        title: string;
-        eventSide: 'textLeft' | 'textRight';
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'eventOverview';
-    }
-        | {
-        title: string;
-        circleSide: 'textLeft' | 'textRight';
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'circleOverview';
-    }
-        )[]
+              | {
+                    title: string;
+                    teaser?: string | null;
+                    level: 'h1' | 'h2' | 'h3' | 'h4';
+                    as: 'h1' | 'h2' | 'h3' | 'h4';
+                    backgroundColor: 'white' | 'black';
+                    anchor?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'headlineBlock';
+                }
+              | {
+                    backgroundColor: 'white' | 'black';
+                    backgroundWidth: 'full' | 'block';
+                    columns?:
+                        | {
+                              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+                              richText: {
+                                  [k: string]: unknown;
+                              }[];
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'content';
+                }
+              | {
+                    media: string | Media;
+                    size?: ('normal' | 'wide' | 'event') | null;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    caption?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaBlock';
+                }
+              | {
+                    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+                    backgroundColor: 'white' | 'black';
+                    headline?: string | null;
+                    media: string | Media;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaContent';
+                }
+              | {
+                    title?: string | null;
+                    text: string;
+                    href: string;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'callToAction';
+                }
+              | {
+                    headlineTitle: string;
+                    headlineTeaser?: string | null;
+                    reversed?: boolean | null;
+                    linkText: string;
+                    linkHref: string;
+                    image: string | Media;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'teaser';
+                }
+              | {
+                    title: string;
+                    eventSide: 'textLeft' | 'textRight';
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'eventOverview';
+                }
+              | {
+                    title: string;
+                    circleSide: 'textLeft' | 'textRight';
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'circleOverview';
+                }
+          )[]
         | null;
     meta?: {
         title?: string | null;
@@ -403,116 +403,116 @@ export interface News {
     slug?: string | null;
     newsAuthor?:
         | (
-        | {
-        relationTo: 'organisations';
-        value: string | Organisation;
-    }
-        | {
-        relationTo: 'circles';
-        value: string | Circle;
-    }
-        )[]
+              | {
+                    relationTo: 'organisations';
+                    value: string | Organisation;
+                }
+              | {
+                    relationTo: 'circles';
+                    value: string | Circle;
+                }
+          )[]
         | null;
     newsCategory: 'news' | 'announcements';
     newsImage?: string | Media | null;
     excerpt: string;
     layout?:
         | (
-        | {
-        title: string;
-        teaser?: string | null;
-        level: 'h1' | 'h2' | 'h3' | 'h4';
-        as: 'h1' | 'h2' | 'h3' | 'h4';
-        backgroundColor: 'white' | 'black';
-        anchor?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'headlineBlock';
-    }
-        | {
-        backgroundColor: 'white' | 'black';
-        backgroundWidth: 'full' | 'block';
-        columns?:
-            | {
-            width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-            richText: {
-                [k: string]: unknown;
-            }[];
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-    }
-        | {
-        media: string | Media;
-        size?: ('normal' | 'wide' | 'event') | null;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        caption?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaBlock';
-    }
-        | {
-        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-        backgroundColor: 'white' | 'black';
-        headline?: string | null;
-        media: string | Media;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaContent';
-    }
-        | {
-        title?: string | null;
-        text: string;
-        href: string;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'callToAction';
-    }
-        | {
-        headlineTitle: string;
-        headlineTeaser?: string | null;
-        reversed?: boolean | null;
-        linkText: string;
-        linkHref: string;
-        image: string | Media;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'teaser';
-    }
-        | {
-        title: string;
-        eventSide: 'textLeft' | 'textRight';
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'eventOverview';
-    }
-        | {
-        sliderType: 'imageSlider';
-        imageSlides?:
-            | {
-            image: string | Media;
-            description?: string | null;
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'slider';
-    }
-        )[]
+              | {
+                    title: string;
+                    teaser?: string | null;
+                    level: 'h1' | 'h2' | 'h3' | 'h4';
+                    as: 'h1' | 'h2' | 'h3' | 'h4';
+                    backgroundColor: 'white' | 'black';
+                    anchor?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'headlineBlock';
+                }
+              | {
+                    backgroundColor: 'white' | 'black';
+                    backgroundWidth: 'full' | 'block';
+                    columns?:
+                        | {
+                              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+                              richText: {
+                                  [k: string]: unknown;
+                              }[];
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'content';
+                }
+              | {
+                    media: string | Media;
+                    size?: ('normal' | 'wide' | 'event') | null;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    caption?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaBlock';
+                }
+              | {
+                    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+                    backgroundColor: 'white' | 'black';
+                    headline?: string | null;
+                    media: string | Media;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaContent';
+                }
+              | {
+                    title?: string | null;
+                    text: string;
+                    href: string;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'callToAction';
+                }
+              | {
+                    headlineTitle: string;
+                    headlineTeaser?: string | null;
+                    reversed?: boolean | null;
+                    linkText: string;
+                    linkHref: string;
+                    image: string | Media;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'teaser';
+                }
+              | {
+                    title: string;
+                    eventSide: 'textLeft' | 'textRight';
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'eventOverview';
+                }
+              | {
+                    sliderType: 'imageSlider';
+                    imageSlides?:
+                        | {
+                              image: string | Media;
+                              description?: string | null;
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'slider';
+                }
+          )[]
         | null;
     identifier?: string | null;
     createdBy?: {
@@ -537,110 +537,110 @@ export interface Page {
     slug?: string | null;
     layout?:
         | (
-        | {
-        title: string;
-        teaser?: string | null;
-        level: 'h1' | 'h2' | 'h3' | 'h4';
-        as: 'h1' | 'h2' | 'h3' | 'h4';
-        backgroundColor: 'white' | 'black';
-        anchor?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'headlineBlock';
-    }
-        | {
-        backgroundColor: 'white' | 'black';
-        backgroundWidth: 'full' | 'block';
-        columns?:
-            | {
-            width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-            richText: {
-                [k: string]: unknown;
-            }[];
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-    }
-        | {
-        media: string | Media;
-        size?: ('normal' | 'wide' | 'event') | null;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        caption?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaBlock';
-    }
-        | {
-        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-        backgroundColor: 'white' | 'black';
-        headline?: string | null;
-        media: string | Media;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaContent';
-    }
-        | {
-        title?: string | null;
-        text: string;
-        href: string;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'callToAction';
-    }
-        | {
-        headlineTitle: string;
-        headlineTeaser?: string | null;
-        reversed?: boolean | null;
-        linkText: string;
-        linkHref: string;
-        image: string | Media;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'teaser';
-    }
-        | {
-        title: string;
-        eventSide: 'textLeft' | 'textRight';
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'eventOverview';
-    }
-        | {
-        sliderType: 'imageSlider';
-        imageSlides?:
-            | {
-            image: string | Media;
-            description?: string | null;
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'slider';
-    }
-        )[]
+              | {
+                    title: string;
+                    teaser?: string | null;
+                    level: 'h1' | 'h2' | 'h3' | 'h4';
+                    as: 'h1' | 'h2' | 'h3' | 'h4';
+                    backgroundColor: 'white' | 'black';
+                    anchor?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'headlineBlock';
+                }
+              | {
+                    backgroundColor: 'white' | 'black';
+                    backgroundWidth: 'full' | 'block';
+                    columns?:
+                        | {
+                              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+                              richText: {
+                                  [k: string]: unknown;
+                              }[];
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'content';
+                }
+              | {
+                    media: string | Media;
+                    size?: ('normal' | 'wide' | 'event') | null;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    caption?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaBlock';
+                }
+              | {
+                    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+                    backgroundColor: 'white' | 'black';
+                    headline?: string | null;
+                    media: string | Media;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaContent';
+                }
+              | {
+                    title?: string | null;
+                    text: string;
+                    href: string;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'callToAction';
+                }
+              | {
+                    headlineTitle: string;
+                    headlineTeaser?: string | null;
+                    reversed?: boolean | null;
+                    linkText: string;
+                    linkHref: string;
+                    image: string | Media;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'teaser';
+                }
+              | {
+                    title: string;
+                    eventSide: 'textLeft' | 'textRight';
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'eventOverview';
+                }
+              | {
+                    sliderType: 'imageSlider';
+                    imageSlides?:
+                        | {
+                              image: string | Media;
+                              description?: string | null;
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'slider';
+                }
+          )[]
         | null;
     parent?: (string | null) | Page;
     breadcrumbs?:
         | {
-        doc?: (string | null) | Page;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-    }[]
+              doc?: (string | null) | Page;
+              url?: string | null;
+              label?: string | null;
+              id?: string | null;
+          }[]
         | null;
     meta?: {
         title?: string | null;
@@ -730,18 +730,18 @@ export interface PayloadPreference {
     id: string;
     user:
         | {
-        relationTo: 'users';
-        value: string | User;
-    }
+              relationTo: 'users';
+              value: string | User;
+          }
         | {
-        relationTo: 'api-users';
-        value: string | ApiUser;
-    };
+              relationTo: 'api-users';
+              value: string | ApiUser;
+          };
     key?: string | null;
     value?:
         | {
-        [k: string]: unknown;
-    }
+              [k: string]: unknown;
+          }
         | unknown[]
         | string
         | number
@@ -825,101 +825,101 @@ export interface EventPage {
     title: string;
     layout?:
         | (
-        | {
-        title: string;
-        teaser?: string | null;
-        level: 'h1' | 'h2' | 'h3' | 'h4';
-        as: 'h1' | 'h2' | 'h3' | 'h4';
-        backgroundColor: 'white' | 'black';
-        anchor?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'headlineBlock';
-    }
-        | {
-        backgroundColor: 'white' | 'black';
-        backgroundWidth: 'full' | 'block';
-        columns?:
-            | {
-            width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-            richText: {
-                [k: string]: unknown;
-            }[];
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-    }
-        | {
-        media: string | Media;
-        size?: ('normal' | 'wide' | 'event') | null;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        caption?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaBlock';
-    }
-        | {
-        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-        backgroundColor: 'white' | 'black';
-        headline?: string | null;
-        media: string | Media;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaContent';
-    }
-        | {
-        title?: string | null;
-        text: string;
-        href: string;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'callToAction';
-    }
-        | {
-        headlineTitle: string;
-        headlineTeaser?: string | null;
-        reversed?: boolean | null;
-        linkText: string;
-        linkHref: string;
-        image: string | Media;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'teaser';
-    }
-        | {
-        title: string;
-        eventSide: 'textLeft' | 'textRight';
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'eventOverview';
-    }
-        | {
-        sliderType: 'imageSlider';
-        imageSlides?:
-            | {
-            image: string | Media;
-            description?: string | null;
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'slider';
-    }
-        )[]
+              | {
+                    title: string;
+                    teaser?: string | null;
+                    level: 'h1' | 'h2' | 'h3' | 'h4';
+                    as: 'h1' | 'h2' | 'h3' | 'h4';
+                    backgroundColor: 'white' | 'black';
+                    anchor?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'headlineBlock';
+                }
+              | {
+                    backgroundColor: 'white' | 'black';
+                    backgroundWidth: 'full' | 'block';
+                    columns?:
+                        | {
+                              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+                              richText: {
+                                  [k: string]: unknown;
+                              }[];
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'content';
+                }
+              | {
+                    media: string | Media;
+                    size?: ('normal' | 'wide' | 'event') | null;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    caption?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaBlock';
+                }
+              | {
+                    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+                    backgroundColor: 'white' | 'black';
+                    headline?: string | null;
+                    media: string | Media;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaContent';
+                }
+              | {
+                    title?: string | null;
+                    text: string;
+                    href: string;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'callToAction';
+                }
+              | {
+                    headlineTitle: string;
+                    headlineTeaser?: string | null;
+                    reversed?: boolean | null;
+                    linkText: string;
+                    linkHref: string;
+                    image: string | Media;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'teaser';
+                }
+              | {
+                    title: string;
+                    eventSide: 'textLeft' | 'textRight';
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'eventOverview';
+                }
+              | {
+                    sliderType: 'imageSlider';
+                    imageSlides?:
+                        | {
+                              image: string | Media;
+                              description?: string | null;
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'slider';
+                }
+          )[]
         | null;
     createdBy?: {
         relationTo: 'users';
@@ -942,101 +942,101 @@ export interface EventArchive {
     headerImage?: string | Media | null;
     layout?:
         | (
-        | {
-        title: string;
-        teaser?: string | null;
-        level: 'h1' | 'h2' | 'h3' | 'h4';
-        as: 'h1' | 'h2' | 'h3' | 'h4';
-        backgroundColor: 'white' | 'black';
-        anchor?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'headlineBlock';
-    }
-        | {
-        backgroundColor: 'white' | 'black';
-        backgroundWidth: 'full' | 'block';
-        columns?:
-            | {
-            width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-            richText: {
-                [k: string]: unknown;
-            }[];
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'content';
-    }
-        | {
-        media: string | Media;
-        size?: ('normal' | 'wide' | 'event') | null;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        caption?: string | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaBlock';
-    }
-        | {
-        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-        backgroundColor: 'white' | 'black';
-        headline?: string | null;
-        media: string | Media;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'mediaContent';
-    }
-        | {
-        title?: string | null;
-        text: string;
-        href: string;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'callToAction';
-    }
-        | {
-        headlineTitle: string;
-        headlineTeaser?: string | null;
-        reversed?: boolean | null;
-        linkText: string;
-        linkHref: string;
-        image: string | Media;
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'teaser';
-    }
-        | {
-        title: string;
-        eventSide: 'textLeft' | 'textRight';
-        richText: {
-            [k: string]: unknown;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'eventOverview';
-    }
-        | {
-        sliderType: 'imageSlider';
-        imageSlides?:
-            | {
-            image: string | Media;
-            description?: string | null;
-            id?: string | null;
-        }[]
-            | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'slider';
-    }
-        )[]
+              | {
+                    title: string;
+                    teaser?: string | null;
+                    level: 'h1' | 'h2' | 'h3' | 'h4';
+                    as: 'h1' | 'h2' | 'h3' | 'h4';
+                    backgroundColor: 'white' | 'black';
+                    anchor?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'headlineBlock';
+                }
+              | {
+                    backgroundColor: 'white' | 'black';
+                    backgroundWidth: 'full' | 'block';
+                    columns?:
+                        | {
+                              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+                              richText: {
+                                  [k: string]: unknown;
+                              }[];
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'content';
+                }
+              | {
+                    media: string | Media;
+                    size?: ('normal' | 'wide' | 'event') | null;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    caption?: string | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaBlock';
+                }
+              | {
+                    alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+                    backgroundColor: 'white' | 'black';
+                    headline?: string | null;
+                    media: string | Media;
+                    effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'mediaContent';
+                }
+              | {
+                    title?: string | null;
+                    text: string;
+                    href: string;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'callToAction';
+                }
+              | {
+                    headlineTitle: string;
+                    headlineTeaser?: string | null;
+                    reversed?: boolean | null;
+                    linkText: string;
+                    linkHref: string;
+                    image: string | Media;
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'teaser';
+                }
+              | {
+                    title: string;
+                    eventSide: 'textLeft' | 'textRight';
+                    richText: {
+                        [k: string]: unknown;
+                    }[];
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'eventOverview';
+                }
+              | {
+                    sliderType: 'imageSlider';
+                    imageSlides?:
+                        | {
+                              image: string | Media;
+                              description?: string | null;
+                              id?: string | null;
+                          }[]
+                        | null;
+                    id?: string | null;
+                    blockName?: string | null;
+                    blockType: 'slider';
+                }
+          )[]
         | null;
     createdBy?: {
         relationTo: 'users';
