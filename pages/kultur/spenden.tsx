@@ -68,21 +68,35 @@ export default ({ page, organisation }: Props): ReactElement => {
 
                     <ContentWrapper>
                         <Headline title="Spenden" level="h2" />
-
-                        <p className="py-1 sm:text-lg">
-                            Mit deiner Spende ermöglichst du uns Kunst, Kultur und Bildung ohne den
-                            dazugehörigen kommerziellen Zwang zu machen!
-                        </p>
-                        <p className="py-1 sm:text-lg">
-                            Du machst damit kostenlose Workshops, selbstgemachte Konzerte,
-                            Veranstaltungen ohne Gewinnorientierung und allerlei Experimente
-                            möglich. Damit wir das auch weiterhin tun können, benötigen wir deine
-                            Unterstützung!
-                        </p>
-                        <p className="py-1 sm:text-lg">
-                            Eine Spende ist nur eine der Möglichkeiten. Du kannst auch einfach
-                            vorbei kommen und dich einbringen.
-                        </p>
+                        {locale === 'de' ? (
+                            <>
+                                <p className="py-1 sm:text-lg">
+                                    Du machst mit deiner Spende kostenlose Workshops,
+                                    selbstorganisierte Konzerte, Veranstaltungen ohne
+                                    Gewinnorientierung und allerlei Experimente möglich. Damit
+                                    unsere größtenteils ehrenamtlichen Aktiven dies auch weiterhin
+                                    tun können, benötigen wir deine Unterstützung!
+                                </p>
+                                <p className="py-1 sm:text-lg">
+                                    Eine Spende ist allerdings nur eine der vielen Möglichkeiten,
+                                    uns und unsere Arbeit zu unterstützen. Du kannst auch einfach
+                                    vorbei kommen und dich einbringen.
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                <p className="py-1 sm:text-lg">
+                                    With your donation, we can offer you free workshops,
+                                    self-organised concerts, events without commercial orientation
+                                    and a lot of experimental events. To make our non-profit
+                                    activities possible in the future, we need your support!
+                                </p>
+                                <p className="py-1 sm:text-lg">
+                                    However, donations are only one of many ways to support us and
+                                    our work. You can also just come and join us.
+                                </p>
+                            </>
+                        )}
                     </ContentWrapper>
 
                     <ContentWrapper className={isMd ? '!-mt-0' : ''}>
