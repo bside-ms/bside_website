@@ -42,7 +42,7 @@ const nextConfig = {
                     destination: '/kreise/:slug',
                 },
                 {
-                    source: '/kultur/:slug((?!impressum).*)',
+                    source: '/kultur/:slug((?!impressum|spenden).*)',
                     destination: '/kreise/:slug',
                 },
                 {
