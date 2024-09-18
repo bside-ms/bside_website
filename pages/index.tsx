@@ -1,4 +1,6 @@
+import clsx from 'clsx';
 import type { GetStaticProps } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
@@ -65,6 +67,19 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                 />
 
                 <div className="py-2 md:py-4" />
+
+                <Link href="https://festival.b-side.ms">
+                    <div className="w-full px-4 lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
+                        <div
+                            className={clsx(
+                                'bg-fill my-4 h-52 w-full bg-center md:h-72',
+                                'saturate-50',
+                                'xl:rounded-lg',
+                            )}
+                            style={{ backgroundImage: `url(/assets/tmp/festival-banner.png)` }}
+                        />
+                    </div>
+                </Link>
 
                 <ReusableBlockLayout
                     layout={page.layout}
