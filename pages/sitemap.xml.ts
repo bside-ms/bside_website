@@ -32,6 +32,18 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
             priority: 0.9,
         },
         {
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur/spenden`,
+            lastmod: today,
+            changefreq: 'weekly',
+            priority: 0.9,
+        },
+        {
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur/impressum`,
+            lastmod: today,
+            changefreq: 'weekly',
+            priority: 0.9,
+        },
+        {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/quartier`,
             lastmod: today,
             changefreq: 'daily',
@@ -75,9 +87,8 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
             changefreq: 'daily',
             priority: 0.4,
         },
-
         {
-            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/events/kontakt`,
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/impressum`,
             lastmod: today,
             changefreq: 'weekly',
             priority: 0.4,
