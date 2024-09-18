@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { clsx } from 'clsx';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
@@ -82,7 +83,9 @@ export default ({ page, organisation }: Props): ReactElement => {
 
                     <FirstReusableBlockLayout page={page} />
 
-                    <ContentWrapper className={isMd ? '!-mt-0' : ''}>
+                    <ContentWrapper
+                        className={clsx('mb-4 border-2 border-black p-2', isMd && '!-mt-0')}
+                    >
                         <FundraisingBox />
                     </ContentWrapper>
 
