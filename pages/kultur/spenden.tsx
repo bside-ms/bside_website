@@ -15,7 +15,6 @@ import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import kulturImageSvg from '@/public/assets/stickFigures/Kultur.svg';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Organisation, Page } from '@/types/payload/payload-types';
-import Headline from '@blocks/headlineBlock/Headline';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
@@ -39,6 +38,26 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
             locale,
         },
     };
+};
+
+const FirstReusableBlockLayout = ({ page }: { page: Page }): ReactElement => {
+    if (!page.layout) {
+        return <div />;
+    }
+
+    const firstTwoElements = page.layout.slice(0, 2);
+
+    return <ReusableBlockLayout layout={firstTwoElements} />;
+};
+
+const SecondReusableBlockLayout = ({ page }: { page: Page }): ReactElement => {
+    if (!page.layout) {
+        return <div />;
+    }
+
+    const firstTwoElements = page.layout.slice(2);
+
+    return <ReusableBlockLayout layout={firstTwoElements} />;
 };
 
 export default ({ page, organisation }: Props): ReactElement => {
@@ -66,44 +85,13 @@ export default ({ page, organisation }: Props): ReactElement => {
                         title="B-Side Kultur e.V."
                     />
 
-                    <ContentWrapper>
-                        <Headline title="Spenden" level="h2" />
-                        {locale === 'de' ? (
-                            <>
-                                <p className="py-1 sm:text-lg">
-                                    Du machst mit deiner Spende kostenlose Workshops,
-                                    selbstorganisierte Konzerte, Veranstaltungen ohne
-                                    Gewinnorientierung und allerlei Experimente möglich. Damit
-                                    unsere größtenteils ehrenamtlichen Aktiven dies auch weiterhin
-                                    tun können, benötigen wir deine Unterstützung!
-                                </p>
-                                <p className="py-1 sm:text-lg">
-                                    Eine Spende ist allerdings nur eine der vielen Möglichkeiten,
-                                    uns und unsere Arbeit zu unterstützen. Du kannst auch einfach
-                                    vorbei kommen und dich einbringen.
-                                </p>
-                            </>
-                        ) : (
-                            <>
-                                <p className="py-1 sm:text-lg">
-                                    With your donation, we can offer you free workshops,
-                                    self-organised concerts, events without commercial orientation
-                                    and a lot of experimental events. To make our non-profit
-                                    activities possible in the future, we need your support!
-                                </p>
-                                <p className="py-1 sm:text-lg">
-                                    However, donations are only one of many ways to support us and
-                                    our work. You can also just come and join us.
-                                </p>
-                            </>
-                        )}
-                    </ContentWrapper>
+                    <FirstReusableBlockLayout page={page} />
 
                     <ContentWrapper className={isMd ? '!-mt-0' : ''}>
                         <FundraisingBox />
                     </ContentWrapper>
 
-                    <ReusableBlockLayout layout={page.layout} />
+                    <SecondReusableBlockLayout page={page} />
                 </main>
 
                 <Footer />
