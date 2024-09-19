@@ -15,7 +15,7 @@ import { getOrganisation } from '@/lib/organisations';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Organisation, Page } from '@/types/payload/payload-types';
-import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
+import ReusableBlockLayoutPartial from '@blocks/reusableLayout/ReusableBlockLayoutPartial';
 
 interface Props {
     page: Page;
@@ -40,25 +40,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     };
 };
 
-const FirstReusableBlockLayout = ({ page }: { page: Page }): ReactElement => {
-    if (!page.layout) {
-        return <div />;
-    }
-
-    const firstTwoElements = page.layout.slice(0, 1);
-
-    return <ReusableBlockLayout layout={firstTwoElements} />;
-};
-
-const SecondReusableBlockLayout = ({ page }: { page: Page }): ReactElement => {
-    if (!page.layout) {
-        return <div />;
-    }
-
-    const firstTwoElements = page.layout.slice(1);
-
-    return <ReusableBlockLayout layout={firstTwoElements} />;
-};
+const amountOfBlocksBeforeFundraisingBox = 1;
 
 export default ({ page, organisation }: Props): ReactElement => {
     const { locale } = useRouter();
@@ -81,7 +63,11 @@ export default ({ page, organisation }: Props): ReactElement => {
                 <main id="content">
                     <HeroText title="B-Side Kultur e.V." />
 
-                    <FirstReusableBlockLayout page={page} />
+                    <ReusableBlockLayoutPartial
+                        page={page}
+                        start={0}
+                        end={amountOfBlocksBeforeFundraisingBox}
+                    />
 
                     <ContentWrapper
                         className={clsx('mb-4 border-2 border-black p-2', isMd && '!-mt-0')}
@@ -89,7 +75,10 @@ export default ({ page, organisation }: Props): ReactElement => {
                         <FundraisingBox hash="vfoeov50wdhmh4zz" />
                     </ContentWrapper>
 
-                    <SecondReusableBlockLayout page={page} />
+                    <ReusableBlockLayoutPartial
+                        page={page}
+                        start={amountOfBlocksBeforeFundraisingBox}
+                    />
                 </main>
 
                 <Footer />
