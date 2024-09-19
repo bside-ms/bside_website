@@ -46,7 +46,7 @@ const nextConfig = {
                     destination: '/kreise/:slug',
                 },
                 {
-                    source: '/quartier/:slug',
+                    source: '/quartier/:slug((?!unterstuetzen).*)',
                     destination: '/kreise/:slug',
                 },
             ],

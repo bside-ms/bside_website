@@ -35,13 +35,19 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur/spenden`,
             lastmod: today,
             changefreq: 'weekly',
-            priority: 0.9,
+            priority: 0.4,
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur/impressum`,
             lastmod: today,
             changefreq: 'weekly',
-            priority: 0.9,
+            priority: 0.4,
+        },
+        {
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur/hansawerkstatt/spenden`,
+            lastmod: today,
+            changefreq: 'weekly',
+            priority: 0.4,
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/quartier`,
@@ -50,12 +56,17 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
             priority: 0.9,
         },
         {
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/quartier/unterstuetzen`,
+            lastmod: today,
+            changefreq: 'weekly',
+            priority: 0.4,
+        },
+        {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/news`,
             lastmod: today,
             changefreq: 'daily',
             priority: 0.9,
         },
-
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/bside`,
             lastmod: today,
