@@ -39,3 +39,11 @@ export const getOrganisation = async (
 
     return organisation.docs[0]!;
 };
+
+export const getCircle = async (circleId: string, locale: string): Promise<Circle> => {
+    const circle = await getPayloadResponse<PaginatedDocs<Circle>>(
+        `/api/circles/?where[_id][equals]=${circleId}&locale=${locale}`,
+    );
+
+    return circle.docs[0]!;
+};

@@ -42,7 +42,7 @@ const nextConfig = {
                     destination: '/kreise/:slug',
                 },
                 {
-                    source: '/kultur/:slug((?!impressum|spenden).*)',
+                    source: '/kultur/:slug((?!impressum|spenden|hansawerkstatt/spenden).*)',
                     destination: '/kreise/:slug',
                 },
                 {

@@ -5,47 +5,48 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
-import HeroText from '@/components/common/HeroText';
 import FundraisingBox from '@/components/fundraisingbox/fundrasingBox';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import NextHead from '@/components/layout/next/NextHead';
 import { getPublicClientUrl } from '@/lib/common/url';
-import { getOrganisation } from '@/lib/organisations';
+import { getCircle } from '@/lib/organisations';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
-import type { Organisation, Page } from '@/types/payload/payload-types';
+import type { Circle, Page } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
 interface Props {
     page: Page;
-    organisation: Organisation;
+    circle: Circle;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-    const organisation = await getOrganisation('647e60a67054a955522b24ad', locale!);
+    const circle = await getCircle('647e60e77054a955522b24ec', locale!);
 
     const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
-        `/api/pages/?where[slug][equals]=spenden&locale=${locale}`,
+        `/api/pages/?where[slug][equals]=hansawerkstatt-spenden&locale=${locale}`,
     );
     const page = pagesResponse.docs[0];
 
     return {
         revalidate: 60,
         props: {
-            organisation,
+            circle,
             page: page!,
             locale,
         },
     };
 };
 
+const amountOfBlocksBeforeFundraisingBox = 3;
+
 const FirstReusableBlockLayout = ({ page }: { page: Page }): ReactElement => {
     if (!page.layout) {
         return <div />;
     }
 
-    const firstTwoElements = page.layout.slice(0, 1);
+    const firstTwoElements = page.layout.slice(0, amountOfBlocksBeforeFundraisingBox);
 
     return <ReusableBlockLayout layout={firstTwoElements} />;
 };
@@ -55,21 +56,21 @@ const SecondReusableBlockLayout = ({ page }: { page: Page }): ReactElement => {
         return <div />;
     }
 
-    const firstTwoElements = page.layout.slice(1);
+    const firstTwoElements = page.layout.slice(amountOfBlocksBeforeFundraisingBox);
 
     return <ReusableBlockLayout layout={firstTwoElements} />;
 };
 
-export default ({ page, organisation }: Props): ReactElement => {
+export default ({ page, circle }: Props): ReactElement => {
     const { locale } = useRouter();
     const { isMd } = useBreakpointContext();
 
     return (
         <Fragment>
             <NextHead
-                title={organisation.meta?.title ?? 'Kultur e.V.'}
+                title={circle.meta?.title ?? 'Kultur e.V.'}
                 description={
-                    organisation.meta?.description ??
+                    circle.meta?.description ??
                     'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'
                 }
                 url={`${getPublicClientUrl(locale)}/kultur`}
@@ -79,14 +80,12 @@ export default ({ page, organisation }: Props): ReactElement => {
                 <HeaderBar />
 
                 <main id="content">
-                    <HeroText title="B-Side Kultur e.V." />
-
                     <FirstReusableBlockLayout page={page} />
 
                     <ContentWrapper
                         className={clsx('mb-4 border-2 border-black p-2', isMd && '!-mt-0')}
                     >
-                        <FundraisingBox hash="vfoeov50wdhmh4zz" />
+                        <FundraisingBox hash="cio122rq7zhvqwaq" />
                     </ContentWrapper>
 
                     <SecondReusableBlockLayout page={page} />

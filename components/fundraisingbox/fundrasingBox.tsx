@@ -1,7 +1,7 @@
 import { type ReactElement, useEffect, useRef } from 'react';
 
-const FundraisingBox = (): ReactElement => {
-    const scriptUrl = 'https://secure.fundraisingbox.com/app/paymentJS?hash=vfoeov50wdhmh4zz';
+const FundraisingBox = ({ hash }: { hash: string }): ReactElement => {
+    const scriptUrl = `https://secure.fundraisingbox.com/app/paymentJS?hash=${hash}`;
     const scriptRoot = useRef<HTMLDivElement>(null);
     const script = `<script type='text/javascript' src=${scriptUrl} ></script>`;
 
