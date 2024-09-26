@@ -113,10 +113,8 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
 
     const handleSetPage = useCallback(async (newPage: number) => {
         setPage(newPage);
-
-        await delayExecution(100);
-
-        eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
+        await delayExecution(50);
+        eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'instant' });
     }, []);
 
     const hasPagination =

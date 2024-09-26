@@ -86,6 +86,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                     eventsOnPage={{
                         filter: 'Home',
                         perPage: 5,
+                        pagination: true,
                     }}
                 />
 
