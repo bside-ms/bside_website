@@ -70,7 +70,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
                         {isMd && (
                             <SubNavigationLink
                                 title={locale === 'de' ? 'Unterstützen' : 'Support Us'}
-                                anchor="unterstützen"
+                                anchor="unterstuetzen"
                                 teaser={true}
                             />
                         )}
