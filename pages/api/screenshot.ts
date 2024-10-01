@@ -36,7 +36,7 @@ const takeScreenshot = async (url: string): Promise<Buffer | null> => {
         const screenshot = await page.screenshot({ type: 'png' });
         await page.close();
 
-        return screenshot;
+        return Buffer.from(screenshot);
     } finally {
         if (browser) {
             await browser.close();
