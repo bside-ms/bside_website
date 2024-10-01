@@ -41,7 +41,7 @@
     "next-sitemap": "^4.2.3",
     "nodemailer": "6.9.x",
     "parallax-controller": "1.7.x",
-    "puppeteer": "22.6.x",
+    "puppeteer": "23.4.x",
     "qs": "6.12.x",
     "react": "18.2.x",
     "react-children-utilities": "^2.10.0",
