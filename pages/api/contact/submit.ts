@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createTransport } from 'nodemailer';
 import type { FormValues } from '@/components/contactForm/ContactForm';

@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import _ from 'lodash';
+import { truncate } from 'lodash-es';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
@@ -44,7 +44,7 @@ const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
                     key={`event-${event.id}-title`}
                     className="flex-1 overflow-hidden truncate font-bold"
                 >
-                    {_.truncate(event.title, { length: isXl ? 55 : 40 })}
+                    {truncate(event.title, { length: isXl ? 55 : 40 })}
                 </div>
                 <div className="truncate">... {locale === 'de' ? 'mehr' : 'more'}</div>
             </Link>

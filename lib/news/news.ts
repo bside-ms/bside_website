@@ -1,4 +1,4 @@
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';

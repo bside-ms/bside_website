@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import type { RefObject } from 'react';
 import useAsyncEffectOnMount from 'lib/common/hooks/useAsyncEffectOnMount';
 

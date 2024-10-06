@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
