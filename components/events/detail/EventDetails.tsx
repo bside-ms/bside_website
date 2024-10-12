@@ -52,7 +52,7 @@ const EventDetails = ({ event }: Props): ReactElement => {
                         {event.eventExtra}
                     </div>
 
-                    <hr className="border-1 mx-auto w-1/3 border-black" />
+                    <hr className="mx-auto w-1/3 border border-black" />
                 </>
             )}
 

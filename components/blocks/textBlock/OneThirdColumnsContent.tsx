@@ -16,7 +16,6 @@ const OneThirdColumnsContent = ({
     thirdColumn,
 }: Props): ReactElement | null => {
     if (secondColumn === undefined) {
-        // eslint-disable-next-line no-console
         console.warn(
             'Falling back to full column instead of oneThird since second column is missing',
         );
@@ -27,7 +26,6 @@ const OneThirdColumnsContent = ({
     // Three Columns
     if (secondColumn.width === 'oneThird') {
         if (thirdColumn === undefined) {
-            // eslint-disable-next-line no-console
             console.warn(
                 'Falling back to two columns instead of oneThird since third column is missing',
             );

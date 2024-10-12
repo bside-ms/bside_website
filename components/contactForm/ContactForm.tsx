@@ -41,7 +41,6 @@ const ContactForm = (): ReactElement => {
         // Only resubmitting the form without changing anything would update the value.
         const formValues = getValues();
 
-        // eslint-disable-next-line no-console
         console.warn(formValues);
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/contact/submit`, {
@@ -69,8 +68,6 @@ const ContactForm = (): ReactElement => {
                     'Bei der Übertragung deiner Nachricht ist leider ein Fehler aufgetreten. Bitte versuche es nochmal!',
             });
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setError]);
 
     useEffect(() => setFormMinHeight(0), [isSubmitSuccessful]);
@@ -218,7 +215,7 @@ const ContactForm = (): ReactElement => {
                                     <input
                                         type="checkbox"
                                         id="sendCopyToSender"
-                                        className="block h-4 w-4 cursor-pointer rounded border-gray-300 bg-gray-100"
+                                        className="block size-4 cursor-pointer rounded border-gray-300 bg-gray-100"
                                         {...register('sendCopyToSender')}
                                     />
                                 </div>
@@ -233,13 +230,13 @@ const ContactForm = (): ReactElement => {
 
                             <div className="md:flex md:justify-between">
                                 <div
+                                    // eslint-disable-next-line tailwindcss/no-custom-classname
                                     className="cf-turnstile checkbox"
                                     data-language="de"
                                     data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
                                     {...register('cf-turnstile-response', {
                                         required: true,
                                         onChange: (event: Event) => {
-                                            // eslint-disable-next-line no-console
                                             console.warn('changed', event);
                                         },
                                     })}
@@ -249,7 +246,7 @@ const ContactForm = (): ReactElement => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="md:mt:0 mt-4 w-full bg-white px-7 py-1 font-serif text-black disabled:cursor-default disabled:!bg-gray-200 md:w-52 md:cursor-pointer md:hover:bg-orange-500"
+                                        className="mt-4 w-full bg-white px-7 py-1 font-serif text-black disabled:cursor-default disabled:!bg-gray-200 md:mt-0 md:w-52 md:cursor-pointer md:hover:bg-orange-500"
                                     >
                                         <span className="relative">
                                             Senden

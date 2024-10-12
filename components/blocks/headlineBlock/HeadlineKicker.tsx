@@ -12,7 +12,7 @@ interface Props {
 const HeadlineKicker = ({ children, level, link = '' }: Props): ReactElement => {
     const content = (
         <>
-            {/* eslint-disable-next-line react/no-danger */}
+            {}
             <span dangerouslySetInnerHTML={{ __html: children }} />
             <span className="sr-only">:</span>
         </>

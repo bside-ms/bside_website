@@ -28,7 +28,7 @@ const EventsOverviewBlock = ({
 
             <ContentWrapper>
                 <div className="lg:flex lg:gap-4">
-                    <div className="overflow-y lg:basis-2/3">
+                    <div className="lg:basis-2/3">
                         <EventsOverview eventsOnPage={eventsOnPage} />
                     </div>
 

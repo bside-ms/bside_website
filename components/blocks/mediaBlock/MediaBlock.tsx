@@ -13,7 +13,7 @@ const WideMediaBlock = (
         <div className="w-full px-4 lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
             <div
                 className={clsx(
-                    'bg-fill my-4 h-52 w-full bg-center md:h-72',
+                    'my-4 h-52 w-full bg-center md:h-72',
                     effects.includes('blur') && 'blur-[2px]',
                     effects.includes('grayscale') && 'grayscale',
                     effects.includes('desaturated') && 'saturate-50',

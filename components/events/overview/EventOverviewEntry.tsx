@@ -23,7 +23,7 @@ const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
         <Fragment key={event.id}>
             {index !== 0 && (
                 <div>
-                    <hr className="border-1 mx-auto mt-2 w-full border-black" />
+                    <hr className="mx-auto mt-2 w-full border border-black" />
                 </div>
             )}
 
@@ -52,7 +52,7 @@ const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
             <div className="relative flex gap-3 px-3 pb-1 md:px-4 md:pb-2">
                 <Link
                     href={`/events/${createEventSlug(event)}`}
-                    className="absolute bottom-0 left-0 right-0 top-0 hover:text-orange-500"
+                    className="absolute inset-0 hover:text-orange-500"
                     aria-label={
                         locale === 'de'
                             ? `Erfahre mehr über die Veranstaltung "${event.title}".`

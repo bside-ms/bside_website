@@ -68,7 +68,6 @@ const BreakpointContextProvider = ({ children }: Props): ReactElement => {
 
     useAsyncEffectOnMount(async () => {
         if (!('ResizeObserver' in window)) {
-            // eslint-disable-next-line @next/next/no-assign-module-variable
             const module = await import('@juggle/resize-observer');
             // @ts-expect-error for polyfill required
             window.ResizeObserver = module.ResizeObserver;

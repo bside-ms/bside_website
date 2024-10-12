@@ -13,7 +13,6 @@ const ColumnsContent = ({
     const [firstColumn, secondColumn, thirdColumn] = columns;
 
     if (firstColumn === undefined) {
-        // eslint-disable-next-line no-console
         console.warn('At least first column must be set');
 
         return null;

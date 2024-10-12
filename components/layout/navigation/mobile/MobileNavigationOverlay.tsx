@@ -41,37 +41,13 @@ const MobileNavigationOverlay = (): ReactElement | null => {
                 </svg>
 
                 <div
-                    className={`tw
-                        absolute
-                        left-[95px]
-                        top-[100px]
-                        z-50
-                        flex
-                        h-16
-                        w-16
-                        items-center
-                        justify-center
-                        rounded-full
-                        border-4
-                        border-black
-                        bg-white
-                        text-4xl
-                        md:cursor-pointer
-                    `}
+                    className="absolute left-[95px] top-[100px] z-50 flex size-16 items-center justify-center rounded-full border-4 border-black bg-white text-4xl md:cursor-pointer"
                     onClick={toggleNavigation}
                 >
                     ✕
                 </div>
 
-                <div
-                    className={`tw
-                        absolute
-                        right-[30px]
-                        top-[130px]
-                        z-40
-                        w-[270px]
-                    `}
-                >
+                <div className="absolute right-[30px] top-[130px] z-40 w-[270px]">
                     <MobileNavigationItems />
                 </div>
             </nav>
@@ -79,8 +55,8 @@ const MobileNavigationOverlay = (): ReactElement | null => {
             <div
                 className={
                     isNavigationOpen
-                        ? 'fixed bottom-0 left-0 right-0 top-0 z-30 bg-black opacity-30 transition-opacity'
-                        : 'pointer-events-none fixed bottom-0 left-0 right-0 top-0 z-30 bg-black opacity-0'
+                        ? 'fixed inset-0 z-30 bg-black opacity-30 transition-opacity'
+                        : 'pointer-events-none fixed inset-0 z-30 bg-black opacity-0'
                 }
                 onClick={isNavigationOpen ? toggleNavigation : undefined}
             />

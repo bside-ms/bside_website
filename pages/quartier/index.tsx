@@ -11,6 +11,7 @@ import { getCirclesOfOrganisation, getOrganisation } from '@/lib/organisations';
 import heroImageSvg from '@/public/assets/stickFigures/GmbH.svg';
 import type { Circle, Organisation } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
+import { StaticImageData } from 'next/image';
 
 interface Props {
     organisation: Organisation;
@@ -49,7 +50,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
 
                 <main id="content">
                     <HeroImageSvg
-                        imageSrc={heroImageSvg}
+                        imageSrc={heroImageSvg as StaticImageData}
                         imageAlt=""
                         title={locale === 'de' ? 'Quartiersarbeit' : 'Neighbourhood Work'}
                     />

@@ -11,7 +11,7 @@ const FrontPageImage = ({ title, textBody, buttonText }: HomePageProps): ReactEl
             <div className="relative lg:mr-auto lg:flex lg:justify-start">
                 <div className="h-[400px] lg:relative lg:h-auto lg:w-[700px] xl:w-[800px] 2xl:w-[900px]">
                     <Image
-                        className="absolute left-[20px] top-[0px] w-[200px] max-w-none lg:w-[290px]"
+                        className="absolute left-[20px] top-0 w-[200px] max-w-none lg:w-[290px]"
                         src={herzPng}
                         alt="B-Side-Herz"
                         loading="eager"

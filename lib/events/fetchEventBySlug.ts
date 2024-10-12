@@ -10,8 +10,7 @@ const fetchEventBySlug = async (slug: string): Promise<Event | undefined> => {
 
     return pagesResponse.docs.find(
         (eventItem) =>
-            createEventSlug(eventItem as Event) === slug ||
-            createEventSlugOld(eventItem as Event) === slug,
+            createEventSlug(eventItem) === slug || createEventSlugOld(eventItem) === slug,
     );
 };
 

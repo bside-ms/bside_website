@@ -56,7 +56,7 @@ const Footer = (): ReactElement => {
 
             <footer className="mb-auto" key="footer">
                 <div className="mt-5 bg-black py-2">
-                    <div className="py-auto text-center font-serif font-bold text-white">
+                    <div className="text-center font-serif font-bold text-white">
                         <Link
                             href="/impressum"
                             aria-label={
@@ -64,7 +64,7 @@ const Footer = (): ReactElement => {
                                     ? 'Alle rechtlichen Angaben sind hier zu finden'
                                     : 'All legal information can be found here'
                             }
-                            className="text-md font-serif font-bold hover:text-orange-500 md:text-lg"
+                            className="font-serif text-base font-bold hover:text-orange-500 md:text-lg"
                         >
                             {locale !== 'en' ? 'Impressum' : 'Imprint'}
                         </Link>
@@ -76,7 +76,7 @@ const Footer = (): ReactElement => {
                                     ? 'Erfahre mehr darüber, wie wir mit deinen Daten umgehen'
                                     : 'Learn more about how we handle your data'
                             }
-                            className="text-md font-serif font-bold hover:text-orange-500 md:text-lg"
+                            className="font-serif text-base font-bold hover:text-orange-500 md:text-lg"
                         >
                             {locale !== 'en' ? 'Datenschutz' : 'Privacy Policy'}
                         </Link>
@@ -88,7 +88,7 @@ const Footer = (): ReactElement => {
                                     ? 'Trete mit uns in den Kontakt'
                                     : 'Get in touch with us'
                             }
-                            className="text-md font-serif font-bold hover:text-orange-500 md:text-lg"
+                            className="font-serif text-base font-bold hover:text-orange-500 md:text-lg"
                         >
                             {locale !== 'en' ? 'Kontakt' : 'Contact Us'}
                         </Link>

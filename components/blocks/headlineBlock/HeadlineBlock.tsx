@@ -6,7 +6,7 @@ import Headline from 'components/blocks/headlineBlock/Headline';
 const HeadlineBlock = (props: HeadlineBlockProps): ReactElement => {
     if (props.backgroundColor === 'black') {
         return (
-            <div className="flex-grow">
+            <div className="grow">
                 <div className="bg-black text-white">
                     <ContentWrapper className="!-mb-2 !pb-0 pt-4">
                         <Headline

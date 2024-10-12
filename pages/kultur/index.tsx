@@ -14,6 +14,7 @@ import type { Circle, Organisation } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 import SubNavigation from '@blocks/subNavigation/SubNavigation';
 import SubNavigationLink from '@blocks/subNavigation/SubNavigationLink';
+import { StaticImageData } from 'next/image';
 
 interface Props {
     organisation: Organisation;
@@ -53,7 +54,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
 
                 <main id="content">
                     <HeroImageSvg
-                        imageSrc={kulturImageSvg}
+                        imageSrc={kulturImageSvg as StaticImageData}
                         imageAlt=""
                         title={locale === 'de' ? 'Kultur & Bildung' : 'Culture & Education'}
                     />

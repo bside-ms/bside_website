@@ -6,7 +6,7 @@ const FrontPageText = ({ title, textBody, buttonText }: HomePageProps): ReactEle
     <div>
         <div className="text-center font-serif text-2xl font-bold lg:text-xl">{title}</div>
 
-        <div className="text-md mt-1 md:text-lg lg:mt-3">{textBody}</div>
+        <div className="mt-1 text-base md:text-lg lg:mt-3">{textBody}</div>
 
         <div className="mt-3">
             <Link
