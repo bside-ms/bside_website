@@ -42,6 +42,10 @@ export default [
 
             '@typescript-eslint/no-misused-promises': 'off',
             '@typescript-eslint/no-floating-promises': 'off',
+            '@typescript-eslint/no-non-null-assertion': 'warn',
+            '@typescript-eslint/restrict-template-expressions': 'warn',
+            '@typescript-eslint/no-unnecessary-template-expression': 'warn',
+            '@typescript-eslint/no-unnecessary-condition': 'warn',
         },
     },
 
