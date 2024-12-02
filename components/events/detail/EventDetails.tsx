@@ -1,4 +1,4 @@
-import { isPast } from 'date-fns';
+import { addDays, isPast } from 'date-fns';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
@@ -25,7 +25,7 @@ const EventDetails = ({ event }: Props): ReactElement => {
                 <div className="h-6">{/* Image placeholder */}</div>
             )}
 
-            {isPast(event.eventDate) && (
+            {isPast(addDays(new Date(event.eventDate), 1)) && (
                 <div className="mb-2 bg-orange-400 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg">
                     <Link href="/events">
                         Die Veranstaltung liegt in der Vergangenheit!
