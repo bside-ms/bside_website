@@ -9,6 +9,7 @@ import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import heroImage from '@/public/assets/stickFigures/Veranstaltungen.svg';
 import type { EventPage } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
+import { StaticImageData } from 'next/image';
 
 interface Props {
     page: EventPage;
@@ -41,7 +42,7 @@ export default ({ page }: Props): ReactElement => {
 
             <main id="content">
                 <HeroImageSvg
-                    imageSrc={heroImage}
+                    imageSrc={heroImage as StaticImageData}
                     imageAlt=""
                     title={locale === 'de' ? 'Veranstaltungen' : 'Events'}
                 />

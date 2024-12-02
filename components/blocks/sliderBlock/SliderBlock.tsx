@@ -39,6 +39,7 @@ const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
                 {imageSlides.map((item) => (
                     <SwiperSlide key={`media-${item.id}`}>
                         <div
+                            // eslint-disable-next-line tailwindcss/no-custom-classname
                             className="swiper-zoom-container relative flex items-center justify-center"
                             style={{
                                 height: '450px',
@@ -48,8 +49,8 @@ const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
                             <Image
                                 fill={true}
                                 src={(item.image as Media).url!}
-                                alt={(item.image as Media).alt!}
-                                className="mx-auto my-auto"
+                                alt={(item.image as Media).alt}
+                                className="m-auto"
                                 objectFit="contain"
                                 loading="lazy"
                             />

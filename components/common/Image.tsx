@@ -15,7 +15,6 @@ export const PayloadImage = ({
     effects,
 }: Props): ReactElement => {
     if (isEmptyString(url) || isEmptyNumber(height) || isEmptyNumber(width)) {
-        // eslint-disable-next-line no-console
         console.warn('Resource is missing required fields', { url, height, width });
         return <div />;
     }

@@ -1,4 +1,4 @@
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import type { Circle, Organisation } from '@/types/payload/payload-types';
 

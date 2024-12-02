@@ -39,8 +39,6 @@ const App = ({ Component, pageProps }: AppProps): ReactElement => {
         return () => {
             initialized.current = true;
         };
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

@@ -27,9 +27,7 @@ const CallToAction = ({ title, href, text, withArrows = true }: Props): ReactEle
             )}
 
             {!isEmptyString(title) && (
-                <div className="mb-1 font-serif text-xl font-bold md:mb-3 md:text-2xl ">
-                    {title}
-                </div>
+                <div className="mb-1 font-serif text-xl font-bold md:mb-3 md:text-2xl">{title}</div>
             )}
 
             <Link

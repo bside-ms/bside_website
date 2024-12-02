@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { Fragment } from 'react';
 import { Obfuscate } from '@south-paw/react-obfuscate-ts';
 import escapeHTML from 'escape-html';
@@ -20,7 +19,6 @@ const serializeText = (node: Record<string, unknown> & Text, index: number): Rea
     let text = (
         <span
             key={index}
-            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replaceAll(/\n/g, '<br/>') }}
         />
     );
@@ -65,8 +63,14 @@ const serializeText = (node: Record<string, unknown> & Text, index: number): Rea
 };
 
 const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
-    // @ts-expect-error Find typesave method.
-    const justify = node.fields?.alignment ?? 'center';
+    const justify =
+        typeof node.fields === 'object' &&
+        node.fields !== null &&
+        'alignment' in node.fields &&
+        typeof node.fields.alignment === 'string'
+            ? node.fields.alignment
+            : 'center';
+
     const media = node.value as MediaType;
 
     // ToDo: Add this to the CMS.
@@ -131,7 +135,7 @@ const serializeLink = (
             target={node.newTab === true ? '_blank' : '_self'}
             className="italic underline underline-offset-4 hover:text-orange-500 sm:text-lg"
         >
-            {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
+            {}
             {serializeRichTextToHtml(nodeChildren)}
         </Link>
     );

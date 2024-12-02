@@ -33,7 +33,7 @@ const TeaserBlock = ({
 
     if (isLg) {
         return (
-            <div className="flex-grow">
+            <div className="grow">
                 <div
                     className={clsx(
                         'mx-auto my-8 w-full',

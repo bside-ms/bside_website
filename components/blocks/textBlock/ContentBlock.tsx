@@ -9,7 +9,6 @@ const ContentBlock = ({
     columns,
 }: ContentProps): ReactElement | null => {
     if (columns === undefined || columns.length === 0) {
-        // eslint-disable-next-line no-console
         console.warn('Columns must be set');
 
         return null;
@@ -17,7 +16,7 @@ const ContentBlock = ({
 
     if (backgroundWidth === 'full' && backgroundColor === 'black') {
         return (
-            <div className="flex-grow">
+            <div className="grow">
                 <div className="bg-black text-white">
                     <ContentWrapper>
                         <ColumnsContent columns={columns} />

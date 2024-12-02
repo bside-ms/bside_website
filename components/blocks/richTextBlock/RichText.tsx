@@ -12,7 +12,7 @@ const RichText: React.FC<{ className?: string; content: SlateChildren }> = ({
 
     return (
         <div key={content.length} className={className}>
-            {serializeRichTextToHtml(content as SlateChildren)}
+            {serializeRichTextToHtml(content)}
         </div>
     );
 };

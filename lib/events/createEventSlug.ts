@@ -1,4 +1,4 @@
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import type { Event } from '@/types/payload/payload-types';
 

@@ -10,10 +10,10 @@ const HeaderBarDesktop = (): ReactElement => {
     const { locale, asPath } = useRouter();
 
     return (
-        <header className="sticky left-0 right-0 top-0 z-20">
+        <header className="sticky inset-x-0 top-0 z-20">
             <a
                 href="#content"
-                className="text-2xs hover:text-orange sr-only left-0 top-2 whitespace-nowrap font-serif uppercase leading-none text-black focus:not-sr-only focus:absolute"
+                className="sr-only left-0 top-2 whitespace-nowrap font-serif text-xs uppercase leading-none text-black hover:text-orange-500 focus:not-sr-only focus:absolute"
             >
                 Zum Inhalt springen
             </a>
@@ -21,7 +21,7 @@ const HeaderBarDesktop = (): ReactElement => {
             <HeaderBanner />
 
             <div className="relative bg-white p-4 pb-2">
-                <nav className="text-md mx-auto flex justify-between text-center font-serif font-bold lg:w-[54rem] lg:text-lg xl:w-[70rem]">
+                <nav className="mx-auto flex justify-between text-center font-serif text-base font-bold lg:w-[54rem] lg:text-lg xl:w-[70rem]">
                     <Link
                         href="/"
                         className="w-6 cursor-pointer hover:text-orange-500"

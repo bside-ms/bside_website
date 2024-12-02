@@ -18,7 +18,7 @@ const Teaser = ({
     return (
         <div className="mx-auto grid w-[60rem] grid-cols-2">
             {reversed && (
-                <figure className="text-none relative my-auto ml-4 h-[30rem] w-[30rem] flex-1 ">
+                <figure className="relative my-auto ml-4 size-[30rem] flex-1">
                     {typeof image !== 'string' && (
                         <NextImage
                             src={image.sizes?.event?.url ?? image.url!}
@@ -33,7 +33,7 @@ const Teaser = ({
 
             <div className={clsx('z-10 my-auto w-[30rem] flex-1 bg-black', !reversed && 'ml-2')}>
                 <div className="flex h-[32rem] p-8 text-white">
-                    <div className="my-auto flex-grow">
+                    <div className="my-auto grow">
                         <Headline
                             title={headlineTitle}
                             teaser={headlineTeaser}
@@ -51,7 +51,7 @@ const Teaser = ({
             </div>
 
             {!reversed && (
-                <figure className="text-none relative my-auto -ml-4 h-[30rem] w-[30rem] flex-1">
+                <figure className="relative my-auto -ml-4 size-[30rem] flex-1">
                     {typeof image !== 'string' && (
                         <NextImage
                             src={image.sizes?.event?.url ?? image.url!}

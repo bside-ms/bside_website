@@ -17,7 +17,7 @@ const HeaderBarMobile = (): ReactElement => {
     const { toggleNavigation } = useAppContext();
 
     return (
-        <header className="sticky left-0 right-0 top-0 z-20">
+        <header className="sticky inset-x-0 top-0 z-20">
             <HeaderBanner />
 
             <div className="relative">

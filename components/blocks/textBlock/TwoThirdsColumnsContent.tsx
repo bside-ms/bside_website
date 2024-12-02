@@ -10,7 +10,6 @@ interface Props {
 
 const TwoThirdsColumnsContent = ({ firstColumn, secondColumn }: Props): ReactElement | null => {
     if (secondColumn === undefined) {
-        // eslint-disable-next-line no-console
         console.warn(
             'Falling back to full column instead of twoThirds since second column is missing',
         );

@@ -1,4 +1,4 @@
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import type EventCategory from '@/lib/events/EventCategory';
 import type { Event } from '@/types/payload/payload-types';
 

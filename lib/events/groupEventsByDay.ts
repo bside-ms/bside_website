@@ -39,8 +39,6 @@ const groupEventsByDay = (
                 }
             });
 
-            // See https://github.com/typescript-eslint/typescript-eslint/issues/5376#issuecomment-1194069175, if you care for the reason.
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (!foundDate) {
                 currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
             }

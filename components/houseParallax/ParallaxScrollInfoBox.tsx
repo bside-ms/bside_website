@@ -91,7 +91,7 @@ const ParallaxScrollInfoBox = ({
             }}
             className="absolute bottom-0 w-[90%] -translate-x-1/2 transition-all duration-150 md:top-[calc(100%-65px)] md:w-[40rem]"
         >
-            <div className="flex flex-col bg-black bg-opacity-80 p-6 text-white">
+            <div className="flex flex-col bg-black/80 p-6 text-white">
                 <div className="mb-3 flex flex-wrap justify-between md:flex-nowrap">
                     {isNotEmptyString(title) ? (
                         <div className="font-serif text-lg font-bold md:whitespace-nowrap md:text-xl">
@@ -103,7 +103,7 @@ const ParallaxScrollInfoBox = ({
 
                     <div className="flex w-full select-none items-center gap-1 text-lg leading-none md:justify-end">
                         <a
-                            className="px-1 py-1 md:cursor-pointer md:px-2 md:hover:text-orange-500"
+                            className="p-1 md:cursor-pointer md:px-2 md:hover:text-orange-500"
                             onClick={handlePriorClick}
                             style={
                                 isEmptyNumber(priorInfoBoxPosition)
@@ -119,7 +119,7 @@ const ParallaxScrollInfoBox = ({
                         </div>
 
                         <a
-                            className="px-1 py-1 md:cursor-pointer md:px-2 md:hover:text-orange-500"
+                            className="p-1 md:cursor-pointer md:px-2 md:hover:text-orange-500"
                             onClick={handleNextClick}
                             style={
                                 isEmptyNumber(nextInfoBoxPosition)

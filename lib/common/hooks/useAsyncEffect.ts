@@ -9,11 +9,7 @@ const useAsyncEffect = (
     asyncCallback: () => MaybePromise<void>,
     dependencies: DependencyList = [],
 ): void => {
-    useEffect(
-        () => void (async (): Promise<void> => asyncCallback())(),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [...dependencies],
-    );
+    useEffect(() => void (async (): Promise<void> => asyncCallback())(), [...dependencies]);
 };
 
 export default useAsyncEffect;

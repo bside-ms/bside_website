@@ -72,7 +72,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                     <div className="w-full px-4 lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
                         <div
                             className={clsx(
-                                'bg-fill my-4 h-52 w-full bg-center md:h-72',
+                                'my-4 h-52 w-full bg-cover bg-center md:h-72',
                                 'saturate-50',
                                 'xl:rounded-lg',
                             )}

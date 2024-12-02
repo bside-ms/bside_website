@@ -83,9 +83,6 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
         } else if (paginatedEvents.page !== undefined && paginatedEvents.page !== page) {
             setPage(paginatedEvents.page);
         }
-
-        // Does not have page dependency on purpose.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [paginatedEvents]);
 
     const allAvailableCategories = useAvailableCategoryFilters(eventsOnPage);
