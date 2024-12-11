@@ -32,6 +32,10 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
+            <MobileNavigationLink href="/news" color={colors[5 % colors.length]!}>
+                Aktuelles
+            </MobileNavigationLink>
+
             <MobileNavigationLink href="/quartier" color={colors[4 % colors.length]!}>
                 <div className="leading-4">
                     {locale === 'en' ? 'Neighbourhood work' : 'Quartiersarbeit'}
@@ -42,8 +46,14 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/news" color={colors[5 % colors.length]!}>
-                Aktuelles
+            <MobileNavigationLink href="/quartier/b-side-cafe" color={colors[5 % colors.length]!}>
+                <div className="leading-4">
+                    {locale === 'en' ? 'B-Side Cafe' : 'B-Side Cafe'}
+                    <span className="text-sm">
+                        <br />
+                        {locale === 'en' ? 'Lunch Deals' : 'Mittagstisch'}
+                    </span>
+                </div>
             </MobileNavigationLink>
 
             <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
