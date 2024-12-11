@@ -14,6 +14,8 @@ import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { News, Page, StartPage } from '@/types/payload/payload-types';
 import Headline from '@blocks/headlineBlock/Headline';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     page: Page;
@@ -68,16 +70,35 @@ export default ({ page, homePage, news }: Props): ReactElement => {
 
                 <div className="py-2 md:py-4" />
 
-                <Link href="https://festival.b-side.ms">
-                    <div className="w-full px-4 lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
+                <Link href="/quartier/b-side-cafe">
+                    <div className="hidden w-full px-4 md:block lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
                         <div
                             className={clsx(
-                                'my-4 h-52 w-full bg-cover bg-center md:h-72',
-                                'saturate-50',
-                                'xl:rounded-lg',
+                                'my-4 h-52 w-full bg-cover bg-center lg:w-auto xl:h-72',
+                                'lg:rounded-lg',
+                                'transition duration-300 ease-in-out hover:scale-105 hover:drop-shadow-md',
                             )}
-                            style={{ backgroundImage: `url(/assets/tmp/festival-banner.png)` }}
+                            style={{ backgroundImage: `url(/assets/tmp/mittagstisch-banner.png)` }}
                         />
+                    </div>
+                    <div className="mx-auto mb-8 h-auto w-80 outline outline-offset-2 outline-orange-500 transition duration-300 ease-in-out hover:scale-105 md:hidden">
+                        <div className="mx-auto size-80">
+                            <div
+                                id="mobile-cafe-banner"
+                                className={clsx('my-4 size-full bg-cover bg-center', 'rounded-lg')}
+                                style={{
+                                    backgroundImage: `url(/assets/tmp/mittagstisch-square.png)`,
+                                }}
+                            />
+                        </div>
+                        <p className="text-center">
+                            Mehr Informationen zum Cafe
+                            <FontAwesomeIcon
+                                icon={faArrowUpRightFromSquare}
+                                height={14}
+                                className="ml-1 inline"
+                            />
+                        </p>
                     </div>
                 </Link>
 
