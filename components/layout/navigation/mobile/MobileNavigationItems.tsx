@@ -48,7 +48,7 @@ const MobileNavigationItems = (): ReactElement => {
 
             <MobileNavigationLink href="/quartier/b-side-cafe" color={colors[5 % colors.length]!}>
                 <div className="leading-4">
-                    {locale === 'en' ? 'B-Side Cafe' : 'B-Side Cafe'}
+                    B-Side Café
                     <span className="text-sm">
                         <br />
                         {locale === 'en' ? 'Lunch Deals' : 'Mittagstisch'}
