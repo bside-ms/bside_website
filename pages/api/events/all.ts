@@ -10,6 +10,9 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
     const filter = getQueryParam<EventFilter>(request, 'filter');
     const ownerId = getQueryParam(request, 'ownerId');
     const categories = getQueryParam(request, 'categories');
+    const fromDate = getQueryParam(request, 'from');
+    const toDate = getQueryParam(request, 'to');
+    const depth = getQueryParam(request, 'depth');
 
     const paginatedEvents = await fetchPaginatedEvents({
         page,
@@ -18,6 +21,9 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
         filter,
         ownerId,
         categories,
+        fromDate,
+        toDate,
+        depth,
     });
 
     response.status(200).json({ paginatedEvents });

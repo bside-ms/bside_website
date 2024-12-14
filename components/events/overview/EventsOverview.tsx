@@ -1,80 +1,55 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import EventOverviewEntry from '@/components/events/overview/EventOverviewEntry';
 import EventsPagination from '@/components/events/overview/EventsPagination';
-import delayExecution from '@/lib/common/helper/delayExecution';
-import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import type EventCategory from '@/lib/events/EventCategory';
-import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
 import groupEventsByDay from '@/lib/events/groupEventsByDay';
 import useAllEvents from '@/lib/events/useAllEvents';
-import useAvailableCategoryFilters from '@/lib/events/useAvailableCategoryFilters';
 import type EventsOnPage from '@/types/EventsOnPage';
+import EventsCategoriesFilter from '@/components/events/overview/EventsCategoriesFilter';
+import { range } from 'lodash-es';
+import EventOverviewEntryPlaceholder from '@/components/events/overview/EventOverviewEntryPlaceholder';
+import EventsDateRangeFilter from '@/components/events/overview/EventsDateRangeFilter';
+import useFormatDate from '@/lib/common/hooks/useFormatDate';
+import { DateRange } from 'react-day-picker';
+import { addMonths, subMonths } from 'date-fns';
 
 interface Props {
     title?: string;
     eventsOnPage?: EventsOnPage;
 }
 
-const EventCategoryFilter = ({
-    category,
-    onClick,
-    isActive,
-}: {
-    category: EventCategory;
-    onClick: (type: EventCategory) => void;
-    isActive: boolean;
-}): ReactElement => {
-    const handleClick = useCallback(() => onClick(category), [onClick, category]);
-    const { locale } = useRouter();
-
-    return (
-        <div
-            onClick={handleClick}
-            className="select-none border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500"
-        >
-            <div
-                className={
-                    isActive
-                        ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500'
-                        : ''
-                }
-            >
-                {getEventCategoryTitle(category, locale)}
-            </div>
-        </div>
-    );
-};
-
-const pageParam = 'page';
-
 const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
-    const searchParams = new URLSearchParams(
-        typeof window === 'undefined' ? undefined : window.location.search,
+    const [page, setPage] = useState(1);
+
+    const [filteredCategories, setFilteredCategories] = useState<Array<EventCategory>>([]);
+    const [filteredDateRange, setFilteredDateRange] = useState<DateRange | undefined>();
+
+    const [paginatedEvents, isLoading] = useAllEvents(
+        eventsOnPage,
+        page,
+        filteredCategories,
+        filteredDateRange,
     );
 
-    const [page, setPage] = useState(Number(searchParams.get(pageParam) ?? 1));
+    const areDisplayedOnHome = eventsOnPage?.filter === 'Home';
+
+    const [allEvents] = useAllEvents(
+        {
+            perPage: 9999,
+            filter: eventsOnPage?.filter,
+            ownerId: eventsOnPage?.ownerId,
+        },
+        1,
+        filteredCategories,
+        { from: subMonths(new Date(), 3), to: addMonths(new Date(), 12) },
+        0,
+    );
 
     useEffect(() => {
-        const url = new URL(window.location.href);
-
-        if (page === 1) {
-            url.searchParams.delete(pageParam);
-        } else {
-            url.searchParams.set(pageParam, page.toString());
-        }
-
-        window.history.replaceState(window.history.state, '', url.href);
-    }, [page]);
-
-    const [categories, setCategories] = useState<Array<EventCategory>>([]);
-
-    const paginatedEvents = useAllEvents(eventsOnPage, page, categories);
-
-    useEffect(() => {
-        if (paginatedEvents === undefined) {
+        if (paginatedEvents === undefined || isLoading) {
             return;
         }
 
@@ -85,21 +60,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
         }
     }, [paginatedEvents]);
 
-    const allAvailableCategories = useAvailableCategoryFilters(eventsOnPage);
-
-    const handleToggleCategory = useCallback((category: EventCategory) => {
-        setCategories((prevState) => {
-            if (prevState.includes(category)) {
-                return prevState.filter((categoryItem) => categoryItem !== category);
-            } else {
-                return [...prevState, category];
-            }
-        });
-    }, []);
-
-    const { locale } = useRouter();
-
-    const unsetFilteredEventType = useCallback(() => setCategories([]), []);
+    const locale = useLocale();
 
     const groupByDay = useMemo(
         () => groupEventsByDay(paginatedEvents?.docs ?? [], eventsOnPage?.dateDirection === 'past'),
@@ -108,20 +69,22 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
 
     const eventsScrollAnchorRef = useRef<HTMLDivElement>(null);
 
-    const handleSetPage = useCallback(async (newPage: number) => {
+    const handleSetPage = useCallback((newPage: number) => {
         setPage(newPage);
-        await delayExecution(50);
-        eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'instant' });
+
+        eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, []);
 
     const hasPagination =
-        eventsOnPage?.pagination === true &&
+        eventsOnPage?.withPagination === true &&
         paginatedEvents !== undefined &&
         paginatedEvents.totalPages > 1;
 
+    const formatDate = useFormatDate();
+
     return (
         <div className="relative">
-            <div ref={eventsScrollAnchorRef} className="absolute -top-52 md:-top-24" />
+            <div ref={eventsScrollAnchorRef} className="absolute -top-32 md:-top-24" />
 
             {!isEmptyString(title) && (
                 <div className="mb-3 text-center font-serif text-xl font-bold md:text-2xl">
@@ -129,48 +92,48 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                 </div>
             )}
 
+            {eventsOnPage?.withFilters === true && (
+                <div className="mb-3 flex gap-3">
+                    <EventsCategoriesFilter
+                        eventsOnPage={eventsOnPage}
+                        filteredCategories={filteredCategories}
+                        setFilteredCategories={setFilteredCategories}
+                    />
+
+                    <EventsDateRangeFilter
+                        filteredDateRange={filteredDateRange}
+                        setFilteredDateRange={setFilteredDateRange}
+                        allEventDates={
+                            allEvents?.docs.map((event) => new Date(event.eventDate)) ?? []
+                        }
+                    />
+                </div>
+            )}
+
             <div className="md:text-lg">
-                {allAvailableCategories.length > 1 && (
-                    <div className="mb-3 flex flex-wrap px-4 sm:px-0">
-                        <div
-                            onClick={unsetFilteredEventType}
-                            className="select-none border-r border-gray-800 px-3 leading-4 last:border-0 last:pr-0 md:cursor-pointer md:hover:text-orange-500"
-                        >
-                            <div
-                                className={
-                                    categories.length === 0
-                                        ? 'text-orange-500 underline underline-offset-2 hover:text-gray-500'
-                                        : ''
-                                }
-                            >
-                                {locale === 'de' ? 'Alle' : 'All'}
-                            </div>
-                        </div>
-
-                        {allAvailableCategories.map((eventCategory) => (
-                            <EventCategoryFilter
-                                key={eventCategory}
-                                category={eventCategory}
-                                onClick={handleToggleCategory}
-                                isActive={categories.includes(eventCategory)}
-                            />
-                        ))}
-                    </div>
-                )}
-
                 <div>
-                    {groupByDay.length > 0 ? (
-                        groupByDay.map(([date, events]) => (
-                            <div key={date.toString()} className="mb-2">
-                                <div className="bg-black px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">
-                                    {formatDate(date, 'EE dd. MMMM yy', locale)}
+                    {isLoading ? (
+                        range(eventsOnPage?.perPage ?? 5).map((index) => (
+                            <div key={index} className="mb-6 space-y-4">
+                                <div className="bg-gray-300 px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">
+                                    &nbsp;
                                 </div>
 
-                                {events.map((event, index) => (
+                                <EventOverviewEntryPlaceholder key={index} />
+                            </div>
+                        ))
+                    ) : groupByDay.length > 0 ? (
+                        groupByDay.map(([date, events]) => (
+                            <div key={date.toString()} className="mb-6 space-y-4">
+                                <div className="bg-black px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">
+                                    {formatDate(date, 'EE dd. MMMM yy')}
+                                </div>
+
+                                {events.map((event) => (
                                     <EventOverviewEntry
-                                        key={`event-${event.id}`}
+                                        key={event.id}
                                         event={event}
-                                        index={index}
+                                        areDisplayedOnHome={areDisplayedOnHome}
                                     />
                                 ))}
                             </div>

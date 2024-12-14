@@ -51,8 +51,9 @@ export default ({ page }: Props): ReactElement => {
                     layout={pageData.layout}
                     eventsOnPage={{
                         filter: 'Overview',
-                        perPage: 10,
-                        pagination: true,
+                        withPagination: true,
+                        perPage: 20,
+                        withFilters: true,
                     }}
                 />
             </main>

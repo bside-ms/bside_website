@@ -2,7 +2,7 @@ import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isPast } from 'date-fns';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import type { Event } from '@/types/payload/payload-types';
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const EventButtons = ({ event }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     return (
         <div className="flex flex-wrap gap-4 sm:flex-nowrap">

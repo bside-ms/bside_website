@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import createCircleLink from '@/lib/events/createCircleLink';
 import createOrganisationLink from '@/lib/events/createOrganisationLink';
@@ -12,7 +12,7 @@ const EventOwner = ({
         | { value: string | Organisation; relationTo: 'organisations' }
         | { value: string | Circle; relationTo: 'circles' };
 }): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     if (owner.relationTo === 'organisations') {
         const organisation = owner.value as Organisation;

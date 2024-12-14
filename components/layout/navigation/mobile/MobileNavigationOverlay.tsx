@@ -41,7 +41,7 @@ const MobileNavigationOverlay = (): ReactElement | null => {
                 </svg>
 
                 <div
-                    className="absolute left-[95px] top-[100px] z-50 flex size-16 items-center justify-center rounded-full border-4 border-black bg-white text-4xl md:cursor-pointer"
+                    className="absolute left-[95px] top-[100px] z-[60] flex size-16 items-center justify-center rounded-full border-4 border-black bg-white text-4xl md:cursor-pointer"
                     onClick={toggleNavigation}
                 >
                     ✕

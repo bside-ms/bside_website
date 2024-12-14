@@ -10,7 +10,7 @@ const HeaderBarDesktop = (): ReactElement => {
     const { locale, asPath } = useRouter();
 
     return (
-        <header className="sticky inset-x-0 top-0 z-20">
+        <header className="sticky inset-x-0 top-0 z-[60]">
             <a
                 href="#content"
                 className="sr-only left-0 top-2 whitespace-nowrap font-serif text-xs uppercase leading-none text-black hover:text-orange-500 focus:not-sr-only focus:absolute"
@@ -41,7 +41,7 @@ const HeaderBarDesktop = (): ReactElement => {
                 </nav>
 
                 <Link
-                    href={asPath !== '/' ? `${asPath}` : locale === 'de' ? '/en' : '/'}
+                    href={asPath !== '/' ? asPath : locale === 'de' ? '/en' : '/'}
                     className="absolute right-8 top-4 flex w-6 cursor-pointer justify-around text-center hover:text-orange-500"
                     aria-label={
                         locale !== 'en'

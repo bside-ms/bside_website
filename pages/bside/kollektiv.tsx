@@ -93,7 +93,8 @@ export default ({ organisation, circles }: Props): ReactElement => {
                             eventsOnPage={{
                                 ownerId: organisation.id,
                                 perPage: 10,
-                                pagination: true,
+                                withPagination: true,
+                                withFilters: true,
                             }}
                         />
                     ))}

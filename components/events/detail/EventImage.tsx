@@ -17,14 +17,18 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
 
     if (isEventImageString(eventImage)) {
         return (
-            <Link href={eventImage} target="_blank" className="cursor-default">
+            <Link
+                href={eventImage}
+                target="_blank"
+                className="transition-transform hover:scale-105"
+            >
                 <Image
                     src={eventImage}
                     width={342}
                     height={342}
                     alt={eventTitle}
                     sizes="thumbnail"
-                    className="mx-auto mb-4 md:cursor-pointer"
+                    className="mx-auto mb-4 transition-transform hover:scale-105 md:cursor-pointer"
                     style={justify === 'right' ? justifyRight : justifyLeft}
                     priority={true}
                 />
@@ -40,14 +44,18 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
     }
 
     return (
-        <Link href={imageUrl} target="_blank" className="cursor-default">
+        <Link
+            href={imageUrl}
+            target="_blank"
+            className="transition-transform hover:scale-105 hover:bg-teal-800"
+        >
             <Image
                 src={imageUrl}
                 width={342}
                 height={342}
                 alt={eventImage.alt}
                 sizes="thumbnail"
-                className="mx-auto mb-4 md:cursor-pointer"
+                className="mx-auto mb-4 overflow-hidden transition-transform hover:scale-105"
                 style={justify === 'right' ? justifyRight : justifyLeft}
                 priority={true}
             />

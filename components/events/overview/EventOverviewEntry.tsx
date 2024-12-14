@@ -1,77 +1,118 @@
-import { Fragment } from 'react';
-import { truncate } from 'lodash-es';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import type { ReactElement } from 'react';
-import { useBreakpointContext } from '@/components/common/BreakpointContext';
-import EventOrganiser from '@/components/events/overview/EventOrganiser';
-import formatDate from '@/lib/common/helper/formatDate';
+import { Fragment, ReactElement } from 'react';
 import createEventSlug from '@/lib/events/createEventSlug';
-import getEventCategoryTitle from '@/lib/events/getEventCategoryTitle';
+import useGetEventCategoryTitle from '@/lib/events/useGetEventCategoryTitle';
 import type { Event } from '@/types/payload/payload-types';
+import { Badge } from '@/components/ui/badge';
+import { ChevronRightIcon, ClockIcon } from '@radix-ui/react-icons';
+import useFormatDate from '@/lib/common/hooks/useFormatDate';
+import getEventImageUrl from '@/lib/events/getEventImageUrl';
+import Image from 'next/image';
+import { isNil, truncate } from 'lodash-es';
+import EventOverviewEntryImageFallback from '@/components/events/overview/EventOverviewEntryImageFallback';
+import { cn } from '@/lib/utils';
 
 interface Props {
     event: Event;
-    index: number;
+    areDisplayedOnHome: boolean;
 }
 
-const EventOverviewEntry = ({ event, index }: Props): ReactElement => {
-    const { isXl } = useBreakpointContext();
-    const { locale } = useRouter();
+const EventOverviewEntry = ({ event, areDisplayedOnHome }: Props): ReactElement => {
+    const formatDate = useFormatDate();
+
+    const getEventCategoryTitle = useGetEventCategoryTitle();
+
+    const {
+        id,
+        title,
+        eventStart,
+        category: categories,
+        eventImage,
+        eventOwner: eventOwners,
+    } = event;
+
+    const eventImageUrl = getEventImageUrl(eventImage);
 
     return (
-        <Fragment key={event.id}>
-            {index !== 0 && (
-                <div>
-                    <hr className="mx-auto mt-2 w-full border border-black" />
-                </div>
-            )}
-
-            <Link
-                key={`event-${event.id}-link`}
-                href={`/events/${createEventSlug(event)}`}
-                className="flex gap-3 px-3 pt-1 hover:text-orange-500 md:px-4 md:pt-2"
-                aria-label={
-                    locale === 'de'
-                        ? `Erfahre mehr über die Veranstaltung "${event.title}".`
-                        : `Learn more about the event "${event.title}".`
-                }
-            >
-                <div className="w-14">
-                    {formatDate(new Date(event.eventStart), 'HH:mm', locale)}
-                </div>
-                <div
-                    key={`event-${event.id}-title`}
-                    className="flex-1 overflow-hidden truncate font-bold"
-                >
-                    {truncate(event.title, { length: isXl ? 55 : 40 })}
-                </div>
-                <div className="truncate">... {locale === 'de' ? 'mehr' : 'more'}</div>
-            </Link>
-
-            <div className="relative flex gap-3 px-3 pb-1 md:px-4 md:pb-2">
-                <Link
-                    href={`/events/${createEventSlug(event)}`}
-                    className="absolute inset-0 hover:text-orange-500"
-                    aria-label={
-                        locale === 'de'
-                            ? `Erfahre mehr über die Veranstaltung "${event.title}".`
-                            : `Learn more about the event "${event.title}".`
-                    }
-                />
-                <div className="w-0 sm:w-14" />
-                {event.category?.map((cat) => (
-                    <div
-                        key={`event-title-${event.id}-${cat}`}
-                        className="my-auto truncate px-1 text-sm italic leading-6"
-                    >
-                        {getEventCategoryTitle(cat, locale)}
-                    </div>
-                ))}
-
-                <EventOrganiser event={event} />
+        <Link
+            key={id}
+            href={`/events/${createEventSlug(event)}`}
+            className="group flex cursor-pointer shadow-md transition-shadow hover:shadow-lg"
+        >
+            <div className="relative hidden min-h-[150px] w-[100px] shrink-0 min-[350px]:block min-[450px]:w-[150px]">
+                {eventImageUrl === null ? (
+                    <EventOverviewEntryImageFallback />
+                ) : (
+                    <Image
+                        src={eventImageUrl}
+                        alt={title}
+                        sizes="thumbnail"
+                        className={cn(
+                            'object-cover transition-transform md:cursor-pointer',
+                            areDisplayedOnHome &&
+                                'grayscale-[85%] transition group-hover:grayscale-0',
+                        )}
+                        fill={true}
+                        priority={true}
+                    />
+                )}
             </div>
-        </Fragment>
+
+            <div className="flex grow flex-col px-4 py-2">
+                <h3
+                    className={cn(
+                        'mb-1 line-clamp-2 text-lg font-semibold leading-6',
+                        !title.includes(' ') && 'break-all',
+                    )}
+                >
+                    {title}
+                </h3>
+
+                {categories !== null && categories !== undefined && categories.length > 0 && (
+                    <div className="mb-2 text-sm">
+                        {categories.map((category) => getEventCategoryTitle(category)).join(' | ')}
+                    </div>
+                )}
+
+                <div className="mt-auto flex items-center text-sm text-muted-foreground">
+                    <ClockIcon className="mr-1 size-4" />
+
+                    {formatDate(new Date(eventStart), 'HH:mm')}
+                </div>
+
+                {!isNil(eventOwners) && eventOwners.length > 0 && (
+                    <div className="mb-2 mt-1 flex flex-wrap gap-2">
+                        {eventOwners.map(({ value }) => {
+                            const ownerName = typeof value === 'string' ? value : value.name;
+                            return (
+                                <Fragment key={ownerName}>
+                                    <Badge
+                                        variant="secondary"
+                                        size="small"
+                                        hover="disabled"
+                                        className="hidden sm:block"
+                                    >
+                                        {truncate(ownerName, { length: 40 })}
+                                    </Badge>
+                                    <Badge
+                                        variant="secondary"
+                                        size="small"
+                                        hover="disabled"
+                                        className="sm:hidden"
+                                    >
+                                        {truncate(ownerName, { length: 20 })}
+                                    </Badge>
+                                </Fragment>
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
+
+            <div className="flex items-center pr-4">
+                <ChevronRightIcon className="size-5 text-muted-foreground" />
+            </div>
+        </Link>
     );
 };
 

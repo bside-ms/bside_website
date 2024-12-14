@@ -11,7 +11,12 @@ export default interface EventsOnPage {
     /**
      * Controls whether a pagination will be shown.
      */
-    pagination?: boolean;
+    withPagination?: boolean;
+
+    /**
+     * Controls whether filters will be shown.
+     */
+    withFilters?: boolean;
 
     /**
      * Determines how many events per page will be shown, without pagination prop controls
