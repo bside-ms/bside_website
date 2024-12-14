@@ -4,7 +4,7 @@ import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 };
 
 export default ({ news: initialNews }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     const { data: news } = useLivePreview<News>({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
@@ -95,7 +95,7 @@ export default ({ news: initialNews }: Props): ReactElement => {
                     <>
                         <small className="mb-1 block text-base font-normal italic leading-none tracking-normal md:text-base">
                             <strong>
-                                <i>{getNewsCategory(news.newsCategory, locale!)}</i>
+                                <i>{getNewsCategory(news.newsCategory, locale)}</i>
                             </strong>{' '}
                             - {formatDate(news.newsDate, 'dd.MM.yyyy')} -{' '}
                             {getCircleOrOrganisationName(news.newsAuthor)}

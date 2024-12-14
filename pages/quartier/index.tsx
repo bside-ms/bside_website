@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ organisation, circles }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     return (
         <Fragment>

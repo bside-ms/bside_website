@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import {
     Pagination,
@@ -32,7 +32,7 @@ const EventsPagination = ({
     const displayFistPage = hasPrevPage && page !== 2;
     const displayLastPage = hasNextPage && page !== totalPages - 1;
 
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     return (
         <Pagination className="mt-8">
@@ -40,7 +40,6 @@ const EventsPagination = ({
                 <PaginationItem>
                     <PaginationPrevious
                         onClick={handlePriorPageClick}
-                        href="#"
                         title={locale === 'de' ? 'Zurück' : 'Previous'}
                     />
                 </PaginationItem>
@@ -48,49 +47,46 @@ const EventsPagination = ({
                 {displayFistPage && (
                     <>
                         <PaginationItem>
-                            <PaginationLink onClick={handleFirstPageClick} href="#">
-                                1
-                            </PaginationLink>
+                            <PaginationLink onClick={handleFirstPageClick}>1</PaginationLink>
                         </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis
-                                title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
-                            />
-                        </PaginationItem>
+
+                        {page !== 3 && (
+                            <PaginationItem>
+                                <PaginationEllipsis
+                                    title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
+                                />
+                            </PaginationItem>
+                        )}
                     </>
                 )}
 
                 {hasPrevPage && (
                     <PaginationItem>
-                        <PaginationLink onClick={handlePriorPageClick} href="#">
-                            {page - 1}
-                        </PaginationLink>
+                        <PaginationLink onClick={handlePriorPageClick}>{page - 1}</PaginationLink>
                     </PaginationItem>
                 )}
 
                 <PaginationItem>
-                    <PaginationLink href="#" isActive={true}>
-                        {page}
-                    </PaginationLink>
+                    <PaginationLink isActive={true}>{page}</PaginationLink>
                 </PaginationItem>
 
                 {hasNextPage && (
                     <PaginationItem>
-                        <PaginationLink onClick={handleNextPageClick} href="#">
-                            {page + 1}
-                        </PaginationLink>
+                        <PaginationLink onClick={handleNextPageClick}>{page + 1}</PaginationLink>
                     </PaginationItem>
                 )}
 
                 {displayLastPage && (
                     <>
+                        {page !== totalPages - 2 && (
+                            <PaginationItem>
+                                <PaginationEllipsis
+                                    title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
+                                />
+                            </PaginationItem>
+                        )}
                         <PaginationItem>
-                            <PaginationEllipsis
-                                title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
-                            />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink onClick={handleLastPageClick} href="#">
+                            <PaginationLink onClick={handleLastPageClick}>
                                 {totalPages}
                             </PaginationLink>
                         </PaginationItem>
@@ -100,7 +96,6 @@ const EventsPagination = ({
                 <PaginationItem>
                     <PaginationNext
                         onClick={handleNextPageClick}
-                        href="#"
                         title={locale === 'de' ? 'Weiter' : 'Next'}
                     />
                 </PaginationItem>

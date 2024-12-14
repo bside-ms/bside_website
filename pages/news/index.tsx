@@ -1,5 +1,5 @@
 import type { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -21,7 +21,7 @@ interface Props {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     const news = await getPayloadResponse<PaginatedDocs<News>>(
-        `/api/news/?limit=${PER_PAGE}&page=${1}&depth=1&locale=${locale}&sort=-newsDate`,
+        `/api/news/?limit=${PER_PAGE}&page=1&depth=1&locale=${locale}&sort=-newsDate`,
     );
 
     return {
@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ paginatedNews }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     const news = paginatedNews.docs;
     const hasPagination = paginatedNews.totalPages > 1;

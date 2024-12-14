@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import FrontPageHero from '@/components/frontPage/FrontPageHero';
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ page, homePage, news }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     return (
         <div className="flex min-h-screen flex-col justify-between">

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { MouseEvent, ReactElement } from 'react';
 import useSWR from 'swr';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -54,7 +54,7 @@ const HeaderBannerContent = ({
 };
 
 const HeaderBanner = (): ReactElement | null => {
-    const { locale } = useRouter();
+    const locale = useLocale();
     const { data: bannerData } = useSWR<Banner>(`/api/banner?lang=${locale}`, fetcher, {
         keepPreviousData: true,
     });

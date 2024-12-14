@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import {
     Pagination,
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const NewsPagination = ({ paginatedNews: paginatedNews }: Props): ReactElement | null => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     if (paginatedNews.page === undefined) {
         return null;
