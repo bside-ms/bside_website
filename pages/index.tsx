@@ -92,7 +92,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                             />
                         </div>
                         <p className="text-center">
-                            Mehr Informationen zum Cafe
+                            Mehr Informationen zum Café
                             <FontAwesomeIcon
                                 icon={faArrowUpRightFromSquare}
                                 height={14}
