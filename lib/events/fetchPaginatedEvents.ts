@@ -99,8 +99,6 @@ const fetchPaginatedEvents = ({
         queryObject.depth = depth.toString();
     }
 
-    console.log(`/api/events/?${stringify(queryObject)}`);
-
     return getPayloadResponse<PaginatedDocs<Event>>(`/api/events/?${stringify(queryObject)}`);
 };
 
