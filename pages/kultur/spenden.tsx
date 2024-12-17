@@ -49,12 +49,13 @@ export default ({ page, organisation }: Props): ReactElement => {
     return (
         <Fragment>
             <NextHead
-                title={organisation.meta?.title ?? 'Kultur e.V.'}
+                title={page.meta?.title ?? organisation.meta?.title ?? 'B-Side Kultur e.V.'}
                 description={
+                    page.meta?.description ??
                     organisation.meta?.description ??
                     'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'
                 }
-                url={`${getPublicClientUrl(locale)}/kultur`}
+                url={`${getPublicClientUrl(locale)}/kultur/spenden`}
             />
 
             <div className="flex min-h-screen flex-col justify-between">
