@@ -33,4 +33,9 @@ export const DesktopNavigationItems = new Array<DesktopNavigationItemProps>(
         labelDe: 'Aktuelles',
         labelEn: 'News',
     },
+    {
+        link: '/support',
+        labelDe: 'Unterstützen',
+        labelEn: 'Support us',
+    },
 );

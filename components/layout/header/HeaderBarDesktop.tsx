@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import HeaderBanner from '@/components/layout/header/HeaderBanner';
 import { DesktopNavigationItems } from '@/components/layout/navigation/desktop/DesktopNavigationItems';
-import DesktopNavigationLink from '@/components/layout/navigation/desktop/DesktopNavigationLink';
+import { DesktopNavigationLink } from '@/components/layout/navigation/desktop/DesktopNavigationLink';
 import Heart from '@/components/svg/Heart';
 
 const HeaderBarDesktop = (): ReactElement => {
@@ -41,7 +41,7 @@ const HeaderBarDesktop = (): ReactElement => {
                 </nav>
 
                 <Link
-                    href={asPath !== '/' ? `${asPath}` : locale === 'de' ? '/en' : '/'}
+                    href={asPath !== '/' ? asPath : locale === 'de' ? '/en' : '/'}
                     className="absolute right-8 top-4 flex w-6 cursor-pointer justify-around text-center hover:text-orange-500"
                     aria-label={
                         locale !== 'en'
