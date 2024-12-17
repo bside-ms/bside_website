@@ -1,7 +1,6 @@
 const validHostnames = [
     'b-side.ms',
-    'staging.b-side.ovh',
-    'cms.b-side.ovh',
+    'staging.b-side.ms',
     'cms.b-side.ms',
     'localhost:3001',
     'localhost:3000',
