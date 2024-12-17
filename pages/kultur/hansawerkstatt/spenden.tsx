@@ -48,8 +48,9 @@ export default ({ page, circle }: Props): ReactElement => {
     return (
         <Fragment>
             <NextHead
-                title={circle.meta?.title ?? 'Kultur e.V.'}
+                title={page.meta?.title ?? circle.meta?.title ?? 'Kultur e.V.'}
                 description={
+                    page.meta?.description ??
                     circle.meta?.description ??
                     'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'
                 }
