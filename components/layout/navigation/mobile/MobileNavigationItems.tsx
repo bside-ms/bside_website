@@ -32,11 +32,15 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/news" color={colors[5 % colors.length]!}>
-                Aktuelles
+            <MobileNavigationLink href="/news" color={colors[4 % colors.length]!}>
+                {locale === 'en' ? 'News' : 'Aktuelles'}
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/quartier" color={colors[4 % colors.length]!}>
+            <MobileNavigationLink href="/support" color={colors[5 % colors.length]!}>
+                {locale === 'en' ? 'Support us' : 'Unterstützen'}
+            </MobileNavigationLink>
+
+            <MobileNavigationLink href="/quartier" color={colors[6 % colors.length]!}>
                 <div className="leading-4">
                     {locale === 'en' ? 'Neighbourhood work' : 'Quartiersarbeit'}
                     <span className="text-sm">
@@ -46,7 +50,7 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/quartier/b-side-cafe" color={colors[5 % colors.length]!}>
+            <MobileNavigationLink href="/quartier/b-side-cafe" color={colors[7 % colors.length]!}>
                 <div className="leading-4">
                     B-Side Café
                     <span className="text-sm">
@@ -56,7 +60,7 @@ const MobileNavigationItems = (): ReactElement => {
                 </div>
             </MobileNavigationLink>
 
-            <MobileNavigationLink href="/kontakt" color={colors[6 % colors.length]!}>
+            <MobileNavigationLink href="/kontakt" color={colors[8 % colors.length]!}>
                 {locale === 'en' ? 'Contact' : 'Kontakt'}
             </MobileNavigationLink>
 

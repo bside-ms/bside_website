@@ -8,7 +8,7 @@ export interface DesktopNavigationItemLocaleProps {
     subLabel?: string;
 }
 
-const DesktopNavigationLink = ({
+export const DesktopNavigationLink = ({
     link,
     label,
     subLabel,
@@ -29,5 +29,3 @@ const DesktopNavigationLink = ({
         </Link>
     );
 };
-
-export default DesktopNavigationLink;

@@ -58,6 +58,18 @@ const Footer = (): ReactElement => {
                 <div className="mt-5 bg-black py-2">
                     <div className="text-center font-serif font-bold text-white">
                         <Link
+                            href="/anfahrt"
+                            aria-label={
+                                locale !== 'en'
+                                    ? 'Alle rechtlichen Angaben sind hier zu finden'
+                                    : 'All legal information can be found here'
+                            }
+                            className="font-serif text-base font-bold hover:text-orange-500 md:text-lg"
+                        >
+                            {locale !== 'en' ? 'Anfahrt' : 'Arrival'}
+                        </Link>
+                        <span className="px-1 sm:px-2">|</span>
+                        <Link
                             href="/impressum"
                             aria-label={
                                 locale !== 'en'
@@ -68,7 +80,7 @@ const Footer = (): ReactElement => {
                         >
                             {locale !== 'en' ? 'Impressum' : 'Imprint'}
                         </Link>
-                        <span className="px-2">|</span>
+                        <span className="px-1 sm:px-2">|</span>
                         <Link
                             href="/datenschutz"
                             aria-label={
@@ -80,7 +92,7 @@ const Footer = (): ReactElement => {
                         >
                             {locale !== 'en' ? 'Datenschutz' : 'Privacy Policy'}
                         </Link>
-                        <span className="px-2">|</span>
+                        <span className="px-1 sm:px-2">|</span>
                         <Link
                             href="/kontakt"
                             aria-label={

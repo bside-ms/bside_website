@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import HeaderBanner from '@/components/layout/header/HeaderBanner';
 import { DesktopNavigationItems } from '@/components/layout/navigation/desktop/DesktopNavigationItems';
-import DesktopNavigationLink from '@/components/layout/navigation/desktop/DesktopNavigationLink';
+import { DesktopNavigationLink } from '@/components/layout/navigation/desktop/DesktopNavigationLink';
 import Heart from '@/components/svg/Heart';
 
 const HeaderBarDesktop = (): ReactElement => {
