@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { clsx } from 'clsx';
 import type { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 const amountOfBlocksBeforeFundraisingBox = 1;
 
 export default ({ page, organisation }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
     const { isMd } = useBreakpointContext();
 
     return (

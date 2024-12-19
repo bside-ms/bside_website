@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import { SiGithub, SiInstagram } from 'react-icons/si';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -47,7 +47,7 @@ const Instagram = (): ReactElement => (
 );
 
 const Footer = (): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     return (
         <Fragment>

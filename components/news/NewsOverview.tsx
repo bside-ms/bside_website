@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import { Separator } from '@/components/ui/separator';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const NewsPagination = ({ news }: Props): ReactElement | null => {
-    const { locale } = useRouter();
+    const locale = useLocale();
     const { isMd, isLg } = useBreakpointContext();
 
     return (
@@ -27,7 +27,7 @@ const NewsPagination = ({ news }: Props): ReactElement | null => {
                             <div className="py-4 md:pr-4 lg:grow">
                                 <small className="mb-1 block text-base font-normal italic leading-none tracking-normal md:text-base">
                                     <strong>
-                                        <i>{getNewsCategory(item.newsCategory, locale!)}</i>
+                                        <i>{getNewsCategory(item.newsCategory, locale)}</i>
                                     </strong>{' '}
                                     - {formatDate(item.newsDate, 'dd.MM.yyyy')} -{' '}
                                     {getCircleOrOrganisationName(item.newsAuthor)}

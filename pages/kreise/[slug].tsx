@@ -3,7 +3,7 @@ import { useLivePreview } from '@payloadcms/live-preview-react';
 import { kebabCase } from 'lodash-es';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
     );
 
     const circle = circlesResponse.docs.find((doc) => {
-        return kebabCase(doc.name) === `${slug}`;
+        return kebabCase(doc.name) === slug;
     });
 
     if (circle === undefined) {
@@ -74,7 +74,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 };
 
 export default ({ initialCircle }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     const { data: circle } = useLivePreview<Circle>({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
@@ -150,7 +150,8 @@ export default ({ initialCircle }: Props): ReactElement => {
                             ownerId: circle.id,
                             filter: 'Circle',
                             perPage: 10,
-                            pagination: true,
+                            withPagination: true,
+                            withFilters: true,
                         }}
                     />
                 </main>

@@ -1,6 +1,6 @@
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeroImageSvg from '@/components/common/HeroImageSvg';
@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ page }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     const { data: pageData } = useLivePreview({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
@@ -51,8 +51,9 @@ export default ({ page }: Props): ReactElement => {
                     layout={pageData.layout}
                     eventsOnPage={{
                         filter: 'Overview',
-                        perPage: 10,
-                        pagination: true,
+                        withPagination: true,
+                        perPage: 20,
+                        withFilters: true,
                     }}
                 />
             </main>

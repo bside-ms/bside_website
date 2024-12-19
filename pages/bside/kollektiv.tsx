@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 import { useBreakpointContext } from '@/components/common/BreakpointContext';
 import Footer from '@/components/common/Footer';
@@ -14,6 +13,7 @@ import type { Circle, Organisation } from '@/types/payload/payload-types';
 import ReusableBlocks from '@blocks/reusableLayout/ReusableBlocks';
 import SubNavigation from '@blocks/subNavigation/SubNavigation';
 import SubNavigationLink from '@blocks/subNavigation/SubNavigationLink';
+import useLocale from '@/lib/common/hooks/useLocale';
 
 interface Props {
     organisation: Organisation;
@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ organisation, circles }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
     const { isMd } = useBreakpointContext();
 
     return (
@@ -93,7 +93,8 @@ export default ({ organisation, circles }: Props): ReactElement => {
                             eventsOnPage={{
                                 ownerId: organisation.id,
                                 perPage: 10,
-                                pagination: true,
+                                withPagination: true,
+                                withFilters: true,
                             }}
                         />
                     ))}

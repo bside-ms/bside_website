@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import EventOwner from '@/components/events/overview/EventOwner';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
@@ -10,7 +10,7 @@ import type { Event } from '@/types/payload/payload-types';
 const EventOrganiser = ({ event }: { event: Event }): ReactElement => {
     const hasOwner = event.eventOwner?.length !== 0;
     const hasOrganiser = !isEmptyString(event.eventOrganizer);
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     if (!hasOwner && !hasOrganiser) {
         return <div />;

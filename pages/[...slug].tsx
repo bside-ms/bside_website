@@ -1,7 +1,7 @@
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticPaths } from 'next';
 import type { NextParsedUrlQuery } from 'next/dist/server/request-meta';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import HeaderBar from '@/components/layout/header/HeaderBar';
@@ -72,12 +72,12 @@ const fetchPage = async (slug: string, locale: string): Promise<Page | undefined
             breadcrumbs = breadcrumbs.substring(1);
         }
 
-        return breadcrumbs === `${slug}`;
+        return breadcrumbs === slug;
     });
 
     if (page === undefined) {
         page = pagesResponse.docs.find((doc) => {
-            return doc.id === `${slug}`;
+            return doc.id === slug;
         });
     }
 
@@ -136,7 +136,7 @@ export const getStaticProps: ({
 };
 
 export default ({ page }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     const { data } = useLivePreview({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',

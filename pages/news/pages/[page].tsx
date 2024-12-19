@@ -1,5 +1,5 @@
 import type { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/layout/ContentWrapper';
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale, params }) 
 };
 
 export default ({ paginatedNews }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     const news = paginatedNews.docs;
     const hasPagination = paginatedNews.totalPages > 1;

@@ -1,7 +1,7 @@
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import type { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import BsideElements from '@/components/bside/BsideElements';
 import Footer from '@/components/common/Footer';
@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 };
 
 export default ({ page, about }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     const { data: pageData } = useLivePreview<Page>({
         serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',

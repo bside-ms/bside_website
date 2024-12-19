@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { createNewsSlug } from '@/lib/news/news';
@@ -18,7 +18,7 @@ const decorations = [
 ];
 
 const NewsTeaser = ({ news }: Props): ReactElement | null => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     return (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import createCircleLink from '@/lib/events/createCircleLink';
@@ -18,7 +18,7 @@ interface Props {
 export const colors = ['#ccffcc', '#ccffff', '#ccccff', '#ffcccc', '#ffffcc'];
 
 const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElement => {
-    const { locale } = useRouter();
+    const locale = useLocale();
 
     return (
         <Fragment>

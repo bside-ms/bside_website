@@ -17,7 +17,7 @@ const HeaderBarMobile = (): ReactElement => {
     const { toggleNavigation } = useAppContext();
 
     return (
-        <header className="sticky inset-x-0 top-0 z-20">
+        <header className="sticky inset-x-0 top-0 z-[60]">
             <HeaderBanner />
 
             <div className="relative">
@@ -25,11 +25,11 @@ const HeaderBarMobile = (): ReactElement => {
                 <div className="absolute right-0 top-0 border-[50px] border-transparent border-r-white border-t-white" />
 
                 <div className="flex justify-between p-4">
-                    <div className="z-20 w-6" onClick={handleClickOnHeart}>
+                    <div className="z-[60] w-6" onClick={handleClickOnHeart}>
                         <Heart />
                     </div>
 
-                    <div className="z-20 w-6" onClick={toggleNavigation}>
+                    <div className="z-[60] w-6" onClick={toggleNavigation}>
                         <BurgerHeart />
                     </div>
                 </div>
