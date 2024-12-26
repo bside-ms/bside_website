@@ -37,7 +37,7 @@ const NewsTeaser = ({ news }: Props): ReactElement | null => {
                                     <Image
                                         src={media.url!}
                                         alt={media.alt}
-                                        className="aspect-[3/4] size-auto object-cover transition-all group-hover:scale-105"
+                                        className="aspect-[3/3] size-auto object-cover transition-all group-hover:scale-105"
                                         width={300}
                                         height={300}
                                     />
