@@ -39,7 +39,7 @@ const EventOverviewEntry = ({ event, areDisplayedOnHome }: Props): ReactElement 
             href={`/events/${createEventSlug(event)}`}
             className="group flex cursor-pointer shadow-md transition-shadow hover:shadow-lg"
         >
-            <div className="relative hidden min-h-[150px] w-[100px] shrink-0 min-[350px]:block min-[450px]:w-[150px]">
+            <div className="relative my-auto hidden size-[150px] shrink-0 min-[350px]:block">
                 {eventImageUrl === null ? (
                     <EventOverviewEntryImageFallback />
                 ) : (

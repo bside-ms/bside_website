@@ -124,7 +124,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                         ))
                     ) : groupByDay.length > 0 ? (
                         groupByDay.map(([date, events]) => (
-                            <div key={date.toString()} className="mb-6 space-y-4">
+                            <div key={date.toString()} className="mb-6 space-y-2.5">
                                 <div className="bg-black px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">
                                     {formatDate(date, 'EE dd. MMMM yy')}
                                 </div>
