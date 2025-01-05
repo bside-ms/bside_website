@@ -8,7 +8,7 @@ const getEventImageUrl = (image: MediaType | string | null | undefined): string 
     }
 
     if (isEventImageMedia(image)) {
-        return image.sizes?.event?.url ?? image.sizes?.thumbnail?.url ?? image.url ?? null;
+        return image.sizes?.event?.url ?? image.url ?? null;
     }
 
     return null;

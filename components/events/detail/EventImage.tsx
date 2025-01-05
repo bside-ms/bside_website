@@ -36,8 +36,7 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
         );
     }
 
-    const imageUrl =
-        eventImage.sizes?.event?.url ?? eventImage.sizes?.thumbnail?.url ?? eventImage.url;
+    const imageUrl = eventImage.sizes?.event?.url ?? eventImage.url;
 
     if (isEmptyString(imageUrl)) {
         return null;
