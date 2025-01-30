@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
-import { SiGithub, SiInstagram } from 'react-icons/si';
+import { SiGithub, SiInstagram, SiMastodon } from 'react-icons/si';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 
 const FooterLink = ({ linkUrl, linkText }: { linkUrl: string; linkText: string }): ReactElement => (
@@ -42,6 +42,21 @@ const Instagram = (): ReactElement => (
         >
             <SiInstagram className="inline" />
             <span className="ml-1 underline underline-offset-4">Instagram</span>
+        </Link>
+    </div>
+);
+
+const Mastodon = (): ReactElement => (
+    <div className="my-2">
+        <Link
+            href="https://muenster.im/@bside"
+            aria-label="Mastodon"
+            target="_blank"
+            className="italic hover:text-orange-500"
+            rel="me"
+        >
+            <SiMastodon className="inline" />
+            <span className="ml-1 underline underline-offset-4">Mastodon</span>
         </Link>
     </div>
 );
@@ -139,6 +154,7 @@ const Footer = (): ReactElement => {
                                 {locale !== 'en' ? 'Andere Plattformen' : 'Other platforms'}
                             </p>
                             <Instagram />
+                            <Mastodon />
                             <GithubLink />
                         </div>
                     </div>
