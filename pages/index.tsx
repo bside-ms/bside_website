@@ -78,7 +78,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                                 'lg:rounded-lg',
                                 'transition duration-300 ease-in-out hover:scale-105 hover:drop-shadow-md',
                             )}
-                            style={{ backgroundImage: `url(/assets/tmp/mittagstisch-banner.png)` }}
+                            style={{ backgroundImage: `url(/assets/mittagstisch/banner.png)` }}
                         />
                     </div>
                     <div className="mx-auto mb-8 h-auto w-80 outline outline-offset-2 outline-orange-500 transition duration-300 ease-in-out hover:scale-105 md:hidden">
@@ -87,7 +87,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                                 id="mobile-cafe-banner"
                                 className={clsx('my-4 size-full bg-cover bg-center', 'rounded-lg')}
                                 style={{
-                                    backgroundImage: `url(/assets/tmp/mittagstisch-square.png)`,
+                                    backgroundImage: `url(/assets/mittagstisch/square.png)`,
                                 }}
                             />
                         </div>
