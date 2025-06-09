@@ -9,6 +9,17 @@ import type { SlateChildren } from '@/types/payload/Blocks';
 import type { Media as MediaType } from '@/types/payload/payload-types';
 import InlineButton from '@blocks/buttonBlock/InlineButton';
 import HeadlineTag from 'components/blocks/headlineBlock/HeadlineTag';
+import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
+import isEmptyString from '@/lib/common/helper/isEmptyString';
+
+interface LinkSlateChild {
+    type: 'link';
+    linkType?: 'custom' | 'internal';
+    url: string | null;
+    newTab: boolean;
+    fields?: { appearance: 'link' | 'button' };
+    children: Array<{ text: string }>;
+}
 
 export interface RichTextUploadNodeType {
     value?: MediaType;
@@ -95,48 +106,52 @@ const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
     );
 };
 
-const serializeLink = (
-    nodeChildren: SlateChildren,
-    node: Record<string, unknown>,
-    index: number,
-): ReactElement => {
-    // @ts-expect-error Needs to be typed.
+const serializeLink = (node: LinkSlateChild, index: number): ReactElement => {
+    if (node.linkType === 'internal') {
+        // TODO: Add support for internal links - or prevent option in Payload. Also it seems to cause errors, when there's
+        //       an internal link to a doc that's not public, e.g. a user.
+        console.warn('Link type "internal" is currently not supported!');
+        return <></>
+    }
+
+    const linkText = node.children[0]?.text;
+
+    if (isEmptyString(node.url) || isEmptyString(linkText)) {
+        // Might accidentally happen while pasting copied text into the rich text editor, or by some other mistake.
+        console.warn('Unexpectedly link URL or text is empty');
+        return <></>;
+    }
+
     if (node.fields?.appearance === 'button') {
         return (
             <InlineButton
                 key={index}
-                title=""
-                text={nodeChildren[0] !== undefined ? (nodeChildren[0].text as string) : ''}
-                // @ts-expect-error Need to find more type safe solution in future
+                title={linkText}
+                text={linkText}
                 href={escapeHTML(node.url)}
-                target={node.newTab === true ? '_blank' : '_self'}
+                target={node.newTab ? '_blank' : '_self'}
             />
         );
     }
 
-    if ((node.url as string).startsWith('mailto:')) {
-        let mail = (node.url as string).substring(7);
+    if (isNotEmptyString(node.url) && node.url.startsWith('mailto:')) {
+        let mail = node.url.substring(7);
         mail = mail.startsWith('//') ? mail.substring(2) : mail;
         mail = mail.replace('.spam', '.ms');
 
         return (
-            <Obfuscate
-                email={mail}
-                key={`mail-${mail}`}
-                className="italic underline underline-offset-4 hover:text-orange-500 sm:text-lg"
-            />
+            <Obfuscate email={mail} key={`mail-${mail}`} className="italic underline underline-offset-4 hover:text-orange-500 sm:text-lg" />
         );
     }
+
     return (
         <Link
             key={index}
-            // @ts-expect-error Need to find more type safe solution in future
             href={escapeHTML(node.url)}
-            target={node.newTab === true ? '_blank' : '_self'}
+            target={node.newTab ? '_blank' : '_self'}
             className="italic underline underline-offset-4 hover:text-orange-500 sm:text-lg"
         >
-            {}
-            {serializeRichTextToHtml(nodeChildren)}
+            {linkText}
         </Link>
     );
 };
@@ -164,7 +179,7 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
                 );
 
             case 'link':
-                return serializeLink(nodeChildren, node, index);
+                return serializeLink(node as unknown as LinkSlateChild, index);
 
             case 'ul':
                 return (
