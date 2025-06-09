@@ -27,9 +27,7 @@ const App = ({ Component, pageProps }: AppProps): ReactElement => {
                 phpTrackerFile: 'lernen.php',
                 jsTrackerFile: 'lernen.js',
                 onRouteChangeStart: async (path: string) => {
-                    await fetch(
-                        `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/notify?s=${path}`,
-                    ).then();
+                    await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/notify?s=${path}`).then();
                 },
             });
         }

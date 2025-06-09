@@ -7,12 +7,7 @@ interface ParallaxScrollImageProps extends ScrollImage {
     scrollY: number;
 }
 
-const ParallaxScrollImage = ({
-    image,
-    display,
-    fade,
-    scrollY,
-}: ParallaxScrollImageProps): ReactElement => {
+const ParallaxScrollImage = ({ image, display, fade, scrollY }: ParallaxScrollImageProps): ReactElement => {
     const opacity = useMemo(() => {
         if (display !== undefined) {
             if (scrollY >= display.begin && scrollY < display.end) {

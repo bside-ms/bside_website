@@ -24,8 +24,7 @@ const NewsPagination = ({ paginatedNews: paginatedNews }: Props): ReactElement |
         return null;
     }
 
-    const prevLink =
-        paginatedNews.prevPage === 1 ? '/news' : `/news/pages/${paginatedNews.prevPage}`;
+    const prevLink = paginatedNews.prevPage === 1 ? '/news' : `/news/pages/${paginatedNews.prevPage}`;
 
     return (
         <Pagination className="mt-8">
@@ -33,10 +32,7 @@ const NewsPagination = ({ paginatedNews: paginatedNews }: Props): ReactElement |
                 {paginatedNews.hasPrevPage && (
                     <>
                         <PaginationItem>
-                            <PaginationPrevious
-                                href={prevLink}
-                                title={locale === 'de' ? 'Zurück' : 'Previous'}
-                            />
+                            <PaginationPrevious href={prevLink} title={locale === 'de' ? 'Zurück' : 'Previous'} />
                         </PaginationItem>
 
                         {paginatedNews.prevPage !== 1 && (
@@ -46,17 +42,13 @@ const NewsPagination = ({ paginatedNews: paginatedNews }: Props): ReactElement |
                                 </PaginationItem>
 
                                 <PaginationItem>
-                                    <PaginationEllipsis
-                                        title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
-                                    />
+                                    <PaginationEllipsis title={locale === 'de' ? 'Mehr Seiten' : 'More pages'} />
                                 </PaginationItem>
                             </>
                         )}
 
                         <PaginationItem>
-                            <PaginationLinkInternal href={prevLink}>
-                                {paginatedNews.page - 1}
-                            </PaginationLinkInternal>
+                            <PaginationLinkInternal href={prevLink}>{paginatedNews.page - 1}</PaginationLinkInternal>
                         </PaginationItem>
                     </>
                 )}
@@ -78,25 +70,18 @@ const NewsPagination = ({ paginatedNews: paginatedNews }: Props): ReactElement |
                         {paginatedNews.nextPage !== paginatedNews.totalPages && (
                             <>
                                 <PaginationItem>
-                                    <PaginationLink
-                                        href={`/news/pages/${paginatedNews.totalPages}`}
-                                    >
+                                    <PaginationLink href={`/news/pages/${paginatedNews.totalPages}`}>
                                         {paginatedNews.totalPages}
                                     </PaginationLink>
                                 </PaginationItem>
                                 <PaginationItem>
-                                    <PaginationEllipsis
-                                        title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
-                                    />
+                                    <PaginationEllipsis title={locale === 'de' ? 'Mehr Seiten' : 'More pages'} />
                                 </PaginationItem>
                             </>
                         )}
 
                         <PaginationItem>
-                            <PaginationNext
-                                href={`/news/pages/${paginatedNews.page + 1}`}
-                                title={locale === 'de' ? 'Weiter' : 'Next'}
-                            />
+                            <PaginationNext href={`/news/pages/${paginatedNews.page + 1}`} title={locale === 'de' ? 'Weiter' : 'Next'} />
                         </PaginationItem>
                     </>
                 )}

@@ -17,9 +17,7 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-    const aboutResponse = await getPayloadResponse<AboutBside>(
-        `/api/globals/about-bside/?locale=${locale}`,
-    );
+    const aboutResponse = await getPayloadResponse<AboutBside>(`/api/globals/about-bside/?locale=${locale}`);
 
     return {
         revalidate: 300,
@@ -33,10 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 export default ({ about }: Props): ReactElement => {
     try {
         const router = useRouter();
-        if (
-            !router.asPath.startsWith('/_next') &&
-            !process.env.NEXT_PUBLIC_FRONTEND_URL.startsWith('http://localhost')
-        ) {
+        if (!router.asPath.startsWith('/_next') && !process.env.NEXT_PUBLIC_FRONTEND_URL.startsWith('http://localhost')) {
             createPayloadEntry('/api/not-found-pages', {
                 slug: router.asPath,
             }).then();
@@ -54,12 +49,7 @@ export default ({ about }: Props): ReactElement => {
                 <div className="py-1" />
 
                 <ContentWrapper>
-                    <Headline
-                        title="Diese Seite wurde nicht gefunden nicht gefunden."
-                        teaser="404"
-                        level="h1"
-                        as="h2"
-                    />
+                    <Headline title="Diese Seite wurde nicht gefunden nicht gefunden." teaser="404" level="h1" as="h2" />
 
                     <div className="py-4" />
 
@@ -85,12 +75,7 @@ export default ({ about }: Props): ReactElement => {
 
                     <div className="py-4" />
 
-                    <Headline
-                        title="Bist du vielleicht an einer dieser Informationen interessiert?"
-                        teaser=""
-                        level="h2"
-                        as="h3"
-                    />
+                    <Headline title="Bist du vielleicht an einer dieser Informationen interessiert?" teaser="" level="h2" as="h3" />
 
                     <div className="py-4" />
 

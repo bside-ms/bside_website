@@ -26,6 +26,6 @@ This project uses **Docker Hub Automated Builds** for continuous deployment:
     - `main` branch → Production environment variables (`latest` tag)
     - `dev` branch → Development environment variables (`latest-test` tag)
 4. **Image Tagging**: The built image is tagged with the git commit hash and branch-specific tags:
-   - `main` → `seebruecke/bside-website:a1b2c3d` + `seebruecke/bside-website:latest`
-   - `dev` → `seebruecke/bside-website:b2c3d4e` + `seebruecke/bside-website:latest-test`
+    - `main` → `seebruecke/bside-website:a1b2c3d` + `seebruecke/bside-website:latest`
+    - `dev` → `seebruecke/bside-website:b2c3d4e` + `seebruecke/bside-website:latest-test`
 5. **Registry Push**: The image is automatically pushed to Docker Hub

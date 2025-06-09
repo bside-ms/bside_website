@@ -13,11 +13,7 @@ interface EventOverviewBlockProps {
     eventsOnPage?: EventsOnPage;
 }
 
-const EventsOverviewBlock = ({
-    headlineText,
-    richText,
-    eventsOnPage,
-}: EventOverviewBlockProps): ReactElement => {
+const EventsOverviewBlock = ({ headlineText, richText, eventsOnPage }: EventOverviewBlockProps): ReactElement => {
     return (
         <>
             <ContentWrapper className="">

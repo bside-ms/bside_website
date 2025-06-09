@@ -3,11 +3,7 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import type { ContentProps } from '@/types/payload/Blocks';
 import ColumnsContent from 'components/blocks/textBlock/ColumnsContent';
 
-const ContentBlock = ({
-    backgroundColor,
-    backgroundWidth,
-    columns,
-}: ContentProps): ReactElement | null => {
+const ContentBlock = ({ backgroundColor, backgroundWidth, columns }: ContentProps): ReactElement | null => {
     if (backgroundWidth === 'full' && backgroundColor === 'black') {
         return (
             <div className="grow">

@@ -7,10 +7,7 @@ interface Props<T> {
     children: (response: PaginatedDocs['docs']) => ReactElement;
 }
 
-const SwrResponseWrapper = <T,>({
-    response: { data, error },
-    children,
-}: Props<T>): ReactElement => {
+const SwrResponseWrapper = <T,>({ response: { data, error }, children }: Props<T>): ReactElement => {
     if (error !== undefined) {
         return (
             <div>

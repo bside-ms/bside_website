@@ -18,15 +18,7 @@ interface Props {
     effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
 }
 
-const MediaContentOverlay = ({
-    media,
-    richText,
-    headlineText,
-    headlineTeaser,
-    buttonText,
-    buttonHref,
-    effects,
-}: Props): ReactElement => {
+const MediaContentOverlay = ({ media, richText, headlineText, headlineTeaser, buttonText, buttonHref, effects }: Props): ReactElement => {
     return (
         <>
             <div className="w-full p-4 lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
@@ -45,14 +37,7 @@ const MediaContentOverlay = ({
             <div className="-mb-24 -translate-y-20 px-4 md:-mb-20 md:-translate-y-20 md:px-0">
                 <ContentWrapper>
                     <div className="bg-black p-6 text-white">
-                        {!isEmptyString(headlineText) && (
-                            <Headline
-                                title={headlineText}
-                                teaser={headlineTeaser ?? ''}
-                                level="h3"
-                                as="h2"
-                            />
-                        )}
+                        {!isEmptyString(headlineText) && <Headline title={headlineText} teaser={headlineTeaser ?? ''} level="h3" as="h2" />}
                         <div className="mt-3 md:text-lg">
                             <RichText content={richText} />
                         </div>

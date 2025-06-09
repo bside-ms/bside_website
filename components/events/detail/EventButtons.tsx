@@ -22,9 +22,7 @@ const EventButtons = ({ event }: Props): ReactElement => {
                 >
                     <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" />
 
-                    <div className="text-center">
-                        {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
-                    </div>
+                    <div className="text-center">{locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}</div>
                 </Link>
             </div>
 

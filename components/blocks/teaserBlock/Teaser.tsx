@@ -6,15 +6,7 @@ import Headline from '@blocks/headlineBlock/Headline';
 import RichText from '@blocks/richTextBlock/RichText';
 import type { TeaserBlockProps } from '@blocks/teaserBlock/TeaserBlock';
 
-const Teaser = ({
-    headlineTitle,
-    headlineTeaser,
-    text,
-    image,
-    reversed,
-    linkText,
-    linkHref,
-}: TeaserBlockProps): ReactElement => {
+const Teaser = ({ headlineTitle, headlineTeaser, text, image, reversed, linkText, linkHref }: TeaserBlockProps): ReactElement => {
     return (
         <div className="mx-auto grid w-[60rem] grid-cols-2">
             {reversed && (
@@ -34,12 +26,7 @@ const Teaser = ({
             <div className={clsx('z-10 my-auto w-[30rem] flex-1 bg-black', !reversed && 'ml-2')}>
                 <div className="flex h-[32rem] p-8 text-white">
                     <div className="my-auto grow">
-                        <Headline
-                            title={headlineTitle}
-                            teaser={headlineTeaser}
-                            level="h3"
-                            as="h2"
-                        />
+                        <Headline title={headlineTitle} teaser={headlineTeaser} level="h3" as="h2" />
 
                         <div className="my-4">
                             <RichText content={text} />

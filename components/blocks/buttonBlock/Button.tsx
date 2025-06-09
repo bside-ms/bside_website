@@ -14,13 +14,8 @@ interface Props {
 
 const Button = ({ title, href, text, target = '_self', inverse = false }: Props): ReactElement => {
     return (
-        <div
-            key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : `cta-${toKebabCase(text)}`}
-            className="mx-auto py-4 text-center"
-        >
-            {!isEmptyString(title) && (
-                <div className="mb-1 font-serif text-xl font-bold md:mb-3 md:text-2xl">{title}</div>
-            )}
+        <div key={!isEmptyString(title) ? `cta-${toKebabCase(title)}` : `cta-${toKebabCase(text)}`} className="mx-auto py-4 text-center">
+            {!isEmptyString(title) && <div className="mb-1 font-serif text-xl font-bold md:mb-3 md:text-2xl">{title}</div>}
 
             <Link
                 href={href}

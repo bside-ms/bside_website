@@ -5,12 +5,9 @@ const getPayloadResponse = async <T>(path: string, preview: boolean = false): Pr
             : `${process.env.PAYLOAD_API_COLLECTION} API-Key none`,
     });
 
-    const fetchResponse = await fetch(
-        `${process.env.PAYLOAD_URL}${path}${preview ? '&draft=true' : ''}`,
-        {
-            headers,
-        },
-    );
+    const fetchResponse = await fetch(`${process.env.PAYLOAD_URL}${path}${preview ? '&draft=true' : ''}`, {
+        headers,
+    });
 
     if (!fetchResponse.ok) {
         throw new Error(`Error code ${fetchResponse.status} while fetching ${path}: ${fetchResponse.statusText}`);

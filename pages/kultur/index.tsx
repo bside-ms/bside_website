@@ -43,8 +43,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
             <NextHead
                 title={organisation.meta?.title ?? 'Kultur e.V.'}
                 description={
-                    organisation.meta?.description ??
-                    'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'
+                    organisation.meta?.description ?? 'Der B-Side Kultur e.V. ist der gemeinnützige Kulturverein innerhalb der B-Side.'
                 }
                 url={`${getPublicClientUrl(locale)}/kultur`}
             />
@@ -60,14 +59,8 @@ export default ({ organisation, circles }: Props): ReactElement => {
                     />
 
                     <SubNavigation>
-                        <SubNavigationLink
-                            title={locale === 'de' ? 'Arbeitskreise' : 'Working Groups'}
-                            anchor="kreise"
-                        />
-                        <SubNavigationLink
-                            title={locale === 'de' ? 'Veranstaltungen' : 'Events'}
-                            anchor="veranstaltungen"
-                        />
+                        <SubNavigationLink title={locale === 'de' ? 'Arbeitskreise' : 'Working Groups'} anchor="kreise" />
+                        <SubNavigationLink title={locale === 'de' ? 'Veranstaltungen' : 'Events'} anchor="veranstaltungen" />
                         {isMd && (
                             <SubNavigationLink
                                 title={locale === 'de' ? 'Unterstützen' : 'Support Us'}

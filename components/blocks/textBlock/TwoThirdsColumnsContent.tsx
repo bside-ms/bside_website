@@ -8,7 +8,7 @@ interface Props {
     secondColumn?: ContentColumnProps;
 }
 
-const TwoThirdsColumnsContent = ({ firstColumn, secondColumn, }: Props): ReactElement => {
+const TwoThirdsColumnsContent = ({ firstColumn, secondColumn }: Props): ReactElement => {
     if (secondColumn === undefined) {
         console.warn('Falling back to full column instead of twoThirds since second column is missing');
 

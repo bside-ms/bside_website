@@ -7,10 +7,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import isEmptyNumber from '@/lib/common/helper/isEmptyNumber';
 import type { MediaBlockProps } from '@/types/payload/Blocks';
 
-const WideMediaBlock = (
-    url: string,
-    effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>,
-): ReactElement | null => {
+const WideMediaBlock = (url: string, effects: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>): ReactElement | null => {
     return (
         <div className="w-full px-4 lg:mx-auto lg:w-[60rem] xl:w-[80rem]">
             <div
@@ -28,12 +25,7 @@ const WideMediaBlock = (
     );
 };
 
-const MediaBlock = ({
-    media,
-    caption,
-    size,
-    effects,
-}: MediaBlockProps): ReactElement | null => {
+const MediaBlock = ({ media, caption, size, effects }: MediaBlockProps): ReactElement | null => {
     if (typeof media === 'string') {
         console.warn('Unexpectedly media is just a string, this is not supported.');
         return null;

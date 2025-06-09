@@ -6,15 +6,7 @@ import HeadlineTag from '@blocks/headlineBlock/HeadlineTag';
 
 export type HeadlineLevel = 'h1' | 'h2' | 'h3' | 'h4';
 
-const Headline = ({
-    title,
-    anchor,
-    teaser,
-    level,
-    as = null,
-    teaserLink = '',
-    textClass = '',
-}: HeadlineBlockProps): ReactElement => {
+const Headline = ({ title, anchor, teaser, level, as = null, teaserLink = '', textClass = '' }: HeadlineBlockProps): ReactElement => {
     const renderedLevel = as ?? level;
 
     return (

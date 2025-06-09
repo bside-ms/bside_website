@@ -34,13 +34,7 @@ const TeaserBlock = ({
     if (isLg) {
         return (
             <div className="grow">
-                <div
-                    className={clsx(
-                        'mx-auto my-8 w-full',
-                        previousBlock === 'teaser' && '!-mt-8',
-                        nextBlock === 'teaser' && '!-mb-8',
-                    )}
-                >
+                <div className={clsx('mx-auto my-8 w-full', previousBlock === 'teaser' && '!-mt-8', nextBlock === 'teaser' && '!-mb-8')}>
                     <Teaser
                         headlineTitle={headlineTitle}
                         headlineTeaser={headlineTeaser}

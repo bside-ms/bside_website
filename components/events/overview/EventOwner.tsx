@@ -8,9 +8,7 @@ import type { Circle, Organisation } from '@/types/payload/payload-types';
 const EventOwner = ({
     owner,
 }: {
-    owner:
-        | { value: string | Organisation; relationTo: 'organisations' }
-        | { value: string | Circle; relationTo: 'circles' };
+    owner: { value: string | Organisation; relationTo: 'organisations' } | { value: string | Circle; relationTo: 'circles' };
 }): ReactElement => {
     const locale = useLocale();
 
@@ -21,11 +19,7 @@ const EventOwner = ({
                 key={`event-owner-${organisation.id}`}
                 href={createOrganisationLink(organisation)}
                 className="z-10 my-auto truncate border-b border-black px-1 text-sm italic leading-6 text-black hover:border-b-orange-500 hover:text-orange-500"
-                aria-label={
-                    locale === 'de'
-                        ? `Erfahre mehr über ${organisation.name}`
-                        : `Learn more about ${organisation.name}`
-                }
+                aria-label={locale === 'de' ? `Erfahre mehr über ${organisation.name}` : `Learn more about ${organisation.name}`}
             >
                 {organisation.name}
             </Link>
@@ -39,11 +33,7 @@ const EventOwner = ({
             key={`event-owner-${circle.id}`}
             href={createCircleLink(circle)}
             className="z-10 my-auto truncate border-b border-black px-1 text-sm italic leading-6 text-black hover:border-b-orange-500 hover:text-orange-500"
-            aria-label={
-                locale === 'de'
-                    ? `Erfahre mehr über ${circle.name}`
-                    : `Learn more about ${circle.name}`
-            }
+            aria-label={locale === 'de' ? `Erfahre mehr über ${circle.name}` : `Learn more about ${circle.name}`}
         >
             {circle.name}
         </Link>

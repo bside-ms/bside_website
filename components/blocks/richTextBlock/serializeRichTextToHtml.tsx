@@ -27,12 +27,7 @@ export interface RichTextUploadNodeType {
 }
 
 const serializeText = (node: Record<string, unknown> & Text, index: number): ReactElement => {
-    let text = (
-        <span
-            key={index}
-            dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replaceAll(/\n/g, '<br/>') }}
-        />
-    );
+    let text = <span key={index} dangerouslySetInnerHTML={{ __html: escapeHTML(node.text).replaceAll(/\n/g, '<br/>') }} />;
 
     if (node.bold === true) {
         text = (
@@ -75,10 +70,7 @@ const serializeText = (node: Record<string, unknown> & Text, index: number): Rea
 
 const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
     const justify =
-        typeof node.fields === 'object' &&
-        node.fields !== null &&
-        'alignment' in node.fields &&
-        typeof node.fields.alignment === 'string'
+        typeof node.fields === 'object' && node.fields !== null && 'alignment' in node.fields && typeof node.fields.alignment === 'string'
             ? node.fields.alignment
             : 'center';
 
@@ -111,7 +103,7 @@ const serializeLink = (node: LinkSlateChild, index: number): ReactElement => {
         // TODO: Add support for internal links - or prevent option in Payload. Also it seems to cause errors, when there's
         //       an internal link to a doc that's not public, e.g. a user.
         console.warn('Link type "internal" is currently not supported!');
-        return <></>
+        return <></>;
     }
 
     const linkText = node.children[0]?.text;
@@ -172,9 +164,7 @@ const serializeRichTextToHtml = (children: SlateChildren): Array<ReactElement | 
             case 'h4':
                 return (
                     <div key={index} className="mb-1 mt-4">
-                        <HeadlineTag level={nodeType}>
-                            {serializeRichTextToHtml(nodeChildren)}
-                        </HeadlineTag>
+                        <HeadlineTag level={nodeType}>{serializeRichTextToHtml(nodeChildren)}</HeadlineTag>
                     </div>
                 );
 

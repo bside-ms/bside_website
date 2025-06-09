@@ -32,10 +32,7 @@ const MobileNavigationOverlay = (): ReactElement | null => {
                 >
                     <g transform="translate(-36 -21)">
                         <g transform="translate(64 -26.663)">
-                            <path
-                                d="M510.18,233.18,272.039,29.857,0,217.033V640.254L655.117,1139.33Z"
-                                transform="translate(0 40.544)"
-                            />
+                            <path d="M510.18,233.18,272.039,29.857,0,217.033V640.254L655.117,1139.33Z" transform="translate(0 40.544)" />
                         </g>
                     </g>
                 </svg>

@@ -14,11 +14,7 @@ const ReusableBlockLayout = ({ layout, circles, eventsOnPage }: Props): ReactEle
         <>
             {layout?.map((layoutElement, index) => (
                 <ReusableBlocks
-                    key={
-                        layoutElement.id ??
-                        layoutElement.blockName ??
-                        `${layoutElement.blockType}${index}`
-                    }
+                    key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
                     layoutElement={layoutElement}
                     circles={circles}
                     previousBlock={layout[index - 1]?.blockType ?? 'none'}

@@ -13,12 +13,7 @@ import NextHead from '@/components/layout/next/NextHead';
 import formatDate from '@/lib/common/helper/formatDate';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { getPublicClientUrl, processSlug } from '@/lib/common/url';
-import {
-    createNewsSlug,
-    fetchNewsByIdentifier,
-    getCircleOrOrganisationName,
-    getNewsCategory,
-} from '@/lib/news/news';
+import { createNewsSlug, fetchNewsByIdentifier, getCircleOrOrganisationName, getNewsCategory } from '@/lib/news/news';
 import getPayloadResponse from '@/lib/payload/getPayloadResponse';
 import type PaginatedDocs from '@/types/payload/PaginatedDocs';
 import type { Media, News } from '@/types/payload/payload-types';
@@ -97,8 +92,7 @@ export default ({ news: initialNews }: Props): ReactElement => {
                             <strong>
                                 <i>{getNewsCategory(news.newsCategory, locale)}</i>
                             </strong>{' '}
-                            - {formatDate(news.newsDate, 'dd.MM.yyyy')} -{' '}
-                            {getCircleOrOrganisationName(news.newsAuthor)}
+                            - {formatDate(news.newsDate, 'dd.MM.yyyy')} - {getCircleOrOrganisationName(news.newsAuthor)}
                         </small>
 
                         <div className="max-w-full">
@@ -106,13 +100,7 @@ export default ({ news: initialNews }: Props): ReactElement => {
                         </div>
                     </>
                     <div className="float-right p-4">
-                        <Image
-                            src={media.url!}
-                            alt=""
-                            width={400}
-                            height={400}
-                            className="py-4 lg:p-4"
-                        />
+                        <Image src={media.url!} alt="" width={400} height={400} className="py-4 lg:p-4" />
                     </div>
                 </ContentWrapper>
 
@@ -123,11 +111,7 @@ export default ({ news: initialNews }: Props): ReactElement => {
                         href="/news"
                         className="mt-4 flex items-center gap-2 underline underline-offset-4 hover:text-orange-500 md:text-lg"
                     >
-                        <FontAwesomeIcon
-                            icon={faArrowAltCircleLeft}
-                            height={16}
-                            className="inline"
-                        />{' '}
+                        <FontAwesomeIcon icon={faArrowAltCircleLeft} height={16} className="inline" />{' '}
                         {locale === 'de' ? 'Zurück zur Übersicht' : 'Back to overview'}
                     </Link>
                 </ContentWrapper>

@@ -18,11 +18,7 @@ interface Props {
     allEventDates: Array<Date>;
 }
 
-const EventsDateRangeFilter = ({
-    filteredDateRange,
-    setFilteredDateRange,
-    allEventDates,
-}: Props) => {
+const EventsDateRangeFilter = ({ filteredDateRange, setFilteredDateRange, allEventDates }: Props) => {
     const formatDate = useFormatDate();
     const dateFnsLocale = useDateFnsLocale();
     const locale = useLocale();
@@ -37,19 +33,13 @@ const EventsDateRangeFilter = ({
         <div className="grid gap-2">
             <Popover>
                 <PopoverTrigger asChild={true}>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="justify-start text-left font-normal"
-                    >
+                    <Button variant="outline" size="sm" className="justify-start text-left font-normal">
                         <CalendarIcon className="mr-2 size-4" />
 
                         {filteredDateRange?.from !== undefined ? (
-                            filteredDateRange.to !== undefined &&
-                            !isSameDay(filteredDateRange.from, filteredDateRange.to) ? (
+                            filteredDateRange.to !== undefined && !isSameDay(filteredDateRange.from, filteredDateRange.to) ? (
                                 <>
-                                    {formatDate(filteredDateRange.from, 'dd.MM.yyyy')} -{' '}
-                                    {formatDate(filteredDateRange.to, 'dd.MM.yyyy')}
+                                    {formatDate(filteredDateRange.from, 'dd.MM.yyyy')} - {formatDate(filteredDateRange.to, 'dd.MM.yyyy')}
                                 </>
                             ) : (
                                 formatDate(filteredDateRange.from, 'dd.MM.yyyy')

@@ -5,13 +5,7 @@ interface SvgProps {
 }
 
 export const SvgHouse = ({ className }: SvgProps): ReactElement => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 210 210"
-        version="1.1"
-        id="svg854"
-        className={className}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" version="1.1" id="svg854" className={className}>
         <defs id="defs851" />
         <g id="layer1">
             <g id="g1041" transform="matrix(1.7043619,0,0,1.7043619,-746.9589,-767.16946)">

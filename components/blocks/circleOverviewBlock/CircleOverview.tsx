@@ -38,11 +38,7 @@ const CircleOverview = ({ headlineText, circles, richText }: Props): ReactElemen
                                 <div className="group relative flex cursor-pointer items-center justify-between border-b border-gray-300 px-4 py-1">
                                     <div className="z-10 transition-all duration-100 group-hover:text-black lg:text-lg">
                                         <p className="font-serif">{circle.name}</p>
-                                        {!isEmptyString(circle.description) && (
-                                            <p className="text-sm lg:text-base">
-                                                {circle.description}
-                                            </p>
-                                        )}
+                                        {!isEmptyString(circle.description) && <p className="text-sm lg:text-base">{circle.description}</p>}
                                     </div>
                                     <div
                                         className="absolute inset-0 opacity-0 transition-all duration-100 group-hover:opacity-100"

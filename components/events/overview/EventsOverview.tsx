@@ -27,12 +27,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
     const [filteredCategories, setFilteredCategories] = useState<Array<EventCategory>>([]);
     const [filteredDateRange, setFilteredDateRange] = useState<DateRange | undefined>();
 
-    const [paginatedEvents, isLoading] = useAllEvents(
-        eventsOnPage,
-        page,
-        filteredCategories,
-        filteredDateRange,
-    );
+    const [paginatedEvents, isLoading] = useAllEvents(eventsOnPage, page, filteredCategories, filteredDateRange);
 
     const areDisplayedOnHome = eventsOnPage?.filter === 'Home';
 
@@ -75,10 +70,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
         eventsScrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, []);
 
-    const hasPagination =
-        eventsOnPage?.withPagination === true &&
-        paginatedEvents !== undefined &&
-        paginatedEvents.totalPages > 1;
+    const hasPagination = eventsOnPage?.withPagination === true && paginatedEvents !== undefined && paginatedEvents.totalPages > 1;
 
     const formatDate = useFormatDate();
 
@@ -86,11 +78,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
         <div className="relative">
             <div ref={eventsScrollAnchorRef} className="absolute -top-32 md:-top-24" />
 
-            {!isEmptyString(title) && (
-                <div className="mb-3 text-center font-serif text-xl font-bold md:text-2xl">
-                    {title}
-                </div>
-            )}
+            {!isEmptyString(title) && <div className="mb-3 text-center font-serif text-xl font-bold md:text-2xl">{title}</div>}
 
             {eventsOnPage?.withFilters === true && (
                 <div className="mb-3 flex gap-3">
@@ -103,9 +91,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                     <EventsDateRangeFilter
                         filteredDateRange={filteredDateRange}
                         setFilteredDateRange={setFilteredDateRange}
-                        allEventDates={
-                            allEvents?.docs.map((event) => new Date(event.eventDate)) ?? []
-                        }
+                        allEventDates={allEvents?.docs.map((event) => new Date(event.eventDate)) ?? []}
                     />
                 </div>
             )}
@@ -115,9 +101,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                     {isLoading ? (
                         range(eventsOnPage?.perPage ?? 5).map((index) => (
                             <div key={index} className="mb-6 space-y-4">
-                                <div className="bg-gray-300 px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">
-                                    &nbsp;
-                                </div>
+                                <div className="bg-gray-300 px-3 py-1 font-serif font-bold text-white md:px-4 md:py-2">&nbsp;</div>
 
                                 <EventOverviewEntryPlaceholder key={index} />
                             </div>
@@ -130,11 +114,7 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
                                 </div>
 
                                 {events.map((event) => (
-                                    <EventOverviewEntry
-                                        key={event.id}
-                                        event={event}
-                                        areDisplayedOnHome={areDisplayedOnHome}
-                                    />
+                                    <EventOverviewEntry key={event.id} event={event} areDisplayedOnHome={areDisplayedOnHome} />
                                 ))}
                             </div>
                         ))
@@ -146,22 +126,14 @@ const EventsOverview = ({ title = '', eventsOnPage }: Props): ReactElement => {
 
                             <div className="flex gap-3 py-1 md:py-2">
                                 <div className="w-full">
-                                    {locale === 'de'
-                                        ? 'Hier gibt es aktuell keine Termine.'
-                                        : 'There are currently no events.'}
+                                    {locale === 'de' ? 'Hier gibt es aktuell keine Termine.' : 'There are currently no events.'}
                                 </div>
                             </div>
                         </div>
                     )}
                 </div>
 
-                {hasPagination && (
-                    <EventsPagination
-                        paginatedEvents={paginatedEvents}
-                        page={page}
-                        setPage={handleSetPage}
-                    />
-                )}
+                {hasPagination && <EventsPagination paginatedEvents={paginatedEvents} page={page} setPage={handleSetPage} />}
             </div>
         </div>
     );

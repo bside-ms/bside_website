@@ -67,8 +67,7 @@ const EventDetails = ({
                 <span className="sm:text-lg">{formatDate(eventDate, 'EE dd. MMM yy')}</span>
 
                 <span className="sm:text-lg">
-                    {formatDate(eventStart, 'HH:mm')}{' '}
-                    {isNotEmptyString(eventEnd) && `- ${formatDate(eventEnd, 'HH:mm')}`}
+                    {formatDate(eventStart, 'HH:mm')} {isNotEmptyString(eventEnd) && `- ${formatDate(eventEnd, 'HH:mm')}`}
                 </span>
             </div>
 
@@ -83,29 +82,21 @@ const EventDetails = ({
 
             {isNotEmptyString(eventExtra) && (
                 <>
-                    <div className="gap-3 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg md:py-2">
-                        {eventExtra}
-                    </div>
+                    <div className="gap-3 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg md:py-2">{eventExtra}</div>
 
                     <hr className="mx-auto w-1/3 border border-black" />
                 </>
             )}
 
-            <div className="gap-3 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg md:py-2">
-                {eventLocation}
-            </div>
+            <div className="gap-3 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg md:py-2">{eventLocation}</div>
 
-            <div className="bg-black px-3 py-1 font-serif text-lg font-bold text-white sm:py-2 sm:text-2xl md:px-4">
-                {title}
-            </div>
+            <div className="bg-black px-3 py-1 font-serif text-lg font-bold text-white sm:py-2 sm:text-2xl md:px-4">{title}</div>
 
             <RichText className="mt-2 sm:text-lg md:mt-4" content={richText} />
 
             {isNotEmptyString(eventOrganizer) ? (
                 <>
-                    <div className="mt-2 font-bold sm:text-lg md:mt-4">
-                        {locale === 'de' ? 'Veranstaltet von:' : 'Organized by:'}
-                    </div>
+                    <div className="mt-2 font-bold sm:text-lg md:mt-4">{locale === 'de' ? 'Veranstaltet von:' : 'Organized by:'}</div>
 
                     <div className="sm:text-lg">{eventOrganizer}</div>
                 </>
@@ -116,11 +107,7 @@ const EventDetails = ({
                         <hr className="mx-auto mt-3 w-1/3 border border-black" />
 
                         <div className="gap-2 px-3 py-1 text-center font-serif sm:px-4 sm:text-lg md:py-2">
-                            {eventOwners
-                                .map(({ value }) =>
-                                    typeof value === 'string' ? value : value.name,
-                                )
-                                .join(' – ')}
+                            {eventOwners.map(({ value }) => (typeof value === 'string' ? value : value.name)).join(' – ')}
                         </div>
                     </>
                 )

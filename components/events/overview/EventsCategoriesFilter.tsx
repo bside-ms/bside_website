@@ -2,13 +2,7 @@ import { CheckIcon } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-    Command,
-    CommandGroup,
-    CommandItem,
-    CommandList,
-    CommandSeparator,
-} from '@/components/ui/command';
+import { Command, CommandGroup, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { PiFunnel, PiFunnelFill } from 'react-icons/pi';
@@ -25,11 +19,7 @@ interface Props {
     setFilteredCategories: Dispatch<SetStateAction<Array<EventCategory>>>;
 }
 
-const EventsCategoriesFilter = ({
-    eventsOnPage,
-    filteredCategories,
-    setFilteredCategories,
-}: Props) => {
+const EventsCategoriesFilter = ({ eventsOnPage, filteredCategories, setFilteredCategories }: Props) => {
     const locale = useLocale();
 
     const allAvailableCategories = useAvailableCategoryFilters(eventsOnPage);
@@ -68,10 +58,7 @@ const EventsCategoriesFilter = ({
 
                             <div className="space-x-1 lg:flex">
                                 {filteredCategories.length > 2 ? (
-                                    <Badge
-                                        variant="secondary"
-                                        className="rounded-sm px-1 font-normal"
-                                    >
+                                    <Badge variant="secondary" className="rounded-sm px-1 font-normal">
                                         {locale === 'de'
                                             ? `${filteredCategories.length} ausgewählt`
                                             : `${filteredCategories.length} selected`}
@@ -80,11 +67,7 @@ const EventsCategoriesFilter = ({
                                     allAvailableCategories
                                         .filter((category) => filteredCategories.includes(category))
                                         .map((category) => (
-                                            <Badge
-                                                variant="secondary"
-                                                key={category}
-                                                className="rounded-sm px-1 font-normal"
-                                            >
+                                            <Badge variant="secondary" key={category} className="rounded-sm px-1 font-normal">
                                                 {getEventCategoryTitle(category)}
                                             </Badge>
                                         ))
@@ -111,9 +94,7 @@ const EventsCategoriesFilter = ({
                                         <div
                                             className={cn(
                                                 'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                                                isSelected
-                                                    ? 'bg-primary text-primary-foreground'
-                                                    : 'opacity-50 [&_svg]:invisible',
+                                                isSelected ? 'bg-primary text-primary-foreground' : 'opacity-50 [&_svg]:invisible',
                                             )}
                                         >
                                             <CheckIcon className={cn('h-4 w-4')} />
@@ -129,10 +110,7 @@ const EventsCategoriesFilter = ({
                             <>
                                 <CommandSeparator />
                                 <CommandGroup>
-                                    <CommandItem
-                                        onSelect={clearFilteredCategories}
-                                        className="cursor-pointer justify-center text-center"
-                                    >
+                                    <CommandItem onSelect={clearFilteredCategories} className="cursor-pointer justify-center text-center">
                                         {locale === 'de' ? 'Filter entfernen' : 'Clear filters'}
                                     </CommandItem>
                                 </CommandGroup>

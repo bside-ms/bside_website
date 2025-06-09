@@ -21,39 +21,20 @@ const MediaContentBlock = ({
     }
 
     if (alignment === 'contentOnBottom') {
-        return (
-            <MediaContentOverlay
-                media={media}
-                richText={richText}
-                headlineText={headline ?? undefined}
-                effects={effects ?? []}
-            />
-        );
+        return <MediaContentOverlay media={media} richText={richText} headlineText={headline ?? undefined} effects={effects ?? []} />;
     }
 
     if (backgroundColor === 'black') {
         return (
             <div className="grow">
                 <div className="bg-black text-white">
-                    <MediaContent
-                        media={media}
-                        richText={richText}
-                        alignment={alignment}
-                        effects={effects ?? []}
-                    />
+                    <MediaContent media={media} richText={richText} alignment={alignment} effects={effects ?? []} />
                 </div>
             </div>
         );
     }
 
-    return (
-        <MediaContent
-            media={media}
-            richText={richText}
-            alignment={alignment}
-            effects={effects ?? []}
-        />
-    );
+    return <MediaContent media={media} richText={richText} alignment={alignment} effects={effects ?? []} />;
 };
 
 export default MediaContentBlock;

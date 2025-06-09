@@ -9,10 +9,7 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
 import useIsMounted from '@/lib/common/hooks/useIsMounted';
 import getInfoBoxPositions from '@/lib/houseParallax/getInfoBoxPositions';
-import getScrollElements, {
-    isScrollImage,
-    isScrollInfoBox,
-} from '@/lib/houseParallax/getScrollElements';
+import getScrollElements, { isScrollImage, isScrollInfoBox } from '@/lib/houseParallax/getScrollElements';
 import useEndScroll from '@/lib/houseParallax/useEndScroll';
 
 export default (): ReactElement | null => {
@@ -66,10 +63,7 @@ export default (): ReactElement | null => {
                         />
                     ))}
 
-                    <ParallaxScrollTeaser
-                        scrollY={scrollY}
-                        firstInfoBoxPositions={infoBoxPositions[0]}
-                    />
+                    <ParallaxScrollTeaser scrollY={scrollY} firstInfoBoxPositions={infoBoxPositions[0]} />
                 </div>
             </div>
 
@@ -91,9 +85,7 @@ export default (): ReactElement | null => {
                             <br />
                             ein Kollektiv, eine Idee.
                         </div>
-                        <div className="text-center md:text-lg">
-                            Erfahre hier alles was du wissen willst.
-                        </div>
+                        <div className="text-center md:text-lg">Erfahre hier alles was du wissen willst.</div>
                     </div>
                 </ContentWrapper>
 

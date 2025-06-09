@@ -20,14 +20,10 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
-        `/api/pages/?where[slug][equals]=bside&locale=${locale}`,
-    );
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=bside&locale=${locale}`);
     const page = pagesResponse.docs[0];
 
-    const aboutResponse = await getPayloadResponse<AboutBside>(
-        `/api/globals/about-bside/?locale=${locale}`,
-    );
+    const aboutResponse = await getPayloadResponse<AboutBside>(`/api/globals/about-bside/?locale=${locale}`);
 
     if (page === undefined) {
         return { notFound: true };
@@ -62,10 +58,7 @@ export default ({ page, about }: Props): ReactElement => {
         <div className="flex min-h-screen flex-col justify-between">
             <NextHead
                 title={pageData.meta?.title ?? `${pageData.title} | B-Side Münster`}
-                description={
-                    pageData.meta?.description ??
-                    'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'
-                }
+                description={pageData.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
                 url={`${getPublicClientUrl(locale)}/${pageData.slug}`}
             />
             <HeaderBar />
@@ -83,9 +76,7 @@ export default ({ page, about }: Props): ReactElement => {
                             />
                         </div>
 
-                        <div className="text-center font-serif text-lg md:text-xl">
-                            {aboutData.title}
-                        </div>
+                        <div className="text-center font-serif text-lg md:text-xl">{aboutData.title}</div>
                         <div className="text-center md:text-lg">{aboutData.textBody}</div>
                     </div>
 

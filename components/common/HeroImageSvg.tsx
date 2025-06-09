@@ -15,11 +15,7 @@ const HeroImageSvg = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
         <ContentWrapper>
             <div className="xs:h-40 relative h-32 w-full md:h-52 lg:mt-4">
                 <Image
-                    src={
-                        typeof imageSrc !== 'string'
-                            ? imageSrc
-                            : `/assets/stickFigures/${imageSrc}.svg`
-                    }
+                    src={typeof imageSrc !== 'string' ? imageSrc : `/assets/stickFigures/${imageSrc}.svg`}
                     alt={imageAlt}
                     fill={true}
                     className="object-contain"
@@ -27,11 +23,7 @@ const HeroImageSvg = ({ imageSrc, imageAlt, title }: Props): ReactElement => {
                 />
             </div>
 
-            {!isEmptyString(title) && (
-                <h1 className="mt-4 bg-black p-3 text-center font-serif text-2xl text-white">
-                    {title}
-                </h1>
-            )}
+            {!isEmptyString(title) && <h1 className="mt-4 bg-black p-3 text-center font-serif text-2xl text-white">{title}</h1>}
         </ContentWrapper>
     );
 };

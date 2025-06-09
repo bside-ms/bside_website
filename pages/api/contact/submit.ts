@@ -24,10 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
         return;
     }
 
-    const successfullyValidatedRealUser = await validateRealUser(
-        body['cf-turnstile-response'],
-        req.headers['x-forwarded-for'] as string,
-    );
+    const successfullyValidatedRealUser = await validateRealUser(body['cf-turnstile-response'], req.headers['x-forwarded-for'] as string);
 
     if (!successfullyValidatedRealUser) {
         res.status(401).json({ message: 'Unauthorized. Turnstile validation failed.' });
@@ -44,9 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
         return;
     }
 
-    const recipient = isEmptyString(body.contactReason)
-        ? ContactReason.General
-        : body.contactReason;
+    const recipient = isEmptyString(body.contactReason) ? ContactReason.General : body.contactReason;
 
     const transporter = createTransport({
         host: process.env.MAIL_HOST,
