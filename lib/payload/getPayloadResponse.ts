@@ -13,7 +13,7 @@ const getPayloadResponse = async <T>(path: string, preview: boolean = false): Pr
     );
 
     if (!fetchResponse.ok) {
-        throw new Error();
+        throw new Error(`Error code ${fetchResponse.status} while fetching ${path}: ${fetchResponse.statusText}`);
     }
 
     return fetchResponse.json() as T;
