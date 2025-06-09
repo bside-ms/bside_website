@@ -40,7 +40,7 @@ const ReusableBlocks = ({
         case 'content':
             return (
                 <ContentBlock
-                    columns={layoutElement.columns ?? []}
+                    columns={layoutElement.columns}
                     backgroundColor={layoutElement.backgroundColor}
                     backgroundWidth={layoutElement.backgroundWidth}
                 />
@@ -50,7 +50,7 @@ const ReusableBlocks = ({
             return (
                 <MediaBlock
                     media={layoutElement.media}
-                    size={layoutElement.size ?? undefined}
+                    size={layoutElement.size}
                     caption={layoutElement.caption}
                     effects={layoutElement.effects}
                 />
