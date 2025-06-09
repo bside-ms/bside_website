@@ -8,12 +8,6 @@ const ContentBlock = ({
     backgroundWidth,
     columns,
 }: ContentProps): ReactElement | null => {
-    if (columns === undefined || columns.length === 0) {
-        console.warn('Columns must be set');
-
-        return null;
-    }
-
     if (backgroundWidth === 'full' && backgroundColor === 'black') {
         return (
             <div className="grow">
