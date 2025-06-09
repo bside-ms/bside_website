@@ -31,7 +31,7 @@ const ReusableBlocks = ({
         case 'callToAction':
             return (
                 <CallToActionBlock
-                    title={layoutElement.title!}
+                    title={layoutElement.title}
                     text={layoutElement.text}
                     href={layoutElement.href}
                 />
@@ -40,7 +40,7 @@ const ReusableBlocks = ({
         case 'content':
             return (
                 <ContentBlock
-                    columns={layoutElement.columns ?? []}
+                    columns={layoutElement.columns}
                     backgroundColor={layoutElement.backgroundColor}
                     backgroundWidth={layoutElement.backgroundWidth}
                 />
@@ -50,9 +50,9 @@ const ReusableBlocks = ({
             return (
                 <MediaBlock
                     media={layoutElement.media}
-                    size={layoutElement.size!}
-                    caption={layoutElement.caption!}
-                    effects={layoutElement.effects!}
+                    size={layoutElement.size}
+                    caption={layoutElement.caption}
+                    effects={layoutElement.effects}
                 />
             );
 
@@ -62,9 +62,9 @@ const ReusableBlocks = ({
                     media={layoutElement.media}
                     richText={layoutElement.richText}
                     alignment={layoutElement.alignment}
-                    headline={layoutElement.headline!}
+                    headline={layoutElement.headline}
                     backgroundColor={layoutElement.backgroundColor}
-                    effects={layoutElement.effects!}
+                    effects={layoutElement.effects}
                 />
             );
 
@@ -119,6 +119,9 @@ const ReusableBlocks = ({
             return <SliderBlock imageSlides={layoutElement.imageSlides ?? []} />;
 
         default:
+            // @ts-expect-error | This should not happen, just precaution.
+            console.warn(`Received unexpected block type ${layoutElement.blockType}`);
+
             return null;
     }
 };

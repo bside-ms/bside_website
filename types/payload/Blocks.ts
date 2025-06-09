@@ -18,9 +18,9 @@ export interface ContentColumnProps {
 }
 
 export interface ContentProps {
-    columns?: Array<ContentColumnProps>;
-    backgroundColor?: string;
-    backgroundWidth?: string;
+    columns: Array<ContentColumnProps>;
+    backgroundColor?: 'white' | 'black';
+    backgroundWidth?: 'full' | 'block';
 }
 
 export interface MediaContentBlockProps {
@@ -28,20 +28,20 @@ export interface MediaContentBlockProps {
     richText: SlateChildren;
     alignment: MediaContentAlignment;
     backgroundColor?: MediaContentBackgroundColor;
-    headline?: string;
+    headline?: string | null;
     previousBlock?: string;
-    effects?: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
+    effects?: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'> | null;
 }
 
 export interface MediaBlockProps {
     media: Media | string;
     size?: 'normal' | 'wide' | 'event';
-    caption?: string;
-    effects?: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'>;
+    caption?: string | null;
+    effects?: Array<'blur' | 'grayscale' | 'desaturated' | 'darker'> | null;
 }
 
 export interface CallToActionBlockProps {
-    title: string | undefined;
+    title?: string | null;
     text: string;
     href: string;
 }

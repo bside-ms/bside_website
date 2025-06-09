@@ -40,6 +40,7 @@ export default [
 
             'tailwindcss/no-custom-classname': 'error',
 
+            '@typescript-eslint/ban-ts-comment': 'off',
             '@typescript-eslint/no-misused-promises': 'off',
             '@typescript-eslint/no-floating-promises': 'off',
             '@typescript-eslint/no-non-null-assertion': 'warn',

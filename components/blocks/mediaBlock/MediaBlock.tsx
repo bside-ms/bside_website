@@ -1,8 +1,10 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import type { ReactElement } from 'react';
+import { isNil } from 'lodash-es';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import isEmptyNumber from '@/lib/common/helper/isEmptyNumber';
 import type { MediaBlockProps } from '@/types/payload/Blocks';
 
 const WideMediaBlock = (
@@ -28,20 +30,34 @@ const WideMediaBlock = (
 
 const MediaBlock = ({
     media,
-    caption = '',
+    caption,
     size,
     effects,
 }: MediaBlockProps): ReactElement | null => {
     if (typeof media === 'string') {
+        console.warn('Unexpectedly media is just a string, this is not supported.');
         return null;
     }
 
-    if (media.url === undefined || media.url === null || isEmptyString(media.url)) {
+    if (isEmptyString(media.url)) {
+        console.warn('Unexpectedly media URL is not set, something went wrong here.');
         return null;
     }
 
-    if (size === 'wide' && media.sizes?.wide?.url !== undefined) {
-        return WideMediaBlock(media.sizes.wide.url!, effects ?? []);
+    if (size === 'wide') {
+        if (isNil(media.sizes?.wide?.url)) {
+            console.warn('Unexpectedly wide version of image is not available.');
+            return null;
+        }
+
+        return WideMediaBlock(media.sizes.wide.url, effects ?? []);
+    }
+
+    let [width, height] = [media.width, media.height];
+
+    if (isEmptyNumber(width) || isEmptyNumber(height)) {
+        console.warn('Unexpectedly size of image is not set, using somewhat arbitrary fallback.');
+        [width, height] = [100, 100];
     }
 
     // ToDo: Implement the square version of the image.
@@ -52,8 +68,8 @@ const MediaBlock = ({
                 <Image
                     src={media.url}
                     alt={media.alt}
-                    width={media.width!}
-                    height={media.height!}
+                    width={width}
+                    height={height}
                     className={clsx(
                         'mx-auto',
                         (effects?.includes('blur') ?? false) && 'blur-[2px]',

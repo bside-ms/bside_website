@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Docker Hub Automated Build Hook
+#
+# This script is automatically executed by Docker Hub's Automated Build system
+# when code is pushed to the connected GitHub repository. Docker Hub provides
+# the following environment variables:
+#   - SOURCE_BRANCH: The git branch being built (e.g., "main", "develop")
+#   - SOURCE_COMMIT: The git commit hash (short format)
+#   - IMAGE_NAME: The name of the Docker image being built
+#   - DOCKER_REPO: The Docker Hub repository path (e.g., "seebruecke/bside-website")
+#
+# Additional environment variables (PAYLOAD_URL_*, FRONTEND_URL_*, etc.) are
+# configured in the Docker Hub repository settings and injected during build.
+# 
+# Docker Hub is configured to only trigger builds for 'main' and 'dev' branches.
+
 if [ $SOURCE_BRANCH = "main" ]
 then
   PAYLOAD_URL=$PAYLOAD_URL_PROD

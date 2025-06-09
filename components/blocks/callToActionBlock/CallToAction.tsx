@@ -5,7 +5,7 @@ import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { toKebabCase } from '@/lib/common/toKebabCase';
 
 interface Props {
-    title: string | undefined;
+    title?: string | null;
     text: string;
     href: string;
     withArrows?: boolean;
