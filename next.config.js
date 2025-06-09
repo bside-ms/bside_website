@@ -12,6 +12,11 @@ const nextConfig = {
                 hostname: 'cms.b-side.ms',
                 pathname: '**',
             },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                pathname: '**',
+            },
         ],
         minimumCacheTTL: 60 * 60 * 24,
         formats: ['image/webp', 'image/avif'],
