@@ -25,7 +25,7 @@ const MediaContentBlock = ({
             <MediaContentOverlay
                 media={media}
                 richText={richText}
-                headlineText={headline}
+                headlineText={headline ?? undefined}
                 effects={effects ?? []}
             />
         );
