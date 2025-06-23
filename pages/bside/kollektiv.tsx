@@ -40,9 +40,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
         <Fragment>
             <NextHead
                 title={organisation.meta?.title ?? 'B-Side Kollektiv'}
-                description={
-                    organisation.meta?.description ?? 'Das B-Side Kollektiv - Das Herz der B-Side.'
-                }
+                description={organisation.meta?.description ?? 'Das B-Side Kollektiv - Das Herz der B-Side.'}
                 url={`${getPublicClientUrl(locale)}/bside/kollektiv`}
             />
 
@@ -61,33 +59,18 @@ export default ({ organisation, circles }: Props): ReactElement => {
                             />
                         </div>
 
-                        <div className="mt-4 bg-black p-3 text-center font-serif text-2xl text-white">
-                            B-Side Kollektiv
-                        </div>
+                        <div className="mt-4 bg-black p-3 text-center font-serif text-2xl text-white">B-Side Kollektiv</div>
                     </ContentWrapper>
 
                     <SubNavigation>
-                        <SubNavigationLink
-                            title={isMd ? 'Alle Arbeitskreise' : 'Arbeitskreise'}
-                            anchor="kreise"
-                        />
-                        <SubNavigationLink
-                            title={isMd ? 'Was ist Soziokratie?' : 'Soziokratie'}
-                            anchor="soziokratie"
-                            teaser={true}
-                        />
-                        {isMd && (
-                            <SubNavigationLink title="Mitmachen" anchor="mitmachen" teaser={true} />
-                        )}
+                        <SubNavigationLink title={isMd ? 'Alle Arbeitskreise' : 'Arbeitskreise'} anchor="kreise" />
+                        <SubNavigationLink title={isMd ? 'Was ist Soziokratie?' : 'Soziokratie'} anchor="soziokratie" teaser={true} />
+                        {isMd && <SubNavigationLink title="Mitmachen" anchor="mitmachen" teaser={true} />}
                     </SubNavigation>
 
                     {organisation.layout?.map((layoutElement, index) => (
                         <ReusableBlocks
-                            key={
-                                layoutElement.id ??
-                                layoutElement.blockName ??
-                                `${layoutElement.blockType}${index}`
-                            }
+                            key={layoutElement.id ?? layoutElement.blockName ?? `${layoutElement.blockType}${index}`}
                             layoutElement={layoutElement}
                             circles={circles}
                             eventsOnPage={{

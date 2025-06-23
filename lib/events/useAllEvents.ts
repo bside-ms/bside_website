@@ -50,10 +50,7 @@ const useAllEvents = (
         searchParams.set('depth', depth.toString());
     }
 
-    const { data, isLoading } = useSWR<{ paginatedEvents: PaginatedDocs<Event> }>(
-        `/api/events/all?${searchParams.toString()}`,
-        fetcher,
-    );
+    const { data, isLoading } = useSWR<{ paginatedEvents: PaginatedDocs<Event> }>(`/api/events/all?${searchParams.toString()}`, fetcher);
 
     return [data?.paginatedEvents, isLoading];
 };

@@ -17,14 +17,7 @@ interface Props {
     page: Page;
 }
 
-const reservedSlugs: Array<string> = [
-    'bside',
-    'home',
-    'kultur',
-    'spenden',
-    'hansawerkstatt-spenden',
-    'quartier',
-];
+const reservedSlugs: Array<string> = ['bside', 'home', 'kultur', 'spenden', 'hansawerkstatt-spenden', 'quartier'];
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     const pages = await getPayloadResponse<PaginatedDocs<Page>>('/api/pages/?limit=9999');
@@ -58,9 +51,7 @@ const getSlug = (slug: string | Array<string> | undefined): string => {
 };
 
 const fetchPage = async (slug: string, locale: string): Promise<Page | undefined> => {
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
-        `/api/pages/?limit=9999&locale=${locale}`,
-    );
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?limit=9999&locale=${locale}`);
 
     let page = pagesResponse.docs.find((doc) => {
         if (doc.breadcrumbs === undefined || doc.breadcrumbs === null) {
@@ -85,9 +76,7 @@ const fetchPage = async (slug: string, locale: string): Promise<Page | undefined
 };
 
 const fetchRedirect = async (slug: string): Promise<Redirect | undefined> => {
-    const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>(
-        '/api/redirects/?limit=9999',
-    );
+    const redirectResponse = await getPayloadResponse<PaginatedDocs<Redirect>>('/api/redirects/?limit=9999');
 
     return redirectResponse.docs.find((doc) => {
         return doc.from === `/${slug}`;
@@ -148,10 +137,7 @@ export default ({ page }: Props): ReactElement => {
         <div className="flex min-h-screen flex-col justify-between">
             <NextHead
                 title={data.meta?.title ?? `${data.title} | B-Side Münster`}
-                description={
-                    data.meta?.description ??
-                    'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'
-                }
+                description={data.meta?.description ?? 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen'}
                 url={`${getPublicClientUrl(locale)}/${data.slug}`}
             />
             <HeaderBar />

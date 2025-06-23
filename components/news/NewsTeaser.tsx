@@ -10,12 +10,7 @@ interface Props {
     news: Array<News>;
 }
 
-const decorations = [
-    'decoration-orange-500',
-    'decoration-sky-500',
-    'decoration-pink-500',
-    'decoration-indigo-500',
-];
+const decorations = ['decoration-orange-500', 'decoration-sky-500', 'decoration-pink-500', 'decoration-indigo-500'];
 
 const NewsTeaser = ({ news }: Props): ReactElement | null => {
     const locale = useLocale();
@@ -26,11 +21,7 @@ const NewsTeaser = ({ news }: Props): ReactElement | null => {
                 const media = newsItem.newsImage as Media;
 
                 return (
-                    <Link
-                        href={`/news/${createNewsSlug(newsItem)}`}
-                        className="hover:group group text-lg"
-                        key={newsItem.id}
-                    >
+                    <Link href={`/news/${createNewsSlug(newsItem)}`} className="hover:group group text-lg" key={newsItem.id}>
                         <Card className="flex h-full flex-col">
                             <CardHeader className="">
                                 <div className="mx-auto overflow-hidden rounded-md">
@@ -42,16 +33,12 @@ const NewsTeaser = ({ news }: Props): ReactElement | null => {
                                         height={300}
                                     />
                                 </div>
-                                <CardTitle
-                                    className={`${decorations[index % 4]} pt-4 leading-normal underline underline-offset-4`}
-                                >
+                                <CardTitle className={`${decorations[index % 4]} pt-4 leading-normal underline underline-offset-4`}>
                                     {newsItem.title}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="grow">
-                                <p className="line-clamp-6 leading-snug tracking-normal">
-                                    {newsItem.excerpt}
-                                </p>
+                                <p className="line-clamp-6 leading-snug tracking-normal">{newsItem.excerpt}</p>
                             </CardContent>
                             <CardFooter className="underline decoration-orange-500 underline-offset-4 group-hover:text-orange-500">
                                 {locale === 'de' ? 'Mehr lesen' : 'Read more'}

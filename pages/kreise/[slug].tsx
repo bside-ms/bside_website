@@ -52,9 +52,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
         return { notFound: true };
     }
 
-    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>(
-        `/api/circles/?limit=9999&locale=${locale!}`,
-    );
+    const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>(`/api/circles/?limit=9999&locale=${locale!}`);
 
     const circle = circlesResponse.docs.find((doc) => {
         return kebabCase(doc.name) === slug;
@@ -100,9 +98,7 @@ export default ({ initialCircle }: Props): ReactElement => {
 
     // Circle
     const imageUrl: string =
-        (circle.circleImage ?? null) !== null
-            ? (circle.circleImage as Media).url!
-            : `/assets/stickFigures/${circle.fallbackImage}.svg`;
+        (circle.circleImage ?? null) !== null ? (circle.circleImage as Media).url! : `/assets/stickFigures/${circle.fallbackImage}.svg`;
 
     return (
         <Fragment>
@@ -118,11 +114,7 @@ export default ({ initialCircle }: Props): ReactElement => {
                                 src={imageUrl}
                                 alt=""
                                 fill={true}
-                                className={
-                                    (circle.circleImage ?? null) !== null
-                                        ? 'object-cover lg:rounded-xl'
-                                        : 'object-fill'
-                                }
+                                className={(circle.circleImage ?? null) !== null ? 'object-cover lg:rounded-xl' : 'object-fill'}
                                 priority={true}
                             />
                         </div>
@@ -132,11 +124,7 @@ export default ({ initialCircle }: Props): ReactElement => {
                                 <Headline
                                     title={circle.name}
                                     teaser={organisation?.name ?? null}
-                                    teaserLink={
-                                        (organisation?.shortName ?? null) !== null
-                                            ? `/${organisation!.shortName}`
-                                            : null
-                                    }
+                                    teaserLink={(organisation?.shortName ?? null) !== null ? `/${organisation!.shortName}` : null}
                                     level="h1"
                                     as="h3"
                                 />

@@ -22,14 +22,7 @@ const EventOverviewEntry = ({ event, areDisplayedOnHome }: Props): ReactElement 
 
     const getEventCategoryTitle = useGetEventCategoryTitle();
 
-    const {
-        id,
-        title,
-        eventStart,
-        category: categories,
-        eventImage,
-        eventOwner: eventOwners,
-    } = event;
+    const { id, title, eventStart, category: categories, eventImage, eventOwner: eventOwners } = event;
 
     const eventImageUrl = getEventImageUrl(eventImage);
 
@@ -49,8 +42,7 @@ const EventOverviewEntry = ({ event, areDisplayedOnHome }: Props): ReactElement 
                         sizes="thumbnail"
                         className={cn(
                             'object-cover transition-transform md:cursor-pointer',
-                            areDisplayedOnHome &&
-                                'grayscale-[85%] transition group-hover:grayscale-0',
+                            areDisplayedOnHome && 'grayscale-[85%] transition group-hover:grayscale-0',
                         )}
                         fill={true}
                         priority={true}
@@ -59,19 +51,10 @@ const EventOverviewEntry = ({ event, areDisplayedOnHome }: Props): ReactElement 
             </div>
 
             <div className="flex grow flex-col px-4 py-2">
-                <h3
-                    className={cn(
-                        'mb-1 line-clamp-2 text-lg font-semibold leading-6',
-                        !title.includes(' ') && 'break-all',
-                    )}
-                >
-                    {title}
-                </h3>
+                <h3 className={cn('mb-1 line-clamp-2 text-lg font-semibold leading-6', !title.includes(' ') && 'break-all')}>{title}</h3>
 
                 {categories !== null && categories !== undefined && categories.length > 0 && (
-                    <div className="mb-2 text-sm">
-                        {categories.map((category) => getEventCategoryTitle(category)).join(' | ')}
-                    </div>
+                    <div className="mb-2 text-sm">{categories.map((category) => getEventCategoryTitle(category)).join(' | ')}</div>
                 )}
 
                 <div className="mt-auto flex items-center text-sm text-muted-foreground">
@@ -86,20 +69,10 @@ const EventOverviewEntry = ({ event, areDisplayedOnHome }: Props): ReactElement 
                             const ownerName = typeof value === 'string' ? value : value.name;
                             return (
                                 <Fragment key={ownerName}>
-                                    <Badge
-                                        variant="secondary"
-                                        size="small"
-                                        hover="disabled"
-                                        className="hidden sm:block"
-                                    >
+                                    <Badge variant="secondary" size="small" hover="disabled" className="hidden sm:block">
                                         {truncate(ownerName, { length: 40 })}
                                     </Badge>
-                                    <Badge
-                                        variant="secondary"
-                                        size="small"
-                                        hover="disabled"
-                                        className="sm:hidden"
-                                    >
+                                    <Badge variant="secondary" size="small" hover="disabled" className="sm:hidden">
                                         {truncate(ownerName, { length: 20 })}
                                     </Badge>
                                 </Fragment>

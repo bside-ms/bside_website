@@ -14,10 +14,7 @@ const HeaderBannerContent = ({
 }: {
     bannerData: Banner;
 }): ReactElement | null => {
-    const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(
-        `header_${bannerId}_dismissed`,
-        false,
-    );
+    const [hasDismissedBanner, setDismissedBanner] = useLocalStorage(`header_${bannerId}_dismissed`, false);
 
     const onDismissClick = useCallback(
         (event: MouseEvent<HTMLDivElement>) => {
@@ -44,10 +41,7 @@ const HeaderBannerContent = ({
     );
 
     return (
-        <div
-            className="font-serif text-sm md:text-base lg:text-lg"
-            style={{ backgroundColor, color: textColor }}
-        >
+        <div className="font-serif text-sm md:text-base lg:text-lg" style={{ backgroundColor, color: textColor }}>
             {isNotEmptyString(bannerLink) ? <Link href={bannerLink}>{content}</Link> : content}
         </div>
     );

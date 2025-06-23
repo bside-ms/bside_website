@@ -62,9 +62,7 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
             response.setHeader('Content-Type', 'image/png');
             response.status(200).send(screenshot);
         } else {
-            throw new Error(
-                "Either the URL parameter wasn't passed or the URL is not allowed to be screenshot.",
-            );
+            throw new Error("Either the URL parameter wasn't passed or the URL is not allowed to be screenshot.");
         }
     } catch (error) {
         response.status(500).send({ error });

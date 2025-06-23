@@ -6,13 +6,7 @@ interface SvgProps {
 
 export const SvgLegal = ({ className }: SvgProps): ReactElement => {
     return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1000 777"
-            version="1.1"
-            id="svg854"
-            className={className}
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 777" version="1.1" id="svg854" className={className}>
             <g id="g80" transform="matrix(8.4822119,0,0,8.4822119,-3740.9892,-3851.6028)">
                 <g id="g78">
                     <path

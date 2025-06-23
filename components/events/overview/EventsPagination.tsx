@@ -19,11 +19,7 @@ interface Props {
     setPage: (page: number) => void;
 }
 
-const EventsPagination = ({
-    paginatedEvents: { totalPages, hasNextPage, hasPrevPage },
-    page,
-    setPage,
-}: Props): ReactElement => {
+const EventsPagination = ({ paginatedEvents: { totalPages, hasNextPage, hasPrevPage }, page, setPage }: Props): ReactElement => {
     const handleFirstPageClick = useCallback(() => setPage(1), [setPage]);
     const handlePriorPageClick = useCallback(() => setPage(page - 1), [page, setPage]);
     const handleNextPageClick = useCallback(() => setPage(page + 1), [page, setPage]);
@@ -38,10 +34,7 @@ const EventsPagination = ({
         <Pagination className="mt-8">
             <PaginationContent>
                 <PaginationItem>
-                    <PaginationPrevious
-                        onClick={handlePriorPageClick}
-                        title={locale === 'de' ? 'Zurück' : 'Previous'}
-                    />
+                    <PaginationPrevious onClick={handlePriorPageClick} title={locale === 'de' ? 'Zurück' : 'Previous'} />
                 </PaginationItem>
 
                 {displayFistPage && (
@@ -52,9 +45,7 @@ const EventsPagination = ({
 
                         {page !== 3 && (
                             <PaginationItem>
-                                <PaginationEllipsis
-                                    title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
-                                />
+                                <PaginationEllipsis title={locale === 'de' ? 'Mehr Seiten' : 'More pages'} />
                             </PaginationItem>
                         )}
                     </>
@@ -80,24 +71,17 @@ const EventsPagination = ({
                     <>
                         {page !== totalPages - 2 && (
                             <PaginationItem>
-                                <PaginationEllipsis
-                                    title={locale === 'de' ? 'Mehr Seiten' : 'More pages'}
-                                />
+                                <PaginationEllipsis title={locale === 'de' ? 'Mehr Seiten' : 'More pages'} />
                             </PaginationItem>
                         )}
                         <PaginationItem>
-                            <PaginationLink onClick={handleLastPageClick}>
-                                {totalPages}
-                            </PaginationLink>
+                            <PaginationLink onClick={handleLastPageClick}>{totalPages}</PaginationLink>
                         </PaginationItem>
                     </>
                 )}
 
                 <PaginationItem>
-                    <PaginationNext
-                        onClick={handleNextPageClick}
-                        title={locale === 'de' ? 'Weiter' : 'Next'}
-                    />
+                    <PaginationNext onClick={handleNextPageClick} title={locale === 'de' ? 'Weiter' : 'Next'} />
                 </PaginationItem>
             </PaginationContent>
         </Pagination>

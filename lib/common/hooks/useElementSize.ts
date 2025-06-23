@@ -10,16 +10,10 @@ interface ElementSize {
 
 const throttleDelay = 300;
 
-const useElementSize = (
-    refElement: RefObject<HTMLDivElement>,
-    initialSize = { width: 0, height: 0 },
-): ElementSize => {
+const useElementSize = (refElement: RefObject<HTMLDivElement>, initialSize = { width: 0, height: 0 }): ElementSize => {
     const [elementSize, setElementSize] = useState<ElementSize>(initialSize);
 
-    const throttledElementSizeUpdate = throttle(
-        (size: ElementSize) => setElementSize(size),
-        throttleDelay,
-    );
+    const throttledElementSizeUpdate = throttle((size: ElementSize) => setElementSize(size), throttleDelay);
 
     useAsyncEffectOnMount((): (() => void) => {
         const observer = new ResizeObserver(([resizeObserverEntry]) => {

@@ -19,10 +19,7 @@ const FundraisingBox = ({ hash }: { hash: string }): ReactElement => {
             <noscript>Bitte aktivieren Sie JavaScript, um die Anzeige zu sehen.</noscript>
 
             <a target="_blank" href="https://www.fundraisingbox.com" rel="noopener noreferrer">
-                <img
-                    src="https://secure.fundraisingbox.com/images/FundraisingBox-Logo-Widget.png"
-                    alt="FundraisingBox Logo"
-                />
+                <img src="https://secure.fundraisingbox.com/images/FundraisingBox-Logo-Widget.png" alt="FundraisingBox Logo" />
             </a>
         </div>
     );

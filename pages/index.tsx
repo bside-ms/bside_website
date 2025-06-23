@@ -24,22 +24,16 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
-        `/api/pages/?where[slug][equals]=home&locale=${locale}`,
-    );
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=home&locale=${locale}`);
     const page = pagesResponse.docs[0];
 
-    const indexResponse = await getPayloadResponse<StartPage>(
-        `/api/globals/start-page/?locale=${locale}`,
-    );
+    const indexResponse = await getPayloadResponse<StartPage>(`/api/globals/start-page/?locale=${locale}`);
 
     if (page === undefined) {
         return { notFound: true };
     }
 
-    const newsResponse = await getPayloadResponse<PaginatedDocs<News>>(
-        `/api/news/?limit=6&depth=1&locale=${locale}&sort=-newsDate`,
-    );
+    const newsResponse = await getPayloadResponse<PaginatedDocs<News>>(`/api/news/?limit=6&depth=1&locale=${locale}&sort=-newsDate`);
 
     return {
         revalidate: 60,
@@ -62,11 +56,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
             <HeaderBar />
 
             <main id="content">
-                <FrontPageHero
-                    title={homePage.title}
-                    textBody={homePage.textBody}
-                    buttonText={homePage.buttonText}
-                />
+                <FrontPageHero title={homePage.title} textBody={homePage.textBody} buttonText={homePage.buttonText} />
 
                 <div className="py-2 md:py-4" />
 
@@ -93,11 +83,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                         </div>
                         <p className="text-center">
                             Mehr Informationen zum Café
-                            <FontAwesomeIcon
-                                icon={faArrowUpRightFromSquare}
-                                height={14}
-                                className="ml-1 inline"
-                            />
+                            <FontAwesomeIcon icon={faArrowUpRightFromSquare} height={14} className="ml-1 inline" />
                         </p>
                     </div>
                 </Link>
@@ -111,11 +97,7 @@ export default ({ page, homePage, news }: Props): ReactElement => {
                 />
 
                 <ContentWrapper>
-                    <Headline
-                        title={locale === 'de' ? 'Aktuelles' : 'News'}
-                        level="h2"
-                        textClass="pb-4 lg:pb-8 pt-4"
-                    />
+                    <Headline title={locale === 'de' ? 'Aktuelles' : 'News'} level="h2" textClass="pb-4 lg:pb-8 pt-4" />
                     <NewsTeaser news={news} />
                 </ContentWrapper>
             </main>

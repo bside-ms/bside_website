@@ -41,11 +41,7 @@ export default ({ page }: Props): ReactElement => {
             <HeaderBar />
 
             <main id="content">
-                <HeroImageSvg
-                    imageSrc={heroImage as StaticImageData}
-                    imageAlt=""
-                    title={locale === 'de' ? 'Veranstaltungen' : 'Events'}
-                />
+                <HeroImageSvg imageSrc={heroImage as StaticImageData} imageAlt="" title={locale === 'de' ? 'Veranstaltungen' : 'Events'} />
 
                 <ReusableBlockLayout
                     layout={pageData.layout}

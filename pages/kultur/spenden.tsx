@@ -25,9 +25,7 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
     const organisation = await getOrganisation('647e60a67054a955522b24ad', locale!);
 
-    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(
-        `/api/pages/?where[slug][equals]=spenden&locale=${locale}`,
-    );
+    const pagesResponse = await getPayloadResponse<PaginatedDocs<Page>>(`/api/pages/?where[slug][equals]=spenden&locale=${locale}`);
     const page = pagesResponse.docs[0];
 
     return {
@@ -64,22 +62,13 @@ export default ({ page, organisation }: Props): ReactElement => {
                 <main id="content">
                     <HeroText title="B-Side Kultur e.V." />
 
-                    <ReusableBlockLayoutPartial
-                        page={page}
-                        start={0}
-                        end={amountOfBlocksBeforeFundraisingBox}
-                    />
+                    <ReusableBlockLayoutPartial page={page} start={0} end={amountOfBlocksBeforeFundraisingBox} />
 
-                    <ContentWrapper
-                        className={clsx('mb-4 border-2 border-black p-2', isMd && '!-mt-0')}
-                    >
+                    <ContentWrapper className={clsx('mb-4 border-2 border-black p-2', isMd && '!-mt-0')}>
                         <FundraisingBox hash="vfoeov50wdhmh4zz" />
                     </ContentWrapper>
 
-                    <ReusableBlockLayoutPartial
-                        page={page}
-                        start={amountOfBlocksBeforeFundraisingBox}
-                    />
+                    <ReusableBlockLayoutPartial page={page} start={amountOfBlocksBeforeFundraisingBox} />
                 </main>
 
                 <Footer />

@@ -33,19 +33,13 @@ const HeadlineKicker = ({ children, level, link = '' }: Props): ReactElement => 
     switch (level) {
         case 'h1':
             return (
-                <small className="mb-1 block text-base font-normal italic leading-none tracking-normal md:text-base">
-                    {linkContent}
-                </small>
+                <small className="mb-1 block text-base font-normal italic leading-none tracking-normal md:text-base">{linkContent}</small>
             );
 
         case 'h2':
         case 'h3':
         case 'h4':
-            return (
-                <small className="block text-base font-normal italic leading-none tracking-normal md:text-base">
-                    {linkContent}
-                </small>
-            );
+            return <small className="block text-base font-normal italic leading-none tracking-normal md:text-base">{linkContent}</small>;
     }
 };
 

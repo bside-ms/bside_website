@@ -8,16 +8,9 @@ export interface DesktopNavigationItemLocaleProps {
     subLabel?: string;
 }
 
-export const DesktopNavigationLink = ({
-    link,
-    label,
-    subLabel,
-}: DesktopNavigationItemLocaleProps): ReactElement => {
+export const DesktopNavigationLink = ({ link, label, subLabel }: DesktopNavigationItemLocaleProps): ReactElement => {
     return (
-        <Link
-            href={link}
-            className="whitespace-nowrap pt-1 leading-5 hover:cursor-pointer hover:text-orange-500"
-        >
+        <Link href={link} className="whitespace-nowrap pt-1 leading-5 hover:cursor-pointer hover:text-orange-500">
             {label}
 
             {isNotEmptyString(subLabel) && (

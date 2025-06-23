@@ -56,9 +56,7 @@ const SliderBlock = ({ imageSlides }: SliderBlockProps): ReactElement => {
                             />
                         </div>
                         {!isEmptyString(item.description) && (
-                            <p className="mt-0 hidden pb-8 text-center font-serif md:block">
-                                {item.description}
-                            </p>
+                            <p className="mt-0 hidden pb-8 text-center font-serif md:block">{item.description}</p>
                         )}
                     </SwiperSlide>
                 ))}

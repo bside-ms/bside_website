@@ -32,7 +32,7 @@ const ColumnsContent = ({ columns }: Props): ReactElement | null => {
             return <OneThirdColumnsContent firstColumn={firstColumn} secondColumn={secondColumn} thirdColumn={thirdColumn} />;
 
         default:
-            console.error(`Received unexpected width of first column: ${firstColumn.width}`)
+            console.error(`Received unexpected width of first column: ${firstColumn.width}`);
             return null;
     }
 };

@@ -61,22 +61,13 @@ export default ({ page, circle }: Props): ReactElement => {
                 <HeaderBar />
 
                 <main id="content">
-                    <ReusableBlockLayoutPartial
-                        page={page}
-                        start={0}
-                        end={amountOfBlocksBeforeFundraisingBox}
-                    />
+                    <ReusableBlockLayoutPartial page={page} start={0} end={amountOfBlocksBeforeFundraisingBox} />
 
-                    <ContentWrapper
-                        className={clsx('mb-4 border-2 border-black p-2', isMd && '!-mt-0')}
-                    >
+                    <ContentWrapper className={clsx('mb-4 border-2 border-black p-2', isMd && '!-mt-0')}>
                         <FundraisingBox hash="cio122rq7zhvqwaq" />
                     </ContentWrapper>
 
-                    <ReusableBlockLayoutPartial
-                        page={page}
-                        start={amountOfBlocksBeforeFundraisingBox}
-                    />
+                    <ReusableBlockLayoutPartial page={page} start={amountOfBlocksBeforeFundraisingBox} />
                 </main>
 
                 <Footer />

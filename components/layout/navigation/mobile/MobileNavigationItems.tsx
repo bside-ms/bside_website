@@ -65,22 +65,13 @@ const MobileNavigationItems = (): ReactElement => {
             </MobileNavigationLink>
 
             <Link href="https://www.instagram.com/bsidemuenster/" className="mt-4" target="_blank">
-                <Image
-                    src="/assets/social/instagram.svg"
-                    alt="Instagram Logo"
-                    width={40}
-                    height={40}
-                />
+                <Image src="/assets/social/instagram.svg" alt="Instagram Logo" width={40} height={40} />
             </Link>
 
             <Link
                 href={asPath !== '/' ? asPath : locale === 'de' ? '/en' : '/'}
                 className="cursor-pointer text-sm text-white hover:text-orange-500"
-                aria-label={
-                    locale !== 'en'
-                        ? 'Show the english version'
-                        : 'Deutschsprachige Version anzeigen'
-                }
+                aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
                 locale={locale !== 'en' ? 'en' : 'de'}
             >
                 {locale !== 'en' ? 'Show the english version' : 'Zur deutschsprachigen Version'}

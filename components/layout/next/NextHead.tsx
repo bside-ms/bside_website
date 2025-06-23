@@ -12,9 +12,7 @@ interface Props {
 
 const NextHead = ({ title, description, url }: Props): ReactElement => {
     title = !isEmptyString(title) ? title : 'B-Side Münster';
-    description = !isEmptyString(description)
-        ? description
-        : 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen';
+    description = !isEmptyString(description) ? description : 'Selbstorganisierter und offener Ort der Möglichkeiten am Münsteraner Hafen';
 
     const { asPath } = useRouter();
     url = !isEmptyString(url) ? url : getFullClientUrl(asPath);
@@ -46,19 +44,13 @@ const NextHead = ({ title, description, url }: Props): ReactElement => {
             <meta property="og:description" content={description} />
             <meta property="og:site_name" content={title} />
             <meta property="og:url" content={url} />
-            <meta
-                property="og:image"
-                content={getFullClientUrl(`/api/screenshot?url=${getFullClientUrl(asPath)}`)}
-            />
+            <meta property="og:image" content={getFullClientUrl(`/api/screenshot?url=${getFullClientUrl(asPath)}`)} />
 
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:url" content={url} />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
-            <meta
-                name="twitter:image"
-                content={getFullClientUrl(`/api/screenshot?url=${getFullClientUrl(asPath)}`)}
-            />
+            <meta name="twitter:image" content={getFullClientUrl(`/api/screenshot?url=${getFullClientUrl(asPath)}`)} />
         </Head>
     );
 };

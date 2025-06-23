@@ -22,11 +22,7 @@ const HeaderBarDesktop = (): ReactElement => {
 
             <div className="relative bg-white p-4 pb-2">
                 <nav className="mx-auto flex justify-between text-center font-serif text-base font-bold lg:w-[54rem] lg:text-lg xl:w-[70rem]">
-                    <Link
-                        href="/"
-                        className="w-6 cursor-pointer hover:text-orange-500"
-                        aria-label="Zurück zur Startseite"
-                    >
+                    <Link href="/" className="w-6 cursor-pointer hover:text-orange-500" aria-label="Zurück zur Startseite">
                         <Heart />
                     </Link>
 
@@ -43,11 +39,7 @@ const HeaderBarDesktop = (): ReactElement => {
                 <Link
                     href={asPath !== '/' ? asPath : locale === 'de' ? '/en' : '/'}
                     className="absolute right-8 top-4 flex w-6 cursor-pointer justify-around text-center hover:text-orange-500"
-                    aria-label={
-                        locale !== 'en'
-                            ? 'Show the english version'
-                            : 'Deutschsprachige Version anzeigen'
-                    }
+                    aria-label={locale !== 'en' ? 'Show the english version' : 'Deutschsprachige Version anzeigen'}
                     locale={locale !== 'en' ? 'en' : 'de'}
                 >
                     {locale !== 'en' ? 'EN' : 'DE'}

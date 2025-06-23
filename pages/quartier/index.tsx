@@ -39,8 +39,7 @@ export default ({ organisation, circles }: Props): ReactElement => {
             <NextHead
                 title={organisation.meta?.title ?? 'B-Side GmbH'}
                 description={
-                    organisation.meta?.description ??
-                    'Die B-Side GmbH betreibt das soziokulturelle Zentrum am Münsteraner Mittelhafen.'
+                    organisation.meta?.description ?? 'Die B-Side GmbH betreibt das soziokulturelle Zentrum am Münsteraner Mittelhafen.'
                 }
                 url={`${getPublicClientUrl(locale)}/quartier`}
             />

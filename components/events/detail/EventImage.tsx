@@ -17,11 +17,7 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
 
     if (isEventImageString(eventImage)) {
         return (
-            <Link
-                href={eventImage}
-                target="_blank"
-                className="transition-transform hover:scale-105"
-            >
+            <Link href={eventImage} target="_blank" className="transition-transform hover:scale-105">
                 <Image
                     src={eventImage}
                     width={342}
@@ -43,11 +39,7 @@ const EventImage = ({ eventTitle, eventImage, justify = '' }: Props): ReactEleme
     }
 
     return (
-        <Link
-            href={imageUrl}
-            target="_blank"
-            className="transition-transform hover:scale-105 hover:bg-teal-800"
-        >
+        <Link href={imageUrl} target="_blank" className="transition-transform hover:scale-105 hover:bg-teal-800">
             <Image
                 src={imageUrl}
                 width={342}

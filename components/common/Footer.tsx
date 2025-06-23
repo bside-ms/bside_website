@@ -7,12 +7,7 @@ import ContentWrapper from '@/components/layout/ContentWrapper';
 
 const FooterLink = ({ linkUrl, linkText }: { linkUrl: string; linkText: string }): ReactElement => (
     <div className="my-2">
-        <Link
-            href={linkUrl}
-            aria-label="Die B-Side auf GitHub"
-            target="_blank"
-            className="italic hover:text-orange-500"
-        >
+        <Link href={linkUrl} aria-label="Die B-Side auf GitHub" target="_blank" className="italic hover:text-orange-500">
             <span className="underline underline-offset-4">{linkText}</span>
         </Link>
     </div>
@@ -48,13 +43,7 @@ const Instagram = (): ReactElement => (
 
 const Mastodon = (): ReactElement => (
     <div className="my-2">
-        <Link
-            href="https://muenster.im/@bside"
-            aria-label="Mastodon"
-            target="_blank"
-            className="italic hover:text-orange-500"
-            rel="me"
-        >
+        <Link href="https://muenster.im/@bside" aria-label="Mastodon" target="_blank" className="italic hover:text-orange-500" rel="me">
             <SiMastodon className="inline" />
             <span className="ml-1 underline underline-offset-4">Mastodon</span>
         </Link>
@@ -75,9 +64,7 @@ const Footer = (): ReactElement => {
                         <Link
                             href="/anfahrt"
                             aria-label={
-                                locale !== 'en'
-                                    ? 'Alle rechtlichen Angaben sind hier zu finden'
-                                    : 'All legal information can be found here'
+                                locale !== 'en' ? 'Alle rechtlichen Angaben sind hier zu finden' : 'All legal information can be found here'
                             }
                             className="font-serif text-base font-bold hover:text-orange-500 md:text-lg"
                         >
@@ -87,9 +74,7 @@ const Footer = (): ReactElement => {
                         <Link
                             href="/impressum"
                             aria-label={
-                                locale !== 'en'
-                                    ? 'Alle rechtlichen Angaben sind hier zu finden'
-                                    : 'All legal information can be found here'
+                                locale !== 'en' ? 'Alle rechtlichen Angaben sind hier zu finden' : 'All legal information can be found here'
                             }
                             className="font-serif text-base font-bold hover:text-orange-500 md:text-lg"
                         >
@@ -110,11 +95,7 @@ const Footer = (): ReactElement => {
                         <span className="px-1 sm:px-2">|</span>
                         <Link
                             href="/kontakt"
-                            aria-label={
-                                locale !== 'en'
-                                    ? 'Trete mit uns in den Kontakt'
-                                    : 'Get in touch with us'
-                            }
+                            aria-label={locale !== 'en' ? 'Trete mit uns in den Kontakt' : 'Get in touch with us'}
                             className="font-serif text-base font-bold hover:text-orange-500 md:text-lg"
                         >
                             {locale !== 'en' ? 'Kontakt' : 'Contact Us'}
@@ -126,33 +107,18 @@ const Footer = (): ReactElement => {
                     <div className="grid text-center text-sm md:grid-cols-3">
                         <div className="mb-2 md:my-0">
                             <p className="mb-2 font-serif font-bold">B-Side GmbH</p>
-                            <FooterLink
-                                linkUrl="/quartier"
-                                linkText={locale !== 'en' ? 'Über uns' : 'About us'}
-                            />
-                            <FooterLink
-                                linkUrl="/impressum"
-                                linkText={locale !== 'en' ? 'Impressum' : 'Imprint'}
-                            />
+                            <FooterLink linkUrl="/quartier" linkText={locale !== 'en' ? 'Über uns' : 'About us'} />
+                            <FooterLink linkUrl="/impressum" linkText={locale !== 'en' ? 'Impressum' : 'Imprint'} />
                         </div>
                         <div className="mb-2 md:my-0">
                             <p className="mb-2 font-serif font-bold">
-                                {locale !== 'en'
-                                    ? 'Zentrale Teile des Zentrums'
-                                    : 'Other Central Parts'}
+                                {locale !== 'en' ? 'Zentrale Teile des Zentrums' : 'Other Central Parts'}
                             </p>
                             <FooterLink linkUrl="/kultur" linkText="B-Side Kultur e.V." />
-                            <FooterLink
-                                linkUrl="/bside/kollektiv"
-                                linkText={
-                                    locale !== 'en' ? 'B-Side Kollektiv' : 'B-Side Collective'
-                                }
-                            />
+                            <FooterLink linkUrl="/bside/kollektiv" linkText={locale !== 'en' ? 'B-Side Kollektiv' : 'B-Side Collective'} />
                         </div>
                         <div className="">
-                            <p className="mb-2 font-serif font-bold">
-                                {locale !== 'en' ? 'Andere Plattformen' : 'Other platforms'}
-                            </p>
+                            <p className="mb-2 font-serif font-bold">{locale !== 'en' ? 'Andere Plattformen' : 'Other platforms'}</p>
                             <Instagram />
                             <Mastodon />
                             <GithubLink />

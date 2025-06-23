@@ -64,8 +64,7 @@ const ContactForm = (): ReactElement => {
             }).then();
         } else {
             setError('root', {
-                message:
-                    'Bei der Übertragung deiner Nachricht ist leider ein Fehler aufgetreten. Bitte versuche es nochmal!',
+                message: 'Bei der Übertragung deiner Nachricht ist leider ein Fehler aufgetreten. Bitte versuche es nochmal!',
             });
         }
     }, [setError]);
@@ -74,36 +73,19 @@ const ContactForm = (): ReactElement => {
 
     return (
         <>
-            <Script
-                src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-                async={true}
-                defer={true}
-            />
-            <div
-                className="bg-black transition-[min-height] duration-500"
-                ref={formContainerRef}
-                style={{ minHeight: formMinHeight }}
-            >
+            <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async={true} defer={true} />
+            <div className="bg-black transition-[min-height] duration-500" ref={formContainerRef} style={{ minHeight: formMinHeight }}>
                 <div className="px-6 py-4">
                     {isSubmitSuccessful ? (
                         <div className="flex flex-col items-center gap-4 p-6 text-white">
                             <div className="font-serif text-2xl">Danke für deine Nachricht!</div>
                         </div>
                     ) : (
-                        <form
-                            onSubmit={handleSubmit(handleFormSubmit)}
-                            noValidate={true}
-                            className="flex flex-col gap-5"
-                        >
-                            <div className="text-center font-serif text-2xl text-white">
-                                Melde dich bei uns!
-                            </div>
+                        <form onSubmit={handleSubmit(handleFormSubmit)} noValidate={true} className="flex flex-col gap-5">
+                            <div className="text-center font-serif text-2xl text-white">Melde dich bei uns!</div>
 
                             <div>
-                                <label
-                                    className="block pb-1 font-serif text-white"
-                                    htmlFor="contactReason"
-                                >
+                                <label className="block pb-1 font-serif text-white" htmlFor="contactReason">
                                     Grund deiner Anfrage <span className="text-orange-500">*</span>
                                 </label>
                                 <select
@@ -125,10 +107,7 @@ const ContactForm = (): ReactElement => {
                             </div>
 
                             <div>
-                                <label
-                                    className="block pb-1 font-serif text-white"
-                                    htmlFor="fullName"
-                                >
+                                <label className="block pb-1 font-serif text-white" htmlFor="fullName">
                                     Dein Name <span className="text-orange-500">*</span>
                                 </label>
                                 <input
@@ -144,18 +123,11 @@ const ContactForm = (): ReactElement => {
                                     type="text"
                                     required={true}
                                 />
-                                {errors.fullName && (
-                                    <div className="pt-1 text-sm font-bold text-orange-400">
-                                        {errors.fullName.message}
-                                    </div>
-                                )}
+                                {errors.fullName && <div className="pt-1 text-sm font-bold text-orange-400">{errors.fullName.message}</div>}
                             </div>
 
                             <div>
-                                <label
-                                    className="block pb-1 font-serif text-white"
-                                    htmlFor="mailAddress"
-                                >
+                                <label className="block pb-1 font-serif text-white" htmlFor="mailAddress">
                                     Deine E-Mail-Adresse <span className="text-orange-500">*</span>
                                 </label>
                                 <input
@@ -176,19 +148,13 @@ const ContactForm = (): ReactElement => {
                                     required={true}
                                 />
                                 {errors.mailAddress && (
-                                    <div className="pt-1 text-sm font-bold text-orange-400">
-                                        {errors.mailAddress.message}
-                                    </div>
+                                    <div className="pt-1 text-sm font-bold text-orange-400">{errors.mailAddress.message}</div>
                                 )}
                             </div>
 
                             <div>
-                                <label
-                                    className="block pb-1 font-serif text-white"
-                                    htmlFor="message"
-                                >
-                                    Deine Nachricht an uns{' '}
-                                    <span className="text-orange-500">*</span>
+                                <label className="block pb-1 font-serif text-white" htmlFor="message">
+                                    Deine Nachricht an uns <span className="text-orange-500">*</span>
                                 </label>
                                 <textarea
                                     className="w-full p-1 disabled:bg-gray-200"
@@ -203,11 +169,7 @@ const ContactForm = (): ReactElement => {
                                         },
                                     })}
                                 />
-                                {errors.message && (
-                                    <div className="text-sm font-bold text-orange-400">
-                                        {errors.message.message}
-                                    </div>
-                                )}
+                                {errors.message && <div className="text-sm font-bold text-orange-400">{errors.message.message}</div>}
                             </div>
 
                             <div className="flex gap-3">
@@ -219,12 +181,8 @@ const ContactForm = (): ReactElement => {
                                         {...register('sendCopyToSender')}
                                     />
                                 </div>
-                                <label
-                                    className="block cursor-pointer font-serif text-white"
-                                    htmlFor="sendCopyToSender"
-                                >
-                                    Ich möchte, dass eine Kopie der Nachricht an meine
-                                    E-Mail-Adresse gesendet wird
+                                <label className="block cursor-pointer font-serif text-white" htmlFor="sendCopyToSender">
+                                    Ich möchte, dass eine Kopie der Nachricht an meine E-Mail-Adresse gesendet wird
                                 </label>
                             </div>
 
@@ -260,11 +218,7 @@ const ContactForm = (): ReactElement => {
                                 </div>
                             </div>
 
-                            {errors.root && (
-                                <div className="text-right font-bold text-orange-400">
-                                    {errors.root.message}
-                                </div>
-                            )}
+                            {errors.root && <div className="text-right font-bold text-orange-400">{errors.root.message}</div>}
                         </form>
                     )}
                 </div>

@@ -20,22 +20,10 @@ interface Props {
     eventsOnPage?: EventsOnPage;
 }
 
-const ReusableBlocks = ({
-    layoutElement,
-    circles = null,
-    previousBlock,
-    nextBlock,
-    eventsOnPage,
-}: Props): ReactElement | null => {
+const ReusableBlocks = ({ layoutElement, circles = null, previousBlock, nextBlock, eventsOnPage }: Props): ReactElement | null => {
     switch (layoutElement.blockType) {
         case 'callToAction':
-            return (
-                <CallToActionBlock
-                    title={layoutElement.title}
-                    text={layoutElement.text}
-                    href={layoutElement.href}
-                />
-            );
+            return <CallToActionBlock title={layoutElement.title} text={layoutElement.text} href={layoutElement.href} />;
 
         case 'content':
             return (
@@ -83,22 +71,10 @@ const ReusableBlocks = ({
             );
 
         case 'circleOverview':
-            return (
-                <CircleOverviewBlock
-                    headlineText={layoutElement.title}
-                    circles={circles ?? []}
-                    richText={layoutElement.richText}
-                />
-            );
+            return <CircleOverviewBlock headlineText={layoutElement.title} circles={circles ?? []} richText={layoutElement.richText} />;
 
         case 'eventOverview':
-            return (
-                <EventsOverviewBlock
-                    headlineText={layoutElement.title}
-                    richText={layoutElement.richText}
-                    eventsOnPage={eventsOnPage}
-                />
-            );
+            return <EventsOverviewBlock headlineText={layoutElement.title} richText={layoutElement.richText} eventsOnPage={eventsOnPage} />;
 
         case 'teaser':
             return (

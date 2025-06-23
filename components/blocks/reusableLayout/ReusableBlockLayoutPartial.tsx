@@ -2,15 +2,7 @@ import type { ReactElement } from 'react';
 import type { Page } from '@/types/payload/payload-types';
 import ReusableBlockLayout from '@blocks/reusableLayout/ReusableBlockLayout';
 
-const ReusableBlockLayoutPartial = ({
-    page,
-    start,
-    end,
-}: {
-    page: Page;
-    start: number;
-    end?: number;
-}): ReactElement => {
+const ReusableBlockLayoutPartial = ({ page, start, end }: { page: Page; start: number; end?: number }): ReactElement => {
     if (!page.layout) {
         return <div />;
     }

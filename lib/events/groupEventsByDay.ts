@@ -24,29 +24,23 @@ const sortEvents = (eventList: Array<Event>, reversedDayOrder: boolean): Array<E
     });
 };
 
-const groupEventsByDay = (
-    eventList: Array<Event>,
-    reversedDayOrder = false,
-): Array<[Date, Array<Event>]> => {
-    return sortEvents(eventList, reversedDayOrder).reduce<Array<[Date, Array<Event>]>>(
-        (currentEventsGroupedByDay, event) => {
-            let foundDate = false;
+const groupEventsByDay = (eventList: Array<Event>, reversedDayOrder = false): Array<[Date, Array<Event>]> => {
+    return sortEvents(eventList, reversedDayOrder).reduce<Array<[Date, Array<Event>]>>((currentEventsGroupedByDay, event) => {
+        let foundDate = false;
 
-            currentEventsGroupedByDay.forEach(([date, events]) => {
-                if (isSameDay(date, new Date(event.eventDate))) {
-                    foundDate = true;
-                    events.push(event);
-                }
-            });
-
-            if (!foundDate) {
-                currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
+        currentEventsGroupedByDay.forEach(([date, events]) => {
+            if (isSameDay(date, new Date(event.eventDate))) {
+                foundDate = true;
+                events.push(event);
             }
+        });
 
-            return currentEventsGroupedByDay;
-        },
-        [],
-    );
+        if (!foundDate) {
+            currentEventsGroupedByDay.push([new Date(event.eventDate), [event]]);
+        }
+
+        return currentEventsGroupedByDay;
+    }, []);
 };
 
 export default groupEventsByDay;

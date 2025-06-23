@@ -5,13 +5,7 @@ interface SvgProps {
 }
 
 export const SvgHistory = (props: SvgProps): ReactElement => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1000 1000"
-        version="1.1"
-        id="svg854"
-        {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" version="1.1" id="svg854" {...props}>
         <g id="g1324" transform="matrix(9.3179643,0,0,9.3179643,-4159.5757,-4166.5317)">
             <g id="g1322">
                 <path

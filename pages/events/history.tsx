@@ -13,9 +13,7 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-    const page = await getPayloadResponse<EventArchive>(
-        `/api/globals/event-archive/?locale=${locale}`,
-    );
+    const page = await getPayloadResponse<EventArchive>(`/api/globals/event-archive/?locale=${locale}`);
 
     return {
         revalidate: 60,
@@ -40,9 +38,7 @@ export default ({ page }: Props): ReactElement => {
             <HeaderBar />
 
             <main id="content">
-                {media !== undefined && media.url !== undefined && (
-                    <MediaBlock size="wide" media={pageData.headerImage as Media} />
-                )}
+                {media !== undefined && media.url !== undefined && <MediaBlock size="wide" media={pageData.headerImage as Media} />}
                 <div className="my-6" />
 
                 <ReusableBlockLayout

@@ -29,8 +29,7 @@ const NewsPagination = ({ news }: Props): ReactElement | null => {
                                     <strong>
                                         <i>{getNewsCategory(item.newsCategory, locale)}</i>
                                     </strong>{' '}
-                                    - {formatDate(item.newsDate, 'dd.MM.yyyy')} -{' '}
-                                    {getCircleOrOrganisationName(item.newsAuthor)}
+                                    - {formatDate(item.newsDate, 'dd.MM.yyyy')} - {getCircleOrOrganisationName(item.newsAuthor)}
                                 </small>
 
                                 <div className="max-w-full">
@@ -38,13 +37,7 @@ const NewsPagination = ({ news }: Props): ReactElement | null => {
                                 </div>
 
                                 <div className="lg:float-left lg:hidden lg:pr-8">
-                                    <Image
-                                        src={media.url!}
-                                        alt=""
-                                        width={300}
-                                        height={300}
-                                        className="mx-auto py-4"
-                                    />
+                                    <Image src={media.url!} alt="" width={300} height={300} className="mx-auto py-4" />
                                 </div>
 
                                 <p className="py-1 sm:text-lg">{item.excerpt}</p>

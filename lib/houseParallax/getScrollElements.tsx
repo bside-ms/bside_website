@@ -54,11 +54,9 @@ export interface ScrollImage {
 
 export type ScrollElement = ScrollInfoBox | ScrollImage;
 
-export const isScrollImage = (scrollElement: ScrollElement): scrollElement is ScrollImage =>
-    'image' in scrollElement;
+export const isScrollImage = (scrollElement: ScrollElement): scrollElement is ScrollImage => 'image' in scrollElement;
 
-export const isScrollInfoBox = (scrollElement: ScrollElement): scrollElement is ScrollInfoBox =>
-    'text' in scrollElement;
+export const isScrollInfoBox = (scrollElement: ScrollElement): scrollElement is ScrollInfoBox => 'text' in scrollElement;
 
 const getScrollElements = (): Array<ScrollElement> => {
     const scrollImages = new Array<ScrollImage>({
@@ -75,11 +73,7 @@ const getScrollElements = (): Array<ScrollElement> => {
 
     let currentBegin = 0;
 
-    const addFadingScrollImage = (
-        image: StaticImageData,
-        duration: number,
-        transition = 35,
-    ): void => {
+    const addFadingScrollImage = (image: StaticImageData, duration: number, transition = 35): void => {
         const inBegin = currentBegin === 0 ? 0 : currentBegin - transition;
         const inEnd = currentBegin === 0 ? 0 : currentBegin + transition;
 
@@ -115,11 +109,7 @@ const getScrollElements = (): Array<ScrollElement> => {
         });
     };
 
-    const addDisplayInfoBox = (
-        title: string | undefined,
-        text: string | ReactElement,
-        duration: number,
-    ): void => {
+    const addDisplayInfoBox = (title: string | undefined, text: string | ReactElement, duration: number): void => {
         const begin = currentBegin === 0 ? 0 : currentBegin;
 
         const end = currentBegin + duration;
@@ -146,11 +136,7 @@ const getScrollElements = (): Array<ScrollElement> => {
 
     addFadingScrollImage(parallax07Image, 200);
 
-    addDisplayInfoBox(
-        'Hill-Speicher',
-        'Den alten Hill-Speicher am Hafen teilen wir (rot) uns mit dem Ruderverein Münster (blau).',
-        500,
-    );
+    addDisplayInfoBox('Hill-Speicher', 'Den alten Hill-Speicher am Hafen teilen wir (rot) uns mit dem Ruderverein Münster (blau).', 500);
 
     addFadingScrollImage(parallax08Image, 500, 150);
 
@@ -159,11 +145,7 @@ const getScrollElements = (): Array<ScrollElement> => {
 
     currentBegin = currentBegin - 50;
 
-    addDisplayInfoBox(
-        'Dachterrasse',
-        'Über die Hafentreppe gelangst du auf das Sonnendeck mit ordentlich Platz zum Verweilen.',
-        500,
-    );
+    addDisplayInfoBox('Dachterrasse', 'Über die Hafentreppe gelangst du auf das Sonnendeck mit ordentlich Platz zum Verweilen.', 500);
     addDisplayingScrollImage(parallax10Image, 500);
 
     addDisplayInfoBox(
@@ -183,18 +165,14 @@ const getScrollElements = (): Array<ScrollElement> => {
     addDisplayInfoBox(
         'Veranstaltungssaal',
         <>
-            Hier steppt der Bär! Etwa bei Konzerten und diversen Kultur&shy;veranstaltungen. Bei
-            Kongressen oder Podiums&shy;diskussionen sitzt er dann eher.
+            Hier steppt der Bär! Etwa bei Konzerten und diversen Kultur&shy;veranstaltungen. Bei Kongressen oder Podiums&shy;diskussionen
+            sitzt er dann eher.
         </>,
         500,
     );
     addDisplayingScrollImage(parallax13Image, 500);
 
-    addDisplayInfoBox(
-        'Ausstellungsraum',
-        'Im Foyer kannst du regelmäßig wechselnde Ausstellungen bestaunen.',
-        500,
-    );
+    addDisplayInfoBox('Ausstellungsraum', 'Im Foyer kannst du regelmäßig wechselnde Ausstellungen bestaunen.', 500);
     addDisplayingScrollImage(parallax14Image, 500);
 
     addDisplayInfoBox(
@@ -204,11 +182,7 @@ const getScrollElements = (): Array<ScrollElement> => {
     );
     addDisplayingScrollImage(parallax15Image, 500);
 
-    addDisplayInfoBox(
-        'B-Side Büro',
-        'Wenn du dazu Fragen hast, sprich uns einfach an! ;) ???',
-        500,
-    );
+    addDisplayInfoBox('B-Side Büro', 'Wenn du dazu Fragen hast, sprich uns einfach an! ;) ???', 500);
     addDisplayingScrollImage(parallax16Image, 500);
 
     addDisplayInfoBox(
