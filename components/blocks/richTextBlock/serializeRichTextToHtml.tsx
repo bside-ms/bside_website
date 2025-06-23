@@ -115,15 +115,7 @@ const serializeLink = (node: LinkSlateChild, index: number): ReactElement => {
     }
 
     if (node.fields?.appearance === 'button') {
-        return (
-            <InlineButton
-                key={index}
-                title={linkText}
-                text={linkText}
-                href={escapeHTML(node.url)}
-                target={node.newTab ? '_blank' : '_self'}
-            />
-        );
+        return <InlineButton key={index} title="" text={linkText} href={escapeHTML(node.url)} target={node.newTab ? '_blank' : '_self'} />;
     }
 
     if (isNotEmptyString(node.url) && node.url.startsWith('mailto:')) {
