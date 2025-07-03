@@ -11,6 +11,7 @@ import InlineButton from '@blocks/buttonBlock/InlineButton';
 import HeadlineTag from 'components/blocks/headlineBlock/HeadlineTag';
 import isNotEmptyString from '@/lib/common/helper/isNotEmptyString';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
+import { stringContainsEmail } from '@/lib/common/url';
 
 interface LinkSlateChild {
     type: 'link';
@@ -100,23 +101,11 @@ const serializeMedia = (node: Record<string, unknown>): ReactElement | null => {
 
 const serializeLink = (node: LinkSlateChild, index: number): ReactElement => {
     if (node.linkType === 'internal') {
-        // TODO: Add support for internal links - or prevent option in Payload. Also it seems to cause errors, when there's
-        //       an internal link to a doc that's not public, e.g. a user.
-        console.warn('Link type "internal" is currently not supported!');
+        console.warn('RichTextSerialization: Link type "internal" is currently not supported!');
         return <></>;
     }
 
     const linkText = node.children[0]?.text;
-
-    if (isEmptyString(node.url) || isEmptyString(linkText)) {
-        // Might accidentally happen while pasting copied text into the rich text editor, or by some other mistake.
-        console.warn('Unexpectedly link URL or text is empty');
-        return <></>;
-    }
-
-    if (node.fields?.appearance === 'button') {
-        return <InlineButton key={index} title="" text={linkText} href={escapeHTML(node.url)} target={node.newTab ? '_blank' : '_self'} />;
-    }
 
     if (isNotEmptyString(node.url) && node.url.startsWith('mailto:')) {
         let mail = node.url.substring(7);
@@ -126,6 +115,29 @@ const serializeLink = (node: LinkSlateChild, index: number): ReactElement => {
         return (
             <Obfuscate email={mail} key={`mail-${mail}`} className="italic underline underline-offset-4 hover:text-orange-500 sm:text-lg" />
         );
+    }
+
+    /*
+    if (isNotEmptyString(node.url) && (node.url.includes('instagram.com') || node.url.includes('facebook.com'))) {
+        console.debug('RichTextSerialization: removed Meta-URL received from CMS: "' + node.url + '" with text: "' + linkText + '"');
+        return <></>;
+    }
+    */
+
+    if (isEmptyString(node.url) || isEmptyString(linkText)) {
+        // Might accidentally happen while pasting copied text into the rich text editor, or by some other mistake.
+        console.debug('RichTextSerialization: incorrect link received from CMS: "' + node.url + '" with text "' + linkText + '"');
+        return <></>;
+    }
+
+    if (stringContainsEmail(node.url) || stringContainsEmail(linkText)) {
+        // Use Obfuscate instead.
+        console.debug('RichTextSerialization: removed mail in link received from CMS: "' + node.url + '" with text: "' + linkText + '"');
+        return <></>;
+    }
+
+    if (node.fields?.appearance === 'button') {
+        return <InlineButton key={index} title="" text={linkText} href={escapeHTML(node.url)} target={node.newTab ? '_blank' : '_self'} />;
     }
 
     return (
