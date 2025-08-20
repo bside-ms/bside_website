@@ -116,6 +116,7 @@ const Footer = (): ReactElement => {
                             </p>
                             <FooterLink linkUrl="/kultur" linkText="B-Side Kultur e.V." />
                             <FooterLink linkUrl="/bside/kollektiv" linkText={locale !== 'en' ? 'B-Side Kollektiv' : 'B-Side Collective'} />
+                            <FooterLink linkUrl="/quartier/b-side-cafe" linkText="B-Side Cafe" />
                         </div>
                         <div className="">
                             <p className="mb-2 font-serif font-bold">{locale !== 'en' ? 'Andere Plattformen' : 'Other platforms'}</p>
