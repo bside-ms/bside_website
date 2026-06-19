@@ -20,7 +20,7 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
 
     return [
         {
-            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
+            loc: process.env.NEXT_PUBLIC_FRONTEND_URL,
             lastmod: today,
             changefreq: 'daily',
             priority: 1,
@@ -45,6 +45,12 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
         },
         {
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur/hansawerkstatt/spenden`,
+            lastmod: today,
+            changefreq: 'weekly',
+            priority: 0.4,
+        },
+        {
+            loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/kultur/festival/spenden`,
             lastmod: today,
             changefreq: 'weekly',
             priority: 0.4,
