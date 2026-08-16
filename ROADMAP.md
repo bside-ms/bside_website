@@ -110,7 +110,7 @@ Website `.env.skel` is wrong for local work today.
 
 - [ ] Both workflows: `actions/checkout@v4`.
 - [ ] Website CI: add `npm run tsc`.
-- [ ] Optional: rename `docker-image.yml` so it does not claim to build images. Do not add image builds here.
+- [ ] Optional: rename `docker-image.yml`. Website CI on `main` now builds and pushes the image (see G0).
 
 ### C4. Independent OrbStack compose (no Node on the host)
 
@@ -202,9 +202,19 @@ Website hardcodes:
 
 ## Phase G. Later: deploy and security
 
+### G0. Registry on `bsidems`
+
+Hub account: [bsidems](https://hub.docker.com/u/bsidems). Not `leftbit`, not `seebruecke`.
+
+Website and CMS images are **public**. GitHub is public. The image may only bake `NEXT_PUBLIC_*` (already in the browser). Secrets stay in server env files (`website.env`, CMS `.env`). Do not pass real secrets as Docker build args. `bsidems` has one private-repo slot; keep it for something that must stay private. Public images also mean the server can pull without `docker login`.
+
+- [ ] Website: GitHub Actions on `main` pushes `bsidems/bside-website:latest` and `bsidems/bside-website:<sha>`. Hub autobuilds stay unused. Public build args live in repository variables (`PAYLOAD_URL` must be `https://cms.b-side.ms`, not the old `.ovh` hosts). Only `DOCKERHUB_TOKEN` is a secret.
+- [ ] CMS: same for `bsidems/bside-cms` (own workflow, after the website cutover).
+- [ ] Server compose points at `bsidems/…`. Leave `leftbit/…` only as rollback until the new pull works.
+
 ### G1. Pin images
 
-- [ ] Run `leftbit/bside-website:<gitsha>` and `leftbit/bside-cms:<gitsha>` on the server.
+- [ ] Run `bsidems/bside-website:<gitsha>` and `bsidems/bside-cms:<gitsha>` on the server.
 - [ ] Keep `:latest` as an alias only.
 - [ ] Rollback = previous sha, not `docker-compose.rollback.yml` as the only story.
 
@@ -229,7 +239,7 @@ Website hardcodes:
 ### G5. Optional later
 
 - [ ] Shared types package (only if `yarn sync:types` is still painful).
-- [ ] Move image builds from Docker Hub automated builds to GitHub Actions. Not required while Hub stays solid.
+- [ ] CMS image build in GitHub Actions (website already moved; see G0).
 - [ ] Watchtower on `:latest`: do not do this.
 - [ ] Local password login / Keycloak-free CMS: out of scope unless admin-onboarding becomes a real block.
 
