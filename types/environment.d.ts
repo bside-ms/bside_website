@@ -11,6 +11,7 @@ declare namespace NodeJS {
 
         NEXT_PUBLIC_FRONTEND_URL: string;
         NEXT_PUBLIC_PAYLOAD_URL: string;
+        REVALIDATION_KEY: string;
         PREVIEW_TOKEN: string;
 
         MAIL_HOST: string;
