@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
-import { revalidatePaths } from '@/lib/revalidate/corePaths';
+import { pathsToRevalidate } from '@/lib/revalidate/corePaths';
 
 interface RevalidateResult {
     path: string;
@@ -31,7 +31,7 @@ export default async (request: NextApiRequest, response: NextApiResponse): Promi
 
     const results: Array<RevalidateResult> = [];
 
-    for (const path of revalidatePaths) {
+    for (const path of pathsToRevalidate(request.body)) {
         try {
             await response.revalidate(path);
             results.push({ path, revalidated: true });
