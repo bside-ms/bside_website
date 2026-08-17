@@ -29,29 +29,37 @@ Do this first. Website PR can merge before the CMS PR. Deploy website, then CMS.
 
 ### A1. Website revalidation API
 
-- [ ] Add `pages/api/revalidate.ts` using Pages Router `res.revalidate`.
-- [ ] Auth: `secret` must match `NEXT_PRIVATE_REVALIDATION_KEY`.
-- [ ] Add that env name to `types/environment.d.ts`.
-- [ ] Body `{ paths?: string[] }`. If missing, revalidate a core set for `de` and `en`: `/`, `/bside`, `/bside/kollektiv`, `/kultur`, `/quartier`, `/events`, `/events/history`, `/news`, plus extra paths from the CMS.
-- [ ] Keep existing `revalidate: 60` on pages.
-- [ ] Runtime only: add `NEXT_PRIVATE_REVALIDATION_KEY` to server `website.env`. Same value as CMS `REVALIDATION_KEY`. Not a Docker build-arg.
+Live on `b-side.ms`. `POST /api/revalidate` without key → `401`. With `x-revalidation-key` → `200`, core DE/EN paths `revalidated: true`.
+
+- [x] Add `pages/api/revalidate.ts` using Pages Router `res.revalidate`.
+- [x] Auth: header `x-revalidation-key` must match `REVALIDATION_KEY`.
+- [x] Add that env name to `types/environment.d.ts`.
+- [x] Core path list for `de` and `en`. Dynamic slugs stay on 60s ISR until A2.
+- [x] Keep existing `revalidate: 60` on pages.
+- [x] Runtime only: `REVALIDATION_KEY` in server `website.env`. Not a Docker build-arg.
 
 ### A2. CMS calls the website after publish
 
+Implemented on `a2-revalidate-after-publish` (CMS + website). Check the boxes when both PRs are merged and live.
+
 In [bside_payload](https://github.com/bside-ms/bside_payload):
 
-- [ ] Add `src/utilities/revalidateWebsite.ts`: `POST ${NEXT_PUBLIC_SITE_URL}/api/revalidate` with `REVALIDATION_KEY`.
+- [ ] Add `src/utilities/revalidateWebsite.ts`: `POST ${NEXT_PUBLIC_SITE_URL}/api/revalidate` with header `x-revalidation-key` = `REVALIDATION_KEY` and body `{ paths?: string[] }`.
 - [ ] Log failures. Never fail the Payload save if the website is down.
 - [ ] Skip draft-only saves. Run when `doc._status === 'published'` or the previous doc was published (unpublish / delete).
 - [ ] Globals have no drafts: revalidate on every update.
 - [ ] `afterChange` / `afterDelete` on `pages`, `events`, `news`, `circles`, `organisations`, `redirects`.
 - [ ] Same on globals `start-page`, `about-bside`, `event-page`, `event-archive`, `banner`.
-- [ ] Send extra paths when known (page breadcrumb, event/news slug, circle kebab name, org landings). Always include the core set.
+- [ ] Send extra paths when known (page breadcrumb, event/news slug, circle kebab name, org landings). Website always includes the core set and expands `/en`.
+
+In this repo:
+
+- [ ] Accept extra `paths` from the CMS body and revalidate them in addition to the core set.
 
 ### A3. Server after A1 + A2
 
 - [ ] Confirm CMS `.env` has a real `REVALIDATION_KEY`.
-- [ ] Set the same value on `website.env` as `NEXT_PRIVATE_REVALIDATION_KEY`.
+- [ ] Set the same value on `website.env` as `REVALIDATION_KEY`.
 - [ ] Deploy website, then CMS: `docker compose up -d --pull always` / `... payload`.
 - [ ] Test: publish a page, hard-reload within a few seconds.
 - [ ] If a page is still stuck from before this work: restart the website container (ISR cache in `./cache`).
@@ -209,8 +217,8 @@ Hub account: [bsidems](https://hub.docker.com/u/bsidems). Not `leftbit`, not `se
 Website and CMS images are **public**. GitHub is public. The image may only bake `NEXT_PUBLIC_*` (already in the browser). Secrets stay in server env files (`website.env`, CMS `.env`). Do not pass real secrets as Docker build args. `bsidems` has one private-repo slot; keep it for something that must stay private. Public images also mean the server can pull without `docker login`.
 
 - [ ] Website: GitHub Actions on `main` pushes `bsidems/bside-website:latest` and `bsidems/bside-website:<sha>`. Hub autobuilds stay unused. Public build args live in repository variables (`PAYLOAD_URL` must be `https://cms.b-side.ms`, not the old `.ovh` hosts). Only `DOCKERHUB_TOKEN` is a secret.
-- [ ] CMS: same for `bsidems/bside-cms` (own workflow, after the website cutover).
-- [ ] Server compose points at `bsidems/…`. Leave `leftbit/…` only as rollback until the new pull works.
+- [x] CMS Actions on `main` pushes `bsidems/bside-cms:latest` and `:<sha>`. First green run: `6953cc5` (Actions `31974317155`). Follow-ups in the [CMS ROADMAP G6](https://github.com/bside-ms/bside_payload/blob/main/ROADMAP.md).
+- [x] CMS server compose at `/srv/docker/b-side.ms/cms/` pulls `bsidems/bside-cms:latest` (16 Aug 2026). Mongo stayed up. Leave `leftbit/…` only as rollback.
 
 ### G1. Pin images
 
@@ -239,16 +247,39 @@ Website and CMS images are **public**. GitHub is public. The image may only bake
 ### G5. Optional later
 
 - [ ] Shared types package (only if `yarn sync:types` is still painful).
-- [ ] CMS image build in GitHub Actions (website already moved; see G0).
+- [x] CMS image build in GitHub Actions (see G0). Hygiene leftovers are G6 in the CMS ROADMAP.
 - [ ] Watchtower on `:latest`: do not do this.
 - [ ] Local password login / Keycloak-free CMS: out of scope unless admin-onboarding becomes a real block.
+
+### G6. Image, CI, and content hygiene
+
+Own PRs. Do not mix with A–F.
+
+**CMS image and CI (other repo).** First Actions image build `6953cc5` (~4 min). Cache export 73.5s on a cold `mode=max` cache. Canonical checklist: [bside_payload ROADMAP G6](https://github.com/bside-ms/bside_payload/blob/main/ROADMAP.md).
+
+- [ ] Second CMS Actions run: confirm GHA layer cache. If upload stays huge, `cache-to` `mode=min`.
+- [ ] CMS lint: `yarn install --immutable`, minimum `permissions`, Yarn cache, skip lint-during-`next build`.
+- [ ] Later: CMS runtime image without a full `node_modules` copy (standalone). Same class of work as this repo’s Dockerfile.
+
+**Website image and CI.** First Actions image build took ~8 min; most of that is SSG of 1144 pages against the CMS.
+
+- [ ] Stop prerendering every event slug in the website image build.
+- [ ] Use Next `standalone` output in the website Dockerfile.
+- [ ] Website CI: minimum `permissions`, skip lint-during-`next build`, confirm GHA layer cache, Dockerfile `FROM AS` / `ENV key=value`.
+- [ ] Deps later (not now): `npm audit`, React 19 / Next 14 `--force`, browserslist.
+
+**CMS content that shows up in the website build log**
+
+- [ ] Clean RichText links that serialize as `incorrect link` (`null`, empty text, hosts without `https://`).
+- [ ] Fix invalid `href`s that Next rejects: `https//…`, leading spaces, malformed ticket links.
+- [ ] `/kreise/hansawerkstatt` page data is ~230 kB (limit 128 kB). Trim or split.
 
 ---
 
 ## Suggested PR order
 
-1. A1 website revalidate API
-2. A2 CMS hooks, then A3 server env
+1. A1 website revalidate API (done, live)
+2. A2 CMS hooks + website extra paths, then A3 server env
 3. B1 preview slugs (can ride with A2)
 4. B2 runtime redirects
 5. B3 + C + D1 (copy, skel, agent docs, CI)
