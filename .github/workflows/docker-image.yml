@@ -84,3 +84,4 @@ jobs:
                       MATOMO_ENDPOINT=${{ vars.MATOMO_ENDPOINT }}
                   cache-from: type=gha
                   cache-to: type=gha,mode=max
+                  no-cache: true
