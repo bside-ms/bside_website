@@ -34,7 +34,10 @@ jobs:
               env:
                   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
                   PAYLOAD_URL: ${{ vars.PAYLOAD_URL }}
+                  NEXT_PUBLIC_IMAGE_URL: ${{ vars.PAYLOAD_URL }}
+                  NEXT_PUBLIC_PAYLOAD_URL: ${{ vars.PAYLOAD_URL }}
                   FRONTEND_URL: ${{ vars.FRONTEND_URL }}
+                  NEXT_PUBLIC_FRONTEND_URL: ${{ vars.FRONTEND_URL }}
                   TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
                   MATOMO_SITE_ID: ${{ vars.MATOMO_SITE_ID }}
                   MATOMO_ENDPOINT: ${{ vars.MATOMO_ENDPOINT }}
