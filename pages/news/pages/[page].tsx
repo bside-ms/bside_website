@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ locale, params }) => {
     const page = processSlug(params?.page);
     if (isEmptyString(page) || locale === undefined) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     const news = await getPayloadResponse<PaginatedDocs<News>>(

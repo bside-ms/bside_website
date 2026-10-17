@@ -48,11 +48,9 @@ export default ({ page, about }: Props): ReactElement => {
         initialData: page,
     });
 
-    const { data: aboutData } = useLivePreview<AboutBside>({
-        serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || '',
-        depth: 1,
-        initialData: about,
-    });
+    // Only one useLivePreview per page: @payloadcms/live-preview caches merged data in a module-level
+    // singleton, so a second hook would receive the page data on any window message and crash.
+    const aboutData = about;
 
     return (
         <div className="flex min-h-screen flex-col justify-between">

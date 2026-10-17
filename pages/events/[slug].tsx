@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
     const slug = processSlug(params?.slug);
     if (isEmptyString(slug) || locale === undefined) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     let event = await fetchEventByIdentifier(slug, locale);
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 
     // Event does not exist.
     if (event === undefined) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     return {

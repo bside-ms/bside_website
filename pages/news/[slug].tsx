@@ -47,12 +47,12 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
     const slug = processSlug(params?.slug);
     if (isEmptyString(slug) || locale === undefined) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     const entry: News | undefined = await fetchNewsByIdentifier(slug, locale);
     if (!entry) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     return {

@@ -44,12 +44,12 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) => {
     const rawSlug = params?.slug;
     if (rawSlug === undefined) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     const slug = typeof rawSlug === 'string' ? rawSlug : rawSlug.join('/');
     if (isEmptyString(slug)) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     const circlesResponse = await getPayloadResponse<PaginatedDocs<Circle>>(`/api/circles/?limit=9999&locale=${locale!}`);
@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
     });
 
     if (circle === undefined) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     return {

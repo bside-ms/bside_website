@@ -99,13 +99,13 @@ export const getStaticProps: ({
     params: NextParsedUrlQuery;
     locale: string;
 }) => Promise<
-    | { notFound: boolean }
+    | { notFound: boolean; revalidate: number }
     | { redirect: { permanent: boolean; destination: string | null | undefined } }
     | { revalidate: number; props: { page: Page } }
 > = async ({ params, locale }) => {
     const slug = getSlug(params.slug);
     if (isEmptyString(slug)) {
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     const page = await fetchPage(slug, locale);
@@ -121,7 +121,7 @@ export const getStaticProps: ({
             };
         }
 
-        return { notFound: true };
+        return { notFound: true, revalidate: 60 };
     }
 
     return {
