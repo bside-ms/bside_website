@@ -9,9 +9,9 @@ import HeaderBar from '@/components/layout/header/HeaderBar';
 import isEmptyString from '@/lib/common/helper/isEmptyString';
 import { processSlug } from '@/lib/common/url';
 import createEventSlug from '@/lib/events/createEventSlug';
-import fetchAllEvents from '@/lib/events/fetchAllEvents';
 import fetchEventByIdentifier from '@/lib/events/fetchEventByIdentifier';
 import fetchEventBySlug from '@/lib/events/fetchEventBySlug';
+import fetchEventIndex from '@/lib/events/fetchEventIndex';
 import type { Event } from '@/types/payload/payload-types';
 
 interface Props {
@@ -19,7 +19,8 @@ interface Props {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const events = await fetchAllEvents();
+    // Older events are rendered on demand (fallback: 'blocking') to keep the build short.
+    const events = await fetchEventIndex(60);
 
     const paths = events.map((event) => ({
         params: {

@@ -25,7 +25,9 @@ interface Props {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-    const pages = await getPayloadResponse<PaginatedDocs<News>>('/api/news/?limit=9999');
+    const pages = await getPayloadResponse<PaginatedDocs<Pick<News, 'id' | 'slug' | 'title'>>>(
+        '/api/news/?limit=9999&depth=0&select[slug]=true&select[title]=true',
+    );
 
     const paths = pages.docs
         .map((news) =>

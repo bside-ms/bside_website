@@ -1,10 +1,10 @@
+import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 import { useLivePreview } from '@payloadcms/live-preview-react';
 import { kebabCase } from 'lodash-es';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import useLocale from '@/lib/common/hooks/useLocale';
-import type { ReactElement } from 'react';
 import Footer from '@/components/common/Footer';
 import ContentWrapper from '@/components/layout/ContentWrapper';
 import HeaderBar from '@/components/layout/header/HeaderBar';
@@ -22,7 +22,9 @@ interface Props {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-    const pages = await getPayloadResponse<PaginatedDocs<Circle>>('/api/circles/?limit=9999');
+    const pages = await getPayloadResponse<PaginatedDocs<Pick<Circle, 'id' | 'name'>>>(
+        '/api/circles/?limit=9999&depth=0&select[name]=true',
+    );
 
     const paths = pages.docs
         .map(({ name }) =>

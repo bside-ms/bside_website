@@ -10,14 +10,19 @@ export const getCirclesOfOrganisation = async (organisationId: string, locale: s
     return circles.docs;
 };
 
-export const getAllCircles = async (locale: string): Promise<Array<Circle>> => {
-    const circles = await getPayloadResponse<PaginatedDocs<Circle>>(`/api/circles/?sort=name&depth=1&limit=9999&locale=${locale}`);
+export type CircleIndexEntry = Pick<Circle, 'id' | 'name' | 'organisation' | 'updatedAt'>;
+
+export const getCircleLinkIndex = async (locale: string): Promise<Array<CircleIndexEntry>> => {
+    const circles = await getPayloadResponse<PaginatedDocs<CircleIndexEntry>>(
+        `/api/circles/?depth=1&limit=9999&locale=${locale}` +
+            '&select[name]=true&select[organisation]=true&select[updatedAt]=true&populate[organisations][shortName]=true',
+    );
 
     return circles.docs;
 };
 
-export const getCircleIndex = async (locale: string): Promise<Array<Circle>> => {
-    const circles = await getPayloadResponse<PaginatedDocs<Circle>>(`/api/circles/?depth=1&limit=9999&locale=${locale}`);
+export const getAllCircles = async (locale: string): Promise<Array<Circle>> => {
+    const circles = await getPayloadResponse<PaginatedDocs<Circle>>(`/api/circles/?sort=name&depth=1&limit=9999&locale=${locale}`);
 
     return circles.docs;
 };

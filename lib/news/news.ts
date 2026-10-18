@@ -22,7 +22,14 @@ export const fetchNewsByIdentifier = async (slug: string, locale: string): Promi
 
     const identifier = slug.slice(0, 4);
     const response = await getPayloadResponse<PaginatedDocs<News>>(`/api/news/?where[identifier][equals]=${identifier}&locale=${locale}`);
-    return response.docs[0] ?? undefined;
+
+    // The identifier (last four characters of the id) is not unique.
+    // A single match is returned as is, so links keep working after the title or slug changed.
+    if (response.docs.length === 1) {
+        return response.docs[0];
+    }
+
+    return response.docs.find((news) => createNewsSlug(news) === slug);
 };
 
 export const getCircleOrOrganisationName = (
@@ -59,7 +66,7 @@ export const getNewsCategory = (category: string, locale: string): string => {
     return NewsCategoriesEn[category as keyof typeof NewsCategoriesEn];
 };
 
-export const createNewsSlug = (news: News): string => {
+export const createNewsSlug = (news: Pick<News, 'id' | 'slug' | 'title'>): string => {
     if (isNotEmptyString(news.slug)) {
         return `${news.id.slice(-4)}-${kebabCase(news.slug)}`;
     }

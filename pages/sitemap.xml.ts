@@ -3,10 +3,12 @@ import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getServerSideSitemapLegacy } from 'next-sitemap';
 import createCircleLink from '@/lib/events/createCircleLink';
 import createEventSlug from '@/lib/events/createEventSlug';
-import fetchAllEvents from '@/lib/events/fetchAllEvents';
+import type { EventIndexEntry } from '@/lib/events/fetchEventIndex';
+import fetchEventIndex from '@/lib/events/fetchEventIndex';
 import { createNewsSlug, getNewsIndex } from '@/lib/news/news';
-import { getCircleIndex } from '@/lib/organisations';
-import type { Circle, Event, News } from '@/types/payload/payload-types';
+import type { CircleIndexEntry } from '@/lib/organisations';
+import { getCircleLinkIndex } from '@/lib/organisations';
+import type { News } from '@/types/payload/payload-types';
 
 interface SiteIndexFields {
     loc: string;
@@ -116,13 +118,13 @@ const generateStaticIndexes = (): Array<SiteIndexFields> => {
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const { locale } = ctx;
 
-    const events = await fetchAllEvents();
-    const circles = await getCircleIndex(locale!);
+    const events = await fetchEventIndex();
+    const circles = await getCircleLinkIndex(locale!);
     const news = await getNewsIndex();
 
     const fields = generateStaticIndexes();
 
-    events.forEach((event: Event) => {
+    events.forEach((event: EventIndexEntry) => {
         const inPast = isPast(event.eventDate);
 
         fields.push({
@@ -133,7 +135,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
         });
     });
 
-    circles.forEach((circle: Circle) => {
+    circles.forEach((circle: CircleIndexEntry) => {
         fields.push({
             loc: `${process.env.NEXT_PUBLIC_FRONTEND_URL}${createCircleLink(circle)}`,
             lastmod: new Date(circle.updatedAt).toISOString().split('T')[0]!,
