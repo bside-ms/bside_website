@@ -3,6 +3,7 @@ import Link from 'next/link';
 import useLocale from '@/lib/common/hooks/useLocale';
 import type { ReactElement } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import formatDate from '@/lib/common/helper/formatDate';
 import { createNewsSlug } from '@/lib/news/news';
 import type { Media, News } from '@/types/payload/payload-types';
 
@@ -33,7 +34,10 @@ const NewsTeaser = ({ news }: Props): ReactElement | null => {
                                         height={300}
                                     />
                                 </div>
-                                <CardTitle className={`${decorations[index % 4]} pt-4 leading-normal underline underline-offset-4`}>
+                                <time dateTime={newsItem.newsDate} className="block pt-4 text-base italic leading-none">
+                                    {formatDate(newsItem.newsDate, 'dd.MM.yyyy')}
+                                </time>
+                                <CardTitle className={`${decorations[index % 4]} leading-normal underline underline-offset-4`}>
                                     {newsItem.title}
                                 </CardTitle>
                             </CardHeader>
