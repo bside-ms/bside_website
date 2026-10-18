@@ -1,19 +1,22 @@
-import { isBefore, isEqual, isSameDay, setMilliseconds } from 'date-fns';
+import { isBefore, isSameDay } from 'date-fns';
 import type { Event } from '@/types/payload/payload-types';
+
+// eventStart is a time-only field in the CMS, but it is stored as a full timestamp whose date is the day the time was entered.
+const getMinutesOfDay = (timestamp: string): number => {
+    const date = new Date(timestamp);
+
+    return date.getHours() * 60 + date.getMinutes();
+};
 
 const sortEvents = (eventList: Array<Event>, reversedDayOrder: boolean): Array<Event> => {
     return eventList.sort((eventA, eventB) => {
         const dateA = new Date(eventA.eventDate);
-        const startTimeA = setMilliseconds(new Date(eventA.eventStart), 0);
         const dateB = new Date(eventB.eventDate);
-        const startTimeB = setMilliseconds(new Date(eventB.eventStart), 0);
-
-        if (isEqual(dateA, dateB) && isEqual(startTimeA, startTimeB)) {
-            return eventA.title.localeCompare(eventB.title);
-        }
 
         if (isSameDay(dateA, dateB)) {
-            return isBefore(startTimeA, startTimeB) ? -1 : 1;
+            const startDifference = getMinutesOfDay(eventA.eventStart) - getMinutesOfDay(eventB.eventStart);
+
+            return startDifference !== 0 ? startDifference : eventA.title.localeCompare(eventB.title);
         }
 
         if (isBefore(dateA, dateB)) {
