@@ -14,7 +14,7 @@ let refreshing: Promise<void> | undefined;
 
 const refreshRules = async (): Promise<void> => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/redirects?limit=9999&depth=1`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/redirects?limit=9999&depth=0`, {
             cache: 'no-store',
             signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         });

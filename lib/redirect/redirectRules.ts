@@ -3,10 +3,6 @@ export interface RedirectDoc {
     to?: {
         type?: string;
         url?: string | null;
-        reference?: {
-            relationTo?: string;
-            value?: { slug?: string; _status?: string } | string | null;
-        } | null;
     };
 }
 
@@ -20,23 +16,15 @@ export const normalizeRedirectPath = (path: string): string => stripTrailingSlas
 const removeOrigin = (url: string, origin: string): string => (origin !== '' && url.startsWith(origin) ? url.slice(origin.length) : url);
 
 const resolveDestination = (doc: RedirectDoc, origin: string): string | undefined => {
-    const { type, url, reference } = doc.to ?? {};
+    const url = doc.to?.url;
 
-    if (type === 'custom' && url) {
-        const destination = removeOrigin(url, origin);
-
-        return destination.startsWith('http') ? destination : stripTrailingSlash(destination);
+    if (!url) {
+        return undefined;
     }
 
-    if (type === 'reference' && reference?.relationTo === 'pages') {
-        const value = reference.value;
+    const destination = removeOrigin(url, origin);
 
-        if (typeof value === 'object' && value !== null && value._status === 'published' && value.slug) {
-            return `/${value.slug}`;
-        }
-    }
-
-    return undefined;
+    return destination.startsWith('http') ? destination : stripTrailingSlash(destination);
 };
 
 /** Builds a lookup of normalized source path -> destination (path or absolute URL). */
