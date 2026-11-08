@@ -1,4 +1,23 @@
-const redirects = require('./lib/redirect/redirect');
+const staticRedirects = [
+    {
+        source: '/bio',
+        destination: 'https://linktr.ee/bsidems',
+        permanent: false,
+    },
+];
+
+const internetExplorerRedirect = {
+    source: '/:path((?!ie-incompatible.html$).*)', // All pages except the incompatibility page
+    has: [
+        {
+            type: 'header',
+            key: 'user-agent',
+            value: '(.*Trident.*)', // All IE browsers
+        },
+    ],
+    permanent: false,
+    destination: '/ie-incompatible.html',
+};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -37,7 +56,10 @@ const nextConfig = {
         scrollRestoration: true,
     },
 
-    redirects,
+    // Redirects from the CMS are handled at request time in `middleware.ts`.
+    async redirects() {
+        return [internetExplorerRedirect, ...staticRedirects];
+    },
 
     async rewrites() {
         return {
