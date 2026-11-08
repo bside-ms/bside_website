@@ -101,22 +101,28 @@ Previously `lib/redirect/redirect.js` fetched redirects at **image build**. Done
 
 ### B4. Redirect cleanup (data and validation)
 
-Review of the 37 production redirects on 1 Nov 2026. Do this after B2 is live. Keep the website code simple: validate in the CMS so an invalid redirect cannot be saved. The middleware only needs to not crash.
+Review of the production redirects on 1 Nov 2026, re-checked live on 8 Nov 2026 (38 entries, 1 of them a test). Keep the website code simple: validate and resolve in the CMS so an invalid redirect cannot be saved. The website only reads `to.url`.
 
 Clean up existing entries in the admin:
 
+- [ ] Delete the test entries `/redirect-test` and `/redirect-test3`.
+- [ ] Dead targets (404 on 8 Nov 2026): `/gutgenug` (circle `politische-bildung` is gone, created 18 Sep 2023), `/kopro` (circle `koprogrammierung` is gone, created 18 Sep 2023), `/umfragen/2023/gruppenumfrage` and `/umfragen/2025/zielgruppen` (`survey.b-side.ms` answers 404), `/TagDerOffenenTuer2026` (Nextcloud share, created 16 Apr 2026). Delete or fix each.
 - [ ] `/cafe`: target `https://cafe.b-side.ms/` is another host that Traefik redirects again to `/quartier/b-side-cafe` (two hops). Point it directly at `/quartier/b-side-cafe`.
-- [ ] Own-host absolute targets become paths: `/ausstellungen`, `/hansawerkstatt`, `/sommerakademie` (`https://b-side.ms/...` to `/kultur/...`, `/events/...`).
-- [ ] `/umfragen/2023/gruppenumfrage`: target has a leading and trailing space. Trim it.
+- [ ] Own-host absolute targets become paths: `/ausstellungen` (`/kultur/ak-ausstellung`), `/hansawerkstatt` (`/kultur/hansawerkstatt`), `/sommerakademie` (`/events/2216-sommerakademie`, use the custom URL type). The validation turns own-host URLs into paths on the next save.
 - [ ] `/TagDerOffenenTuer2025` and `/TagDerOffenenTuer2026`: store the source in lower case.
-- [ ] `/bio` exists in the CMS and as a static redirect in `next.config.js` with the same target. Keep only one.
-- [ ] `/events/faltenrock-6869` points to `/events/faltenrock-2850` (old slug format, event from 2023). Check that the target still resolves and that the source event is really gone.
+- [ ] `/bio` exists in the CMS and as a static redirect in `next.config.js` with the same target. Keep only the CMS one and remove it from `next.config.js` (small website PR).
+- [ ] `/alles-auf-neu` is a reserved slug with its own page under `pages/`. Check whether the redirect has any effect.
+- [ ] `/events/faltenrock-6869` points to `/events/faltenrock-2850` (old slug format, event from 2023). The target resolves. Check that the source event is really gone.
+- [ ] Old Faltenrock blog links (`/2022/09/13/...`, `/2023/01/05/...`, `/2023/06/29/...`, all created 18 Sep 2023): keep only if external links still exist.
 
-Validate in the CMS (plugin overrides in `payload.config.ts`), so new entries are clean:
+Note: most older entries show `updatedAt` 24 Jun 2025, probably a bulk update or migration. Use `createdAt` to judge age.
 
-- [ ] Normalise `from` on save: trim, strip our own host, strip query and trailing slash, lower case. Must start with `/`.
-- [ ] Normalise `to.url` on save: trim; turn own-host absolute URLs into paths; external URLs must be `https://`.
-- [ ] Reject duplicates, a redirect to itself, and chains or loops (a target that is itself a redirect source).
+CMS validation (done, CMS PRs #17 to #19 and `feat/redirect-reference-to-path`):
+
+- [x] Normalise `from` on save: trim, strip our own host, strip query and trailing slash, lower case. Must start with `/`.
+- [x] Normalise `to.url` on save: trim, turn own-host URLs into paths, add `https://` to bare domains.
+- [x] Reject duplicates, a redirect to itself, and chains or loops.
+- [x] Redirect targets can be pages, events, news and circles. The CMS resolves the reference to a path on save and stores it as a custom URL (branch `feat/redirect-reference-to-path`, German labels included). Website counterpart: branch `refactor/redirects-url-only` (reads `to.url` only, `depth=0`).
 - [ ] Warn when `from` shadows an existing published page, event, news or circle URL.
 - [ ] Optional: redirect after an event is over (field on the event, or just use a redirect). Only worth it if it happens more than a few times; `/events/history` already keeps old events as an archive.
 
