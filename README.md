@@ -1,3 +1,9 @@
+# B-Side Website
+
+Public frontend for [b-side.ms](https://b-side.ms). Content comes from the Payload CMS in [bside-ms/bside_payload](https://github.com/bside-ms/bside_payload).
+
+Agents: read [AGENTS.md](./AGENTS.md) before changing routing, CMS fetching, env, or deploy.
+
 # Development
 
 Run the development server:
