@@ -1,0 +1,18 @@
+---
+description: Core architecture and decision rules for the B-Side website
+alwaysApply: true
+---
+
+# B-Side website
+
+This repo is the public Next.js **Pages Router** frontend for b-side.ms. Content comes from Payload CMS in [bside-ms/bside_payload](https://github.com/bside-ms/bside_payload). Read `AGENTS.md` here and `AGENTS.md` in the CMS repo before changing routing, fetching, env, or deploy.
+
+- Website talks to CMS over HTTP only. No Mongo access from this repo.
+- Package manager is npm. CMS uses Yarn 4.
+- Do not move this app to App Router. Do not add Payload server code here.
+- Schema / access / admin / OAuth / media upload belong in the CMS repo.
+- After CMS schema changes: regenerate types there, then manually copy `payload-types.ts` here. That copy is the official workflow. Do not hand-edit generated types.
+- `NEXT_PUBLIC_*` must be passed as Docker build args (Dockerfile `ARG`/`ENV` plus the workflow `build-args`). Putting them only in `website.env` does not reach the browser.
+- GitHub Actions lint on every push and, on `main`, build and push `bsidems/bside-website:latest` and `:<sha>`. A merge does not deploy: run `docker compose up -d --pull always` on the server. No live staging stack.
+- Publish in the CMS calls `POST /api/revalidate` (same `REVALIDATION_KEY` on both sides). ISR 60s is only the fallback. `PREVIEW_TOKEN` and `NEXT_PRIVATE_REVALIDATION_KEY` are dead.
+- CMS redirects are read by `middleware.ts` at request time (60s cache). They are not baked into the build. `pages/[...slug].tsx` has an older `fetchRedirect` fallback, so plain paths can be instant; rewritten circle paths (`/kultur/...`) only get the middleware (up to 60s).

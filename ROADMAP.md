@@ -44,24 +44,26 @@ Implemented on `a2-revalidate-after-publish` (CMS + website). Check the boxes wh
 
 In [bside_payload](https://github.com/bside-ms/bside_payload):
 
-- [ ] Add `src/utilities/revalidateWebsite.ts`: `POST ${NEXT_PUBLIC_SITE_URL}/api/revalidate` with header `x-revalidation-key` = `REVALIDATION_KEY` and body `{ paths?: string[] }`.
-- [ ] Log failures. Never fail the Payload save if the website is down.
-- [ ] Skip draft-only saves. Run when `doc._status === 'published'` or the previous doc was published (unpublish / delete).
-- [ ] Globals have no drafts: revalidate on every update.
-- [ ] `afterChange` / `afterDelete` on `pages`, `events`, `news`, `circles`, `organisations`, `redirects`.
-- [ ] Same on globals `start-page`, `about-bside`, `event-page`, `event-archive`, `banner`.
+- [x] Add `src/utilities/revalidateWebsite.ts`: `POST ${NEXT_PUBLIC_SITE_URL}/api/revalidate` with header `x-revalidation-key` = `REVALIDATION_KEY` and body `{ paths?: string[] }`.
+- [x] Log failures. Never fail the Payload save if the website is down.
+- [x] Skip draft-only saves. Run when `doc._status === 'published'` or the previous doc was published (unpublish / delete).
+- [x] Globals have no drafts: revalidate on every update.
+- [x] `afterChange` / `afterDelete` on `pages`, `events`, `news`, `circles`, `organisations`, `redirects` (redirects via the plugin overrides in `payload.config.ts`).
+- [x] Same on globals `start-page`, `about-bside`, `event-page`, `event-archive`, `banner`.
 - [ ] Send extra paths when known (page breadcrumb, event/news slug, circle kebab name, org landings). Website always includes the core set and expands `/en`.
 
 In this repo:
 
-- [ ] Accept extra `paths` from the CMS body and revalidate them in addition to the core set.
+- [x] Accept extra `paths` from the CMS body and revalidate them in addition to the core set.
 
 ### A3. Server after A1 + A2
 
-- [ ] Confirm CMS `.env` has a real `REVALIDATION_KEY`.
-- [ ] Set the same value on `website.env` as `REVALIDATION_KEY`.
-- [ ] Deploy website, then CMS: `docker compose up -d --pull always` / `... payload`.
-- [ ] Test: publish a page, hard-reload within a few seconds.
+Found 29 Oct 2026: CMS and website had different `REVALIDATION_KEY` values, so every hook got `401` and the CMS only logs exceptions. Fixed by using one key in both env files and recreating both containers. Publish is now live immediately (tested in the browser).
+
+- [x] Confirm CMS `.env` has a real `REVALIDATION_KEY`.
+- [x] Set the same value on `website.env` as `REVALIDATION_KEY`.
+- [x] Deploy website, then CMS: `docker compose up -d --pull always` / `... payload`.
+- [x] Test: publish a page, hard-reload within a few seconds.
 - [ ] If a page is still stuck from before this work: restart the website container (ISR cache in `./cache`).
 
 ---
@@ -70,26 +72,53 @@ In this repo:
 
 ### B1. Event live-preview slugs
 
-- [ ] CMS `src/utilities/createEventSlug.ts` must match the website: `{id.slice(-4)}-{kebabCase(slug || title)}`.
-- [ ] Keep website `createEventSlugOld` so old URLs still resolve.
-- [ ] Fix missing `/` in CMS live-preview URLs for Banner and AboutBside (`SITE_URL` + `bside` today).
+Done 29 Oct 2026 in CMS PR #16 (`8320c75`): event slugs match the website, preview URLs fixed, and the CMS now logs non-2xx answers from `/api/revalidate`. Deployed; event changes are live immediately.
+
+- [x] CMS `src/utilities/createEventSlug.ts` must match the website: `{id.slice(-4)}-{kebabCase(slug || title)}`.
+- [x] Keep website `createEventSlugOld` so old URLs still resolve.
+- [x] Fix missing `/` in CMS live-preview URLs for Banner and AboutBside (`SITE_URL` + `bside` today).
 
 ### B2. CMS redirects at request time
 
-Today `lib/redirect/redirect.js` fetches redirects at **image build**.
+Previously `lib/redirect/redirect.js` fetched redirects at **image build**. Done in website PR #26 (deployed). Local test, 8 Nov 2026: middleware activates within 60s (30 to 61s measured). Plain paths can be instant because `pages/[...slug].tsx` `fetchRedirect` and the CMS hook also handle them.
 
-- [ ] Add website `middleware.ts`: look up CMS `/api/redirects`, short in-memory cache (~60s), apply `from` → `to`.
-- [ ] Keep static `/bio` and the IE redirect in `next.config.js`.
-- [ ] Stop merging CMS redirects into `next.config.js`.
-- [ ] Leave Traefik hostname redirects on the server as they are.
-- [ ] After this, `next build` must not need a running CMS for redirects.
+- [x] Add website `middleware.ts`: look up CMS `/api/redirects`, short in-memory cache (~60s), apply `from` → `to`.
+- [x] Keep static `/bio` and the IE redirect in `next.config.js`.
+- [x] Stop merging CMS redirects into `next.config.js`.
+- [x] Leave Traefik hostname redirects on the server as they are.
+- [x] After this, `next build` must not need a running CMS for redirects.
 
 ### B3. CMS admin copy (German)
 
 - [ ] Page `bside`: intro and four tiles come from global **Über die B-Side**; body blocks are this page.
 - [ ] Locale hint: DE and EN layouts are separate. Publish the language you edited.
 - [ ] Distinguish **Live-Seite** vs **Vorschau**.
-- [ ] Redirects collection: replace “needs frontend restart” with “live within a minute” after B2.
+- [x] Redirects collection: replace “needs frontend restart” with “live within a minute” after B2. (Hint text is in CMS PR `feat/redirect-status`.)
+
+### B2b. Two redirect mechanisms
+
+- [ ] Decide whether to drop the `fetchRedirect` fallback in `pages/[...slug].tsx` and rely on the middleware only, or keep both. Today both run.
+
+### B4. Redirect cleanup (data and validation)
+
+Review of the 37 production redirects on 1 Nov 2026. Do this after B2 is live. Keep the website code simple: validate in the CMS so an invalid redirect cannot be saved. The middleware only needs to not crash.
+
+Clean up existing entries in the admin:
+
+- [ ] `/cafe`: target `https://cafe.b-side.ms/` is another host that Traefik redirects again to `/quartier/b-side-cafe` (two hops). Point it directly at `/quartier/b-side-cafe`.
+- [ ] Own-host absolute targets become paths: `/ausstellungen`, `/hansawerkstatt`, `/sommerakademie` (`https://b-side.ms/...` to `/kultur/...`, `/events/...`).
+- [ ] `/umfragen/2023/gruppenumfrage`: target has a leading and trailing space. Trim it.
+- [ ] `/TagDerOffenenTuer2025` and `/TagDerOffenenTuer2026`: store the source in lower case.
+- [ ] `/bio` exists in the CMS and as a static redirect in `next.config.js` with the same target. Keep only one.
+- [ ] `/events/faltenrock-6869` points to `/events/faltenrock-2850` (old slug format, event from 2023). Check that the target still resolves and that the source event is really gone.
+
+Validate in the CMS (plugin overrides in `payload.config.ts`), so new entries are clean:
+
+- [ ] Normalise `from` on save: trim, strip our own host, strip query and trailing slash, lower case. Must start with `/`.
+- [ ] Normalise `to.url` on save: trim; turn own-host absolute URLs into paths; external URLs must be `https://`.
+- [ ] Reject duplicates, a redirect to itself, and chains or loops (a target that is itself a redirect source).
+- [ ] Warn when `from` shadows an existing published page, event, news or circle URL.
+- [ ] Optional: redirect after an event is over (field on the event, or just use a redirect). Only worth it if it happens more than a few times; `/events/history` already keeps old events as an archive.
 
 ---
 
@@ -101,11 +130,11 @@ Assume a sibling checkout (`bside_website` next to `bside_payload`). No personal
 
 Website `.env.skel` is wrong for local work today.
 
-- [ ] `NEXT_PUBLIC_PAYLOAD_URL=${PAYLOAD_URL}` (code does not read `NEXT_PUBLIC_IMAGE_URL`).
-- [ ] `PAYLOAD_API_COLLECTION=api-users` (slug, not the label `Api User`).
-- [ ] Same example revalidation secret in both skels (`EXAMPLE_REVALIDATION_KEY`).
-- [ ] Comment `PREVIEW_TOKEN` as unused.
-- [ ] CMS skel: `REVALIDATION_KEY=EXAMPLE_REVALIDATION_KEY`.
+- [x] `NEXT_PUBLIC_PAYLOAD_URL=${PAYLOAD_URL}` (code does not read `NEXT_PUBLIC_IMAGE_URL`).
+- [x] `PAYLOAD_API_COLLECTION=api-users` (slug, not the label `Api User`).
+- [x] Same example revalidation secret in both skels (`EXAMPLE_REVALIDATION_KEY`).
+- [x] Comment `PREVIEW_TOKEN` as unused.
+- [x] CMS skel: `REVALIDATION_KEY=EXAMPLE_REVALIDATION_KEY`.
 
 ### C2. Boot docs and types sync
 
@@ -216,7 +245,7 @@ Hub account: [bsidems](https://hub.docker.com/u/bsidems). Not `leftbit`, not `se
 
 Website and CMS images are **public**. GitHub is public. The image may only bake `NEXT_PUBLIC_*` (already in the browser). Secrets stay in server env files (`website.env`, CMS `.env`). Do not pass real secrets as Docker build args. `bsidems` has one private-repo slot; keep it for something that must stay private. Public images also mean the server can pull without `docker login`.
 
-- [ ] Website: GitHub Actions on `main` pushes `bsidems/bside-website:latest` and `bsidems/bside-website:<sha>`. Hub autobuilds stay unused. Public build args live in repository variables (`PAYLOAD_URL` must be `https://cms.b-side.ms`, not the old `.ovh` hosts). Only `DOCKERHUB_TOKEN` is a secret.
+- [x] Website: GitHub Actions on `main` pushes `bsidems/bside-website:latest` and `bsidems/bside-website:<sha>`. Hub autobuilds stay unused. Public build args live in repository variables (`PAYLOAD_URL` must be `https://cms.b-side.ms`, not the old `.ovh` hosts). Only `DOCKERHUB_TOKEN` is a secret.
 - [x] CMS Actions on `main` pushes `bsidems/bside-cms:latest` and `:<sha>`. First green run: `6953cc5` (Actions `31974317155`). Follow-ups in the [CMS ROADMAP G6](https://github.com/bside-ms/bside_payload/blob/main/ROADMAP.md).
 - [x] CMS server compose at `/srv/docker/b-side.ms/cms/` pulls `bsidems/bside-cms:latest` (16 Aug 2026). Mongo stayed up. Leave `leftbit/…` only as rollback.
 

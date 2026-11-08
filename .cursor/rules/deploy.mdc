@@ -1,0 +1,19 @@
+---
+description: Website image build, env baking, and server runtime
+globs: Dockerfile, .github/**, next.config.js, middleware.ts, .env.skel
+alwaysApply: false
+---
+
+# Website deploy
+
+`.github/workflows/docker-image.yml` runs lint + prettier on every push. On `main` it builds and pushes `bsidems/bside-website:latest` and `:<sha>` (public images). Public build args come from repository variables, `DOCKERHUB_TOKEN` is the only secret. `hooks/build` is an unused Docker Hub leftover.
+
+Production: `/srv/docker/b-side.ms/website/`, image `bsidems/bside-website:latest`, `website.env`, cache volume `./cache:/app/.next/cache`, Traefik network `bside_website`, container port **3001**.
+
+A merge does not deploy. Deploy: `docker compose up -d --pull always` (add `--force-recreate` if only `website.env` changed). Do not `down` first. Never `down -v`. Deploy the website before the CMS.
+
+- Keep `output: 'standalone'`.
+- New public env vars need Dockerfile `ARG`/`ENV`, a workflow `build-args` entry, and a repository variable.
+- CMS redirects are read at request time by `middleware.ts` (60s cache). Static `/bio` and the IE redirect stay in `next.config.js`.
+- Do not change `next start -p 3001` without changing Traefik. Dockerfile `PORT=3000` is unused.
+- Hostname redirects (`www`, `cafe`, `faltenrock`, ...) are Traefik labels on the server compose, not in this repo.

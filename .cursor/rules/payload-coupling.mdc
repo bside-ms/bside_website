@@ -1,0 +1,17 @@
+---
+description: How this frontend fetches and renders Payload CMS content
+globs: lib/payload/**/*.{ts,tsx}, types/payload/**/*.ts, pages/**/*.{ts,tsx}, components/blocks/**/*.{ts,tsx}, lib/events/**/*.ts, lib/news/**/*.ts, lib/organisations.ts, lib/redirect/**, middleware.ts
+alwaysApply: false
+---
+
+# Payload coupling
+
+Fetch with `getPayloadResponse` (`PAYLOAD_URL`, REST only). GraphQL is disabled on the CMS.
+
+- Published reads use `PAYLOAD_API_COLLECTION API-Key none`. Drafts need a real `PAYLOAD_API_KEY` and `api-users` as the collection slug.
+- Browser POSTs use `createPayloadEntry` → `NEXT_PUBLIC_PAYLOAD_URL`. Only `contact-forms` and `not-found-pages` are meant to be created that way.
+- Pages are SSG + ISR (`revalidate: 60`, 300 on 404/kontakt). The CMS also calls `/api/revalidate` on publish. Live Preview uses `useLivePreview` + `NEXT_PUBLIC_PAYLOAD_URL`.
+- Organisation landings hardcode Mongo ids: Kultur `647e60a67054a955522b24ad`, GmbH `647e60bd7054a955522b24cb`, Kollektiv `647e605b7054a955522b2471`.
+- Circle slugs are `kebabCase(name)`. Event/news slugs are `{id.slice(-4)}-{kebab}`. Keep `createEventSlugOld` resolving.
+- New CMS blocks need a matching `case` in `ReusableBlocks.tsx` and copied types. Unknown blocks are dropped.
+- `/kultur/:slug`, `/quartier/:slug`, `/kollektiv/:slug` rewrite to `/kreise/:slug`. Do not steal those paths for unrelated pages without updating `next.config.js` rewrites and reserved slugs in `[...slug].tsx`.
