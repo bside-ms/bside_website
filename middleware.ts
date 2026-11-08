@@ -67,9 +67,15 @@ export const middleware = async (request: NextRequest, event: NextFetchEvent): P
         return NextResponse.redirect(destination, 307);
     }
 
-    // Keeps the locale prefix and the query string of the request.
+    // Keeps the locale prefix and the query string of the request. Setting `pathname` alone would encode a `#anchor`.
+    const target = new URL(destination, request.url);
     const url = request.nextUrl.clone();
-    url.pathname = destination;
+    url.pathname = target.pathname;
+    url.hash = target.hash;
+
+    if (target.search !== '') {
+        url.search = target.search;
+    }
 
     return NextResponse.redirect(url, 307);
 };
